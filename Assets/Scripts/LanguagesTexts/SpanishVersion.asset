@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40be3b8dd11f452096b38b4e72894663, type: 3}
+  m_Name: SpanishVersion
+  m_EditorClassIdentifier: 
+  PlayButtonInitSceneKey: Jugar
+  AchievementsButtonInitSceneKey: Logros
+  CreditsButtonInitSceneKey: "Cr\xE9ditos"
+  ExitButtonInitSceneKey: Salir
+  InfoWhenNoAchievementsInitSceneKey: Sigue jugando para conseguir el primer logro
+  ButtonBackInitSceneKey: Volver
+  WhenAchievementIsNotDiscoveredYetInitSceneKey: Sigue jugando para desbloquar este
+    logro :)
+  LockedTextForAchievementsInitSceneKey: Bloqueado
+  CreditsTitleInitSceneKey: "Cr\xE9ditos"
+  AchievementsTitleInitSceneKey: Logros
+  ContinueButtonCinemaSceneKey: Continuar
+  DarkMatterInfoTextLaboratoryScenesKey: Dark Matter
+  MenuButtonTextLaboratoryScenesKey: "Men\xFA"
+  ButtonExitTextLaboratoryScenesKey: Salir
+  ButtonRestartTextLaboratoryScenesKey: Reiniciar
+  ButtonContinueTextLaboratoryScenesKey: Continuar
+  GoDownOrDieInfoTextForPCLaboratoryScenesKey: Pulsa S o muere
+  GoUpOrDieInfoTextForPCLaboratoryScenesKey: Pulsa W o muere
+  GoDownOrDieInfoTextForAndroidLaboratoryScenesKey: Desliza abajo o muere
+  GoUpOrDieInfoTextForAndroidLaboratoryScenesKey: Desliza arriba o muere
+  TitleMenuPauseTextLaboratoryScenesKey: Pausa
+  TitleMenuGameOverTextLaboratoryScenesKey: Fin del juego
+  _listAchievementsInfoText:
+  - Key: PlayerHasAvoided10Robots
+    NameText: Saltador de Robots
+    DescriptionText: Has esquivado 10 robots
+  - Key: PlayerHasGot10DarkMatter
+    NameText: Acumulador de Materia
+    DescriptionText: Has conseguido 10 materias oscuras
+  - Key: PlayerHasEndedLevelThree
+    NameText: Has huido o..?
+    DescriptionText: Has terminado el nivel 3
+  GameDesignTitleUsersInitSceneKey: "Dise\xF1adores"
+  ProgrammersTitleUsersInitSceneKey: Programadores
+  ArtTitleUsersInitSceneKey: Artistas 2D
+  SoundTitleUsersInitSceneKey: Artista Sonido
+  JumpInfoTextLaboratoryScenesKey: Saltar
