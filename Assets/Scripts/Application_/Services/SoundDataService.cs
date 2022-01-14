@@ -14,15 +14,27 @@ namespace Application_.Services
             _saver = ServiceLocator.Instance.GetService<ISaver>();
         }
 
-        public AudioData LoadAudioData()
+        public AudioDataInfo LoadAudioData()
         {
-            if (!_loader.HasSavedGame()) return new AudioData();
+            if (!_loader.HasSavedGame()) return new AudioDataInfo();
 
             var savegame = _loader.LoadGame();
-            return savegame.AudioData;
+            var audioData = savegame.AudioData;
+          var audioDataInfo = TransformToAudioDataInfo(audioData);
+            return audioDataInfo;
         }
 
-        public void SaveAudioData(AudioData audioData)
+        private AudioDataInfo TransformToAudioDataInfo(AudioData audioData)
+        {
+            return new AudioDataInfo()
+            {
+                MusicVolume = audioData.MusicVolume,
+                SFXVolume = audioData.SFXVolume,
+                Muted = audioData.Muted
+            };
+        }
+
+        public void SaveAudioData(AudioDataInfo audioData)
         {
             var savegame = new Savegame();
         
