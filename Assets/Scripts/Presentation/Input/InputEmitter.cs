@@ -1,8 +1,8 @@
 using System;
+using InputPlayerSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace InputPlayerSystem
+namespace Presentation.Input
 {
     public class InputEmitter : MonoBehaviour
     {

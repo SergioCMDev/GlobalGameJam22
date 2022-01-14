@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace InputSamples
+namespace Utils
 {
     /// <summary>
     /// Singleton class.

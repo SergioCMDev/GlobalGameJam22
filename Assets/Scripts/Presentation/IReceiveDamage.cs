@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace App.Weapons.Interfaces
+namespace Presentation
 {
     public interface IReceiveDamage
     {

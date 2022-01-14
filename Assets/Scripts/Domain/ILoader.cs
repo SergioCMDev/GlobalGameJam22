@@ -1,5 +1,8 @@
-﻿public interface ILoader
+﻿namespace Domain
 {
-    Savegame LoadGame();
-    bool HasSavedGame();
+    public interface ILoader
+    {
+        Savegame LoadGame();
+        bool HasSavedGame();
+    }
 }

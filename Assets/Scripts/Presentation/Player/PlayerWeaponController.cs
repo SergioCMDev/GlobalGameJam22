@@ -1,53 +1,57 @@
-﻿using UnityEngine;
+﻿using Application_.Models;
+using UnityEngine;
 
-public class PlayerWeaponController : MonoBehaviour
+namespace Presentation.Player
 {
-    // [SerializeField] private GameObject _actualWeaponPrefab;
-    [SerializeField] private LayerMask _layerMaskToAttack;
-    private IPlayerModel _playerModel;
-    private Vector3 _attackDirection;
-    private bool _selectAtFirstGun, _selectAtFirstkatana;
-
-    private float currentWeaponId = 0;
-    private Rigidbody _rigidBody;
-    private Quaternion _rotation;
-
-    // private GameObject _currentWeaponInstance;
-
-    // public Weapon Weapon => weapon;
-
-    public void Init(IPlayerModel playerModel)
+    public class PlayerWeaponController : MonoBehaviour
     {
-        _playerModel = playerModel;
-    }
+        // [SerializeField] private GameObject _actualWeaponPrefab;
+        [SerializeField] private LayerMask _layerMaskToAttack;
+        private IPlayerModel _playerModel;
+        private Vector3 _attackDirection;
+        private bool _selectAtFirstGun, _selectAtFirstkatana;
 
+        private float currentWeaponId = 0;
+        private Rigidbody _rigidBody;
+        private Quaternion _rotation;
 
-    public void AttackLeft(Vector3 vectorOfMovement)
-    {
-        if (!CanAttack()) return;
-        if (vectorOfMovement.magnitude == 0)
+        // private GameObject _currentWeaponInstance;
+
+        // public Weapon Weapon => weapon;
+
+        public void Init(IPlayerModel playerModel)
         {
-            vectorOfMovement = transform.forward;
+            _playerModel = playerModel;
         }
 
 
-        // Quaternion rotation = Quaternion.AngleAxis(VectorUtils.GetRotationOfDirection(transform, vectorOfMovement),
-        //     Vector3.forward);
-        _attackDirection = vectorOfMovement;
-    }
-
-    private bool CanAttack()
-    {
-        return true;
-    }
+        public void AttackLeft(Vector3 vectorOfMovement)
+        {
+            if (!CanAttack()) return;
+            if (vectorOfMovement.magnitude == 0)
+            {
+                vectorOfMovement = transform.forward;
+            }
 
 
-    public void AttackRight(Vector3 vectorToShowDirectionOfMovement)
-    {
-        Debug.Log("AttackRight");
-    }
+            // Quaternion rotation = Quaternion.AngleAxis(VectorUtils.GetRotationOfDirection(transform, vectorOfMovement),
+            //     Vector3.forward);
+            _attackDirection = vectorOfMovement;
+        }
 
-    private void OnDrawGizmos()
-    {
+        private bool CanAttack()
+        {
+            return true;
+        }
+
+
+        public void AttackRight(Vector3 vectorToShowDirectionOfMovement)
+        {
+            Debug.Log("AttackRight");
+        }
+
+        private void OnDrawGizmos()
+        {
+        }
     }
 }

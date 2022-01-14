@@ -1,5 +1,8 @@
-﻿public interface IJsonator
+﻿namespace Domain
 {
-    string ToJson(object objectToJson);
-    T FromJson<T>(string objectToJson);
+    public interface IJsonator
+    {
+        string ToJson(object objectToJson);
+        T FromJson<T>(string objectToJson);
+    }
 }

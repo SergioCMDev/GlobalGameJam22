@@ -1,30 +1,34 @@
 ﻿using UnityEngine;
+using Utils;
 
-public class SaveUsingPlayerPrefs : ISaver
+namespace Domain
 {
-    private IJsonator _jsonator;
-
-    public SaveUsingPlayerPrefs()
+    public class SaveUsingPlayerPrefs : ISaver
     {
-        _jsonator = ServiceLocator.Instance.GetService<IJsonator>();
-    }
+        private IJsonator _jsonator;
 
-    public void SaveGame(Savegame savegameFile)
-    {
-        string dataToSaveJson = _jsonator.ToJson(savegameFile);
-        PlayerPrefs.SetString("SaveGame", dataToSaveJson);
-        PlayerPrefs.SetInt("HasSavedGame", 1);
-        PlayerPrefs.Save();
-    }
+        public SaveUsingPlayerPrefs()
+        {
+            _jsonator = ServiceLocator.Instance.GetService<IJsonator>();
+        }
 
-    public void DeleteSaveGame()
-    {
-        PlayerPrefs.DeleteKey("SaveGame");
-        PlayerPrefs.Save();
-    }
+        public void SaveGame(Savegame savegameFile)
+        {
+            string dataToSaveJson = _jsonator.ToJson(savegameFile);
+            PlayerPrefs.SetString("SaveGame", dataToSaveJson);
+            PlayerPrefs.SetInt("HasSavedGame", 1);
+            PlayerPrefs.Save();
+        }
 
-    public void SaveNewGameStatus(bool statusToSave)
-    {
-        PlayerPrefs.SetInt("HasSavedGame", statusToSave ? 1 : 0);
+        public void DeleteSaveGame()
+        {
+            PlayerPrefs.DeleteKey("SaveGame");
+            PlayerPrefs.Save();
+        }
+
+        public void SaveNewGameStatus(bool statusToSave)
+        {
+            PlayerPrefs.SetInt("HasSavedGame", statusToSave ? 1 : 0);
+        }
     }
 }

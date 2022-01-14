@@ -1,4 +1,7 @@
-﻿public interface ILife
+﻿namespace Presentation
 {
-    void AddLife(float lifeToAdd);
+    public interface ILife
+    {
+        void AddLife(float lifeToAdd);
+    }
 }

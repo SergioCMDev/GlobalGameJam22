@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 
-public class JsonUtililyTransformer : IJsonator
+namespace Domain
 {
-    public string ToJson(object objectToJson)
+    public class JsonUtililyTransformer : IJsonator
     {
-        return JsonUtility.ToJson(objectToJson);
-    }
+        public string ToJson(object objectToJson)
+        {
+            return JsonUtility.ToJson(objectToJson);
+        }
 
-    public T FromJson<T>(string objectToJson)
-    {
-        return JsonUtility.FromJson<T>(objectToJson);
+        public T FromJson<T>(string objectToJson)
+        {
+            return JsonUtility.FromJson<T>(objectToJson);
+        }
     }
 }

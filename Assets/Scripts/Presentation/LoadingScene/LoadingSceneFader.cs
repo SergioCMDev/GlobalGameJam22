@@ -1,17 +1,20 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class LoadingSceneFader : CanvasFader
+namespace Presentation.LoadingScene
 {
-    [SerializeField] private TextMeshProUGUI _text;
-
-    public void SetText(string toString)
+    public class LoadingSceneFader : CanvasFader
     {
-        _text.SetText(toString);
-    }
+        [SerializeField] private TextMeshProUGUI _text;
 
-    public void DeactivateUI()
-    {
-        _text.gameObject.SetActive(false);
+        public void SetText(string toString)
+        {
+            _text.SetText(toString);
+        }
+
+        public void DeactivateUI()
+        {
+            _text.gameObject.SetActive(false);
+        }
     }
 }

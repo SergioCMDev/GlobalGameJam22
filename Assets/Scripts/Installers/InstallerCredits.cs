@@ -1,14 +1,19 @@
+using Application_.SceneManagement;
 using UnityEngine;
+using Utils;
 
-public class InstallerCredits : MonoBehaviour
+namespace Presentation.Installers
 {
-    [SerializeField] private GameObject _sceneChangerPrefab;
-
-    private GameObject _sceneChangerInstance;
-
-    private void Awake()
+    public class InstallerCredits : MonoBehaviour
     {
-        _sceneChangerInstance = Instantiate(_sceneChangerPrefab);
-        ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
+        [SerializeField] private GameObject _sceneChangerPrefab;
+
+        private GameObject _sceneChangerInstance;
+
+        private void Awake()
+        {
+            _sceneChangerInstance = Instantiate(_sceneChangerPrefab);
+            ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
+        }
     }
 }

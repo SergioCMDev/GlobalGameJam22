@@ -1,28 +1,32 @@
 ﻿using UnityEngine;
+using Utils;
 
-public class LoadWithPlayerPrefs : ILoader
+namespace Domain
 {
-    private IJsonator _jsonator;
-
-    public LoadWithPlayerPrefs()
+    public class LoadWithPlayerPrefs : ILoader
     {
-        _jsonator = ServiceLocator.Instance.GetService<IJsonator>();
-    }
+        private IJsonator _jsonator;
 
-    public Savegame LoadGame()
-    {
-        if (PlayerPrefs.HasKey("SaveGame"))
+        public LoadWithPlayerPrefs()
         {
-            string dataToFromJson = PlayerPrefs.GetString("SaveGame");
-            Savegame savegameJson = _jsonator.FromJson<Savegame>(dataToFromJson);
-            return savegameJson;
+            _jsonator = ServiceLocator.Instance.GetService<IJsonator>();
         }
 
-        return null;
-    }
+        public Savegame LoadGame()
+        {
+            if (PlayerPrefs.HasKey("SaveGame"))
+            {
+                string dataToFromJson = PlayerPrefs.GetString("SaveGame");
+                Savegame savegameJson = _jsonator.FromJson<Savegame>(dataToFromJson);
+                return savegameJson;
+            }
 
-    public bool HasSavedGame()
-    {
-        return PlayerPrefs.GetInt("HasSavedGame") == 1;
+            return null;
+        }
+
+        public bool HasSavedGame()
+        {
+            return PlayerPrefs.GetInt("HasSavedGame") == 1;
+        }
     }
 }

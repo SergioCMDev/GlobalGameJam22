@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public static class UtilsDistance
+namespace Utils
 {
-    public static float GetDistanceBetweenTwoPoints(Vector3 positionA, Vector3 positionB)
+    public static class UtilsDistance
     {
-        Vector3 offset = positionB - positionA;
-        float distance = offset.sqrMagnitude;
-        return distance;
+        public static float GetDistanceBetweenTwoPoints(Vector3 positionA, Vector3 positionB)
+        {
+            Vector3 offset = positionB - positionA;
+            float distance = offset.sqrMagnitude;
+            return distance;
+        }
     }
 }

@@ -1,6 +1,9 @@
-﻿public interface ISaver
+﻿namespace Domain
 {
-    void SaveGame(Savegame savegameFile);
-    void DeleteSaveGame();
-    void SaveNewGameStatus(bool statusToSave);
+    public interface ISaver
+    {
+        void SaveGame(Savegame savegameFile);
+        void DeleteSaveGame();
+        void SaveNewGameStatus(bool statusToSave);
+    }
 }
