@@ -3,7 +3,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 
-namespace Utils
+namespace Presentation.Utils
 {
     public class WallCollisionChecker : MonoBehaviour
     {
