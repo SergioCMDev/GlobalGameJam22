@@ -1,7 +1,5 @@
-﻿using Presentation.Languages;
-using Presentation.Views;
+﻿using Presentation.Views;
 using UnityEngine;
-using Utils;
 
 namespace Presentation.Presenters
 {
@@ -11,10 +9,11 @@ namespace Presentation.Presenters
         // [SerializeField] private GameDataStatusLoader _gameDataStatusLoader;
         [SerializeField] private OptionsMenuView _optionsMenuView;
         // private IChangerSceneModel _changerSceneModel;
-        private ILanguageManager _languageManager;
+        // private ILanguageManager _languageManager;
 
         private void Awake()
         {
+            //TODO LOAD GAMEDATA
 
             // _deleteSavedGameView.OnPlayerDeleteSavedGameData += DeleteLastGameAndStartNewGame;
             // _deleteSavedGameView.OnPlayerCancelDeleteSavedGameData += CloseDeleteLastGameWindow;
@@ -36,7 +35,9 @@ namespace Presentation.Presenters
 
         private void Start()
         {
-            _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
+            _initMenuView.SetButtons(false);
+
+            // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
 
         }

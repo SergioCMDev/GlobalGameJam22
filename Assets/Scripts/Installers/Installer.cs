@@ -16,14 +16,12 @@ namespace Presentation.Installers
         [SerializeField] private GameObject _sceneChangerPrefab;
         [SerializeField] private GameObject _soundManagerPrefab;
         [SerializeField] private GameObject _timeManagerPrefab;
-        [SerializeField] private GameObject _collectibleManagerPrefab;
+        // [SerializeField] private GameObject _collectibleManagerPrefab;
 
         private GameObject _readInputPlayerInstance,
             _sceneChangerInstance,
             _soundManagerInstance,
-            _timeManagerInstance,
-            _collectibleManagerInstance,
-            _levelControllerInstance;
+            _timeManagerInstance;
 
         private bool _initialized;
 
@@ -38,7 +36,7 @@ namespace Presentation.Installers
             _sceneChangerInstance = Instantiate(_sceneChangerPrefab);
             _soundManagerInstance = Instantiate(_soundManagerPrefab);
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
-            _collectibleManagerInstance = Instantiate(_collectibleManagerPrefab);
+            // _collectibleManagerInstance = Instantiate(_collectibleManagerPrefab);
 
 
             //TODO HACERLO PARA N OBJETOS NO SOLO 1
@@ -53,19 +51,18 @@ namespace Presentation.Installers
                 _readInputPlayerInstance.GetComponent<ReadInputPlayer>());
             ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
             ServiceLocator.Instance.RegisterService<TimeManager>(_timeManagerInstance.GetComponent<TimeManager>());
-            ServiceLocator.Instance.RegisterService<CollectibleManager>(_collectibleManagerInstance
-                .GetComponent<CollectibleManager>());
+            // ServiceLocator.Instance.RegisterService<CollectibleManager>(_collectibleManagerInstance
+            //     .GetComponent<CollectibleManager>());
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
 
-            ServiceLocator.Instance.RegisterService<CheckpointUpdaterService>(new CheckpointUpdaterService());
+            // ServiceLocator.Instance.RegisterService<CheckpointUpdaterService>(new CheckpointUpdaterService());
             // DontDestroyOnLoad(this);
             DontDestroyOnLoad(this);
             DontDestroyOnLoad(_sceneChangerInstance);
             DontDestroyOnLoad(_readInputPlayerInstance);
             DontDestroyOnLoad(_soundManagerInstance);
             DontDestroyOnLoad(_timeManagerInstance);
-            DontDestroyOnLoad(_collectibleManagerInstance);
             _initialized = true;
         }
 

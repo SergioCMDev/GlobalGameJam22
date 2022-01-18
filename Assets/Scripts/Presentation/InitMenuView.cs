@@ -12,7 +12,7 @@ namespace Presentation.Views
     public class InitMenuView : ViewWithVerticalButtonsBase
     {
         [SerializeField] private Button _buttonContinue, _buttonNewGame, _buttonOptions, _buttonCredits, _buttonQuitGame;
-        [SerializeField] private TextMeshProUGUI _buttonContinueText, _buttonNewGameText, _buttonOptionsText, _buttonCreditsText, _buttonQuitGameText;
+        // [SerializeField] private TextMeshProUGUI _buttonContinueText, _buttonNewGameText, _buttonOptionsText, _buttonCreditsText, _buttonQuitGameText;
         private ReadInputPlayer _readInputPlayer;
 
         public event Action OnContinueButtonPressed = delegate { };
@@ -91,8 +91,8 @@ namespace Presentation.Views
 
             interactableButtons.Add(_buttonNewGame);
             interactableButtons.Add(_buttonOptions);
-            interactableButtons.Add(_buttonCredits);
-            interactableButtons.Add(_buttonQuitGame);
+            // interactableButtons.Add(_buttonCredits);
+            // interactableButtons.Add(_buttonQuitGame);
 
             InteractableButtonsViews.Add(_buttonNewGame.GetComponent<ButtonView>());
             InteractableButtonsViews.Add(_buttonOptions.GetComponent<ButtonView>());
