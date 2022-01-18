@@ -17,10 +17,15 @@ namespace Application_.Services
             _saver = ServiceLocator.Instance.GetService<ISaver>();
         }
 
-        public bool HasStartedGame()
+        public bool HasStartedGameWithCheckpoints()
         {
             if (!_loader.HasSavedGame()) return false;
             return _loader.LoadGame().SavePointIdOfLevel.Count > 1;
+        }
+        
+        public bool HasStartedGame()
+        {
+           return _loader.HasSavedGame();
         }
 
         //TODO

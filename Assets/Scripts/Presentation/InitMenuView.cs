@@ -86,8 +86,8 @@ namespace Presentation.Views
             _buttonContinue.onClick.AddListener(ContinueGame);
             _buttonNewGame.onClick.AddListener(NewGame);
             _buttonOptions.onClick.AddListener(ShowOptionsMenu);
-            _buttonCredits.onClick.AddListener(ShowCreditsMenu);
-            _buttonQuitGame.onClick.AddListener(QuitGame);
+            // _buttonCredits.onClick.AddListener(ShowCreditsMenu);
+            // _buttonQuitGame.onClick.AddListener(QuitGame);
 
             interactableButtons.Add(_buttonNewGame);
             interactableButtons.Add(_buttonOptions);
@@ -96,8 +96,8 @@ namespace Presentation.Views
 
             InteractableButtonsViews.Add(_buttonNewGame.GetComponent<ButtonView>());
             InteractableButtonsViews.Add(_buttonOptions.GetComponent<ButtonView>());
-            InteractableButtonsViews.Add(_buttonCredits.GetComponent<ButtonView>());
-            InteractableButtonsViews.Add(_buttonQuitGame.GetComponent<ButtonView>());
+            // InteractableButtonsViews.Add(_buttonCredits.GetComponent<ButtonView>());
+            // InteractableButtonsViews.Add(_buttonQuitGame.GetComponent<ButtonView>());
 
 
             SetSelectedButton(0);
@@ -122,8 +122,8 @@ namespace Presentation.Views
             _buttonContinue.onClick.RemoveListener(ContinueGame);
             _buttonNewGame.onClick.RemoveListener(NewGame);
             _buttonOptions.onClick.RemoveListener(ShowOptionsMenu);
-            _buttonCredits.onClick.RemoveListener(ShowCreditsMenu);
-            _buttonQuitGame.onClick.RemoveListener(QuitGame);
+            // _buttonCredits.onClick.RemoveListener(ShowCreditsMenu);
+            // _buttonQuitGame.onClick.RemoveListener(QuitGame);
         }
 
         public void EnableInput()
@@ -133,8 +133,8 @@ namespace Presentation.Views
             _buttonContinue.onClick.AddListener(ContinueGame);
             _buttonNewGame.onClick.AddListener(NewGame);
             _buttonOptions.onClick.AddListener(ShowOptionsMenu);
-            _buttonCredits.onClick.AddListener(ShowCreditsMenu);
-            _buttonQuitGame.onClick.AddListener(QuitGame);
+            // _buttonCredits.onClick.AddListener(ShowCreditsMenu);
+            // _buttonQuitGame.onClick.AddListener(QuitGame);
         }
     }
 }

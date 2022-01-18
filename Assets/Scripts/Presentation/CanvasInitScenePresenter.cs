@@ -1,5 +1,7 @@
-﻿using Presentation.Views;
+﻿using Application_.Services;
+using Presentation.Views;
 using UnityEngine;
+using Utils;
 
 namespace Presentation.Presenters
 {
@@ -8,13 +10,14 @@ namespace Presentation.Presenters
         [SerializeField] private InitMenuView _initMenuView;
         // [SerializeField] private GameDataStatusLoader _gameDataStatusLoader;
         [SerializeField] private OptionsMenuView _optionsMenuView;
+        [SerializeField] private GameDataService _gameDataService;
         // private IChangerSceneModel _changerSceneModel;
         // private ILanguageManager _languageManager;
 
         private void Awake()
         {
             //TODO LOAD GAMEDATA
-
+          
             // _deleteSavedGameView.OnPlayerDeleteSavedGameData += DeleteLastGameAndStartNewGame;
             // _deleteSavedGameView.OnPlayerCancelDeleteSavedGameData += CloseDeleteLastGameWindow;
             // _gameDataStatusLoader.OnShowContinueButton += ShowContinueButton;
@@ -27,7 +30,7 @@ namespace Presentation.Presenters
 
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
-            // _changerSceneModel = ServiceLocator.Instance.GetModel<IChangerSceneModel>();
+            _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             // _deleteSavedGameView.gameObject.SetActive(false);
             _optionsMenuView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
@@ -35,7 +38,7 @@ namespace Presentation.Presenters
 
         private void Start()
         {
-            _initMenuView.SetButtons(false);
+            _initMenuView.SetButtons(_gameDataService.HasStartedGame());
 
             // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
