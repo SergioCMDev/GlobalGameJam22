@@ -5,6 +5,7 @@ using Presentation.Menus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Presentation.Views
 {
@@ -29,8 +30,8 @@ namespace Presentation.Views
 
         private void Start()
         {
-            // _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
-            // _readInputPlayer.OnPlayerPressVerticalAxisButtons += PlayerPressYAxisButtons;
+            _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
+            _readInputPlayer.OnPlayerPressVerticalAxisButtons += PlayerPressYAxisButtons;
             // _readInputPlayer.OnPlayerPressEnterButtonMenus += HandlePlayerPressEnterButtonMenus;
             // _readInputPlayer.DisableDialogInput();
         }
@@ -74,12 +75,12 @@ namespace Presentation.Views
         {
             if (showContinueButton)
             {
-                // interactableButtons.Add(_buttonContinue);
-                // InteractableButtonsViews.Add(_buttonContinue.GetComponent<ButtonView>());
+                interactableButtons.Add(_buttonContinue);
+                InteractableButtonsViews.Add(_buttonContinue.GetComponent<ButtonView>());
             }
             else
             {
-                // _buttonContinue.GetComponent<ButtonView>().SetColorText(Color.gray);
+                _buttonContinue.GetComponent<ButtonView>().SetColorText(Color.gray);
             }
 
             _buttonContinue.onClick.AddListener(ContinueGame);
