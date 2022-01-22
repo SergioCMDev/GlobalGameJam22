@@ -4,45 +4,45 @@ using UnityEngine;
 
 namespace Presentation
 {
-    public class Building : MonoBehaviour, IReceiveDamage, ILife
+    public abstract class Building : MonoBehaviour, IReceiveDamage, ILife
     {
         [SerializeField] private SliderBarView _sliderBarViewEnemy;
         private int _id;
 
-        [SerializeField] private float _life;
+        [SerializeField] protected float _life;
+
+        protected float Life
+        {
+            get => _life;
+            set => _life = value;
+        }
 
         void Start()
         {
-            _sliderBarViewEnemy.SetMaxValue(_life);
+            _sliderBarViewEnemy.SetMaxValue(Life);
         }
 
         public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
         {
-            if(_id != damageEvent.Id) return;
+            if (_id != damageEvent.Id) return;
             ReceiveDamage(damageEvent.Damage);
         }
-        
+
         public void AddLife(BuildingReceiveLifeEvent receiveLifeEvent)
         {
-            if(_id != receiveLifeEvent.Id) return;
+            if (_id != receiveLifeEvent.Id) return;
             AddLife(receiveLifeEvent.Life);
         }
 
-
-        public void ReceiveDamage(GameObject itemWhichHit, float receivedDamage)
+        protected void UpdateLifeSliderBar()
         {
+            _sliderBarViewEnemy.SetValue(Life);
         }
 
-        public void ReceiveDamage(float receivedDamage)
-        {
-            _life -= receivedDamage;
-            _sliderBarViewEnemy.SetValue(_life);
-        }
+        public abstract void ReceiveDamage(GameObject itemWhichHit, float receivedDamage);
 
-        public void AddLife(float lifeToAdd)
-        {
-            _life += lifeToAdd;
-            _sliderBarViewEnemy.SetValue(_life);
-        }
+        public abstract void ReceiveDamage(float receivedDamage);
+
+        public abstract void AddLife(float lifeToAdd);
     }
 }
