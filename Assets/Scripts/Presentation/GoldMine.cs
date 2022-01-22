@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Presentation
 {
-    public class Gold : Resource
+    public class GoldMine : Resource
     {
         private void Start()
         {
