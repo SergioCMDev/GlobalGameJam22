@@ -4,13 +4,18 @@ using UnityEngine;
 
 namespace Presentation
 {
-    public abstract class Building : MonoBehaviour, IReceiveDamage, ILife
+    public abstract class Building : MonoBehaviour, IReceiveDamage, ILife, IConstructable, IDestructible
     {
         [SerializeField] private SliderBarView _sliderBarViewEnemy;
-        private int _id;
+        private int _id, _level;
 
         [SerializeField] protected float _life;
 
+        protected int Level
+        {
+            get => _level;
+            set => _level = value;
+        }
         protected float Life
         {
             get => _life;
@@ -44,5 +49,14 @@ namespace Presentation
         public abstract void ReceiveDamage(float receivedDamage);
 
         public abstract void AddLife(float lifeToAdd);
+        public void ConstructBuilding()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DestroyBuilding()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

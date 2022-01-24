@@ -55,6 +55,8 @@ namespace Presentation.Installers
             //     .GetComponent<CollectibleManager>());
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
+            ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());
+            ServiceLocator.Instance.RegisterModel<IBuildingStatusModel>(new BuildingStatusModel());
 
             // ServiceLocator.Instance.RegisterService<CheckpointUpdaterService>(new CheckpointUpdaterService());
             // DontDestroyOnLoad(this);
