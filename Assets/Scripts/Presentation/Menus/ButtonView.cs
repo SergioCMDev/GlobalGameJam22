@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation.Views
+namespace Presentation
 {
     public class ButtonView : MonoBehaviour
     {

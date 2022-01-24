@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Presentation.Views;
+using Presentation.Dialog;
 using UnityEngine;
 using UnityEngine.UI;
 

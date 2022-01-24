@@ -4,7 +4,7 @@ using Presentation.Input;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Views
+namespace Presentation.Menus
 {
     public class OptionsMenuView : MonoBehaviour
     {

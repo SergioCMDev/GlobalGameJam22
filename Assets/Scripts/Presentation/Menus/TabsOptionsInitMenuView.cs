@@ -1,11 +1,10 @@
 ﻿using System;
 using Presentation.Input;
-using Presentation.Menus;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-namespace Presentation.Views
+namespace Presentation.Menus
 {
     public class TabsOptionsInitMenuView : ViewWithHorizontalButtonsBase
     {

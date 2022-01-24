@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation.UI
+namespace Presentation.Menus
 {
     public class SliderBarView : MonoBehaviour
     {

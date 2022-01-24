@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-namespace Presentation.Views
+namespace Presentation.Menus
 {
     public class InitMenuView : ViewWithVerticalButtonsBase
     {

@@ -1,9 +1,9 @@
 ﻿using Application_.Services;
-using Presentation.Views;
+using Presentation.Menus;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Presenters
+namespace Presentation
 {
     public class CanvasInitScenePresenter : MonoBehaviour
     {
