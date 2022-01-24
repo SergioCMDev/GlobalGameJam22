@@ -7,6 +7,7 @@ using Presentation.Managers;
 using Presentation.Structs;
 using Presentation.Utils;
 using UnityEngine;
+using Utils;
 
 namespace Presentation
 {
@@ -17,25 +18,27 @@ namespace Presentation
         [SerializeField] private List<BuildingCost> _buildingCost;
         private IBuildingStatusModel _buildingStatusModel;
         private ResourcesTuple resourcesNeededForCurrentBuy;
+        private BuildingType currentBuildingBuyType;
         public event Action<BuildingCostTuple, Action, Action> OnStartSelectionOfNewPlaceForBuilding;
 
         // Start is called before the first frame update
         void Start()
         {
             _buildingSelectable.OnPlayerWantsToBuyBuilding += OnPlayerWantsToBuyBuilding;
+            _buildingStatusModel = ServiceLocator.Instance.GetModel<IBuildingStatusModel>();
         }
 
-        private void OnPlayerWantsToBuyBuilding(BuildingPrefabTuple obj)
+        private void OnPlayerWantsToBuyBuilding(BuildingPrefabTuple buildingPrefabTuple)
         {
             //Get LastLevel of building
-            var buildingsStatus = GetBuildingStatus(obj);
-
+            var buildingsStatus = GetBuildingStatus(buildingPrefabTuple);
+            currentBuildingBuyType = buildingPrefabTuple.BuildingSelectable.BuildingType;
             resourcesNeededForCurrentBuy = GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold, resourcesNeededForCurrentBuy.Metal)) return;
             OnStartSelectionOfNewPlaceForBuilding?.Invoke(new BuildingCostTuple
             {
                 resourcesTuple = resourcesNeededForCurrentBuy,
-                buildingPrefabTuple = obj,
+                buildingPrefabTuple = buildingPrefabTuple,
             }, OnCancelBuy, OnFinishBuy);
             
             //Select where to place 
@@ -51,6 +54,14 @@ namespace Presentation
         private void OnFinishBuy()
         {
             _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
+            UpgradeBoughtBuilding();
+        }
+
+        private void UpgradeBoughtBuilding()
+        {
+            _buildingStatusModel.BuildStatusList.SingleOrDefault(x =>
+                x.buildingType == currentBuildingBuyType)
+                ?.Upgrade();
         }
 
         private void OnCancelBuy()
