@@ -12,14 +12,14 @@ public class GridCreator : MonoBehaviour
 
     private List<GridTile> _gridTuples = new List<GridTile>();
     private Sprite _tileSprite;
-    private float _tileSize;
+    [SerializeField] private float _tileSizeHorizontal, _tileSizeVertical;
 
     public int HorizontalSize => _gridHorizontalSize;
     public int VerticalSize => _gridVerticalSize;
 
     private void Awake()
     {
-        _tileSize = 1;
+        // _tileSizeHorizontal = 1;
         GenerateGrid();
     }
 
@@ -29,11 +29,13 @@ public class GridCreator : MonoBehaviour
         {
             for (int column = 0; column < _gridHorizontalSize; column++)
             {
-                var positionToInstantiate = GetPositionToInstantiate(row, column);
+                var positionToInstantiate = GetPositionToInstantiate(column, row);
 
                 var tileInstance = Instantiate(_tilePrefab, positionToInstantiate, Quaternion.identity, transform);
-
+                tileInstance.name = $"Tile {row} + {column}";
                 var tileEntity = tileInstance.GetComponent<TileEntity>();
+                var spriteRenderer = tileInstance.GetComponent<SpriteRenderer>();
+                spriteRenderer.sortingOrder = (row + 1) ;
                 tileEntity.Walkable = true;
 
                 var gridTuple = new GridTile()
@@ -44,12 +46,14 @@ public class GridCreator : MonoBehaviour
 
                 _gridTuples.Add(gridTuple);
             }
+
+            //GenerateLayerBetween();
         }
     }
 
-    private Vector3 GetPositionToInstantiate(int row, int column)
+    private Vector3 GetPositionToInstantiate(int column, int row)
     {
-        var position = new Vector3(row * _tileSize, column * _tileSize, 1);
+        var position = new Vector3(column * _tileSizeHorizontal , row *  _tileSizeVertical, 1);
 
         return position;
     }
