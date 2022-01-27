@@ -35,7 +35,7 @@ public class GridCreator : MonoBehaviour
                 tileInstance.name = $"Tile {row} + {column}";
                 var tileEntity = tileInstance.GetComponent<TileEntity>();
                 var spriteRenderer = tileInstance.GetComponent<SpriteRenderer>();
-                spriteRenderer.sortingOrder = (row + 1) ;
+                spriteRenderer.sortingOrder = _gridVerticalSize - row ;
                 tileEntity.Walkable = true;
 
                 var gridTuple = new GridTile()
@@ -53,7 +53,7 @@ public class GridCreator : MonoBehaviour
 
     private Vector3 GetPositionToInstantiate(int column, int row)
     {
-        var position = new Vector3(column * _tileSizeHorizontal , row *  _tileSizeVertical, 1);
+        var position = new Vector3(column * _tileSizeHorizontal * (column * 2)/4, row *  _tileSizeVertical * (row * 2)/4, 1);
 
         return position;
     }

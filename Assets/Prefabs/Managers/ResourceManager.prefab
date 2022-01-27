@@ -61,12 +61,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7788073181800920044}
-        m_TargetAssemblyTypeName: ResourcesManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: Presentation.Managers.ResourcesManager, Presentation
         m_MethodName: PlayerGetResource
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 029852a4450187c4195819683ab50bd5, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.PlayerGetResourceEvent,
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.PlayerGetResourceEvent,
             Application
           m_IntArgument: 0
           m_FloatArgument: 0
