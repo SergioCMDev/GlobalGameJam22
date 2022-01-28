@@ -15,7 +15,12 @@ namespace Presentation
 
         void Start()
         {
-            _button.onClick.AddListener(BuildingSelected);
+            _button.onClick.AddListener(BuildingSelected1);
+        }
+
+        private void BuildingSelected1()
+        {
+            OnBuildingSelected.Invoke(this);
         }
 
         private void OnDestroy()
@@ -23,10 +28,7 @@ namespace Presentation
             _button.onClick.RemoveListener(BuildingSelected);
         }
 
-        private void BuildingSelected()
-        {
-            OnBuildingSelected.Invoke(this);
-        }
+        protected abstract void BuildingSelected();
 
         public abstract void MakeSound();
     }

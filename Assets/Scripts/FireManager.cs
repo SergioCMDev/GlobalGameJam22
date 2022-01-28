@@ -72,15 +72,16 @@ public class FireManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int gridPosition = map.WorldToCell(mousePosition);
-            TileBase tile = map.GetTile(gridPosition);
-
-            TileData data = mapManager.GetTileData(gridPosition);
-            SetTileOnFire(gridPosition, data);
-        }
+        // if(Input.GetMouseButtonDown(0))
+        // {
+        //     //TODO REFRACTOR
+        //     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //     Vector3Int gridPosition = map.WorldToCell(mousePosition);
+        //     TileBase tile = map.GetTile(gridPosition);
+        //
+        //     TileData data = mapManager.GetTileData(gridPosition);
+        //     SetTileOnFire(gridPosition, data);
+        // }
     }
 
 

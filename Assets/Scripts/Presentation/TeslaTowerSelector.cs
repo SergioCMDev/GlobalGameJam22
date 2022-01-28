@@ -1,18 +1,13 @@
-﻿namespace Presentation
+﻿using UnityEngine;
+
+namespace Presentation
 {
     public class TeslaTowerSelector : BuildingSelector
     {
-
-    
-        // public override void ConstructBuilding()
-        // {
-        //     // Instantiate(_spriteToGenerate);
-        // }
-        //
-        // public override void DestroyBuilding()
-        // {
-        //     Destroy(this.gameObject);
-        // }
+        protected override void BuildingSelected()
+        {
+            Debug.Log("F");
+        }
         public override void MakeSound()
         {
             throw new System.NotImplementedException();

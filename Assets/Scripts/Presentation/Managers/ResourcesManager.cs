@@ -18,7 +18,8 @@ namespace Presentation.Managers
 
         public bool PlayerHasEnoughResources(float goldToSpend, float metalToSpend)
         {
-            return goldToSpend <= _resourcesModel.Gold && metalToSpend <= _resourcesModel.Metal;
+            // return goldToSpend <= _resourcesModel.Gold && metalToSpend <= _resourcesModel.Metal;
+            return true;
         }
 
 //From Event
