@@ -49,6 +49,7 @@ MonoBehaviour:
   occupiedWorld: []
   worldTile: []
   innerTileDataFromTiles: []
+  saveBuildingEvent: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
 --- !u!114 &7439441737509163147
 MonoBehaviour:
   m_ObjectHideFlags: 0
