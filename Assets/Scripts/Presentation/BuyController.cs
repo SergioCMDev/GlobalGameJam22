@@ -15,6 +15,7 @@ namespace Presentation
     {
         [SerializeField] private BuildingsSelectable _buildingSelectable;
         [SerializeField] private ResourcesManager _resourcesManager;
+        [SerializeField] private FireManager _fireManager;
         [SerializeField] private List<BuildingCost> _buildingCost;
         private IBuildingStatusModel _buildingStatusModel;
         private ResourcesTuple resourcesNeededForCurrentBuy;

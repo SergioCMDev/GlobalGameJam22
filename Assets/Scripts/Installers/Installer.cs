@@ -8,7 +8,7 @@ using Presentation.Managers;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Installers
+namespace Installers
 {
     public class Installer : MonoBehaviour
     {

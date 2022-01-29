@@ -2,7 +2,7 @@ using Application_.SceneManagement;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Installers
+namespace Installers
 {
     public class InstallerCredits : MonoBehaviour
     {
