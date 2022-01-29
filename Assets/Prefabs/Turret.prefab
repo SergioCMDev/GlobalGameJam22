@@ -154,7 +154,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5df37483b82b86b4ea1f05dd55bd29f0, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,7 +175,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52a32185cfe17784e82246dedb76fe5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -256,8 +256,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cdfef6bcb613f47b05577266473bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliderBarViewEnemy: {fileID: 4305953639494981215}
-  _life: 0
+  _sliderBarView: {fileID: 4305953639494981215}
+  _life: 50
+  _maximumLife: 0
+  _cadence: 2
+  _damage: 20
+  _sfxWhenAttack: 8
+  _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
+  _particles: {fileID: 0}
 --- !u!1001 &215311262386727641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3727428229365084453, guid: df737bd08479e984280626588c3f94c6, type: 3}
       propertyPath: m_Name
-      value: LifeBarEnemy
+      value: LifeBar
       objectReference: {fileID: 0}
     - target: {fileID: 3727428229755091869, guid: df737bd08479e984280626588c3f94c6, type: 3}
       propertyPath: m_Pivot.x

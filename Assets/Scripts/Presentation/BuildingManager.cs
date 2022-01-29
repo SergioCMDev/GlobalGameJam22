@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application_;
+using Application_.Events;
 using Application_.Models;
 using Presentation.Structs;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Presentation
     public class BuildingManager : MonoBehaviour
     {
         private IBuildingStatusModel _buildingStatusModel;
+        private GameObject _enemy;
+        private List<MilitaryBuilding> _ownMilitaryBuilding = new List<MilitaryBuilding>();
         [SerializeField] private List<BuildingCost> _buildingCost;
 
         [SerializeField] private List<BuildingDataTuple> buildingData;
@@ -26,6 +29,8 @@ namespace Presentation
                     MaxLife = 50,
                 });
             }
+
+            // enemy = FindObjectOfType<Enemy>();
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)
@@ -54,6 +59,13 @@ namespace Presentation
         {
             return _buildingStatusModel.BuildStatusList.SingleOrDefault(x =>
                 x.buildingType == obj.BuildingSelectable.BuildingType);
+        }
+
+        public void SaveBuilding(SaveBuildingEvent tilemapEvent)
+        {
+            var militaryBuilding = tilemapEvent.Instance.GetComponent<MilitaryBuilding>();
+            militaryBuilding.SetEnemyToAttack(_enemy);
+            _ownMilitaryBuilding.Add(militaryBuilding);
         }
     }
 }

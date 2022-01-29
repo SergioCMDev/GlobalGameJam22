@@ -2,7 +2,8 @@
 
 namespace Application_.Events
 {
-    [CreateAssetMenu(fileName = "PlayerSetBuildingInTilemapEvent", menuName = "Events/Building/PlayerSetBuildingInTilemapEvent")]
+    [CreateAssetMenu(fileName = "PlayerSetBuildingInTilemapEvent",
+        menuName = "Events/Building/PlayerSetBuildingInTilemapEvent")]
     public class PlayerSetBuildingInTilemapEvent : GameEventScriptable
     {
         public GameObject Prefab;

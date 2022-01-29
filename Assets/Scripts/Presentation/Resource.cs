@@ -5,15 +5,11 @@ using Utils;
 
 namespace Presentation
 {
-    public abstract class Resource : MonoBehaviour, IReceiveDamage
+    public abstract class Resource : MonoBehaviour
     {
         [SerializeField] protected RetrievableResourceType _resourceType;
         [SerializeField] protected PlayerGetResourceEvent playerGetResourceEvent;
-
-        public abstract void ReceiveDamage(GameObject itemWhichHit, float receivedDamage);
-
-        public abstract void ReceiveDamage(float receivedDamage);
-
+        
         private int GetRandomQuantity()
         {
             return Utilities.GetRandom(0, 100);

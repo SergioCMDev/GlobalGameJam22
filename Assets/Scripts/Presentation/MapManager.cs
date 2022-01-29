@@ -23,6 +23,7 @@ namespace Presentation
         [SerializeField] private List<Tile> worldTile = new List<Tile>();
         [SerializeField] private Dictionary<Vector3, TileInnerData> innerDataFromTiles = new Dictionary<Vector3, TileInnerData>();
         [SerializeField] private List<TileTuple> innerTileDataFromTiles = new List<TileTuple>();
+        [SerializeField] private SaveBuildingEvent saveBuildingEvent;
 
 
         private void Awake()
@@ -54,6 +55,8 @@ namespace Presentation
         {
             var building = Instantiate(tilemapEvent.Prefab);
             building.transform.position = _tilemap.GetCellCenterWorld(tilemapEvent.SelectedTile.GridPosition);
+            saveBuildingEvent.Instance = building;
+            saveBuildingEvent.Fire();
         }
 
         private List<Vector3> GetWorld()
