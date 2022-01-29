@@ -5,28 +5,31 @@ using UnityEngine;
  *
  * Base tile to create the Grid
  */
-[Serializable]
-public class GridTile
+namespace Application_
 {
-    public Vector2 tuplePosition;
-    public TileEntity tileEntity;
-    public GridTile cameFromNode;
-    public float FValue;
-    public float GCost; //Walking cost from the Start position to Destination
-    public float HValue; //Heuristic cost to reach Destination
+    [Serializable]
+    public class GridTile
+    {
+        public Vector2 tuplePosition;
+        public TileEntity tileEntity;
+        public GridTile cameFromNode;
+        public float FValue;
+        public float GCost; //Walking cost from the Start position to Destination
+        public float HValue; //Heuristic cost to reach Destination
     
-    public GridTile()
-    {
-        tuplePosition = new Vector2(-1, -1);
-        FValue = 0;
-        GCost = 0;
-        HValue = 0;
-    }
+        public GridTile()
+        {
+            tuplePosition = new Vector2(-1, -1);
+            FValue = 0;
+            GCost = 0;
+            HValue = 0;
+        }
 
 
-    public float GetFCost()
-    {
-        FValue = GCost + HValue;
-        return FValue;
+        public float GetFCost()
+        {
+            FValue = GCost + HValue;
+            return FValue;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Presentation.Input;
+using Presentation.InputPlayer;
 using UnityEngine;
 using Utils;
 

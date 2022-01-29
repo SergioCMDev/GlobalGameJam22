@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Presentation.Input;
+using Presentation.InputPlayer;
 using TMPro;
 using UnityEngine;
 

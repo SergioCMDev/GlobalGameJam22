@@ -1,3 +1,6 @@
-﻿public class GroundTile : TileEntity
+﻿namespace Application_
 {
+    public class GroundTile : TileEntity
+    {
+    }
 }

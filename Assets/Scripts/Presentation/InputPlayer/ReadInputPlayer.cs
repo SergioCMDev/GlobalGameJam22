@@ -3,7 +3,7 @@ using InputPlayerSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Presentation.Input
+namespace Presentation.InputPlayer
 {
     public class ReadInputPlayer : MonoBehaviour
     {

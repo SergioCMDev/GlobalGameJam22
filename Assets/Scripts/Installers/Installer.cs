@@ -3,12 +3,12 @@ using Application_.Models;
 using Application_.SceneManagement;
 using Application_.Services;
 using Domain;
-using Presentation.Input;
+using Presentation.InputPlayer;
 using Presentation.Managers;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Installers
+namespace Installers
 {
     public class Installer : MonoBehaviour
     {
