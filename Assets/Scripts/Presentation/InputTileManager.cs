@@ -5,6 +5,8 @@ using Application_;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
+
 namespace Presentation
 {
     public class InputTileManager : MonoBehaviour
@@ -46,13 +48,13 @@ namespace Presentation
                 // Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 // Vector3Int gridPosition = map.WorldToCell(mousePosition);
                 Vector3Int gridPosition = mapManager.GetGridPosition(Input.mousePosition);
-                Tile tile = mapManager.GetTileBase(Input.mousePosition);
-                Debug.Log($"SELECTED {gridPosition} TILE {tile}");
-
+                var tile = mapManager.GetTile<BuildableTile>(Input.mousePosition);
+                
                 var data = mapManager.GetTileData(gridPosition);
-                var dataTile = mapManager.GetTileDataByTile(tile);
-                if (data == null) yield break;
-                if (data.Occupied)
+                Debug.Log($"SELECTED {gridPosition} TILE {tile} DATA {data}");
+                // var dataTile = mapManager.GetTileDataByTile(tile);
+                // if (data == null) yield break;
+                if (mapManager.IsOccupied(tile))
                 {
                     SelectedTileIsOccupied.Invoke();
                     yield break;
