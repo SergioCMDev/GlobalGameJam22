@@ -15,15 +15,17 @@ namespace Presentation
 
         [SerializeField] private List<BuildingDataTuple> buildingData;
 
-        // Start is called before the first frame update
         void Start()
         {
             _buildingStatusModel = ServiceLocator.Instance.GetModel<IBuildingStatusModel>();
-            _buildingStatusModel.AddBuilding(new BuildStatus()
+            foreach (var building in buildingData)
             {
-                buildingType = BuildingType.Tesla,
-                MaxLife = 50,
-            });
+                _buildingStatusModel.AddBuilding(new BuildStatus()
+                {
+                    buildingType = building.BuildingType,
+                    MaxLife = 50,
+                });
+            }
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)
@@ -37,6 +39,7 @@ namespace Presentation
                     x.buildingType == type)
                 ?.Upgrade();
         }
+
         public ResourcesTuple GetResourcesForNextLevel(float buildStatusLevel, BuildingType buildStatusBuildingType)
         {
             var upgradeCost = _buildingCost.Single(X => X.BuildingType == buildStatusBuildingType);
