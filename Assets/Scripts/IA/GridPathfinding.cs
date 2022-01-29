@@ -21,6 +21,7 @@ namespace IA
         public Vector3 nextDestination;
         public Vector3 lastBrick;
         public bool attacking = false;
+        public bool initialPotition = true;
 
         public Vector3 start;
         public Vector3 end;
@@ -30,9 +31,10 @@ namespace IA
         {
             start = (friend) ? _tilemap.cellBounds.min : _tilemap.cellBounds.max;
             end = (friend) ? _tilemap.cellBounds.max : _tilemap.cellBounds.min;
-            _enemy.InitialPosition(start);
+            //_enemy.InitialPosition(_tilemap.WorldToLocal(start));
             GetWorld();
             nextDestination = Pathfinder(_enemy.transform.position);
+            initialPotition = false;
         }
 
         private void Update()
@@ -41,8 +43,8 @@ namespace IA
             {
                 if (attacking)
                 {
-                    attacking = false;
-                    nextDestination = lastBrick;
+                    attacking = true;
+                    //nextDestination = lastBrick;
                 }
                 else
                 {
@@ -58,8 +60,8 @@ namespace IA
             float bestOption = 99999;
             
             //activar si se quiere atacar a los edificios
-            //if (!yellowBrickRoad.Any() && !defensiveBuilds.Any())
-            if (!yellowBrickRoad.Any())
+            if (!yellowBrickRoad.Any() && !defensiveBuilds.Any())
+            //if (!yellowBrickRoad.Any())
             {
                 bestOptionVector = end;
             }
@@ -67,7 +69,7 @@ namespace IA
             {
                 HeuristicValue(currentPos, yellowBrickRoad, ref bestOption,  ref bestOptionVector);
                 //activar si se quiere atacar a los edificios
-                //HeuristicValue(currentPos, defensiveBuilds, ref bestOption, ref bestOptionVector);
+                HeuristicValue(currentPos, defensiveBuilds, ref bestOption, ref bestOptionVector);
             }
 
             if (defensiveBuilds.Contains(bestOptionVector))
@@ -75,6 +77,9 @@ namespace IA
                 defensiveBuilds.Remove(bestOptionVector);
                 attacking = true;
                 lastBrick = nextDestination;
+                
+                //Quitar si implementado el ataque a torretas
+                bestOptionVector = nextDestination;
             }
             else if(yellowBrickRoad.Contains(bestOptionVector))
             {
@@ -102,13 +107,13 @@ namespace IA
                     if (_tilemap.HasTile(localPlace))
                     {
                         world.Add(place);
-                        if (_tilemap.GetTile(localPlace).name.Equals("tileStones02"))
-                        {
-                            yellowBrickRoad.Add(place);
-                        } 
-                        else if (_tilemap.GetTile(localPlace).name.Equals("bricks02"))
+                        if (_tilemap.GetTile(localPlace).name.Equals("bocetoedificos"))
                         {
                             defensiveBuilds.Add(place);
+                        } 
+                        else if (_tilemap.GetTile(localPlace).name.Equals("bocetotierra"))
+                        {
+                            yellowBrickRoad.Add(place);
                         }
                     }
                 }
@@ -119,8 +124,6 @@ namespace IA
         {
             float HValue;
             
-            chosen = end;
-            result = Math.Abs(current.x - end.x) + Math.Abs(current.y - end.y)-10;
             foreach(var tile in ListCandidates)
             {
                 HValue = Math.Abs(current.x - tile.x) + Math.Abs(current.y - tile.y);
