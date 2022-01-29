@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.096083, y: 1.0648257}
-  m_SizeDelta: {x: 170.84253, y: 38.499924}
+  m_AnchoredPosition: {x: 0, y: 2.37}
+  m_SizeDelta: {x: 170, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &215311262600689786
 Canvas:
@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &215311262600689787
 MonoBehaviour:
@@ -174,7 +174,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 52a32185cfe17784e82246dedb76fe5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -262,6 +262,7 @@ MonoBehaviour:
   _cadence: 2
   _damage: 20
   _sfxWhenAttack: 8
+  _damageType: 0
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
   _particles: {fileID: 0}
 --- !u!1001 &215311262386727641
