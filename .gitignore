@@ -74,3 +74,5 @@ Assets/StreamingAssets/**/*.Bank.meta
 fmod_editor.log
 .DS_Store
 .vsconfig
+Assets/Plugins/DOTween/Editor/DOTweenEditor.XML.meta
+Assets/Plugins/DOTween/DOTween.XML.meta
