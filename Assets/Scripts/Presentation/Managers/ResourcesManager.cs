@@ -9,7 +9,9 @@ namespace Presentation.Managers
 {
     public class ResourcesManager : MonoBehaviour
     {
+        [SerializeField] private UpdateUIResourcesEvent _updateUIResourcesEvent;
         private IResourcesModel _resourcesModel;
+        public IResourcesModel ResourcesModel => _resourcesModel;
 
         void Start()
         {
@@ -22,18 +24,20 @@ namespace Presentation.Managers
             return true;
         }
 
-//From Event
         public void PlayerGetResource(PlayerGetResourceEvent playerGetResourceEvent)
         {
             Debug.Log($"Got resource {playerGetResourceEvent.Type} Q {playerGetResourceEvent.Quantity}");
-            _resourcesModel.AddResources(playerGetResourceEvent.Type, playerGetResourceEvent.Quantity);
+            ResourcesModel.AddResources(playerGetResourceEvent.Type, playerGetResourceEvent.Quantity);
             //IF player Gets resource check if any building can be updated based on a scriptable object with level-resource quantities and type of upgrade
+            _updateUIResourcesEvent.Fire();
+
         }
 
         public void RemoveResourcesOfPlayer(ResourcesTuple resourcesNeededForCurrentBuy)
         {
-            _resourcesModel.Gold -= resourcesNeededForCurrentBuy.Gold;
-            _resourcesModel.Metal -= resourcesNeededForCurrentBuy.Metal;
+            ResourcesModel.Gold -= resourcesNeededForCurrentBuy.Gold;
+            ResourcesModel.Metal -= resourcesNeededForCurrentBuy.Metal;
+            _updateUIResourcesEvent.Fire();
         }
     }
 }

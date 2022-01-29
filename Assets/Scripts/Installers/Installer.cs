@@ -18,12 +18,15 @@ namespace Installers
         [SerializeField] private GameObject _soundManagerPrefab;
         [SerializeField] private GameObject _timeManagerPrefab;
         [SerializeField] private GameObject _buildingManagerPrefab;
+
+        [SerializeField] private GameObject _resourcesManagerPrefab;
         // [SerializeField] private GameObject _collectibleManagerPrefab;
 
         private GameObject _readInputPlayerInstance,
             _sceneChangerInstance,
             _soundManagerInstance,
             _buildingManagerInstance,
+            _resourcesManagerInstance,
             _timeManagerInstance;
 
         private bool _initialized;
@@ -40,22 +43,23 @@ namespace Installers
             _soundManagerInstance = Instantiate(_soundManagerPrefab);
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
             _buildingManagerInstance = Instantiate(_buildingManagerPrefab);
-            // _collectibleManagerInstance = Instantiate(_collectibleManagerPrefab);
-
-
+            _resourcesManagerInstance = Instantiate(_resourcesManagerPrefab);
+            
             //TODO HACERLO PARA N OBJETOS NO SOLO 1
             ServiceLocator.Instance.RegisterService<IJsonator>(new JsonUtililyTransformer());
             ServiceLocator.Instance.RegisterService<ISaver>(new SaveUsingPlayerPrefs());
             ServiceLocator.Instance.RegisterService<ILoader>(new LoadWithPlayerPrefs());
             ServiceLocator.Instance.RegisterService<GameDataService>(new GameDataService());
             ServiceLocator.Instance.RegisterService<SoundDataService>(new SoundDataService());
-        
+
             ServiceLocator.Instance.RegisterService<SoundManager>(_soundManagerInstance.GetComponent<SoundManager>());
             ServiceLocator.Instance.RegisterService<ReadInputPlayer>(
                 _readInputPlayerInstance.GetComponent<ReadInputPlayer>());
             ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
             ServiceLocator.Instance.RegisterService<TimeManager>(_timeManagerInstance.GetComponent<TimeManager>());
-            ServiceLocator.Instance.RegisterService<BuildingManager>(_buildingManagerInstance.GetComponent<BuildingManager>());
+            ServiceLocator.Instance.RegisterService<ResourcesManager>(_resourcesManagerInstance.GetComponent<ResourcesManager>());
+            ServiceLocator.Instance.RegisterService<BuildingManager>(_buildingManagerInstance
+                .GetComponent<BuildingManager>());
 
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
@@ -68,6 +72,8 @@ namespace Installers
             DontDestroyOnLoad(_readInputPlayerInstance);
             DontDestroyOnLoad(_soundManagerInstance);
             DontDestroyOnLoad(_timeManagerInstance);
+            DontDestroyOnLoad(_resourcesManagerInstance);
+            DontDestroyOnLoad(_buildingManagerInstance);
             _initialized = true;
         }
 

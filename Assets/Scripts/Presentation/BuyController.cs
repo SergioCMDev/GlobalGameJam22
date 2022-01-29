@@ -9,24 +9,30 @@ namespace Presentation
 {
     public class BuyController : MonoBehaviour
     {
-        [SerializeField] private BuildingsSelectable _buildingSelectable;
-        [SerializeField] private ResourcesManager _resourcesManager;
         [SerializeField] private InputTileManager inputTileManager;
-        
+
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private BuildingType currentBuildingBuyType;
+        private ResourcesManager _resourcesManager;
         private BuildingManager _buildingManager;
 
         [SerializeField] private PlayerSetBuildingInTilemapEvent _playerSetBuildingInTilemapEvent;
-
+        private bool _playerIsCurrentlyBuying;
         void Start()
         {
-            _buildingSelectable.OnPlayerWantsToBuyBuilding += OnPlayerWantsToBuyBuilding;
             _buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
+            _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
+            _playerIsCurrentlyBuying = false;
         }
 
+        public void PlayerWantsToBuyBuildingEvent(PlayerWantsToBuyBuildingEvent playerWantsToBuyBuildingEvent)
+        {
+            OnPlayerWantsToBuyBuilding(playerWantsToBuyBuildingEvent.Tuple);
+        }
         private void OnPlayerWantsToBuyBuilding(BuildingTypeTuple buildingTypeTuple)
         {
+            if (_playerIsCurrentlyBuying) return;
+            _playerIsCurrentlyBuying = true;
             //Get LastLevel of building
             var buildingsStatus = _buildingManager.GetBuildingStatus(buildingTypeTuple);
             currentBuildingBuyType = buildingTypeTuple.BuildingSelectable.BuildingType;
@@ -52,12 +58,14 @@ namespace Presentation
             _playerSetBuildingInTilemapEvent.Fire();
             _buildingManager.UpgradeBoughtBuilding(currentBuildingBuyType);
             _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
-        }
+            _playerIsCurrentlyBuying = false;
 
+        }
 
         private void OnCancelBuy()
         {
             Debug.Log($"Canceled Buy");
+            _playerIsCurrentlyBuying = false;
         }
 
         //TODO

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7439441737509163146}
   - component: {fileID: 7439441737509163149}
   - component: {fileID: 7439441737509163147}
+  - component: {fileID: 7439441737416704896}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7439441737416704896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439441737509163148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73863c194c6581645bcee413651a7b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapManager: {fileID: 7439441737509163149}
