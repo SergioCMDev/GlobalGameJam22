@@ -1,5 +1,6 @@
 ﻿using Application_;
 using UnityEditor;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,7 +12,7 @@ namespace Presentation
         public Sprite[] m_Sprites;
         public Sprite m_Preview;
 
-        public TileInnerData TileInnerData;
+        public TileInnerData tileInnerData;
         // This refreshes itself and other RoadTiles that are orthogonally and diagonally adjacent
         public override void RefreshTile(Vector3Int location, ITilemap tilemap)
         {
@@ -50,12 +51,12 @@ namespace Presentation
         // This determines if the Tile at the position is the same RoadTile.
         public bool IsOccupied()
         {
-            return TileInnerData.Occupied;
+            return tileInnerData.Occupied;
         }
 
         public void Occupy()
         {
-            TileInnerData.Occupied = true;
+            tileInnerData.Occupied = true;
         }
         // The following determines which sprite to use based on the number of adjacent RoadTiles
         private int GetIndex(byte mask)
@@ -101,16 +102,26 @@ namespace Presentation
             }
             return Quaternion.Euler(0f, 0f, 0f);
         }
-#if UNITY_EDITOR
-// The following is a helper that adds a menu item to create a RoadTile Asset
-        [MenuItem("Assets/Create/RoadTile")]
-        public static void CreateRoadTile()
+// #if UNITY_EDITOR
+// // The following is a helper that adds a menu item to create a RoadTile Asset
+//         [MenuItem("Assets/Create/RoadTile")]
+//
+//         public static void CreateRoadTile()
+//         {
+//             string path = EditorUtility.SaveFilePanelInProject("Save Road Tile", "New Road Tile", "Asset", "Save Road Tile", "Assets");
+//             if (path == "")
+//                 return;
+//             AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<BuildableTile>(), path);
+//         }
+        
+        [CreateTileFromPalette]
+        public static TileBase CreateBuildableTile(Sprite sprite)
         {
-            string path = EditorUtility.SaveFilePanelInProject("Save Road Tile", "New Road Tile", "Asset", "Save Road Tile", "Assets");
-            if (path == "")
-                return;
-            AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<BuildableTile>(), path);
+            var blueTile = CreateInstance<BuildableTile>();
+            blueTile.sprite = sprite;
+            blueTile.name = sprite.name;
+            return blueTile;
         }
-#endif
+// #endif
     }
 }

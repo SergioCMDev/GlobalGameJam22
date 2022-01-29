@@ -23,8 +23,8 @@ namespace Presentation
         private IBuildingStatusModel _buildingStatusModel;
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private BuildingType currentBuildingBuyType;
-        private GameObject prefab;
-        private PlayerSetBuildingInTilemapEvent _playerSetBuildingInTilemapEvent;
+        [SerializeField] private GameObject prefab;
+        [SerializeField] private PlayerSetBuildingInTilemapEvent _playerSetBuildingInTilemapEvent;
         public event Action<BuildingCostTuple, Action, Action> OnStartSelectionOfNewPlaceForBuilding;
 
         // Start is called before the first frame update

@@ -30,12 +30,15 @@ namespace Presentation
         private IEnumerator SelectTileByClick(Action CancelSelectionOfTile,
             Action<SelectedTileData> OnPlayerHasSelectedTile, Action SelectedTileIsOccupied)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             Debug.Log("START SELECTION");
-            _playerCanSelectTile = true;
             while (_playerCanSelectTile)
             {
-                if (!Input.GetMouseButtonDown(0)) yield return null;
+                if (!Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("WAITING");
+                    yield return null;
+                }
                 if (Input.GetMouseButtonDown(1))
                 {
                     Debug.Log("Canceled Buy");
@@ -43,27 +46,20 @@ namespace Presentation
                     _playerCanSelectTile = false;
                     yield break;
                 }
-
-                // mapManager.GetTileBase(Input.mousePosition);
-                // Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                // Vector3Int gridPosition = map.WorldToCell(mousePosition);
                 Vector3Int gridPosition = mapManager.GetGridPosition(Input.mousePosition);
-                var tile = mapManager.GetTile<BuildableTile>(Input.mousePosition);
-                
-                var data = mapManager.GetTileData(gridPosition);
-                Debug.Log($"SELECTED {gridPosition} TILE {tile} DATA {data}");
-                // var dataTile = mapManager.GetTileDataByTile(tile);
-                // if (data == null) yield break;
-                if (mapManager.IsOccupied(tile))
+                Debug.Log($"SELECTED {gridPosition}");
+ 
+                if (mapManager.IsOccupied(gridPosition))
                 {
                     SelectedTileIsOccupied.Invoke();
                     yield break;
                 }
 
+                mapManager.Occupy(gridPosition);
                 OnPlayerHasSelectedTile?.Invoke(new SelectedTileData
                 {
                     GridPosition = gridPosition,
-                    TileInnerData = data
+                    // TileInnerData = data
                 });
                 _playerCanSelectTile = false;
                 yield break;
@@ -87,6 +83,8 @@ namespace Presentation
         public void EnableTileSelection(Action cancelBuy, Action<SelectedTileData> OnPlayerHasSelectedTile,
             Action OnTileOccupied)
         {
+            _playerCanSelectTile = true;
+
             StartCoroutine(SelectTileByClick(cancelBuy, OnPlayerHasSelectedTile, OnTileOccupied));
         }
     }

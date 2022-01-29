@@ -19,8 +19,9 @@ namespace Presentation
     {
         [SerializeField] private Tilemap _tilemap;
         [SerializeField] private List<Vector3> world;
-        [SerializeField] private List<BuildableTile> worldTile = new List<BuildableTile>();
-        private Dictionary<Vector3, TileInnerData> innerDataFromTiles = new Dictionary<Vector3, TileInnerData>();
+        [SerializeField] private List<Vector3> occupiedWorld = new List<Vector3>();
+        [SerializeField] private List<Tile> worldTile = new List<Tile>();
+        [SerializeField] private Dictionary<Vector3, TileInnerData> innerDataFromTiles = new Dictionary<Vector3, TileInnerData>();
         [SerializeField] private List<TileTuple> innerTileDataFromTiles = new List<TileTuple>();
 
 
@@ -46,13 +47,12 @@ namespace Presentation
 
         public TileInnerData GetTileData(Vector3Int tilePosition)
         {
-            return _tilemap.GetTile<BuildableTile>(tilePosition).TileInnerData;
+            return _tilemap.GetTile<BuildableTile>(tilePosition).tileInnerData;
         }
 
         public void PlayerSetBuildingInTilemap(PlayerSetBuildingInTilemapEvent tilemapEvent)
         {
             var building = Instantiate(tilemapEvent.Prefab);
-            tilemapEvent.SelectedTile.TileInnerData.Occupied = true;
             building.transform.position = _tilemap.GetCellCenterWorld(tilemapEvent.SelectedTile.GridPosition);
         }
 
@@ -68,7 +68,8 @@ namespace Presentation
                     localPlace.z = 0;
                     Vector3 place = _tilemap.CellToWorld(localPlace);
                     if (!_tilemap.HasTile(localPlace)) continue;
-                    var tile = _tilemap.GetTile<BuildableTile>(localPlace);
+   
+                    var tile = _tilemap.GetTile<Tile>(localPlace);
                     worldTile.Add(tile);
                     world.Add(place);
                 }
@@ -104,6 +105,16 @@ namespace Presentation
         {
             return tile.IsOccupied();
 
+        }
+        
+        public bool IsOccupied(Vector3 gridPosition)
+        {
+             return occupiedWorld.Contains(gridPosition);
+        }
+
+        public void Occupy(Vector3Int gridPosition)
+        {
+            occupiedWorld.Add(gridPosition);
         }
     }
 }
