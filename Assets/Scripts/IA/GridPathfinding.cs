@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace IA
@@ -13,7 +15,7 @@ namespace IA
         [SerializeField]
         private Enemy _enemy;
 
-        public List<Vector3> availablePlaces;
+        [FormerlySerializedAs("availablePlaces")] public List<Vector3> yellowBrickRoad;
         public List<Vector3> world;
         public Vector3 nextDestination;
         
@@ -21,7 +23,6 @@ namespace IA
         {
             _enemy.InitialPosition(_tilemap.cellBounds.max);
             GetWorld();
-            nextDestination = Pathfinder(_enemy.transform.position);
         }
 
         private void Update()
@@ -33,22 +34,34 @@ namespace IA
             }
         }
 
-        private Vector3Int Pathfinder(Vector3 currentPos)
+        private Vector3 Pathfinder(Vector3 currentPos)
         {
-            foreach(var brick in availablePlaces)
+            Vector3 aux = new Vector3();
+            float bestOption = 99999;
+            float HValue = 0;
+
+            if (!yellowBrickRoad.Any())
             {
-                HeuristicValue(currentPos, brick);
-                nextDestination = brick;
-                
+                aux =_tilemap.cellBounds.min;
             }
-            availablePlaces.Remove(nextDestination);
-            _enemy.MoveTo(_tilemap.cellBounds.max);
-            return new Vector3Int();
+            
+            foreach(var brick in yellowBrickRoad)
+            {
+                HValue = HeuristicValue(currentPos, brick);
+                if (HValue < bestOption)
+                {
+                    aux = brick;
+                    bestOption = HValue;
+                };
+            }
+            yellowBrickRoad.Remove(aux);
+
+            return aux;
         }
 
         public void GetWorld()
         {
-            availablePlaces = new List<Vector3>();
+            yellowBrickRoad = new List<Vector3>();
             for (int n = _tilemap.cellBounds.xMin; n < _tilemap.cellBounds.xMax; n++)
             {
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
@@ -60,18 +73,16 @@ namespace IA
                         world.Add(place);
                         if (!_tilemap.GetTile(localPlace).name.Equals("tileGrass02"))
                         {
-                            availablePlaces.Add(place);
+                            yellowBrickRoad.Add(place);
                         }
                     }
                 }
             }
-            
-            Debug.Log(world.ToString());
         }
 
-        private void HeuristicValue(Vector3 current, Vector3 candidate)
+        private float HeuristicValue(Vector3 current, Vector3 candidate)
         {
-            
+            return Vector3.Distance(current, candidate);
         }
     }
 }
