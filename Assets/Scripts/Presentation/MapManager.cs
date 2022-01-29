@@ -67,7 +67,7 @@ namespace Presentation
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
                 {
                     Vector3Int localPlace = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
-                    Debug.Log($"TileMap Y Position{(int)_tilemap.transform.position.y}");
+                    // Debug.Log($"TileMap Y Position{(int)_tilemap.transform.position.y}");
                     localPlace.z = 0;
                     Vector3 place = _tilemap.CellToWorld(localPlace);
                     if (!_tilemap.HasTile(localPlace)) continue;
@@ -92,7 +92,7 @@ namespace Presentation
 
         public Vector3Int GetGridPosition(Vector3 inputMousePosition)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _tilemap.WorldToCell(mousePosition);
             return gridPosition;
         }
@@ -118,6 +118,11 @@ namespace Presentation
         public void Occupy(Vector3Int gridPosition)
         {
             occupiedWorld.Add(gridPosition);
+        }
+
+        public bool CanBeUsed(Vector3Int gridPosition)
+        {
+            return true;
         }
     }
 }

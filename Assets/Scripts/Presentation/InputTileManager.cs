@@ -39,6 +39,11 @@ namespace Presentation
                         SelectedTileIsOccupied.Invoke();
                         yield break;
                     }
+                    
+                    if (!mapManager.CanBeUsed(gridPosition))
+                    {
+                        yield break;
+                    }
 
                     mapManager.Occupy(gridPosition);
                     OnPlayerHasSelectedTile?.Invoke(new SelectedTileData

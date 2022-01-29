@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9107008365199540431}
   - component: {fileID: 5961397240373358376}
+  - component: {fileID: 505893361544698900}
   m_Layer: 0
   m_Name: BuildingsManager
   m_TagString: Untagged
@@ -48,3 +49,31 @@ MonoBehaviour:
   buildingData:
   - BuildingType: 0
     Prefab: {fileID: 215311263145991048, guid: 8dc236a61d2bac746bd3a3c2d46d5410, type: 3}
+--- !u!114 &505893361544698900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907901481322753423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5961397240373358376}
+        m_TargetAssemblyTypeName: Presentation.BuildingManager, Presentation
+        m_MethodName: SaveBuilding
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
+          m_ObjectArgumentAssemblyTypeName: SaveBuildingEvent, Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
