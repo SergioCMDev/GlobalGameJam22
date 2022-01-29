@@ -58,6 +58,7 @@ namespace Presentation
         private void OnTileOccupied()
         {
             Debug.Log($"SELECTED TILE Is Occupied");
+            inputTileManager.EnableTileSelection(OnCancelBuy, OnFinishBuy, OnTileOccupied);
         }
 
         private void OnFinishBuy(SelectedTileData obj)

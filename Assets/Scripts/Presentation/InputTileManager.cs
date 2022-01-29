@@ -11,6 +11,8 @@ namespace Presentation
         [SerializeField] private MapManager mapManager;
 
         private bool _playerCanSelectTile;
+
+        private IEnumerator selectTileByClick;
         // public event Action<SelectedTileData> OnPlayerHasSelectedTile;
 
         private IEnumerator SelectTileByClick(Action CancelSelectionOfTile,
@@ -26,6 +28,7 @@ namespace Presentation
                     _playerCanSelectTile = false;
                     yield break;
                 }
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     Vector3Int gridPosition = mapManager.GetGridPosition(Input.mousePosition);
@@ -46,17 +49,23 @@ namespace Presentation
                     _playerCanSelectTile = false;
                     yield break;
                 }
+
                 Debug.Log("WAITING");
                 yield return null;
             }
         }
 
-        public void EnableTileSelection(Action cancelBuy, Action<SelectedTileData> OnPlayerHasSelectedTile,
-            Action OnTileOccupied)
+        public void EnableTileSelection(Action cancelBuy, Action<SelectedTileData> playerHasSelectedTile,
+            Action tileIsOccupied)
         {
             _playerCanSelectTile = true;
+            if (selectTileByClick != null)
+            {
+                StopCoroutine(selectTileByClick);
+            }
 
-            StartCoroutine(SelectTileByClick(cancelBuy, OnPlayerHasSelectedTile, OnTileOccupied));
+            selectTileByClick = SelectTileByClick(cancelBuy, playerHasSelectedTile, tileIsOccupied);
+            StartCoroutine(selectTileByClick);
         }
     }
 }
