@@ -1490,6 +1490,10 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6921227462907885972, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
+      propertyPath: m_TileOrientationMatrix.e13
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921227462907885972, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
       propertyPath: m_TileSpriteArray.Array.size
       value: 8
       objectReference: {fileID: 0}
