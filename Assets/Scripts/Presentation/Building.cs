@@ -27,6 +27,7 @@ namespace Presentation
             _sliderBarViewEnemy.SetMaxValue(Life);
         }
 
+
         public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
         {
             if (_id != damageEvent.Id) return;

@@ -1,33 +1,32 @@
-using System;
 using UnityEngine;
 
 namespace Presentation
 {
-    public class Turrret : MilitaryBuilding
-    {
-        [SerializeField] private float _cadency;
-        
+    public class MilitaryBuilding : Building, IAttack{
         public override void ReceiveDamage(GameObject itemWhichHit, float receivedDamage)
         {
+            throw new System.NotImplementedException();
         }
-
-
 
         public override void ReceiveDamage(float receivedDamage)
         {
-            Life -= receivedDamage;
-            UpdateLifeSliderBar();
+            throw new System.NotImplementedException();
         }
 
         public override void AddLife(float lifeToAdd)
         {
-            Life += lifeToAdd;
-            UpdateLifeSliderBar();
+            throw new System.NotImplementedException();
         }
 
         public void Attack(IReceiveDamage objectToAttack)
         {
-            objectToAttack.ReceiveDamage(1);
+            throw new System.NotImplementedException();
         }
+        
+        private void Update()
+        {
+            // Attack();
+        }
+
     }
 }
