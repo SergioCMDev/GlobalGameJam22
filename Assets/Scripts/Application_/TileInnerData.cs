@@ -1,5 +1,8 @@
-﻿namespace Application_
+﻿using System;
+
+namespace Application_
 {
+    [Serializable]
     public class TileInnerData
     {
         public bool Occupied;

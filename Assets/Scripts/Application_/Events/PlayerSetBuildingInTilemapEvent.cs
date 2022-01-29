@@ -7,6 +7,5 @@ namespace Application_.Events
     {
         public GameObject Prefab;
         public SelectedTileData SelectedTile;
-        public Vector3 CellPosition;
     }
 }
