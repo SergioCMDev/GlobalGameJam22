@@ -1,15 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 
-[System.Serializable]
-public struct VariationPack 
+namespace Presentation
 {
+    [System.Serializable]
+    public struct VariationPack 
+    {
 
-    public List<TileBase> tiles;
+        public List<TileBase> tiles;
 
-    public List<int> frequency;
+        public List<int> frequency;
 
 
+    }
 }

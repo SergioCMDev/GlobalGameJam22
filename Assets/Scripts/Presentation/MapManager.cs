@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Application_;
+using Application_.Events;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -6,52 +8,32 @@ namespace Presentation
 {
     public class MapManager : MonoBehaviour
     {
-        [SerializeField]
-        private Tilemap map;
+        [SerializeField] private Tilemap _map;
+        private Dictionary<TileBase, TileInnerData> innerDataFromTiles = new Dictionary<TileBase, TileInnerData>();
 
-        [SerializeField]
-        private List<TileData> tileDatas;
-    
-        private Dictionary<TileBase, TileData> dataFromTiles;
-
-    
 
         private void Awake()
         {
-            dataFromTiles = new Dictionary<TileBase, TileData>();
-        
-            foreach (var tileData in tileDatas)
+
+            foreach (var tile in _map.GetTilesBlock(_map.cellBounds))
             {
-                foreach (var tile in tileData.tiles)
-                {
-                    dataFromTiles.Add(tile, tileData);
-                }
+                innerDataFromTiles.Add(tile, new TileInnerData());
             }
         }
-    
 
 
-        public float GetTileWalkingSpeed(Vector2 worldPosition)
+        public TileInnerData GetTileData(Vector3Int tilePosition)
         {
-            Vector3Int gridPosition = map.WorldToCell(worldPosition);
+            TileBase tile = _map.GetTile(tilePosition);
 
-            TileBase tile = map.GetTile(gridPosition);
-
-            if (tile == null)
-                return 1f;
-
-            float walkingSpeed = dataFromTiles[tile].walkingSpeed;
-
-            return walkingSpeed;
+            return tile == null ? null : innerDataFromTiles[tile];
         }
 
-
-        public TileData GetTileData(Vector3Int tilePosition)
+        public void PlayerSetBuildingInTilemap(PlayerSetBuildingInTilemapEvent tilemapEvent)
         {
-            TileBase tile = map.GetTile(tilePosition);
-
-            return tile == null ? null : dataFromTiles[tile];
+            var building = Instantiate(tilemapEvent.Prefab);
+            tilemapEvent.SelectedTile.TileData.Occupied = true;
+            building.transform.position = _map.GetCellCenterWorld(tilemapEvent.SelectedTile.GridPosition);
         }
-    
     }
 }

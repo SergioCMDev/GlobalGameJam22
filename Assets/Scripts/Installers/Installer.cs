@@ -3,7 +3,7 @@ using Application_.Models;
 using Application_.SceneManagement;
 using Application_.Services;
 using Domain;
-using Presentation.Input;
+using Presentation.InputPlayer;
 using Presentation.Managers;
 using UnityEngine;
 using Utils;

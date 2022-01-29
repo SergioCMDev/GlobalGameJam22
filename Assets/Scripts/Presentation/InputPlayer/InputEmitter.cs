@@ -2,7 +2,7 @@ using System;
 using InputPlayerSystem;
 using UnityEngine;
 
-namespace Presentation.Input
+namespace Presentation.InputPlayer
 {
     public class InputEmitter : MonoBehaviour
     {

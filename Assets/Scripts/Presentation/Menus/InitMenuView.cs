@@ -1,5 +1,5 @@
 ﻿using System;
-using Presentation.Input;
+using Presentation.InputPlayer;
 using Presentation.Languages;
 using Presentation.Menus;
 using TMPro;
