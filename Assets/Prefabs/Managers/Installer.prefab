@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &907901481322753423
+--- !u!1 &7588028081025465481
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9107008365199540431}
-  - component: {fileID: 5961397240373358376}
+  - component: {fileID: 7588028081025465494}
+  - component: {fileID: 7588028081025465495}
   m_Layer: 0
-  m_Name: BuildingsManager
+  m_Name: Installer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9107008365199540431
+--- !u!4 &7588028081025465494
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907901481322753423}
+  m_GameObject: {fileID: 7588028081025465481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,20 +31,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5961397240373358376
+--- !u!114 &7588028081025465495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907901481322753423}
+  m_GameObject: {fileID: 7588028081025465481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f98db1b4f02a05e4f864686d51d84b64, type: 3}
+  m_Script: {fileID: 11500000, guid: 4add0dbc314c8224faeffaf26b7dfc6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buildingCost:
-  - {fileID: 11400000, guid: 09ed20a0451ac42408ea207ff6c73709, type: 2}
-  buildingData:
-  - BuildingType: 0
-    Prefab: {fileID: 215311263145991048, guid: 8dc236a61d2bac746bd3a3c2d46d5410, type: 3}
+  _readInputPlayerPrefab: {fileID: 1053892058959154207, guid: 8220ddbe228676a4f81c42b4d0f069ea, type: 3}
+  _sceneChangerPrefab: {fileID: 6944487544585080513, guid: da55cf91b2d104e4391db27fa5d909b9, type: 3}
+  _soundManagerPrefab: {fileID: 7924285615697014437, guid: 3327e78d459fa3d4687b54281ac408c9, type: 3}
+  _timeManagerPrefab: {fileID: 8051633545354572411, guid: eee513133fcd42446859afcf79f80e6d, type: 3}
+  _buildingManagerPrefab: {fileID: 907901481322753423, guid: 5aab8ac33af42a84ab09d7609287dfd9, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuildableTile
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -2823228395545689175, guid: 9068d2c1590ce9849844a845ead300ff, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.65471697, b: 0.65471697, a: 1}
   m_Transform:
     e00: 1
     e01: 0
@@ -33,9 +33,9 @@ MonoBehaviour:
     e33: 1
   m_InstancedGameObject: {fileID: 7516846408002925715, guid: 35ee22620204f1345916d6455a2c99d0, type: 3}
   m_Flags: 1
-  m_ColliderType: 1
+  m_ColliderType: 0
   Occupied: 0
   m_Sprites: []
   m_Preview: {fileID: 9169013426699793051, guid: 9068d2c1590ce9849844a845ead300ff, type: 3}
-  TileInnerData:
+  tileInnerData:
     Occupied: 0

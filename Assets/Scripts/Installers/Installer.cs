@@ -3,6 +3,7 @@ using Application_.Models;
 using Application_.SceneManagement;
 using Application_.Services;
 using Domain;
+using Presentation;
 using Presentation.InputPlayer;
 using Presentation.Managers;
 using UnityEngine;
@@ -16,11 +17,13 @@ namespace Installers
         [SerializeField] private GameObject _sceneChangerPrefab;
         [SerializeField] private GameObject _soundManagerPrefab;
         [SerializeField] private GameObject _timeManagerPrefab;
+        [SerializeField] private GameObject _buildingManagerPrefab;
         // [SerializeField] private GameObject _collectibleManagerPrefab;
 
         private GameObject _readInputPlayerInstance,
             _sceneChangerInstance,
             _soundManagerInstance,
+            _buildingManagerInstance,
             _timeManagerInstance;
 
         private bool _initialized;
@@ -36,6 +39,7 @@ namespace Installers
             _sceneChangerInstance = Instantiate(_sceneChangerPrefab);
             _soundManagerInstance = Instantiate(_soundManagerPrefab);
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
+            _buildingManagerInstance = Instantiate(_buildingManagerPrefab);
             // _collectibleManagerInstance = Instantiate(_collectibleManagerPrefab);
 
 
@@ -51,14 +55,13 @@ namespace Installers
                 _readInputPlayerInstance.GetComponent<ReadInputPlayer>());
             ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
             ServiceLocator.Instance.RegisterService<TimeManager>(_timeManagerInstance.GetComponent<TimeManager>());
-            // ServiceLocator.Instance.RegisterService<CollectibleManager>(_collectibleManagerInstance
-            //     .GetComponent<CollectibleManager>());
+            ServiceLocator.Instance.RegisterService<BuildingManager>(_buildingManagerInstance.GetComponent<BuildingManager>());
+
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
             ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());
             ServiceLocator.Instance.RegisterModel<IBuildingStatusModel>(new BuildingStatusModel());
 
-            // ServiceLocator.Instance.RegisterService<CheckpointUpdaterService>(new CheckpointUpdaterService());
             // DontDestroyOnLoad(this);
             DontDestroyOnLoad(this);
             DontDestroyOnLoad(_sceneChangerInstance);
