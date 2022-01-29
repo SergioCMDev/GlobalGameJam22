@@ -216,7 +216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82216151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.91, y: 1.19, z: -10}
+  m_LocalPosition: {x: 0, y: -13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -590,11 +590,6 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3727428229755091869, guid: df737bd08479e984280626588c3f94c6, type: 3}
   m_PrefabInstance: {fileID: 380956258}
-  m_PrefabAsset: {fileID: 0}
---- !u!1839735485 &477739256 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 6921227463791904097, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
-  m_PrefabInstance: {fileID: 6921227464119631257}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1444,7 +1439,7 @@ PrefabInstance:
     - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
       propertyPath: _map
       value: 
-      objectReference: {fileID: 477739256}
+      objectReference: {fileID: 0}
     - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
       propertyPath: prefab
       value: 
@@ -5838,6 +5833,18 @@ PrefabInstance:
       propertyPath: m_TileSpriteArray.Array.data[7].m_Data
       value: 
       objectReference: {fileID: 21300000, guid: 74cde67e552094d478001182a0725ea4, type: 3}
+    - target: {fileID: 6921227462907885972, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
+      propertyPath: m_TileColorArray.Array.data[1].m_Data.b
+      value: 0.5012567
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921227462907885972, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
+      propertyPath: m_TileColorArray.Array.data[1].m_Data.g
+      value: 0.49826482
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921227462907885972, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
+      propertyPath: m_TileColorArray.Array.data[1].m_Data.r
+      value: 0.72838324
+      objectReference: {fileID: 0}
     - target: {fileID: 6921227462907885972, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
       propertyPath: m_TileAssetArray.Array.data[0].m_RefCount
       value: 165
