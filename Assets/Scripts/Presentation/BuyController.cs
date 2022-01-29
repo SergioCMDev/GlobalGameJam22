@@ -57,16 +57,17 @@ namespace Presentation
 
         private void OnTileOccupied()
         {
-            throw new NotImplementedException();
+            Debug.Log($"SELECTED TILE Is Occupied");
         }
 
         private void OnFinishBuy(SelectedTileData obj)
         {
+            Debug.Log($"Data Player has selected Tile");
             _playerSetBuildingInTilemapEvent.Prefab = prefab;
             _playerSetBuildingInTilemapEvent.SelectedTile = obj;
             _playerSetBuildingInTilemapEvent.Fire();
-          
-            // Debug.Log($"Data {obj.TileData}");
+            UpgradeBoughtBuilding();
+            _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
         }
 
 
@@ -76,11 +77,6 @@ namespace Presentation
                 x.buildingType == obj.BuildingSelectable.BuildingType);
         }
 
-        private void OnFinishBuy()
-        {
-            _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
-            UpgradeBoughtBuilding();
-        }
 
         private void UpgradeBoughtBuilding()
         {
@@ -91,7 +87,7 @@ namespace Presentation
 
         private void OnCancelBuy()
         {
-            throw new NotImplementedException();
+            Debug.Log($"Canceled Buy");
         }
 
         //TODO
