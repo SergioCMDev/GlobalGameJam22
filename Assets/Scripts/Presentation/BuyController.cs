@@ -25,11 +25,11 @@ namespace Presentation
             _buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
         }
 
-        private void OnPlayerWantsToBuyBuilding(BuildingPrefabTuple buildingPrefabTuple)
+        private void OnPlayerWantsToBuyBuilding(BuildingTypeTuple buildingTypeTuple)
         {
             //Get LastLevel of building
-            var buildingsStatus = _buildingManager.GetBuildingStatus(buildingPrefabTuple);
-            currentBuildingBuyType = buildingPrefabTuple.BuildingSelectable.BuildingType;
+            var buildingsStatus = _buildingManager.GetBuildingStatus(buildingTypeTuple);
+            currentBuildingBuyType = buildingTypeTuple.BuildingSelectable.BuildingType;
             resourcesNeededForCurrentBuy =
                 _buildingManager.GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,

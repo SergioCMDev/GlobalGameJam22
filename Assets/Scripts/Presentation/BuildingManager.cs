@@ -47,7 +47,7 @@ namespace Presentation
             };
         }
 
-        public BuildStatus GetBuildingStatus(BuildingPrefabTuple obj)
+        public BuildStatus GetBuildingStatus(BuildingTypeTuple obj)
         {
             return _buildingStatusModel.BuildStatusList.SingleOrDefault(x =>
                 x.buildingType == obj.BuildingSelectable.BuildingType);

@@ -8,10 +8,9 @@ namespace Presentation
     public abstract class BuildingSelector : MonoBehaviour
     {
         [SerializeField] private Button _button;
-        private BuildingType _buildigType;
         public event Action<BuildingSelector> OnBuildingSelected;
 
-        public BuildingType BuildingType => _buildigType;
+        public BuildingType BuildingType { get; protected set; }
 
         void Start()
         {

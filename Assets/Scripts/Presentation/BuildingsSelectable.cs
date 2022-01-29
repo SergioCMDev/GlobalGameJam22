@@ -8,9 +8,9 @@ namespace Presentation
 {
     public class BuildingsSelectable : MonoBehaviour
     {
-        [SerializeField] private List<BuildingPrefabTuple> _buildingsSelector;
+        [SerializeField] private List<BuildingTypeTuple> _buildingsSelector;
 
-        public event Action<BuildingPrefabTuple> OnPlayerWantsToBuyBuilding;
+        public event Action<BuildingTypeTuple> OnPlayerWantsToBuyBuilding;
         void Start()
         {
             foreach (var building in _buildingsSelector)

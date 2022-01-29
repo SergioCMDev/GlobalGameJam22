@@ -5,7 +5,7 @@ namespace Presentation
 {
     public struct BuildingCostTuple
     {
-        public BuildingPrefabTuple buildingPrefabTuple;
+        public BuildingTypeTuple BuildingTypeTuple;
         public ResourcesTuple resourcesTuple;
     }
 }
