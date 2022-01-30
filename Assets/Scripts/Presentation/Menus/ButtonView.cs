@@ -29,7 +29,7 @@ namespace Presentation.Menus
         public void StartSparkle()
         {
             _text.color = Color.white;
-            _selector.gameObject.SetActive(true);
+            // _selector.gameObject.SetActive(true);
         }
 
         public void EndSparkle()
