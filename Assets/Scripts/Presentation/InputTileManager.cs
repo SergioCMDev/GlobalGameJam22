@@ -15,6 +15,7 @@ namespace Presentation
         private IEnumerator selectTileByClick;
         // public event Action<SelectedTileData> OnPlayerHasSelectedTile;
 
+        //TODO CHECK IF WITH ONMOUSEDOWN WORKS
         private IEnumerator SelectTileByClick(Action CancelSelectionOfTile,
             Action<SelectedTileData> OnPlayerHasSelectedTile, Action SelectedTileIsOccupied)
         {

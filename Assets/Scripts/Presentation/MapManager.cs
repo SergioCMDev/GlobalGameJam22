@@ -122,7 +122,7 @@ namespace Presentation
 
         public bool CanBeUsed(Vector3Int gridPosition)
         {
-            return true;
+            return _tilemap.HasTile(gridPosition);
         }
     }
 }
