@@ -1,5 +1,5 @@
-﻿using Application_.Events;
-using Presentation.Structs;
+﻿using Application_;
+using Application_.Events;
 using UnityEngine;
 
 namespace Presentation
@@ -8,6 +8,6 @@ namespace Presentation
         menuName = "Events/Building/PlayerWantsToBuyBuildingEvent")]
     public class PlayerWantsToBuyBuildingEvent : GameEventScriptable
     {
-        public BuildingTypeTuple Tuple;
+        public BuildingType BuildingType;
     }
 }

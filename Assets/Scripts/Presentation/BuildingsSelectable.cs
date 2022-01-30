@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Application_;
 using Presentation.Structs;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace Presentation
     {
         [SerializeField] private List<BuildingTypeTuple> _buildingsSelector;
 
-        public event Action<BuildingTypeTuple> OnPlayerWantsToBuyBuilding;
+        public event Action<BuildingType> OnPlayerWantsToBuyBuilding;
         void Start()
         {
             foreach (var building in _buildingsSelector)
@@ -27,10 +27,9 @@ namespace Presentation
             }
         }
 
-        private void BuildingSelected(BuildingSelector obj)
+        private void BuildingSelected(BuildingType obj)
         {
-            var buildingPrefabTuple = _buildingsSelector.Single(x => x.BuildingSelectable == obj);
-            OnPlayerWantsToBuyBuilding.Invoke(buildingPrefabTuple);
+            OnPlayerWantsToBuyBuilding.Invoke(obj);
         }
     }
 }

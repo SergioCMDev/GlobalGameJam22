@@ -27,15 +27,15 @@ namespace Presentation
 
         public void PlayerWantsToBuyBuildingEvent(PlayerWantsToBuyBuildingEvent playerWantsToBuyBuildingEvent)
         {
-            OnPlayerWantsToBuyBuilding(playerWantsToBuyBuildingEvent.Tuple);
+            OnPlayerWantsToBuyBuilding(playerWantsToBuyBuildingEvent.BuildingType);
         }
-        private void OnPlayerWantsToBuyBuilding(BuildingTypeTuple buildingTypeTuple)
+        private void OnPlayerWantsToBuyBuilding(BuildingType buildingType)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
             //Get LastLevel of building
-            var buildingsStatus = _buildingManager.GetBuildingStatus(buildingTypeTuple);
-            currentBuildingBuyType = buildingTypeTuple.BuildingSelectable.BuildingType;
+            var buildingsStatus = _buildingManager.GetBuildingStatus(buildingType);
+            currentBuildingBuyType = buildingType;
             resourcesNeededForCurrentBuy =
                 _buildingManager.GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,

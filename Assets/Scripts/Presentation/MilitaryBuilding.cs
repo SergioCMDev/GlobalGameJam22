@@ -16,6 +16,7 @@ namespace Presentation
         private GameObject enemy;
 
         private float _lastTimeAttacked;
+        private bool _enemyIsSet;
 
         private float Cadence
         {
@@ -63,7 +64,7 @@ namespace Presentation
 
         private void Update()
         {
-            if (CanAttack() && CanReach(enemy))
+            if (_enemyIsSet && CanAttack() && CanReach(enemy))
             {
                 Attack(enemyToAttack);
             }
@@ -77,6 +78,7 @@ namespace Presentation
         public void SetEnemyToAttack(IReceiveDamage enemy)
         {
             enemyToAttack = enemy;
+            _enemyIsSet = true;
         }
     }
 }

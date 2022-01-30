@@ -56,10 +56,10 @@ namespace Presentation
             };
         }
 
-        public BuildStatus GetBuildingStatus(BuildingTypeTuple obj)
+        public BuildStatus GetBuildingStatus(BuildingType type)
         {
             return _buildingStatusModel.BuildStatusList.SingleOrDefault(x =>
-                x.buildingType == obj.BuildingSelectable.BuildingType);
+                x.buildingType == type);
         }
 
         public void SaveBuilding(SaveBuildingEvent tilemapEvent)

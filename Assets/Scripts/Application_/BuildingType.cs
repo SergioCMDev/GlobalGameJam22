@@ -2,6 +2,8 @@
 {
     public enum BuildingType
     {
-        Tesla
+        Tesla,
+        Canon,
+        Turret
     }
 }

@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 namespace Presentation
 {
-    public abstract class BuildingSelector : MonoBehaviour
+    public class BuildingSelector : MonoBehaviour
     {
         [SerializeField] private Button _button;
         [SerializeField] private SfxSoundName _soundWhenClicked;
         [SerializeField] private PlaySFXEvent _playSfxEvent;
-        public event Action<BuildingSelector> OnBuildingSelected;
+        [SerializeField] private BuildingType _buildingType;
+        public event Action<BuildingType> OnBuildingSelected;
 
-        public BuildingType BuildingType { get; protected set; }
+        public BuildingType BuildingType { get => _buildingType; protected set => _buildingType = value; }
 
         void Start()
         {
@@ -23,7 +24,7 @@ namespace Presentation
         private void BuildingSelected()
         {
             MakeSound();
-            OnBuildingSelected.Invoke(this);
+            OnBuildingSelected.Invoke(BuildingType);
         }
 
         private void OnDestroy()
