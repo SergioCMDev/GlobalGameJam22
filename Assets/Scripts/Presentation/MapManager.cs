@@ -46,10 +46,10 @@ namespace Presentation
         }
 
 
-        public TileInnerData GetTileData(Vector3Int tilePosition)
-        {
-            return _tilemap.GetTile<BuildableTile>(tilePosition).tileInnerData;
-        }
+        // public TileInnerData GetTileData(Vector3Int tilePosition)
+        // {
+        //     return _tilemap.GetTile<BuildableTile>(tilePosition).tileInnerData;
+        // }
 
         public void PlayerSetBuildingInTilemap(PlayerSetBuildingInTilemapEvent tilemapEvent)
         {
@@ -104,11 +104,11 @@ namespace Presentation
                 : innerTileDataFromTiles.Single(x => x.TileBase == tile).TileInnerData;
         }
 
-        public bool IsOccupied(BuildableTile tile)
-        {
-            return tile.IsOccupied();
-
-        }
+        // public bool IsOccupied(BuildableTile tile)
+        // {
+        //     return tile.IsOccupied();
+        //
+        // }
         
         public bool IsOccupied(Vector3 gridPosition)
         {
