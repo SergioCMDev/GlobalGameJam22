@@ -32,7 +32,7 @@ public class GridPathfinding:MonoBehaviour
     public Vector3 end;
     private float currentTime = 0;
     public float damage = 1f;
-    public float attackSpeed = 2;
+    public float attackSpeed = 1;
     
     
     private void Awake()
@@ -59,7 +59,7 @@ public class GridPathfinding:MonoBehaviour
                 //nextDestination = lastBrick;
                 if (CanAttack() && _cityBuilding.Life >= 0)
                 {
-                    _cityBuilding.ReceiveDamage(damage);
+                    _cityBuilding.ReceiveDamage(damage, defensiveBuilds.Count);
                     currentTime -= attackSpeed;
                     Debug.Log("Damage percentage: " + (100/_cityBuilding.MaxLife)*_cityBuilding.Life);
                 }
