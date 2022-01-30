@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using IA;
 using Presentation;
 using UnityEngine;
@@ -21,21 +20,12 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
     public void ReceiveDamage(float receivedDamage, DamageType damageType)
     {
         //TODO REFRACTOR USING COMMAND PATTERN
-        switch (damageType)
-        {
-            case DamageType.Bullets:
-                _life -= receivedDamage;
-                CheckLife();
-                break;
-            case DamageType.TeslaTower:
-                _life -= receivedDamage;
-                CheckLife();
-                _enemyMovement.ChangeSpeed(_enemyMovement.Speed *= 0.25f);
-                Invoke(nameof(ResetSpeed), 0.4f);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null);
-        }
+        _life -= receivedDamage;
+        CheckLife();
+        if (damageType != DamageType.TeslaTower) return;
+        _enemyMovement.ChangeSpeed(_enemyMovement.Speed *= 0.25f);
+        Invoke(nameof(ResetSpeed), 0.4f);
+
     }
 
     private void ResetSpeed()

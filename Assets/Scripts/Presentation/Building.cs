@@ -17,7 +17,7 @@ namespace Presentation
             set => _level = value;
         }
 
-        protected float Life
+        public float Life
         {
             get => _currentLife;
             set => _currentLife = value;
@@ -44,9 +44,7 @@ namespace Presentation
             _sliderBarView.SetValue(Life);
         }
 
-        public abstract void ReceiveDamage(GameObject itemWhichHit, float receivedDamage);
-
-        public abstract void ReceiveDamage(float receivedDamage);
+        protected abstract void ReceiveDamage(float receivedDamage);
 
         public void AddLife(float lifeToAdd)
         {
@@ -66,7 +64,7 @@ namespace Presentation
 
         public void ReceiveDamage(float receivedDamage, DamageType damageType)
         {
-            throw new System.NotImplementedException();
+            ReceiveDamage(receivedDamage);
         }
     }
 }

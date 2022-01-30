@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application_;
-using Application_.Events;
 using Application_.Models;
 using Presentation.Structs;
 using UnityEngine;
