@@ -1,4 +1,6 @@
 using Application_;
+using Application_.Events;
+using Application_.SceneManagement;
 using Presentation;
 using Presentation.Managers;
 using TMPro;
@@ -13,6 +15,7 @@ namespace Presentation
         [SerializeField] private PlayerWantsToBuyBuildingEvent _event;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private WinLoseMenuView _winLoseMenuView;
+        private SceneChanger _sceneChanger;
 
         private ResourcesManager _resourcesManager;
 
@@ -20,8 +23,27 @@ namespace Presentation
         void Start()
         {
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
+            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             UpdateResources(null);
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += OnPlayerWantsToBuyBuilding;
+            _winLoseMenuView.OnContinueButtonPressed += ContinueButtonPressedLevel;
+            _winLoseMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
+            _winLoseMenuView.OnGoToMainMenuButtonPressed += OnGoToMainLevel;
+        }
+
+        private void OnGoToMainLevel()
+        {
+            _sceneChanger.GoToMenu();
+        }
+
+        private void RestartButtonPressedLevel()
+        {
+            _sceneChanger.RestartScene(null);
+        }
+        
+        private void ContinueButtonPressedLevel()
+        {
+            _sceneChanger.GoToNextScene();
         }
 
         private void OnPlayerWantsToBuyBuilding(BuildingType buildingType)

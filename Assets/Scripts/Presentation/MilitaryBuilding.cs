@@ -65,16 +65,18 @@ namespace Presentation
 
         private void Update()
         {
-            if (_enemyIsSet && enemyLife.IsAlive() && Utilities.HasPastTime(_lastTimeAttacked, Cadence) && CanReach(enemyGameObject))
+            if (_enemyIsSet && enemyLife.IsAlive() && CanAttack() && CanReach(enemyGameObject))
             {
                 Attack(enemyToAttack);
             }
         }
 
-        // private bool CanAttack()
-        // {
-        //     return _lastTimeAttacked + Cadence > Time.deltaTime;
-        // }
+        //TODO REFRACTOR
+        private bool CanAttack()
+        {
+            _lastTimeAttacked += Time.deltaTime;
+            return _lastTimeAttacked > Cadence;
+        }
 
         public void SetEnemyToAttack(GameObject enemy)
         {

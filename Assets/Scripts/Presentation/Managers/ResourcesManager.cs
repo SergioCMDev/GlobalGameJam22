@@ -18,10 +18,12 @@ namespace Presentation.Managers
             _resourcesModel = ServiceLocator.Instance.GetModel<IResourcesModel>();
         }
 
+        //TODO FINISH
         public bool PlayerHasEnoughResources(float goldToSpend, float metalToSpend)
         {
             // return goldToSpend <= _resourcesModel.Gold && metalToSpend <= _resourcesModel.Metal;
-            return true;
+            return goldToSpend <= _resourcesModel.Gold ;
+            // return true;
         }
 
         public void PlayerGetResource(PlayerGetResourceEvent playerGetResourceEvent)

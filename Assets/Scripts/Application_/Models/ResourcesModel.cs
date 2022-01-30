@@ -7,8 +7,8 @@
 
         public ResourcesModel()
         {
-            Gold = 20;
-            Metal = 20;
+            Gold = 200;
+            Metal = 200;
         }
 
         public void AddResources(RetrievableResourceType type, float quantity)

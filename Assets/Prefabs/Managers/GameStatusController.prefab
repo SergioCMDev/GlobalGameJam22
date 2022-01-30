@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4967238188201839980}
   - component: {fileID: 4967238188201839983}
+  - component: {fileID: 1446073709}
+  - component: {fileID: 1446073708}
+  - component: {fileID: 1446073707}
   m_Layer: 0
   m_Name: GameStatusController
   m_TagString: Untagged
@@ -43,5 +46,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cityBuilding: {fileID: 0}
   _playerHasWonEvent: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
   _playerHasLostEvent: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
+--- !u!114 &1446073709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 7ad070e5047edad4c911db29f0cfdca1, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: GameStatusController, Assembly-CSharp
+        m_MethodName: PlayerHasLost
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
+          m_ObjectArgumentAssemblyTypeName: PlayerHasLostEvent, Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1446073708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: GameStatusController, Assembly-CSharp
+        m_MethodName: PlayerHasWon
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
+          m_ObjectArgumentAssemblyTypeName: PlayerHasWonEvent, Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1446073707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: d65df97f1ccd7f746b1c4b3b8962ad58, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: GameStatusController, Assembly-CSharp
+        m_MethodName: RestartLevel
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d65df97f1ccd7f746b1c4b3b8962ad58, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.PlayerHasRestartedLevelEvent,
+            Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

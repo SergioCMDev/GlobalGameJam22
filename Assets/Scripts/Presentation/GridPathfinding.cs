@@ -58,7 +58,7 @@ public class GridPathfinding:MonoBehaviour
             {
                 //attacking = true;
                 //nextDestination = lastBrick;
-                if (Utilities.HasPastTime(currentTime, attackSpeed) && _cityBuilding.Life >= 0)
+                if (CanAttack() && _cityBuilding.Life >= 0)
                 {
                     _cityBuilding.ReceiveDamage(damage, defensiveBuilds.Count);
                     currentTime -= attackSpeed;
@@ -170,11 +170,11 @@ public class GridPathfinding:MonoBehaviour
         }
     }
     
-    // private bool CanAttack()
-    // {
-    //     currentTime += Time.deltaTime;
-    //     return currentTime > attackSpeed;
-    // }
+    private bool CanAttack()
+    {
+        currentTime += Time.deltaTime;
+        return currentTime > attackSpeed;
+    }
     
     
     
