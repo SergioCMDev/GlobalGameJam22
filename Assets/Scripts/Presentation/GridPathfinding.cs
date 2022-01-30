@@ -30,9 +30,9 @@ public class GridPathfinding:MonoBehaviour
 
     public Vector3 start;
     public Vector3 end;
-    private float currentTime;
+    private float currentTime = 0;
     public float damage = 1f;
-    public float attackSpeed = 1f;
+    public float attackSpeed = 2;
     
     
     private void Awake()
@@ -44,6 +44,7 @@ public class GridPathfinding:MonoBehaviour
         //_enemy.InitialPosition(_tilemap.WorldToLocal(start));
         GetWorld();
         nextDestination = Pathfinder(enemyMovement.transform.position);
+        _cityBuilding.OnBuildingDestroyed += destroyTile;
 
         initialPotition = false;
     }
@@ -56,11 +57,10 @@ public class GridPathfinding:MonoBehaviour
             {
                 //attacking = true;
                 //nextDestination = lastBrick;
-                if (CanAttack())
+                if (CanAttack() && _cityBuilding.Life >= 0)
                 {
                     _cityBuilding.ReceiveDamage(damage);
-                    currentTime = Time.deltaTime;
-                    _cityBuilding.OnBuildingDestroyed += destroyTile;
+                    currentTime -= attackSpeed;
                     Debug.Log("Damage percentage: " + (100/_cityBuilding.MaxLife)*_cityBuilding.Life);
                 }
             }
@@ -74,7 +74,7 @@ public class GridPathfinding:MonoBehaviour
 
     private void destroyTile(Building obj)
     {
-        if (((100/_cityBuilding.MaxLife)*_cityBuilding.Life) < 90)
+        if (defensiveBuildsToWorld.Any())
         {
             var randomKey = defensiveBuildsToWorld.Keys.ToArray()[(int)Random.Range(0, defensiveBuildsToWorld.Keys.Count - 1)];
             _tilemap.SetTile(defensiveBuildsToWorld[randomKey], cityDestroyed);
@@ -171,7 +171,8 @@ public class GridPathfinding:MonoBehaviour
     
     private bool CanAttack()
     {
-        return currentTime + attackSpeed > Time.deltaTime;
+        currentTime += Time.deltaTime;
+        return currentTime > attackSpeed;
     }
     
     
