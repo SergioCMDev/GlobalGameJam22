@@ -26,12 +26,7 @@ namespace Presentation
             get => _damage;
             set => _damage = value;
         }
-
-        public override void ReceiveDamage(GameObject itemWhichHit, float receivedDamage)
-        {
-            ReceiveDamage(receivedDamage);
-        }
-
+        
         protected override void ReceiveDamage(float receivedDamage)
         {
             Life -= receivedDamage;
