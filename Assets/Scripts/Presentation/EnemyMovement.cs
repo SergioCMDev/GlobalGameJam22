@@ -38,6 +38,10 @@ namespace IA
         {
             transform.position = initial;
         }
-        
+
+        public void Stop()
+        {
+            _currentSpeed = 0;
+        }
     }
 }

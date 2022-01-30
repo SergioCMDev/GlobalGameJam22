@@ -257,10 +257,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderBarView: {fileID: 4305953639494981215}
-  _life: 50
   _maximumLife: 0
   _cadence: 2
   _damage: 20
+  _distanceToAttack: 4
   _sfxWhenAttack: 8
   _damageType: 0
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}

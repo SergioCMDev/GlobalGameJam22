@@ -10,13 +10,12 @@ namespace Presentation
 {
     public class BuildingManager : MonoBehaviour
     {
-        private IBuildingStatusModel _buildingStatusModel;
-        private GameObject _enemy;
-        private IReceiveDamage _enemyReceiveDamage;
-        private List<MilitaryBuilding> _ownMilitaryBuilding = new List<MilitaryBuilding>();
         [SerializeField] private List<BuildingCost> _buildingCost;
-
         [SerializeField] private List<BuildingDataTuple> buildingData;
+        private IBuildingStatusModel _buildingStatusModel;
+        private List<MilitaryBuilding> _ownMilitaryBuilding = new List<MilitaryBuilding>();
+
+        private GameObject _enemy;
 
         void Start()
         {
@@ -31,7 +30,6 @@ namespace Presentation
             }
 
             _enemy = FindObjectOfType<Enemy>().gameObject;
-            _enemyReceiveDamage = _enemy.GetComponent<IReceiveDamage>();
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)
@@ -65,7 +63,7 @@ namespace Presentation
         public void SaveBuilding(SaveBuildingEvent tilemapEvent)
         {
             var militaryBuilding = tilemapEvent.Instance.GetComponent<MilitaryBuilding>();
-            militaryBuilding.SetEnemyToAttack(_enemyReceiveDamage);
+            militaryBuilding.SetEnemyToAttack(_enemy);
             _ownMilitaryBuilding.Add(militaryBuilding);
         }
     }

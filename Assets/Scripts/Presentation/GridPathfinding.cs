@@ -51,6 +51,7 @@ namespace IA
                     nextDestination = Pathfinder(enemyMovement.transform.position);
                 }
             }
+            //TODO CHANGE TO ENEMY
             enemyMovement.MoveTo(nextDestination);
         }
 

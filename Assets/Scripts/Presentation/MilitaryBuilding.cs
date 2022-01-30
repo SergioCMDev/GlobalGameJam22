@@ -13,7 +13,8 @@ namespace Presentation
         [SerializeField] private GameObject _particles;
 
         private IReceiveDamage enemyToAttack;
-        private GameObject enemy;
+        private ILife enemyLife;
+        private GameObject enemyGameObject;
 
         private float _lastTimeAttacked;
         private bool _enemyIsSet;
@@ -38,7 +39,7 @@ namespace Presentation
 
         public void Attack(IReceiveDamage objectToAttack)
         {
-            if (!CanAttack() || !CanReach(enemy)) return;
+            if (!CanAttack() || !CanReach(enemyGameObject)) return;
             _lastTimeAttacked = Time.deltaTime;
             MakeSoundWhenAttacks();
             ThrowParticlesWhenAttacks();
@@ -64,7 +65,7 @@ namespace Presentation
 
         private void Update()
         {
-            if (_enemyIsSet && CanAttack() && CanReach(enemy))
+            if (_enemyIsSet && enemyLife.IsAlive() && CanAttack() && CanReach(enemyGameObject))
             {
                 Attack(enemyToAttack);
             }
@@ -75,10 +76,12 @@ namespace Presentation
             return _lastTimeAttacked + Cadence > Time.deltaTime;
         }
 
-        public void SetEnemyToAttack(IReceiveDamage enemy)
+        public void SetEnemyToAttack(GameObject enemy)
         {
             if (enemy == null) return;
-            enemyToAttack = enemy;
+            enemyToAttack = enemy.GetComponent<IReceiveDamage>();
+            enemyLife = enemy.GetComponent<ILife>();
+            enemyGameObject = enemy;
             _enemyIsSet = true;
         }
     }

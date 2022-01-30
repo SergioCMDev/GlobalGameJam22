@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6849419769269339580}
   - component: {fileID: 820448688}
   m_Layer: 0
-  m_Name: LevelController
+  m_Name: BuyController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

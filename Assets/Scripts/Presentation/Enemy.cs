@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
     [SerializeField] private EnemyMovement _enemyMovement;
     [SerializeField] private int _maximumLife;
     private float _life;
+    private bool _isAlive;
 
     public event Action OnEnemyHasBeenDefeated;
 
@@ -21,11 +22,16 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
     {
         //TODO REFRACTOR USING COMMAND PATTERN
         _life -= receivedDamage;
-        CheckLife();
+        CheckIfAlive();
         if (damageType != DamageType.TeslaTower) return;
         _enemyMovement.ChangeSpeed(_enemyMovement.Speed *= 0.25f);
         Invoke(nameof(ResetSpeed), 0.4f);
 
+    }
+
+    public bool IsAlive()
+    {
+        return _life > 0;
     }
 
     private void ResetSpeed()
@@ -33,12 +39,11 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
         _enemyMovement.ResetSpeed();
     }
 
-    private void CheckLife()
+    private void CheckIfAlive()
     {
-        if (_life <= 0)
-        {
-            OnEnemyHasBeenDefeated.Invoke();
-        }
+        if (IsAlive()) return;
+        _enemyMovement.Stop();
+        OnEnemyHasBeenDefeated.Invoke();
     }
 
     public void AddLife(float lifeToAdd)

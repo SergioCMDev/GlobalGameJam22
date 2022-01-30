@@ -36,9 +36,11 @@ public class CanvasPresenter : MonoBehaviour
 
     public void PlayerHasWon(PlayerHasWonEvent playerHasWonEvent)
     {
+        Debug.Log("HAS GANAO");
     }
 
     public void PlayerHasLost(PlayerHasLostEvent playerHasLostEvent)
     {
+        Debug.Log("HAS PERDIO");
     }
 }
