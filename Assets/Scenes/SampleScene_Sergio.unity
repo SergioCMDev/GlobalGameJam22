@@ -220,6 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235531160}
+  - component: {fileID: 235531161}
   m_Layer: 0
   m_Name: GameStatusController
   m_TagString: Untagged
@@ -241,6 +242,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &235531161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235531159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHasWonEvent: {fileID: 0}
+  _playerHasLostEvent: {fileID: 0}
 --- !u!1 &379026315
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +699,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26f4c04aa3866e045828ea35199e4eea, type: 3}
+--- !u!1 &1354093162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2341795770455548732, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+  m_PrefabInstance: {fileID: 2341795771792634198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1354093163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354093162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 0}
+  response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1398681847
 GameObject:
   m_ObjectHideFlags: 0
