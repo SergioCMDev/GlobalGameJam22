@@ -221,21 +221,25 @@ PrefabInstance:
       propertyPath: mSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3449160122288460459, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -284,12 +288,33 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3449160122288460458, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
   m_PrefabInstance: {fileID: 259709248}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 259709250}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 837e4c593f0247099961fec26bd30eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &259709250 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3449160122288460457, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
+  m_PrefabInstance: {fileID: 259709248}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &259709251
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259709250}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: a2a960cae3dcd1840b6376381763ffca, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: a2a960cae3dcd1840b6376381763ffca, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &379026315
 GameObject:
   m_ObjectHideFlags: 0
