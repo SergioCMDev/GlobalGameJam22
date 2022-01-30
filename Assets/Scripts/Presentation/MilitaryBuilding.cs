@@ -39,7 +39,7 @@ namespace Presentation
 
         public void Attack(IReceiveDamage objectToAttack)
         {
-            if (!CanAttack() || !CanReach(enemyGameObject)) return;
+            if (!Utilities.HasPastTime(_lastTimeAttacked, Cadence) || !CanReach(enemyGameObject)) return;
             _lastTimeAttacked = Time.deltaTime;
             MakeSoundWhenAttacks();
             ThrowParticlesWhenAttacks();
@@ -65,16 +65,16 @@ namespace Presentation
 
         private void Update()
         {
-            if (_enemyIsSet && enemyLife.IsAlive() && CanAttack() && CanReach(enemyGameObject))
+            if (_enemyIsSet && enemyLife.IsAlive() && Utilities.HasPastTime(_lastTimeAttacked, Cadence) && CanReach(enemyGameObject))
             {
                 Attack(enemyToAttack);
             }
         }
 
-        private bool CanAttack()
-        {
-            return _lastTimeAttacked + Cadence > Time.deltaTime;
-        }
+        // private bool CanAttack()
+        // {
+        //     return _lastTimeAttacked + Cadence > Time.deltaTime;
+        // }
 
         public void SetEnemyToAttack(GameObject enemy)
         {
