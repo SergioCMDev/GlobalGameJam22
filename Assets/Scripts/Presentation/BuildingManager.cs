@@ -13,6 +13,7 @@ namespace Presentation
     {
         private IBuildingStatusModel _buildingStatusModel;
         private GameObject _enemy;
+        private IReceiveDamage _enemyReceiveDamage;
         private List<MilitaryBuilding> _ownMilitaryBuilding = new List<MilitaryBuilding>();
         [SerializeField] private List<BuildingCost> _buildingCost;
 
@@ -30,7 +31,8 @@ namespace Presentation
                 });
             }
 
-            // enemy = FindObjectOfType<Enemy>();
+            _enemy = FindObjectOfType<Enemy>().gameObject;
+            _enemyReceiveDamage = _enemy.GetComponent<IReceiveDamage>();
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)
@@ -64,7 +66,7 @@ namespace Presentation
         public void SaveBuilding(SaveBuildingEvent tilemapEvent)
         {
             var militaryBuilding = tilemapEvent.Instance.GetComponent<MilitaryBuilding>();
-            militaryBuilding.SetEnemyToAttack(_enemy);
+            militaryBuilding.SetEnemyToAttack(_enemyReceiveDamage);
             _ownMilitaryBuilding.Add(militaryBuilding);
         }
     }

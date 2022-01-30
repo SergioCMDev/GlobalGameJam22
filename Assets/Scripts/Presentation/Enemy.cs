@@ -1,22 +1,58 @@
-using UnityEditor.Tilemaps;
+﻿using System;
+using System.Collections;
+using IA;
+using Presentation;
 using UnityEngine;
+using Utils;
 
-namespace IA
+public class Enemy : MonoBehaviour, IReceiveDamage, ILife
 {
-    public class Enemy:MonoBehaviour
+    [SerializeField] private EnemyMovement _enemyMovement;
+    [SerializeField] private int _maximumLife;
+    private float _life;
+
+    public event Action OnEnemyHasBeenDefeated;
+
+    private void Start()
     {
-        [SerializeField] private int mSpeed = 0;
-        
+        _life = _maximumLife;
+    }
 
-        public void MoveTo(Vector3 position)
+    public void ReceiveDamage(float receivedDamage, DamageType damageType)
+    {
+        //TODO REFRACTOR USING COMMAND PATTERN
+        switch (damageType)
         {
-            transform.position = Vector3.MoveTowards(transform.position, position, mSpeed * Time.deltaTime);
+            case DamageType.Bullets:
+                _life -= receivedDamage;
+                CheckLife();
+                break;
+            case DamageType.TeslaTower:
+                _life -= receivedDamage;
+                CheckLife();
+                _enemyMovement.ChangeSpeed(_enemyMovement.Speed *= 0.25f);
+                Invoke(nameof(ResetSpeed), 0.4f);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null);
         }
+    }
 
-        public void InitialPosition(Vector3 initial)
+    private void ResetSpeed()
+    {
+        _enemyMovement.ResetSpeed();
+    }
+
+    private void CheckLife()
+    {
+        if (_life <= 0)
         {
-            transform.position = initial;
+            OnEnemyHasBeenDefeated.Invoke();
         }
-        
+    }
+
+    public void AddLife(float lifeToAdd)
+    {
+        _life = _life.CircularClamp(0, _maximumLife);
     }
 }

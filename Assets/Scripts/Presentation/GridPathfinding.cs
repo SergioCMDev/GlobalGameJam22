@@ -11,7 +11,7 @@ namespace IA
     public class GridPathfinding:MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap;
-        [SerializeField] private Enemy _enemy;
+        [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private bool friend;
 
         [FormerlySerializedAs("availablePlaces")] public List<Vector3> yellowBrickRoad;
@@ -33,13 +33,13 @@ namespace IA
             end = (friend) ? _tilemap.cellBounds.max : _tilemap.cellBounds.min;
             //_enemy.InitialPosition(_tilemap.WorldToLocal(start));
             GetWorld();
-            nextDestination = Pathfinder(_enemy.transform.position);
+            nextDestination = Pathfinder(enemyMovement.transform.position);
             initialPotition = false;
         }
 
         private void Update()
         {
-            if (_enemy.transform.position == nextDestination)
+            if (enemyMovement.transform.position == nextDestination)
             {
                 if (attacking)
                 {
@@ -48,10 +48,10 @@ namespace IA
                 }
                 else
                 {
-                    nextDestination = Pathfinder(_enemy.transform.position);
+                    nextDestination = Pathfinder(enemyMovement.transform.position);
                 }
             }
-            _enemy.MoveTo(nextDestination);
+            enemyMovement.MoveTo(nextDestination);
         }
 
         private Vector3 Pathfinder(Vector3 currentPos)

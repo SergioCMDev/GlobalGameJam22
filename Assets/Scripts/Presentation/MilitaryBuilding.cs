@@ -11,7 +11,7 @@ namespace Presentation
         [SerializeField] private PlaySFXEvent _playSfxEvent;
         [SerializeField] private GameObject _particles;
 
-        private GameObject enemyToAttack;
+        private IReceiveDamage enemyToAttack;
 
         private float _lastTimeAttacked;
 
@@ -61,10 +61,10 @@ namespace Presentation
 
         private void Update()
         {
-            // if (CanAttack() && CanReach(enemyToAttack))
-            // {
-            //     Attack(enemyToAttack);
-            // }
+            if (CanAttack() && CanReach(enemyToAttack))
+            {
+                Attack(enemyToAttack);
+            }
         }
 
         private bool CanAttack()
@@ -72,7 +72,7 @@ namespace Presentation
             return _lastTimeAttacked + Cadence > Time.deltaTime;
         }
 
-        public void SetEnemyToAttack(GameObject enemy)
+        public void SetEnemyToAttack(IReceiveDamage enemy)
         {
             enemyToAttack = enemy;
         }

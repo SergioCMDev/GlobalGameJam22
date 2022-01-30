@@ -2,6 +2,6 @@
 {
     public enum DamageType
     {
-        Normal, Light, Heavy
+        Bullets, TeslaTower
     }
 }

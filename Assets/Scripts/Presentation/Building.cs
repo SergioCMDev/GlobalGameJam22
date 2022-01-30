@@ -8,7 +8,7 @@ namespace Presentation
     {
         [SerializeField] private SliderBarView _sliderBarView;
 
-        [SerializeField] protected float _life, _maximumLife;
+        [SerializeField] protected float _currentLife, _maximumLife;
         private int _id, _level;
 
         protected int Level
@@ -19,8 +19,8 @@ namespace Presentation
 
         protected float Life
         {
-            get => _life;
-            set => _life = value;
+            get => _currentLife;
+            set => _currentLife = value;
         }
 
         void Start()
