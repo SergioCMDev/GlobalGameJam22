@@ -22,6 +22,12 @@ namespace Presentation
             get => _currentLife;
             set => _currentLife = value;
         }
+        
+        public float MaxLife
+        {
+            get => _maximumLife;
+            set => _maximumLife = value;
+        }
 
         void Start()
         {

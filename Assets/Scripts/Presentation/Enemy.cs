@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
     [SerializeField] private EnemyMovement _enemyMovement;
     [SerializeField] private int _maximumLife;
     private float _life;
-
+    
     public event Action OnEnemyHasBeenDefeated;
 
     private void Start()
