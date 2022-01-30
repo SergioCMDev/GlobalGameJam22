@@ -6,7 +6,7 @@ namespace Presentation
     {
         protected override void ThrowParticlesWhenAttacks()
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
 

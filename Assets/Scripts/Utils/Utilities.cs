@@ -86,5 +86,12 @@ namespace Utils
         {
             return valuesToCheck.Prepend(Int32.MaxValue).Min();
         }
+        
+        //TODO REFRACTOR
+        public static bool HasPastTime(float currentTime,float attackSpeed)
+        {
+            currentTime += Time.deltaTime;
+            return currentTime > attackSpeed;
+        }
     }
 }

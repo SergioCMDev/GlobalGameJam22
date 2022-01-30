@@ -8,9 +8,9 @@ namespace Presentation
     {
         [SerializeField] private SliderBarView _sliderBarView;
 
-        [SerializeField] protected float _currentLife, _maximumLife;
+        [SerializeField] protected float  _maximumLife;
         private int _id, _level;
-
+        protected float _currentLife;
         protected int Level
         {
             get => _level;
@@ -32,6 +32,7 @@ namespace Presentation
         void Start()
         {
             _sliderBarView.SetMaxValue(Life);
+            _currentLife = _maximumLife;
         }
 
         public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
@@ -51,6 +52,11 @@ namespace Presentation
         }
 
         public abstract void ReceiveDamage(float receivedDamage);
+
+        public bool IsAlive()
+        {
+            return Life > 0;
+        }
 
         public void AddLife(float lifeToAdd)
         {
