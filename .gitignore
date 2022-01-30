@@ -76,3 +76,4 @@ fmod_editor.log
 .vsconfig
 Assets/Plugins/DOTween/Editor/DOTweenEditor.XML.meta
 Assets/Plugins/DOTween/DOTween.XML.meta
+UserSettings/EditorUserSettings.asset
