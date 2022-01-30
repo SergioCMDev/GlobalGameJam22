@@ -29,7 +29,7 @@ namespace Presentation
             set => _damage = value;
         }
 
-        protected override void ReceiveDamage(float receivedDamage)
+        public override void ReceiveDamage(float receivedDamage)
         {
             Life -= receivedDamage;
             UpdateLifeSliderBar();

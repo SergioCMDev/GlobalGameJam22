@@ -44,7 +44,7 @@ namespace Presentation
             _sliderBarView.SetValue(Life);
         }
 
-        protected abstract void ReceiveDamage(float receivedDamage);
+        public abstract void ReceiveDamage(float receivedDamage);
 
         public void AddLife(float lifeToAdd)
         {
