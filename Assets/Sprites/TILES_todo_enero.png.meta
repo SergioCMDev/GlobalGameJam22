@@ -1,0 +1,804 @@
+fileFormatVersion: 2
+guid: dcf8d44f8e863c8418cf7c0149495240
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7288317501097960670
+    second: TILES_todo_enero_0
+  - first:
+      213: 4171839694914960082
+    second: TILES_todo_enero_1
+  - first:
+      213: 1064956781446556952
+    second: TILES_todo_enero_2
+  - first:
+      213: -4987587736529881398
+    second: TILES_todo_enero_3
+  - first:
+      213: -7254141721581299868
+    second: TILES_todo_enero_4
+  - first:
+      213: -2790147749362952604
+    second: TILES_todo_enero_5
+  - first:
+      213: -902399403069023785
+    second: TILES_todo_enero_6
+  - first:
+      213: 5591804405006328259
+    second: TILES_todo_enero_7
+  - first:
+      213: 9216063669738360931
+    second: TILES_todo_enero_8
+  - first:
+      213: 1799179839117262708
+    second: TILES_todo_enero_9
+  - first:
+      213: 374868562278966099
+    second: TILES_todo_enero_10
+  - first:
+      213: -7547167496378853710
+    second: TILES_todo_enero_11
+  - first:
+      213: -2499133209132349310
+    second: TILES_todo_enero_12
+  - first:
+      213: 4222660129428706106
+    second: TILES_todo_enero_13
+  - first:
+      213: -6185287546028951916
+    second: TILES_todo_enero_14
+  - first:
+      213: -8282001283614766305
+    second: TILES_todo_enero_15
+  - first:
+      213: -1788772477573504121
+    second: TILES_todo_enero_16
+  - first:
+      213: -1942937939663574639
+    second: TILES_todo_enero_17
+  - first:
+      213: -3726181649510505621
+    second: TILES_todo_enero_18
+  - first:
+      213: 1913595105752999034
+    second: TILES_todo_enero_19
+  - first:
+      213: -482710105643290388
+    second: TILES_todo_enero_20
+  - first:
+      213: -5210909387431439102
+    second: TILES_todo_enero_21
+  - first:
+      213: -2504328180518221603
+    second: TILES_todo_enero_22
+  - first:
+      213: -6465849631065170900
+    second: TILES_todo_enero_23
+  - first:
+      213: 5067356266550579444
+    second: TILES_todo_enero_24
+  - first:
+      213: -5360717949664760066
+    second: TILES_todo_enero_25
+  - first:
+      213: 7204293227961565553
+    second: TILES_todo_enero_26
+  - first:
+      213: -42610303225711123
+    second: TILES_todo_enero_27
+  - first:
+      213: 8436715249343055126
+    second: TILES_todo_enero_28
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TILES_todo_enero_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 168
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed4e43fe62e452560800000000000000
+      internalID: 7288317501097960670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 169
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dab743691a55e930800000000000000
+      internalID: 4171839694914960082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 170
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81de343ec8c77ce00800000000000000
+      internalID: 1064956781446556952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_3
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 170
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac6ba06016788cab0800000000000000
+      internalID: -4987587736529881398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_4
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 177
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4675ecec98c145b90800000000000000
+      internalID: -7254141721581299868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_5
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 176
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4669d50a7676749d0800000000000000
+      internalID: -2790147749362952604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_6
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 138
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d9db8626880a73f0800000000000000
+      internalID: -902399403069023785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_7
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 129
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c1edddca741a9d40800000000000000
+      internalID: 5591804405006328259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_8
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 130
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 360532e241906ef70800000000000000
+      internalID: 9216063669738360931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_9
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 124
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ff0adf788f7f810800000000000000
+      internalID: 1799179839117262708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_10
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 137
+        width: 32
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3536914a8fcc33500800000000000000
+      internalID: 374868562278966099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_11
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 136
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b6d6fd0623134790800000000000000
+      internalID: -7547167496378853710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_12
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 138
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 288c847569b415dd0800000000000000
+      internalID: -2499133209132349310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_13
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 93
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a339dcdd307e99a30800000000000000
+      internalID: 4222660129428706106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_14
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 93
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 496fb497fb1792aa0800000000000000
+      internalID: -6185287546028951916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_15
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 98
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1b00d466bb601d80800000000000000
+      internalID: -8282001283614766305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_16
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 98
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7836c32b8e00d27e0800000000000000
+      internalID: -1788772477573504121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_17
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 97
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19929bdec3c4905e0800000000000000
+      internalID: -1942937939663574639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_18
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 98
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63e85c2881f94cc0800000000000000
+      internalID: -3726181649510505621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_19
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 59
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a74655a2c947e8a10800000000000000
+      internalID: 1913595105752999034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_20
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 58
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce0f3a767b11d49f0800000000000000
+      internalID: -482710105643290388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_21
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 58
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 205966d45812fa7b0800000000000000
+      internalID: -5210909387431439102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_22
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 59
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd8063fc9c6de3dd0800000000000000
+      internalID: -2504328180518221603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_23
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 58
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c1541a400b446a0800000000000000
+      internalID: -6465849631065170900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_24
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 17
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0d81a2dadd25640800000000000000
+      internalID: 5067356266550579444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_25
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 17
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efeeb255d67ea95b0800000000000000
+      internalID: -5360717949664760066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_26
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 17
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 171c666558acaf360800000000000000
+      internalID: 7204293227961565553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_27
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 18
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de5b57ca72e986ff0800000000000000
+      internalID: -42610303225711123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TILES_todo_enero_28
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 19
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 615c634d1db351570800000000000000
+      internalID: 8436715249343055126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b22b2eb6afe2ac046b74b8ce5557582d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
