@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42390b0992b88dc4489962851bb0ac10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 0}
+  _button: {fileID: 3937895022671883610}
   _soundWhenClicked: 0
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
   _buildingType: 0
