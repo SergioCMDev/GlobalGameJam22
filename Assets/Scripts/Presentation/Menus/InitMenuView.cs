@@ -32,7 +32,7 @@ namespace Presentation.Menus
         {
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
             _readInputPlayer.OnPlayerPressVerticalAxisButtons += PlayerPressYAxisButtons;
-            // _readInputPlayer.OnPlayerPressEnterButtonMenus += HandlePlayerPressEnterButtonMenus;
+            _readInputPlayer.OnPlayerPressEnterButton += HandlePlayerPressEnterButtonMenus;
             // _readInputPlayer.DisableDialogInput();
         }
 
@@ -83,19 +83,19 @@ namespace Presentation.Menus
                 _buttonContinue.GetComponent<ButtonView>().SetColorText(Color.gray);
             }
 
-            _buttonContinue.onClick.AddListener(ContinueGame);
+            // _buttonContinue.onClick.AddListener(ContinueGame);
             _buttonNewGame.onClick.AddListener(NewGame);
-            _buttonOptions.onClick.AddListener(ShowOptionsMenu);
+            // _buttonOptions.onClick.AddListener(ShowOptionsMenu);
             // _buttonCredits.onClick.AddListener(ShowCreditsMenu);
             // _buttonQuitGame.onClick.AddListener(QuitGame);
 
             interactableButtons.Add(_buttonNewGame);
-            interactableButtons.Add(_buttonOptions);
+            // interactableButtons.Add(_buttonOptions);
             // interactableButtons.Add(_buttonCredits);
             // interactableButtons.Add(_buttonQuitGame);
 
             InteractableButtonsViews.Add(_buttonNewGame.GetComponent<ButtonView>());
-            InteractableButtonsViews.Add(_buttonOptions.GetComponent<ButtonView>());
+            // InteractableButtonsViews.Add(_buttonOptions.GetComponent<ButtonView>());
             // InteractableButtonsViews.Add(_buttonCredits.GetComponent<ButtonView>());
             // InteractableButtonsViews.Add(_buttonQuitGame.GetComponent<ButtonView>());
 

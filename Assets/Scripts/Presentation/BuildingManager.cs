@@ -29,7 +29,8 @@ namespace Presentation
                 });
             }
 
-            _enemy = FindObjectOfType<Enemy>().gameObject;
+            if(FindObjectOfType<Enemy>())
+                _enemy = FindObjectOfType<Enemy>().gameObject;
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)

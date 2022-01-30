@@ -1,4 +1,6 @@
-﻿using Application_.Services;
+﻿using Application_.SceneManagement;
+using Application_.Services;
+using Presentation.InputPlayer;
 using UnityEngine;
 using Utils;
 
@@ -7,16 +9,19 @@ namespace Presentation.Menus
     public class CanvasInitScenePresenter : MonoBehaviour
     {
         [SerializeField] private InitMenuView _initMenuView;
+
         // [SerializeField] private GameDataStatusLoader _gameDataStatusLoader;
         [SerializeField] private OptionsMenuView _optionsMenuView;
         [SerializeField] private GameDataService _gameDataService;
-        // private IChangerSceneModel _changerSceneModel;
+        private ReadInputPlayer _readInputPlayer;
+
+        private SceneChanger _sceneChanger;
         // private ILanguageManager _languageManager;
 
         private void Awake()
         {
             //TODO LOAD GAMEDATA
-          
+
             // _deleteSavedGameView.OnPlayerDeleteSavedGameData += DeleteLastGameAndStartNewGame;
             // _deleteSavedGameView.OnPlayerCancelDeleteSavedGameData += CloseDeleteLastGameWindow;
             // _gameDataStatusLoader.OnShowContinueButton += ShowContinueButton;
@@ -26,10 +31,12 @@ namespace Presentation.Menus
             _initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
             _initMenuView.OnQuitGameButtonPressed += QuitGame;
             _initMenuView.OnShowCreditsButtonPressed += ShowCreditsMenu;
-
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+
+
             // _deleteSavedGameView.gameObject.SetActive(false);
             _optionsMenuView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
@@ -37,12 +44,16 @@ namespace Presentation.Menus
 
         private void Start()
         {
-            _initMenuView.SetButtons(_gameDataService.HasStartedGame());
+            // _initMenuView.SetButtons(_gameDataService.HasStartedGame());
+            _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
 
+            _readInputPlayer.DisableGameplayInput();
+            _readInputPlayer.EnableMenusInput();
             // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
-
+            ShowContinueButton(false);
         }
+
 
         private void OnDestroy()
         {
@@ -83,9 +94,7 @@ namespace Presentation.Menus
 
         private void NewGame()
         {
-            //TODO GET REAL SCENE
-            // _changerSceneModel.SceneToGo = "LevelStable";
-            //
+            _sceneChanger.GoToFirstLevel(null);
             // _gameDataStatusLoader.StartNewGame();
         }
 
