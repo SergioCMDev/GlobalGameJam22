@@ -9,10 +9,6 @@ namespace Presentation
             throw new NotImplementedException();
         }
 
-        protected override bool CanReach(IReceiveDamage objectToAttack)
-        {
-            throw new NotImplementedException();
-        }
 
         protected override bool CanReach()
         {

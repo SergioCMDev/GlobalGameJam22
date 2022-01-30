@@ -1,17 +1,19 @@
 using Application_.Events;
 using UnityEngine;
+using Utils;
 
 namespace Presentation
 {
     public abstract class MilitaryBuilding : Building, IAttack
     {
-        [SerializeField] private float _cadence, _damage;
+        [SerializeField] private float _cadence, _damage, _distanceToAttack;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private DamageType _damageType;
         [SerializeField] private PlaySFXEvent _playSfxEvent;
         [SerializeField] private GameObject _particles;
 
         private IReceiveDamage enemyToAttack;
+        private GameObject enemy;
 
         private float _lastTimeAttacked;
 
@@ -26,7 +28,7 @@ namespace Presentation
             get => _damage;
             set => _damage = value;
         }
-        
+
         protected override void ReceiveDamage(float receivedDamage)
         {
             Life -= receivedDamage;
@@ -35,7 +37,7 @@ namespace Presentation
 
         public void Attack(IReceiveDamage objectToAttack)
         {
-            if (!CanAttack() || !CanReach(objectToAttack)) return;
+            if (!CanAttack() || !CanReach(enemy)) return;
             _lastTimeAttacked = Time.deltaTime;
             MakeSoundWhenAttacks();
             ThrowParticlesWhenAttacks();
@@ -50,13 +52,18 @@ namespace Presentation
             _playSfxEvent.Fire();
         }
 
-        protected abstract bool CanReach(IReceiveDamage objectToAttack);
+        private bool CanReach(GameObject objectToAttack)
+        {
+            return VectorUtils.VectorIsNearVector(gameObject.transform.position, objectToAttack.transform.position,
+                _distanceToAttack);
+        }
+
         protected abstract bool CanReach();
 
 
         private void Update()
         {
-            if (CanAttack() && CanReach(enemyToAttack))
+            if (CanAttack() && CanReach(enemy))
             {
                 Attack(enemyToAttack);
             }
