@@ -77,6 +77,7 @@ namespace Presentation
 
         public void SetEnemyToAttack(IReceiveDamage enemy)
         {
+            if (enemy == null) return;
             enemyToAttack = enemy;
             _enemyIsSet = true;
         }

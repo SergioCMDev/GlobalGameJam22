@@ -818,10 +818,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1432622314, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
-      propertyPath: _button
-      value: 
-      objectReference: {fileID: 2341795771792634199}
     - target: {fileID: 2341795770455548732, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -912,17 +908,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
---- !u!114 &2341795771792634199 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3937895022671883610, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
-  m_PrefabInstance: {fileID: 2341795771792634198}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6849419770247379875
 PrefabInstance:
   m_ObjectHideFlags: 0
