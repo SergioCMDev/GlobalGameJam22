@@ -12,159 +12,137 @@ using Random = UnityEngine.Random;
 
 public class GridPathfinding:MonoBehaviour
 {
-    [SerializeField] private Tilemap _tilemap;
-    [SerializeField] private EnemyMovement enemyMovement;
-    [SerializeField] private bool friend;
-    [SerializeField] private Tile cityDestroyed;
-    [SerializeField] private CityBuilding _cityBuilding;
+    [SerializeField] private MapManager mapManager;
+    [SerializeField] private Enemy enemy;
+    [FormerlySerializedAs("_cityBuilding")] 
+    [SerializeField] private CityBuilding cityBuilding;
+    
+    
+    [SerializeField] private Tilemap _tilemap; //coger de mapManager
+    [SerializeField] private bool friend; //mover a enemy
+    [SerializeField] private Tile cityDestroyed; //mover a build
 
-    [FormerlySerializedAs("availablePlaces")] public List<Vector3> yellowBrickRoad;
-    private List<Vector3> world;
-    private List<Vector3> defensiveBuilds;
-    private IDictionary<Vector3, Vector3Int> defensiveBuildsToWorld;
+    private IDictionary<Vector3, Vector3Int> _yellowBrickRoad;
+    private IDictionary<Vector3, Vector3Int> _defensiveBuilds;
+    private IDictionary<Vector3, Vector3Int> _cityBuilds;
 
-    private Vector3 nextDestination;
-    private Vector3 lastBrick;
-    private bool attacking = false;
-    public bool initialPotition = true;
-    public float damageTime = 1;
+    private KeyValuePair<Vector3, Vector3Int> nextDestination;
+    private KeyValuePair<Vector3, Vector3Int> lastBrick;
+    private bool attacking = false; //mover a enemy
+    public bool initialPotition = true; //mover a enemy
 
-    public Vector3 start;
-    public Vector3 end;
-    private float currentTime = 0;
-    public float damage = 1f;
+    private Vector3 start; //mover a map manager, usar tile especial
+    private Vector3 end; //mover a map manager, usar tile especial
+    private float currentTime = 0; //mover a enemy
+    public float damage = 1f; //mover a enemy
     public float attackSpeed = 1;
     
     
-    private void Awake()
+    private void Start()
     {
-        defensiveBuildsToWorld = new Dictionary<Vector3, Vector3Int>();
-        world = new List<Vector3>();
-        start = (friend) ? _tilemap.cellBounds.min : _tilemap.cellBounds.max;
-        end = (friend) ? _tilemap.cellBounds.max : _tilemap.cellBounds.min;
-        //_enemy.InitialPosition(_tilemap.WorldToLocal(start));
-        GetWorld();
-        nextDestination = Pathfinder(enemyMovement.transform.position);
-        _cityBuilding.OnBuildingDestroyed += destroyTile;
+        _defensiveBuilds = new Dictionary<Vector3, Vector3Int>();
+        _yellowBrickRoad = new Dictionary<Vector3, Vector3Int>();
+        _cityBuilds = new Dictionary<Vector3, Vector3Int>();
+        DivideWorld();
+        
+        
+        start = (friend) ? _tilemap.cellBounds.min : _tilemap.cellBounds.max; //mover a enemy
+        end = (friend) ? _tilemap.cellBounds.max : _tilemap.cellBounds.min; //mover a enemy
+        //_enemy.InitialPosition(_tilemap.WorldToLocal(start)); //mover a enemy
+        nextDestination = Pathfinder(enemy.enemyMovement.transform.position); //mover a enemy
+        cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
 
-        initialPotition = false;
+        initialPotition = false; //mover a enemy
     }
 
     private void Update()
     {
-        if (enemyMovement.transform.position == nextDestination)
+        if (enemy.transform.position == nextDestination.Key)
         {
             if (attacking)
             {
                 //attacking = true;
                 //nextDestination = lastBrick;
-                if (CanAttack() && _cityBuilding.Life >= 0)
+                if (CanAttack() && cityBuilding.Life >= 0)
                 {
-                    _cityBuilding.ReceiveDamage(damage, defensiveBuilds.Count);
+                    cityBuilding.ReceiveDamage(damage, _defensiveBuilds.Count);
                     currentTime -= attackSpeed;
-                    Debug.Log("Damage percentage: " + (100/_cityBuilding.MaxLife)*_cityBuilding.Life);
+                    Debug.Log("Damage percentage: " + (100/cityBuilding.MaxLife)*cityBuilding.Life);
                 }
             }
             else
             {
-                nextDestination = Pathfinder(enemyMovement.transform.position);
+                nextDestination = Pathfinder(enemy.transform.position);
             }
         }
-        enemyMovement.MoveTo(nextDestination);
+        enemy.enemyMovement.MoveTo(nextDestination.Key);
     }
-
-    private void destroyTile(Building obj)
+    
+    private void DivideWorld()
     {
-        if (defensiveBuildsToWorld.Any())
+        foreach (var tile in mapManager.world)
         {
-            var randomKey = defensiveBuildsToWorld.Keys.ToArray()[(int)Random.Range(0, defensiveBuildsToWorld.Keys.Count - 1)];
-            _tilemap.SetTile(defensiveBuildsToWorld[randomKey], cityDestroyed);
-            defensiveBuildsToWorld.Remove(randomKey);
+            switch (_tilemap.GetTile(tile.Value).name)
+            {
+                case "bocetoedificos":
+                    _defensiveBuilds.Add(tile);
+                    break;
+                case "bocetotierra":
+                    _yellowBrickRoad.Add(tile);
+                    break;
+            }
         }
-        
     }
 
-    private Vector3 Pathfinder(Vector3 currentPos)
+    private KeyValuePair<Vector3, Vector3Int> Pathfinder(Vector3 currentPos)
     {
-        Vector3 bestOptionVector = new Vector3();
+        KeyValuePair<Vector3, Vector3Int> bestOptionVectorToWorld = new KeyValuePair<Vector3, Vector3Int>();
         float bestOption = 99999;
         
-        //activar si se quiere atacar a los edificios
-        if (!yellowBrickRoad.Any() && !defensiveBuilds.Any())
-        //if (!yellowBrickRoad.Any())
+        if (!_yellowBrickRoad.Any())
         {
-            bestOptionVector = end;
+            bestOptionVectorToWorld = lastBrick;
         }
         else
         {
-            HeuristicValue(currentPos, yellowBrickRoad, ref bestOption,  ref bestOptionVector);
-            //activar si se quiere atacar a los edificios
-            HeuristicValue(currentPos, defensiveBuilds, ref bestOption, ref bestOptionVector);
+            HeuristicValue(currentPos, _yellowBrickRoad, ref bestOption, ref bestOptionVectorToWorld);
+            if(_defensiveBuilds.Any()) HeuristicValue(currentPos, _defensiveBuilds, ref bestOption, ref bestOptionVectorToWorld);
         }
 
-        if (defensiveBuilds.Contains(bestOptionVector))
+        if (_defensiveBuilds.Contains(bestOptionVectorToWorld))
         {
-            //_tilemap.GetTile(defensiveBuildsToWorld[bestOptionVector]);
-            //Tile aux = Resources.Load<Tile>("Sprites/Bocetoagua");
-            
-            //defensiveBuilds.Remove(bestOptionVector);
             attacking = true;
             lastBrick = nextDestination;
-            
-            //Quitar si implementado el ataque a torretas
-            bestOptionVector = nextDestination;
-            currentTime = Time.deltaTime;
         }
-        else if(yellowBrickRoad.Contains(bestOptionVector))
+        else if(_yellowBrickRoad.Contains(bestOptionVectorToWorld))
         {
-            yellowBrickRoad.Remove(bestOptionVector);
-            attacking = false;
-        }else if (bestOptionVector == end)
-        {
-            defensiveBuilds.Clear();
-            yellowBrickRoad.Clear();
+            _yellowBrickRoad.Remove(bestOptionVectorToWorld);
         }
+        /*else if (bestOptionVectorToWorld == end)
+        {
+            _defensiveBuilds.Clear();
+            _yellowBrickRoad.Clear();
+        }*/
 
-        return bestOptionVector;
+        return bestOptionVectorToWorld;
     }
 
-    
-    //PROBAR ESTO PERO CADA VEZ QUE HALLEMOS UNA TILE, GUARDAMOS LA POSICION JUNTO CON UN NEW TILE (CUSTOM NUESTRO) DONDE LE PODEMOS PASAR POSICIONES
-    //O BIEN CREAR UNA LISTA DE TILES PASANDOLE LA POSICION TANTO DEL MUNDO COMO DEL GRID PARA PODER ACCEDER BUSCANDO UNA DE LAS POSICIONES
-    public void GetWorld()
+    private void DestroyTile(Building obj)
     {
-        yellowBrickRoad = new List<Vector3>();
-        defensiveBuilds = new List<Vector3>();
-        for (int n = _tilemap.cellBounds.xMin; n < _tilemap.cellBounds.xMax; n++)
+        if (_defensiveBuilds.Any())
         {
-            for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
-            {
-                Vector3Int localPlace = (new Vector3Int(n, p, (int) _tilemap.transform.position.y));
-                Vector3 place = _tilemap.CellToWorld(localPlace);
-                if (_tilemap.HasTile(localPlace))
-                {
-                    world.Add(place);
-                    if (_tilemap.GetTile(localPlace).name.Equals("bocetoedificos"))
-                    {
-                        defensiveBuildsToWorld.Add(place, localPlace);
-                        defensiveBuilds.Add(place);
-                    } 
-                    else if (_tilemap.GetTile(localPlace).name.Equals("bocetotierra"))
-                    {
-                        yellowBrickRoad.Add(place);
-                    }
-                }
-            }
+            var randomKey = _defensiveBuilds.Keys.ToArray()[(int)Random.Range(0, _defensiveBuilds.Keys.Count - 1)];
+            _tilemap.SetTile(_defensiveBuilds[randomKey], cityDestroyed);
+            _defensiveBuilds.Remove(randomKey);
         }
+        
     }
-
-    private void HeuristicValue(Vector3 current, List<Vector3> ListCandidates, ref float result, ref Vector3 chosen)
+    private void HeuristicValue(Vector3 current, IDictionary<Vector3, Vector3Int> listCandidates, ref float result, ref KeyValuePair<Vector3, Vector3Int> chosen)
     {
         float HValue;
-        
-        foreach(var tile in ListCandidates)
+        foreach(var tile in listCandidates)
         {
-            HValue = Math.Abs(current.x - tile.x) + Math.Abs(current.y - tile.y);
+            HValue = Math.Abs(current.x - tile.Key.x) + Math.Abs(current.y - tile.Key.y);
             if (HValue < result)
             {
                 chosen = tile;

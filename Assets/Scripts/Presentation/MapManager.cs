@@ -18,7 +18,7 @@ namespace Presentation
     public class MapManager : MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap;
-        [SerializeField] private List<Vector3> world;
+        public IDictionary<Vector3, Vector3Int> world;
         [SerializeField] private List<Vector3> occupiedWorld = new List<Vector3>();
         [SerializeField] private List<Tile> worldTile = new List<Tile>();
         [SerializeField] private Dictionary<Vector3, TileInnerData> innerDataFromTiles = new Dictionary<Vector3, TileInnerData>();
@@ -28,10 +28,9 @@ namespace Presentation
 
         private void Awake()
         {
-            world = GetWorld();
-            foreach (var tilePosition in world)
+            GetWorld();
+            foreach (var tilePosition in world.Keys)
             {
-                if (innerDataFromTiles.ContainsKey(tilePosition)) continue;
                 innerDataFromTiles.Add(tilePosition, new TileInnerData());
             }
 
@@ -59,27 +58,21 @@ namespace Presentation
             saveBuildingEvent.Fire();
         }
 
-        private List<Vector3> GetWorld()
+        private void GetWorld()
         {
-            var world = new List<Vector3>();
+            world = new Dictionary<Vector3, Vector3Int>();
             for (int n = _tilemap.cellBounds.xMin; n < _tilemap.cellBounds.xMax; n++)
             {
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
                 {
-                    Vector3Int localPlace = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
-                    // Debug.Log($"TileMap Y Position{(int)_tilemap.transform.position.y}");
-                    localPlace.z = 0;
+                    Vector3Int localPlace = (new Vector3Int(n, p, (int) _tilemap.transform.position.y));
                     Vector3 place = _tilemap.CellToWorld(localPlace);
-                    if (!_tilemap.HasTile(localPlace)) continue;
-   
-                    var tile = _tilemap.GetTile<Tile>(localPlace);
-                    worldTile.Add(tile);
-                    world.Add(place);
+                    if (_tilemap.HasTile(localPlace))
+                    {
+                        world.Add(place, localPlace);
+                    }
                 }
             }
-
-            // Debug.Log(world.ToString());
-            return world;
         }
 
         public T GetTile<T>(Vector3 inputMousePosition) where T :TileBase

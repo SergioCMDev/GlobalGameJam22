@@ -2,11 +2,12 @@
 using IA;
 using Presentation;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 public class Enemy : MonoBehaviour, IReceiveDamage, ILife
 {
-    [SerializeField] private EnemyMovement _enemyMovement;
+    [FormerlySerializedAs("_enemyMovement")] public EnemyMovement enemyMovement;
     [SerializeField] private int _maximumLife;
     private float _life;
     private bool _isAlive;
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
         _life -= receivedDamage;
         CheckIfAlive();
         if (damageType != DamageType.TeslaTower) return;
-        _enemyMovement.ChangeSpeed(_enemyMovement.Speed *= 0.25f);
+        enemyMovement.ChangeSpeed(enemyMovement.Speed *= 0.25f);
         Invoke(nameof(ResetSpeed), 0.4f);
 
     }
@@ -36,13 +37,13 @@ public class Enemy : MonoBehaviour, IReceiveDamage, ILife
 
     private void ResetSpeed()
     {
-        _enemyMovement.ResetSpeed();
+        enemyMovement.ResetSpeed();
     }
 
     private void CheckIfAlive()
     {
         if (IsAlive()) return;
-        _enemyMovement.Stop();
+        enemyMovement.Stop();
         OnEnemyHasBeenDefeated.Invoke();
     }
 
