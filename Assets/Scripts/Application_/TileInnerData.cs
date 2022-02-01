@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Application_
 {
@@ -6,9 +7,14 @@ namespace Application_
     public class TileInnerData
     {
         public bool Occupied;
+
         public TileInnerData()
         {
             Occupied = false;
+            CanBeUsed = true;
         }
+
+        public bool CanBeUsed;
+        public GameObject OccupiedBy;
     }
 }

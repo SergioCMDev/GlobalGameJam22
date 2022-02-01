@@ -11,61 +11,69 @@ namespace Presentation
     [Serializable]
     public struct TileTuple
     {
-        public Tile TileBase;
+        public Vector3 WorlddPosition;
+        public Vector3Int GridPosition;
         public TileInnerData TileInnerData;
     }
 
     public class MapManager : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap;
-        public IDictionary<Vector3, Vector3Int> world;
-        [SerializeField] private List<Vector3> occupiedWorld = new List<Vector3>();
-        [SerializeField] private List<Tile> worldTile = new List<Tile>();
-        [SerializeField] private Dictionary<Vector3, TileInnerData> innerDataFromTiles = new Dictionary<Vector3, TileInnerData>();
+        [SerializeField] private Tilemap _tilemap, _tilemapOverWorld;
         [SerializeField] private List<TileTuple> innerTileDataFromTiles = new List<TileTuple>();
+        [SerializeField] private List<Vector3> tilesToBlock = new List<Vector3>();
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
 
+        public IDictionary<Vector3, Vector3Int> world;
+        [SerializeField] private TileBase selectedTile;
 
         private void Awake()
         {
-            GetWorld();
+            ReadWorld();
             foreach (var tilePosition in world.Keys)
             {
-                innerDataFromTiles.Add(tilePosition, new TileInnerData());
+                innerTileDataFromTiles.Add(new TileTuple()
+                {
+                    GridPosition = world[tilePosition],
+                    WorlddPosition = tilePosition,
+                    TileInnerData = new TileInnerData()
+                });
             }
 
-            // foreach (var tileBase in worldTile)
-            // {
-            //     innerTileDataFromTiles.Add(new TileTuple()
-            //     {
-            //         TileBase = tileBase,
-            //         TileInnerData = new TileInnerData()
-            //     });
-            // }
+            foreach (var tileToBlock in tilesToBlock)
+            {
+                var gridPosition = world[tileToBlock];
+                if (innerTileDataFromTiles.All(x => x.GridPosition != gridPosition)) continue;
+                innerTileDataFromTiles.Single(x => x.GridPosition != gridPosition).TileInnerData.CanBeUsed = false;
+            }
         }
 
 
-        // public TileInnerData GetTileData(Vector3Int tilePosition)
-        // {
-        //     return _tilemap.GetTile<BuildableTile>(tilePosition).tileInnerData;
-        // }
-
         public void PlayerSetBuildingInTilemap(PlayerSetBuildingInTilemapEvent tilemapEvent)
         {
+            if (!world.Any(X => X.Value == tilemapEvent.GridPosition)) return;
+            var worldPosition = world.Single(X => X.Value == tilemapEvent.GridPosition).Key;
+            var tileData = GetTileData(tilemapEvent.GridPosition);
+            // var tileData2 = GetTileData(worldPosition);
+            if (tileData.Occupied) return;
+
             var building = Instantiate(tilemapEvent.Prefab);
-            building.transform.position = _tilemap.GetCellCenterWorld(tilemapEvent.SelectedTile.GridPosition);
+            tileData.Occupied = true;
+            tileData.OccupiedBy = building;
+
+            building.transform.position = _tilemap.GetCellCenterWorld(tilemapEvent.GridPosition);
+
             saveBuildingEvent.Instance = building;
             saveBuildingEvent.Fire();
         }
 
-        private void GetWorld()
+        private void ReadWorld()
         {
             world = new Dictionary<Vector3, Vector3Int>();
             for (int n = _tilemap.cellBounds.xMin; n < _tilemap.cellBounds.xMax; n++)
             {
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
                 {
-                    Vector3Int localPlace = (new Vector3Int(n, p, (int) _tilemap.transform.position.y));
+                    Vector3Int localPlace = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
                     Vector3 place = _tilemap.CellToWorld(localPlace);
                     if (_tilemap.HasTile(localPlace))
                     {
@@ -75,47 +83,68 @@ namespace Presentation
             }
         }
 
-        public T GetTile<T>(Vector3 inputMousePosition) where T :TileBase
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
-            Vector3Int gridPosition = _tilemap.WorldToCell(mousePosition);
-            var tile = _tilemap.GetTile<T>(gridPosition);
-            return tile;
-        }
 
         public Vector3Int GetGridPosition(Vector3 inputMousePosition)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
-            Vector3Int gridPosition = _tilemap.WorldToCell(mousePosition);
+            Vector3Int gridPosition = _tilemapOverWorld.WorldToCell(mousePosition);
             return gridPosition;
         }
 
-        public TileInnerData GetTileDataByTile(Tile tile)
+
+        private TileInnerData GetTileData(Vector3Int gridPosition)
         {
-            return innerTileDataFromTiles.Any(x => x.TileBase == tile)
-                ? null
-                : innerTileDataFromTiles.Single(x => x.TileBase == tile).TileInnerData;
+            return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
+                .TileInnerData;
         }
 
-        // public bool IsOccupied(BuildableTile tile)
-        // {
-        //     return tile.IsOccupied();
-        //
-        // }
-        
+        private TileInnerData GetTileData(Vector3 gridPosition)
+        {
+            return innerTileDataFromTiles.Single(x => x.WorlddPosition == gridPosition)
+                .TileInnerData;
+        }
+
+        public bool PositionExists(Vector3 gridPosition)
+        {
+            return innerTileDataFromTiles.Any(x => x.GridPosition == gridPosition);
+        }
+
         public bool IsOccupied(Vector3 gridPosition)
         {
-             return occupiedWorld.Contains(gridPosition);
+            return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
+                .TileInnerData.Occupied;
+        }
+
+
+        public bool CanBeUsed(Vector3Int gridPosition)
+        {
+            return GetTileData(gridPosition).CanBeUsed;
         }
 
         public void Occupy(Vector3Int gridPosition)
         {
-            occupiedWorld.Add(gridPosition);
+            innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
+                .TileInnerData.Occupied = true;
         }
 
-        public bool CanBeUsed(Vector3Int gridPosition)
+        public Tile GetTile(Vector3 mousePosition)
         {
-            return _tilemap.HasTile(gridPosition);
+            var gridPosition = GetGridPosition(mousePosition);
+            var tile = _tilemapOverWorld.GetTile<Tile>(gridPosition);
+            return tile;
+        }
+
+        // public Tile GetTileOverWorld(Vector3 mousePosition)
+        // {
+        //     var tile = _tilemapOverWorld.SetTile(gridPosition, selectedTile);
+        //     return tile;
+        // }
+
+        public void SelectTTile(Vector3 mousePosition)
+        {
+            var gridPosition = GetGridPosition(mousePosition);
+            _tilemapOverWorld.SetTile(gridPosition, selectedTile);
+            _tilemapOverWorld.RefreshTile(gridPosition);
         }
     }
 }

@@ -9,10 +9,11 @@ namespace Presentation
     public class InputTileManager : MonoBehaviour
     {
         [SerializeField] private MapManager mapManager;
+        [SerializeField] private Sprite hoverTile;
 
         private bool _playerCanSelectTile;
 
-        private IEnumerator selectTileByClick;
+        private Coroutine selectTileByClick;
         // public event Action<SelectedTileData> OnPlayerHasSelectedTile;
 
         //TODO CHECK IF WITH ONMOUSEDOWN WORKS
@@ -22,6 +23,10 @@ namespace Presentation
             Debug.Log("START SELECTION");
             while (_playerCanSelectTile)
             {
+                Vector3Int gridPosition = mapManager.GetGridPosition(Input.mousePosition);
+
+                if(mapManager.PositionExists(gridPosition))
+                    MarkSelectedTile();
                 if (Input.GetMouseButtonDown(1))
                 {
                     Debug.Log("Canceled Buy");
@@ -32,26 +37,19 @@ namespace Presentation
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Vector3Int gridPosition = mapManager.GetGridPosition(Input.mousePosition);
                     Debug.Log($"SELECTED {gridPosition} CLICK {Input.anyKey}");
 
-                    if (mapManager.IsOccupied(gridPosition))
+                    if ( !mapManager.PositionExists(gridPosition) || mapManager.IsOccupied(gridPosition) || !mapManager.CanBeUsed(gridPosition))
                     {
                         SelectedTileIsOccupied.Invoke();
                         yield break;
                     }
                     
-                    if (!mapManager.CanBeUsed(gridPosition))
-                    {
-                        yield break;
-                    }
-
-                    mapManager.Occupy(gridPosition);
                     OnPlayerHasSelectedTile?.Invoke(new SelectedTileData
                     {
                         GridPosition = gridPosition,
-                        // TileInnerData = data
                     });
+                    
                     _playerCanSelectTile = false;
                     yield break;
                 }
@@ -59,6 +57,12 @@ namespace Presentation
                 Debug.Log("WAITING");
                 yield return null;
             }
+        }
+
+        private void MarkSelectedTile()
+        {
+            // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
+            mapManager.SelectTTile(Input.mousePosition);
         }
 
         public void EnableTileSelection(Action cancelBuy, Action<SelectedTileData> playerHasSelectedTile,
@@ -70,8 +74,7 @@ namespace Presentation
                 StopCoroutine(selectTileByClick);
             }
 
-            selectTileByClick = SelectTileByClick(cancelBuy, playerHasSelectedTile, tileIsOccupied);
-            StartCoroutine(selectTileByClick);
+            selectTileByClick = StartCoroutine(SelectTileByClick(cancelBuy, playerHasSelectedTile, tileIsOccupied));
         }
     }
 }

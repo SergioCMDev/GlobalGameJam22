@@ -7,6 +7,7 @@ namespace Application_.Events
     public class PlayerSetBuildingInTilemapEvent : GameEventScriptable
     {
         public GameObject Prefab;
-        public SelectedTileData SelectedTile;
+        public Vector3 WolrdPosition;
+        public Vector3Int GridPosition;
     }
 }

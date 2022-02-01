@@ -54,7 +54,7 @@ namespace Presentation
             Debug.Log($"Data Player has selected Tile");
             var prefab = _buildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
             _playerSetBuildingInTilemapEvent.Prefab = prefab;
-            _playerSetBuildingInTilemapEvent.SelectedTile = obj;
+            _playerSetBuildingInTilemapEvent.GridPosition = obj.GridPosition;
             _playerSetBuildingInTilemapEvent.Fire();
             _buildingManager.UpgradeBoughtBuilding(currentBuildingBuyType);
             _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
