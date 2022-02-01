@@ -65,7 +65,7 @@ public class GridPathfinding:MonoBehaviour
                 //nextDestination = lastBrick;
                 if (CanAttack() && cityBuilding.Life >= 0)
                 {
-                    cityBuilding.ReceiveDamage(damage, _defensiveBuilds.Count);
+                    cityBuilding.ReceiveDamage(damage, _cityBuilds.Count);
                     currentTime -= attackSpeed;
                     Debug.Log("Damage percentage: " + (100/cityBuilding.MaxLife)*cityBuilding.Life);
                 }
@@ -85,10 +85,13 @@ public class GridPathfinding:MonoBehaviour
             switch (_tilemap.GetTile(tile.Value).name)
             {
                 case "bocetoedificos":
-                    _defensiveBuilds.Add(tile);
+                    _cityBuilds.Add(tile);
                     break;
                 case "bocetotierra":
                     _yellowBrickRoad.Add(tile);
+                    break;
+                case "bocetotorreta":
+                    _defensiveBuilds.Add(tile);
                     break;
             }
         }
@@ -107,6 +110,7 @@ public class GridPathfinding:MonoBehaviour
         {
             HeuristicValue(currentPos, _yellowBrickRoad, ref bestOption, ref bestOptionVectorToWorld);
             if(_defensiveBuilds.Any()) HeuristicValue(currentPos, _defensiveBuilds, ref bestOption, ref bestOptionVectorToWorld);
+            HeuristicValue(currentPos, _cityBuilds, ref bestOption, ref bestOptionVectorToWorld);
         }
 
         if (_defensiveBuilds.Contains(bestOptionVectorToWorld))
