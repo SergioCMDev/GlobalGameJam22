@@ -24,7 +24,7 @@ namespace Presentation
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
 
         public IDictionary<Vector3, Vector3Int> world;
-        [SerializeField] private TileBase selectedTile;
+        [SerializeField] private Tile _selectedTile, _deselectedTile;
 
         private void Awake()
         {
@@ -87,7 +87,7 @@ namespace Presentation
         public Vector3Int GetGridPosition(Vector3 inputMousePosition)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
-            Vector3Int gridPosition = _tilemapOverWorld.WorldToCell(mousePosition);
+            Vector3Int gridPosition = _tilemap.WorldToCell(mousePosition);
             return gridPosition;
         }
 
@@ -143,8 +143,17 @@ namespace Presentation
         public void SelectTTile(Vector3 mousePosition)
         {
             var gridPosition = GetGridPosition(mousePosition);
-            _tilemapOverWorld.SetTile(gridPosition, selectedTile);
+            _tilemapOverWorld.SetTile(gridPosition, _selectedTile);
             _tilemapOverWorld.RefreshTile(gridPosition);
+        }
+
+        //TODO
+        public void DeselectTTile(Vector3 mousePosition)
+        {
+            var gridPosition = GetGridPosition(mousePosition);
+            _tilemapOverWorld.SetTile(gridPosition, _selectedTile);
+            _tilemapOverWorld.RefreshTile(gridPosition);
+            _tilemapOverWorld.ClearAllTiles();
         }
     }
 }

@@ -64,6 +64,12 @@ namespace Presentation
             // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
             mapManager.SelectTTile(Input.mousePosition);
         }
+        
+        private void MarkDeselectedTile()
+        {
+            // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
+            mapManager.DeselectTTile(Input.mousePosition);
+        }
 
         public void EnableTileSelection(Action cancelBuy, Action<SelectedTileData> playerHasSelectedTile,
             Action tileIsOccupied)
