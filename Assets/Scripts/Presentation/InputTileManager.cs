@@ -23,7 +23,7 @@ namespace Presentation
             Debug.Log("START SELECTION");
             while (_playerCanSelectTile)
             {
-                Vector3Int gridPosition = mapManager.GetGridPosition(Input.mousePosition);
+                Vector3Int gridPosition = mapManager.GetGridPositionByMouse(Input.mousePosition);
 
                 if(mapManager.PositionExists(gridPosition))
                     MarkSelectedTile();

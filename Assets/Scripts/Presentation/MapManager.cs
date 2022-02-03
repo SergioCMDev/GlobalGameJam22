@@ -97,10 +97,11 @@ namespace Presentation
         }
 
 
-        public Vector3Int GetGridPosition(Vector3 inputMousePosition)
+        public Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
-            Vector3Int gridPosition = _tilemap.WorldToCell(mousePosition);
+            Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
+
             return gridPosition;
         }
 
@@ -140,22 +141,17 @@ namespace Presentation
                 .TileInnerData.Occupied = true;
         }
 
-        public Tile GetTile(Vector3 mousePosition)
-        {
-            var gridPosition = GetGridPosition(mousePosition);
-            var tile = _tilemapOverWorld.GetTile<Tile>(gridPosition);
-            return tile;
-        }
-
-        // public Tile GetTileOverWorld(Vector3 mousePosition)
+        // public Tile GetTile(Vector3 mousePosition)
         // {
-        //     var tile = _tilemapOverWorld.SetTile(gridPosition, selectedTile);
+        //     var gridPosition = GetGridPositionByMouse(mousePosition);
+        //     var tile = _tilemapOverWorld.GetTile<Tile>(gridPosition);
         //     return tile;
         // }
 
+
         public void SelectTTile(Vector3 mousePosition)
         {
-            var gridPosition = GetGridPosition(mousePosition);
+            var gridPosition = GetGridPositionByMouse(mousePosition);
             _tilemapOverWorld.SetTile(gridPosition, _selectedTile);
             _tilemapOverWorld.RefreshTile(gridPosition);
         }
@@ -163,7 +159,7 @@ namespace Presentation
         //TODO
         public void DeselectTTile(Vector3 mousePosition)
         {
-            var gridPosition = GetGridPosition(mousePosition);
+            var gridPosition = GetGridPositionByMouse(mousePosition);
             _tilemapOverWorld.SetTile(gridPosition, _selectedTile);
             _tilemapOverWorld.RefreshTile(gridPosition);
             _tilemapOverWorld.ClearAllTiles();
@@ -177,27 +173,35 @@ namespace Presentation
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && _tilemapOverWorld.gameObject.activeInHierarchy)
-            {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
-
-                // Vector3Int gridPosition = _tilemapOverWorld.WorldToCell(mousePosition);
-                TileBase tile;
-                _tilemapOverWorld.GetTile(gridPosition);
-                tile = tileBases[TileType.Red];
-                BoundsInt buildingArea = new BoundsInt(gridPosition,new Vector3Int(1,1,1));
-                _tilemapOverWorld.SetTilesBlock(buildingArea, new[]{tile});
-                
-            }
+            if (!Input.GetMouseButtonDown(0) || !_tilemapOverWorld.gameObject.activeInHierarchy) return;
+            var gridPosition = GetGridPositionByMouse(Input.mousePosition);
+            var tile = tileBases[TileType.Empty];
+            
+            var filledTiles = FillTiles(new List<TileBase>() { tile }, TileType.Red);
+            var buildingArea = GetBuildingArea(gridPosition, new Vector3Int(1, 1, 1));
+            SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
         }
 
-        private void FillTiles(TileBase[] arr, TileType type)
+        private BoundsInt GetBuildingArea(Vector3Int gridPosition, Vector3Int sizeArea)
         {
-            for (int i = 0; i < arr.Length; i++)
+            BoundsInt buildingArea = new BoundsInt(gridPosition, sizeArea);
+            return buildingArea;
+        }
+
+        private void SetTilesInTilemap(BoundsInt buildingArea, List<TileBase> tileArray, Tilemap tilemap)
+        {
+            tilemap.SetTilesBlock(buildingArea, tileArray.ToArray());
+        }
+
+        private List<TileBase> FillTiles(List<TileBase> tileArray, TileType type)
+        {
+
+            for (int i = 0; i < tileArray.ToArray().Length; i++)
             {
-                arr[i] = tileBases[type];
+                tileArray[i] = tileBases[type];
             }
+
+            return tileArray;
         }
     }
 }
