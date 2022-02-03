@@ -75,7 +75,7 @@ namespace Presentation
             saveBuildingEvent.Instance = _building;
             saveBuildingEvent.Fire();
         }
-        
+
 
         private void ReadWorld()
         {
@@ -138,7 +138,7 @@ namespace Presentation
         //     innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
         //         .TileInnerData.Occupied = true;
         // }
-        
+
         public void ShowTemporalTileMap()
         {
             _tilemapOverWorld.gameObject.SetActive(true);
@@ -147,24 +147,23 @@ namespace Presentation
         private void Update()
         {
             if (!_tilemapOverWorld.gameObject.activeInHierarchy || !_building) return;
-            var gridPosition = GetGridPositionByMouse(Input.mousePosition);
-            _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
-            var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
-
-            var filledTiles = FillTiles(tiles, TileType.Green);
-            var buildingArea = GetBuildingArea(gridPosition, _temporalArea.size);
-            SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
-            
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
- 
-            // saveBuildingEvent.Instance = _building;
-            // saveBuildingEvent.Fire();
+                var gridPosition = GetGridPositionByMouse(Input.mousePosition);
+                _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
+                var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
+
+                var filledTiles = FillTiles(tiles, TileType.Green);
+                var buildingArea = GetBuildingArea(gridPosition, _temporalArea.size);
+                SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
+
+
+                // saveBuildingEvent.Instance = _building;
+                // saveBuildingEvent.Fire();
             }
-            
+
             if (Input.GetMouseButtonDown(1))
             {
-    
             }
         }
 
