@@ -19,15 +19,28 @@ namespace Presentation
     public class MapManager : MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap, _tilemapOverWorld;
+        [SerializeField] private Grid _grid;
         [SerializeField] private List<TileTuple> innerTileDataFromTiles = new List<TileTuple>();
         [SerializeField] private List<Vector3> tilesToBlock = new List<Vector3>();
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
+        private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
         public IDictionary<Vector3, Vector3Int> world;
-        [SerializeField] private Tile _selectedTile, _deselectedTile;
+        [SerializeField] private Tile _selectedTile, _deselectedTile, _red, white, green;
 
         private void Awake()
         {
+            string tilePath = @"Tiles\";
+            tileBases.Add(TileType.Empty, null);
+            tileBases.Add(TileType.White, white);
+            // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
+            tileBases.Add(TileType.Green, green);
+            // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
+            // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
+            tileBases.Add(TileType.Red, _red);
+
+
+            _tilemapOverWorld.gameObject.SetActive(false);
             ReadWorld();
             foreach (var tilePosition in world.Keys)
             {
@@ -154,6 +167,37 @@ namespace Presentation
             _tilemapOverWorld.SetTile(gridPosition, _selectedTile);
             _tilemapOverWorld.RefreshTile(gridPosition);
             _tilemapOverWorld.ClearAllTiles();
+        }
+
+
+        public void ShowTemporalTileMap()
+        {
+            _tilemapOverWorld.gameObject.SetActive(true);
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0) && _tilemapOverWorld.gameObject.activeInHierarchy)
+            {
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
+
+                // Vector3Int gridPosition = _tilemapOverWorld.WorldToCell(mousePosition);
+                TileBase tile;
+                _tilemapOverWorld.GetTile(gridPosition);
+                tile = tileBases[TileType.Red];
+                BoundsInt buildingArea = new BoundsInt(gridPosition,new Vector3Int(1,1,1));
+                _tilemapOverWorld.SetTilesBlock(buildingArea, new[]{tile});
+                
+            }
+        }
+
+        private void FillTiles(TileBase[] arr, TileType type)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = tileBases[type];
+            }
         }
     }
 }
