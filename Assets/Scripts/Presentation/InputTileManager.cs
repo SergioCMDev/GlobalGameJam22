@@ -8,7 +8,7 @@ namespace Presentation
 {
     public class InputTileManager : MonoBehaviour
     {
-        [SerializeField] private MapManager mapManager;
+        [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private Sprite hoverTile;
 
         private bool _playerCanSelectTile;
@@ -23,10 +23,10 @@ namespace Presentation
             Debug.Log("START SELECTION");
             while (_playerCanSelectTile)
             {
-                Vector3Int gridPosition = mapManager.GetGridPositionByMouse(Input.mousePosition);
+                Vector3Int gridPosition = gridBuildingManager.GetGridPositionByMouse(Input.mousePosition);
 
-                if(mapManager.PositionExists(gridPosition))
-                    MarkSelectedTile();
+                if(gridBuildingManager.PositionExists(gridPosition))
+                    // MarkSelectedTile();
                 if (Input.GetMouseButtonDown(1))
                 {
                     Debug.Log("Canceled Buy");
@@ -39,7 +39,7 @@ namespace Presentation
                 {
                     Debug.Log($"SELECTED {gridPosition} CLICK {Input.anyKey}");
 
-                    if ( !mapManager.PositionExists(gridPosition) || mapManager.IsOccupied(gridPosition) || !mapManager.CanBeUsed(gridPosition))
+                    if ( !gridBuildingManager.PositionExists(gridPosition) || gridBuildingManager.IsOccupied(gridPosition) || !gridBuildingManager.CanBeUsed(gridPosition))
                     {
                         SelectedTileIsOccupied.Invoke();
                         yield break;
@@ -59,17 +59,17 @@ namespace Presentation
             }
         }
 
-        private void MarkSelectedTile()
-        {
-            // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
-            mapManager.SelectTTile(Input.mousePosition);
-        }
-        
-        private void MarkDeselectedTile()
-        {
-            // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
-            mapManager.DeselectTTile(Input.mousePosition);
-        }
+        // private void MarkSelectedTile()
+        // {
+        //     // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
+        //     gridBuildingManager.SelectTTile(Input.mousePosition);
+        // }
+        //
+        // private void MarkDeselectedTile()
+        // {
+        //     // var tile = mapManager.GetTileOverWorld(Input.mousePosition);
+        //     gridBuildingManager.DeselectTTile(Input.mousePosition);
+        // }
 
         public void EnableTileSelection(Action cancelBuy, Action<SelectedTileData> playerHasSelectedTile,
             Action tileIsOccupied)

@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class GridPathfinding:MonoBehaviour
 {
-    [SerializeField] private MapManager mapManager;
+    [SerializeField] private GridBuildingManager gridBuildingManager;
     [SerializeField] private Enemy enemy;
     [FormerlySerializedAs("_cityBuilding")] 
     [SerializeField] private CityBuilding cityBuilding;
@@ -80,7 +80,7 @@ public class GridPathfinding:MonoBehaviour
     
     private void DivideWorld()
     {
-        foreach (var tile in mapManager.world)
+        foreach (var tile in gridBuildingManager.world)
         {
             switch (_tilemap.GetTile(tile.Value).name)
             {

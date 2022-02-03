@@ -9,8 +9,11 @@ namespace Presentation
         [SerializeField] private SliderBarView _sliderBarView;
 
         [SerializeField] protected float  _maximumLife;
+        [SerializeField] private BoundsInt _area;
         private int _id, _level;
         protected float _currentLife;
+        private bool _placed;
+
         protected int Level
         {
             get => _level;
@@ -29,6 +32,8 @@ namespace Presentation
             set => _maximumLife = value;
         }
 
+        public BoundsInt Area => _area;
+        
         void Start()
         {
             _sliderBarView.SetMaxValue(Life);

@@ -40,7 +40,9 @@ namespace Presentation
                 _buildingManager.GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
                     resourcesNeededForCurrentBuy.Metal)) return;
-            inputTileManager.EnableTileSelection(OnCancelBuy, OnFinishBuy, OnTileOccupied);
+
+            OnFinishBuy(null);
+            // inputTileManager.EnableTileSelection(OnCancelBuy, OnFinishBuy, OnTileOccupied);
         }
 
         private void OnTileOccupied()
@@ -54,10 +56,10 @@ namespace Presentation
             Debug.Log($"Data Player has selected Tile");
             var prefab = _buildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
             _playerSetBuildingInTilemapEvent.Prefab = prefab;
-            _playerSetBuildingInTilemapEvent.GridPosition = obj.GridPosition;
+            // _playerSetBuildingInTilemapEvent.GridPosition = obj.GridPosition;
             _playerSetBuildingInTilemapEvent.Fire();
-            _buildingManager.UpgradeBoughtBuilding(currentBuildingBuyType);
-            _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
+            // _buildingManager.UpgradeBoughtBuilding(currentBuildingBuyType);
+            // _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
             _playerIsCurrentlyBuying = false;
 
         }
