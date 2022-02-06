@@ -24,13 +24,14 @@ namespace Presentation
         [SerializeField] private List<TileTuple> innerTileDataFromTiles = new List<TileTuple>();
         [SerializeField] private List<Vector3> tilesToBlock = new List<Vector3>();
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
-        [SerializeField] private Tile _selectedTile, _deselectedTile, _red, white, green;
+        [SerializeField] private Tile _red, white, green;
 
         private Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
         public IDictionary<Vector3, Vector3Int> world;
         private GameObject _building;
         private BoundsInt _temporalArea;
+        private Vector3Int _previousPosition;
 
         private void Awake()
         {
@@ -99,7 +100,6 @@ namespace Presentation
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
-            // Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
             return gridPosition;
         }
 
@@ -110,11 +110,6 @@ namespace Presentation
                 .TileInnerData;
         }
 
-        // private TileInnerData GetTileData(Vector3 gridPosition)
-        // {
-        //     return innerTileDataFromTiles.Single(x => x.WorlddPosition == gridPosition)
-        //         .TileInnerData;
-        // }
 
         public bool PositionExists(Vector3 gridPosition)
         {
@@ -133,12 +128,6 @@ namespace Presentation
             return GetTileData(gridPosition).CanBeUsed;
         }
 
-        // public void Occupy(Vector3Int gridPosition)
-        // {
-        //     innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
-        //         .TileInnerData.Occupied = true;
-        // }
-
         public void ShowTemporalTileMap()
         {
             _tilemapOverWorld.gameObject.SetActive(true);
@@ -150,21 +139,24 @@ namespace Presentation
             if (Input.GetMouseButton(0))
             {
                 var gridPosition = GetGridPositionByMouse(Input.mousePosition);
+                if(gridPosition == _previousPosition) return;
+                ClearPreviousPaintedArea();
                 _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
                 var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
-
+                _previousPosition = gridPosition;
                 var filledTiles = FillTiles(tiles, TileType.Green);
                 var buildingArea = GetBuildingArea(gridPosition, _temporalArea.size);
                 SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
-
-
-                // saveBuildingEvent.Instance = _building;
-                // saveBuildingEvent.Fire();
             }
+        }
 
-            if (Input.GetMouseButtonDown(1))
-            {
-            }
+        private void ClearPreviousPaintedArea()
+        {
+            var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
+
+            var filledTiles = FillTiles(tiles, TileType.White);
+            var buildingArea = GetBuildingArea(_previousPosition, _temporalArea.size);
+            SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
         }
 
         private BoundsInt GetBuildingArea(Vector3Int gridPosition, Vector3Int sizeArea)
