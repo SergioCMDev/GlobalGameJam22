@@ -208,6 +208,7 @@ namespace Presentation
             return tileArray;
         }
 
+        //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
         private void ClearPreviousPaintedArea()
         {
             var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
