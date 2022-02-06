@@ -103,6 +103,7 @@ namespace Presentation
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             _buildingComponent.SetStatusChooserCanvas(false);
             HideTemporalTileMap();
+            _building = null;
             _buildingComponent = null;
         }
 
@@ -254,6 +255,7 @@ namespace Presentation
         private void TakeArea(BoundsInt area)
         {
             SetTilesBlock(area, TileType.Red, _tilemapOverWorld);
+            _tilemapOverWorld.RefreshAllTiles();
             // SetTilesBlock(area, TileType.Green, _tilemap);
         }
 
