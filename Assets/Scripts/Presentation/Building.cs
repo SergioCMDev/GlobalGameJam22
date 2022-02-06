@@ -9,7 +9,7 @@ namespace Presentation
         [SerializeField] private SliderBarView _sliderBarView;
 
         [SerializeField] protected float  _maximumLife;
-        [SerializeField] private BoundsInt _area;
+        [SerializeField] private Vector3Int _area;
         private int _id, _level;
         protected float _currentLife;
         private bool _placed;
@@ -32,7 +32,7 @@ namespace Presentation
             set => _maximumLife = value;
         }
 
-        public BoundsInt Area => _area;
+        public Vector3Int Area => _area;
         
         void Start()
         {

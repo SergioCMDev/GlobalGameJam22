@@ -160,14 +160,12 @@ public class GridBuildingSystem : MonoBehaviour
 
     public bool CanTakeArea(BoundsInt area)
     {
-        TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
-        foreach (var b in baseArray)
+        var baseArray = GetTilesBlock(area, MainTilemap);
+        foreach (var tile in baseArray)
         {
-            if (b != tileBases[TileType.White])
-            {
-                Debug.Log("Cannot place here");
-                return false;
-            }
+            if (tile == tileBases[TileType.White]) continue;
+            Debug.Log("Cannot place here");
+            return false;
         }
 
         return true;

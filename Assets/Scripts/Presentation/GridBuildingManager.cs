@@ -4,6 +4,7 @@ using System.Linq;
 using Application_;
 using Application_.Events;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 namespace Presentation
@@ -31,11 +32,14 @@ namespace Presentation
         public IDictionary<Vector3, Vector3Int> world;
         private GameObject _building;
         private BoundsInt _temporalArea;
-        private Vector3Int _previousPosition;
+        private Vector3Int _currentPosition;
+        private MilitaryBuilding _buildingComponent;
+        private Vector3Int _buildingArea;
 
         private void Awake()
         {
             string tilePath = @"Tiles\";
+            //TODO LOAD FROM RESOURCES
             tileBases.Add(TileType.Empty, null);
             tileBases.Add(TileType.White, white);
             // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
@@ -69,12 +73,37 @@ namespace Presentation
         public void PlayerSetBuildingInTilemap(PlayerSetBuildingInTilemapEvent tilemapEvent)
         {
             ShowTemporalTileMap();
-            _building = Instantiate(tilemapEvent.Prefab);
-            _temporalArea = _building.GetComponent<Building>().Area;
+            _building = Instantiate(tilemapEvent.Prefab); //GET POOL
+            _buildingComponent = _building.GetComponent<MilitaryBuilding>();
+            _buildingComponent.SetStatusChooserCanvas(true);
+            _buildingComponent.OnCancelTakingPlace += CancelTakingPlace;
+            _buildingComponent.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
+            _buildingArea = _buildingComponent.Area;
 
             _building.transform.position = _tilemap.GetCellCenterWorld(new Vector3Int());
             saveBuildingEvent.Instance = _building;
             saveBuildingEvent.Fire();
+        }
+
+        private void CancelTakingPlace()
+        {
+            _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
+            _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
+            HideTemporalTileMap();
+            _buildingComponent = null;
+            Destroy(_building);
+        }
+
+
+        private void BuildingTriesToTakePlace()
+        {
+            if (!CanTakeArea(_temporalArea)) return;
+            TakeArea(_temporalArea);
+            _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
+            _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
+            _buildingComponent.SetStatusChooserCanvas(false);
+            HideTemporalTileMap();
+            _buildingComponent = null;
         }
 
 
@@ -104,58 +133,86 @@ namespace Presentation
         }
 
 
-        private TileInnerData GetTileData(Vector3Int gridPosition)
-        {
-            return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
-                .TileInnerData;
-        }
+        // private TileInnerData GetTileData(Vector3Int gridPosition)
+        // {
+        //     return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
+        //         .TileInnerData;
+        // }
 
 
-        public bool PositionExists(Vector3 gridPosition)
-        {
-            return innerTileDataFromTiles.Any(x => x.GridPosition == gridPosition);
-        }
+        // public bool PositionExists(Vector3 gridPosition)
+        // {
+        //     return innerTileDataFromTiles.Any(x => x.GridPosition == gridPosition);
+        // }
 
-        public bool IsOccupied(Vector3 gridPosition)
-        {
-            return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
-                .TileInnerData.Occupied;
-        }
+        // public bool IsOccupied(Vector3 gridPosition)
+        // {
+        //     return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
+        //         .TileInnerData.Occupied;
+        // }
 
 
-        public bool CanBeUsed(Vector3Int gridPosition)
-        {
-            return GetTileData(gridPosition).CanBeUsed;
-        }
+        // public bool CanBeUsed(Vector3Int gridPosition)
+        // {
+        //     return GetTileData(gridPosition).CanBeUsed;
+        // }
 
         public void ShowTemporalTileMap()
         {
             _tilemapOverWorld.gameObject.SetActive(true);
         }
 
+        private void HideTemporalTileMap()
+        {
+            ClearPreviousPaintedArea();
+            _tilemapOverWorld.gameObject.SetActive(false);
+        }
+
         private void Update()
         {
             if (!_tilemapOverWorld.gameObject.activeInHierarchy || !_building) return;
-            if (Input.GetMouseButton(0))
+            if (!Input.GetMouseButton(0)) return;
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            
+            var gridPosition = GetGridPositionByMouse(Input.mousePosition);
+            if (gridPosition == _currentPosition) return;
+            
+            ClearPreviousPaintedArea();
+            _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
+            _temporalArea = GetBuildingArea(gridPosition, _buildingArea);
+            var baseArray = GetTilesBlock(_temporalArea, _tilemapOverWorld);
+            var tileArray = SetColourOfBuildingTiles(baseArray);
+            _currentPosition = gridPosition;
+            var buildingArea = GetBuildingArea(gridPosition, _temporalArea.size);
+            SetTilesInTilemap(buildingArea, tileArray, _tilemapOverWorld);
+        }
+
+        private TileBase[] SetColourOfBuildingTiles(TileBase[] baseArray)
+        {
+            var size = baseArray.Length;
+            var tileArray = new TileBase[size];
+            for (var i = 0; i < baseArray.Length; i++)
             {
-                var gridPosition = GetGridPositionByMouse(Input.mousePosition);
-                if(gridPosition == _previousPosition) return;
-                ClearPreviousPaintedArea();
-                _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
-                var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
-                _previousPosition = gridPosition;
-                var filledTiles = FillTiles(tiles, TileType.Green);
-                var buildingArea = GetBuildingArea(gridPosition, _temporalArea.size);
-                SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
+                if (baseArray[i] == tileBases[TileType.White])
+                {
+                    tileArray[i] = tileBases[TileType.Green];
+                }
+                else
+                {
+                    tileArray = FillTiles(tileArray, TileType.Red);
+                    break;
+                }
             }
+
+            return tileArray;
         }
 
         private void ClearPreviousPaintedArea()
         {
             var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
-
+       
             var filledTiles = FillTiles(tiles, TileType.White);
-            var buildingArea = GetBuildingArea(_previousPosition, _temporalArea.size);
+            var buildingArea = GetBuildingArea(_currentPosition, _temporalArea.size);
             SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
         }
 
@@ -178,6 +235,49 @@ namespace Presentation
             }
 
             return tileArray;
+        }
+
+
+        private bool CanTakeArea(BoundsInt area)
+        {
+            var baseArray = GetTilesBlock(area, _tilemapOverWorld);
+            foreach (var tile in baseArray)
+            {
+                if (tile == tileBases[TileType.Green]) continue;
+                Debug.Log("Cannot place here");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void TakeArea(BoundsInt area)
+        {
+            SetTilesBlock(area, TileType.Red, _tilemapOverWorld);
+            // SetTilesBlock(area, TileType.Green, _tilemap);
+        }
+
+        private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
+        {
+            TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
+            int counter = 0;
+
+            foreach (var v in area.allPositionsWithin)
+            {
+                Vector3Int pos = new Vector3Int(v.x, v.y, 0);
+                array[counter] = tilemap.GetTile(pos);
+                counter++;
+            }
+
+            return array;
+        }
+
+        private void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
+        {
+            int size = area.size.x * area.size.y * area.size.z;
+            TileBase[] tileArray = new TileBase[size];
+            FillTiles(tileArray, type);
+            tilemap.SetTilesBlock(area, tileArray);
         }
     }
 }

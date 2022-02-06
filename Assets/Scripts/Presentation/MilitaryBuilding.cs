@@ -1,3 +1,4 @@
+using System;
 using Application_.Events;
 using UnityEngine;
 using Utils;
@@ -11,6 +12,8 @@ namespace Presentation
         [SerializeField] private DamageType _damageType;
         [SerializeField] private PlaySFXEvent _playSfxEvent;
         [SerializeField] private GameObject _particles;
+        [SerializeField] private PlacerBuildingView _chooserCanvas;
+        public event Action OnBuildingTriesToTakePlace, OnCancelTakingPlace;
 
         private IReceiveDamage enemyToAttack;
         private ILife enemyLife;
@@ -29,6 +32,24 @@ namespace Presentation
         {
             get => _damage;
             set => _damage = value;
+        }
+
+        private void Awake()
+        {
+            _chooserCanvas.gameObject.SetActive(false);
+            _chooserCanvas.OnCancelTakingPlace += CancelTakingPlace;
+            _chooserCanvas.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
+        }
+
+        //TODO FIND WHERE TO PUT THIS, A NEW UPPER MANAGER? 
+        private void CancelTakingPlace()
+        {
+            OnCancelTakingPlace();
+        }
+
+        private void BuildingTriesToTakePlace()
+        {
+            OnBuildingTriesToTakePlace();
         }
 
         public override void ReceiveDamage(float receivedDamage)
@@ -85,6 +106,11 @@ namespace Presentation
             enemyLife = enemy.GetComponent<ILife>();
             enemyGameObject = enemy;
             _enemyIsSet = true;
+        }
+
+        public void SetStatusChooserCanvas(bool status)
+        {
+            _chooserCanvas.gameObject.SetActive(status);
         }
     }
 }
