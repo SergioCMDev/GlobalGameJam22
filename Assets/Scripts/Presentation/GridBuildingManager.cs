@@ -35,6 +35,7 @@ namespace Presentation
         private Vector3Int _currentPosition;
         private MilitaryBuilding _buildingComponent;
         private Vector3Int _buildingArea;
+        private TileType previousColour;
 
         private void Awake()
         {
@@ -165,7 +166,7 @@ namespace Presentation
 
         private void HideTemporalTileMap()
         {
-            ClearPreviousPaintedArea();
+            // ClearPreviousPaintedArea();
             _tilemapOverWorld.gameObject.SetActive(false);
         }
 
@@ -174,17 +175,17 @@ namespace Presentation
             if (!_tilemapOverWorld.gameObject.activeInHierarchy || !_building) return;
             if (!Input.GetMouseButton(0)) return;
             if (EventSystem.current.IsPointerOverGameObject()) return;
-            
+
             var gridPosition = GetGridPositionByMouse(Input.mousePosition);
             if (gridPosition == _currentPosition) return;
-            
+
             ClearPreviousPaintedArea();
-            _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
-            _temporalArea = GetBuildingArea(gridPosition, _buildingArea);
+            _currentPosition = gridPosition;
+            _building.transform.position = _tilemap.GetCellCenterLocal(_currentPosition);
+            _temporalArea = GetBuildingArea(_currentPosition, _buildingArea);
             var baseArray = GetTilesBlock(_temporalArea, _tilemapOverWorld);
             var tileArray = SetColourOfBuildingTiles(baseArray);
-            _currentPosition = gridPosition;
-            var buildingArea = GetBuildingArea(gridPosition, _temporalArea.size);
+            var buildingArea = GetBuildingArea(_currentPosition, _temporalArea.size);
             SetTilesInTilemap(buildingArea, tileArray, _tilemapOverWorld);
         }
 
@@ -208,14 +209,17 @@ namespace Presentation
             return tileArray;
         }
 
+
+
+
+
         //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
         private void ClearPreviousPaintedArea()
         {
-            var tiles = new TileBase[_temporalArea.size.x * _temporalArea.size.y * _temporalArea.size.z];
-       
-            var filledTiles = FillTiles(tiles, TileType.White);
-            var buildingArea = GetBuildingArea(_currentPosition, _temporalArea.size);
-            SetTilesInTilemap(buildingArea, filledTiles, _tilemapOverWorld);
+            var lastArea = GetBuildingArea(_currentPosition, _buildingArea);
+            var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
+            var filledTiles = FillTiles(baseArray, TileType.White);
+            SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
         }
 
         private BoundsInt GetBuildingArea(Vector3Int gridPosition, Vector3Int sizeArea)
