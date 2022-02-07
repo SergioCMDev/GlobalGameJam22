@@ -107,6 +107,8 @@ namespace Presentation
             _buildingComponent = null;
             _currentPosition = Vector3Int.zero;
             Destroy(_building);
+            previousColour = TileType.Empty;
+            ClearPreviousPaintedArea();
         }
 
 
