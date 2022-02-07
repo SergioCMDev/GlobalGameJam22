@@ -25,6 +25,7 @@ namespace Presentation
         public MilitaryBuilding BuildingComponent;
         public Vector3Int Position;
     }
+
     public class GridBuildingManager : MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap, _tilemapOverWorld;
@@ -120,6 +121,7 @@ namespace Presentation
             _building = null;
             _currentPosition = Vector3Int.zero;
             _buildingComponent = null;
+            previousColour = TileType.Red;
         }
 
 
@@ -225,25 +227,27 @@ namespace Presentation
                 {
                     tileArray[i] = tileBases[TileType.Green];
                     previousColour = TileType.White;
+                    continue;
                 }
-                else
-                {
-                    previousColour = TileType.Empty;
-                    tileArray = FillTiles(tileArray, TileType.Red);
-                    break;
-                }
+
+                previousColour = baseArray[i] == tileBases[TileType.Empty] ? TileType.Empty : TileType.Red;
+
+                tileArray = FillTiles(tileArray, TileType.Red);
+                break;
             }
 
             return tileArray;
         }
-        
-        
-            //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
+
+
+        //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
         private void ClearPreviousPaintedArea()
         {
             var lastArea = GetBuildingArea(_lastPosition, _buildingArea);
             var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
-            var filledTiles = FillTiles(baseArray,previousColour);
+
+            var filledTiles = FillTiles(baseArray, previousColour == TileType.Empty ? TileType.Empty : previousColour);
+
             SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
         }
 
@@ -289,7 +293,7 @@ namespace Presentation
             _buildingHasBeenSetEvent.BuildingComponent = _buildingComponent;
             _buildingHasBeenSetEvent.Position = _currentPosition;
             _buildingHasBeenSetEvent.Fire();
-            
+
             _savedBuildings.Add(new SetBuildingData()
                 {
                     Building = _building,
