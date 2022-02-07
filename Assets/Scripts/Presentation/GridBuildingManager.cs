@@ -149,31 +149,7 @@ namespace Presentation
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
             return gridPosition;
         }
-
-
-        // private TileInnerData GetTileData(Vector3Int gridPosition)
-        // {
-        //     return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
-        //         .TileInnerData;
-        // }
-
-
-        // public bool PositionExists(Vector3 gridPosition)
-        // {
-        //     return innerTileDataFromTiles.Any(x => x.GridPosition == gridPosition);
-        // }
-
-        // public bool IsOccupied(Vector3 gridPosition)
-        // {
-        //     return innerTileDataFromTiles.Single(x => x.GridPosition == gridPosition)
-        //         .TileInnerData.Occupied;
-        // }
-
-
-        // public bool CanBeUsed(Vector3Int gridPosition)
-        // {
-        //     return GetTileData(gridPosition).CanBeUsed;
-        // }
+        
 
         public void ShowTemporalTileMap()
         {
@@ -240,7 +216,6 @@ namespace Presentation
         }
 
 
-        //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
         private void ClearPreviousPaintedArea()
         {
             var lastArea = GetBuildingArea(_lastPosition, _buildingArea);
@@ -301,7 +276,6 @@ namespace Presentation
                     Position = _currentPosition
                 }
             );
-            // SetTilesBlock(area, TileType.Green, _tilemap);
         }
 
         private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
