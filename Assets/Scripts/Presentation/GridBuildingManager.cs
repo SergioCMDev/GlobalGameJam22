@@ -30,57 +30,37 @@ namespace Presentation
     {
         [SerializeField] private Tilemap _tilemap, _tilemapOverWorld;
         [SerializeField] private Grid _grid;
-
-        [SerializeField] private List<TileTuple> innerTileDataFromTiles = new List<TileTuple>();
-        [SerializeField] private List<Vector3> tilesToBlock = new List<Vector3>();
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private Tile _red, white, green;
 
-        private Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
+        private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
 
-        public IDictionary<Vector3, Vector3Int> world;
+        public IDictionary<Vector3, Vector3Int> world; //REMOVE
         private GameObject _building;
         private BoundsInt _temporalArea;
         private Vector3Int _currentPosition;
-        private MilitaryBuilding _buildingComponent;
+        private Vector3Int _lastPosition;
         private Vector3Int _buildingArea;
-        private TileType previousColour;
-        private List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
+        private MilitaryBuilding _buildingComponent;
+        private TileType _previousColour;
+        private readonly List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
 
         [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
-        private Vector3Int _lastPosition;
 
         private void Awake()
         {
             string tilePath = @"Tiles\";
             //TODO LOAD FROM RESOURCES
-            tileBases.Add(TileType.Empty, null);
-            tileBases.Add(TileType.White, white);
+            _tileTypeBase.Add(TileType.Empty, null);
+            _tileTypeBase.Add(TileType.White, white);
             // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
-            tileBases.Add(TileType.Green, green);
+            _tileTypeBase.Add(TileType.Green, green);
             // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
             // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
-            tileBases.Add(TileType.Red, _red);
+            _tileTypeBase.Add(TileType.Red, _red);
 
-
-            _tilemapOverWorld.gameObject.SetActive(false);
-            ReadWorld();
-            foreach (var tilePosition in world.Keys)
-            {
-                innerTileDataFromTiles.Add(new TileTuple()
-                {
-                    GridPosition = world[tilePosition],
-                    WorlddPosition = tilePosition,
-                    TileInnerData = new TileInnerData()
-                });
-            }
-
-            foreach (var tileToBlock in tilesToBlock)
-            {
-                var gridPosition = world[tileToBlock];
-                if (innerTileDataFromTiles.All(x => x.GridPosition != gridPosition)) continue;
-                innerTileDataFromTiles.Single(x => x.GridPosition != gridPosition).TileInnerData.CanBeUsed = false;
-            }
+            HideTemporalTileMap();
+            ReadWorld(); //REMOVE
         }
 
 
@@ -107,7 +87,7 @@ namespace Presentation
             _buildingComponent = null;
             _currentPosition = Vector3Int.zero;
             Destroy(_building);
-            previousColour = TileType.Empty;
+            _previousColour = TileType.Empty;
             ClearPreviousPaintedArea();
         }
 
@@ -123,10 +103,11 @@ namespace Presentation
             _building = null;
             _currentPosition = Vector3Int.zero;
             _buildingComponent = null;
-            previousColour = TileType.Red;
+            _previousColour = TileType.Red;
         }
 
 
+        //REMOVE
         private void ReadWorld()
         {
             world = new Dictionary<Vector3, Vector3Int>();
@@ -145,13 +126,13 @@ namespace Presentation
         }
 
 
-        public Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
+        private Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
             return gridPosition;
         }
-        
+
 
         public void ShowTemporalTileMap()
         {
@@ -201,14 +182,14 @@ namespace Presentation
             var tileArray = new TileBase[size];
             for (var i = 0; i < baseArray.Length; i++)
             {
-                if (baseArray[i] == tileBases[TileType.White])
+                if (baseArray[i] == _tileTypeBase[TileType.White])
                 {
-                    tileArray[i] = tileBases[TileType.Green];
-                    previousColour = TileType.White;
+                    tileArray[i] = _tileTypeBase[TileType.Green];
+                    _previousColour = TileType.White;
                     continue;
                 }
 
-                previousColour = baseArray[i] == tileBases[TileType.Empty] ? TileType.Empty : TileType.Red;
+                _previousColour = baseArray[i] == _tileTypeBase[TileType.Empty] ? TileType.Empty : TileType.Red;
 
                 tileArray = FillTiles(tileArray, TileType.Red);
                 break;
@@ -223,7 +204,8 @@ namespace Presentation
             var lastArea = GetBuildingArea(_lastPosition, _buildingArea);
             var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
 
-            var filledTiles = FillTiles(baseArray, previousColour == TileType.Empty ? TileType.Empty : previousColour);
+            var filledTiles = FillTiles(baseArray,
+                _previousColour == TileType.Empty ? TileType.Empty : _previousColour);
 
             SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
         }
@@ -243,7 +225,7 @@ namespace Presentation
         {
             for (int i = 0; i < tileArray.ToArray().Length; i++)
             {
-                tileArray[i] = tileBases[type];
+                tileArray[i] = _tileTypeBase[type];
             }
 
             return tileArray;
@@ -255,7 +237,7 @@ namespace Presentation
             var baseArray = GetTilesBlock(area, _tilemapOverWorld);
             foreach (var tile in baseArray)
             {
-                if (tile == tileBases[TileType.Green]) continue;
+                if (tile == _tileTypeBase[TileType.Green]) continue;
                 Debug.Log("Cannot place here");
                 return false;
             }
