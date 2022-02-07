@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application_;
 using Application_.Events;
+using Presentationn.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -17,6 +18,13 @@ namespace Presentation
         public TileInnerData TileInnerData;
     }
 
+    [Serializable]
+    public struct SetBuildingData
+    {
+        public GameObject Building;
+        public MilitaryBuilding BuildingComponent;
+        public Vector3Int Position;
+    }
     public class GridBuildingManager : MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap, _tilemapOverWorld;
@@ -36,6 +44,10 @@ namespace Presentation
         private MilitaryBuilding _buildingComponent;
         private Vector3Int _buildingArea;
         private TileType previousColour;
+        private List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
+
+        [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
+        private Vector3Int _lastPosition;
 
         private void Awake()
         {
@@ -92,6 +104,7 @@ namespace Presentation
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             HideTemporalTileMap();
             _buildingComponent = null;
+            _currentPosition = Vector3Int.zero;
             Destroy(_building);
         }
 
@@ -105,6 +118,7 @@ namespace Presentation
             _buildingComponent.SetStatusChooserCanvas(false);
             HideTemporalTileMap();
             _building = null;
+            _currentPosition = Vector3Int.zero;
             _buildingComponent = null;
         }
 
@@ -162,11 +176,22 @@ namespace Presentation
         public void ShowTemporalTileMap()
         {
             _tilemapOverWorld.gameObject.SetActive(true);
+            LoadBuildings();
+        }
+
+        private void LoadBuildings()
+        {
+            foreach (var buildingData in _savedBuildings)
+            {
+                var lastArea = GetBuildingArea(buildingData.Position, buildingData.BuildingComponent.Area);
+                var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
+                var filledTiles = FillTiles(baseArray, TileType.Red);
+                SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
+            }
         }
 
         private void HideTemporalTileMap()
         {
-            // ClearPreviousPaintedArea();
             _tilemapOverWorld.gameObject.SetActive(false);
         }
 
@@ -177,10 +202,11 @@ namespace Presentation
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
             var gridPosition = GetGridPositionByMouse(Input.mousePosition);
-            if (gridPosition == _currentPosition) return;
+            if (gridPosition == _lastPosition) return;
 
             ClearPreviousPaintedArea();
             _currentPosition = gridPosition;
+            _lastPosition = _currentPosition;
             _building.transform.position = _tilemap.GetCellCenterLocal(_currentPosition);
             _temporalArea = GetBuildingArea(_currentPosition, _buildingArea);
             var baseArray = GetTilesBlock(_temporalArea, _tilemapOverWorld);
@@ -198,9 +224,11 @@ namespace Presentation
                 if (baseArray[i] == tileBases[TileType.White])
                 {
                     tileArray[i] = tileBases[TileType.Green];
+                    previousColour = TileType.White;
                 }
                 else
                 {
+                    previousColour = TileType.Empty;
                     tileArray = FillTiles(tileArray, TileType.Red);
                     break;
                 }
@@ -208,17 +236,14 @@ namespace Presentation
 
             return tileArray;
         }
-
-
-
-
-
-        //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
+        
+        
+            //TODO CHECK THIS RIGHT TO SAVE RED TILES TOO AFTER SET A BUILDING
         private void ClearPreviousPaintedArea()
         {
-            var lastArea = GetBuildingArea(_currentPosition, _buildingArea);
+            var lastArea = GetBuildingArea(_lastPosition, _buildingArea);
             var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
-            var filledTiles = FillTiles(baseArray, TileType.White);
+            var filledTiles = FillTiles(baseArray,previousColour);
             SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
         }
 
@@ -260,7 +285,18 @@ namespace Presentation
         private void TakeArea(BoundsInt area)
         {
             SetTilesBlock(area, TileType.Red, _tilemapOverWorld);
-            _tilemapOverWorld.RefreshAllTiles();
+            _buildingHasBeenSetEvent.Building = _building;
+            _buildingHasBeenSetEvent.BuildingComponent = _buildingComponent;
+            _buildingHasBeenSetEvent.Position = _currentPosition;
+            _buildingHasBeenSetEvent.Fire();
+            
+            _savedBuildings.Add(new SetBuildingData()
+                {
+                    Building = _building,
+                    BuildingComponent = _buildingComponent,
+                    Position = _currentPosition
+                }
+            );
             // SetTilesBlock(area, TileType.Green, _tilemap);
         }
 
