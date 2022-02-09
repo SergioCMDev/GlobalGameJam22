@@ -8555,7 +8555,7 @@ PrefabInstance:
     - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
       propertyPath: inputTileManager
       value: 
-      objectReference: {fileID: 7439441737416704896}
+      objectReference: {fileID: 0}
     - target: {fileID: 6849419769269339581, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
       propertyPath: m_Name
       value: BuyController
@@ -11399,14 +11399,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7439441737416704896, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: hoverTile
-      value: 
-      objectReference: {fileID: 21300000, guid: ec9232807c66e9c4fb26460101884524, type: 3}
-    - target: {fileID: 7439441737416704896, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: gridBuildingManager
-      value: 
-      objectReference: {fileID: 1769078394}
     - target: {fileID: 7439441737509163146, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -11455,63 +11447,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7439441737509163148, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: _red
-      value: 
-      objectReference: {fileID: 11400000, guid: 989821a4204883b4094f48460c7dbc88, type: 2}
     - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _grid
       value: 
       objectReference: {fileID: 6921227464450779208}
     - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: green
-      value: 
-      objectReference: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: white
-      value: 
-      objectReference: {fileID: 11400000, guid: 09a3f5a17a20d92438b3195adf927059, type: 2}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _tilemap
       value: 
       objectReference: {fileID: 377284499}
     - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: selectedTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 6bc3d7fdf2793d7488a2afb1136a712e, type: 2}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: _selectedTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 6bc3d7fdf2793d7488a2afb1136a712e, type: 2}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: _deselectedTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 2408dc08658e3594c9a2c07a85db8c3f, type: 2}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _tilemapOverWorld
       value: 
       objectReference: {fileID: 629847865}
-    - target: {fileID: 7439441737509163149, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: _buildingHasBeenSetEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 6f0c1ebec5e128946b1b18dd6f3d5bdc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f86975df848a6498226713f0708f58, type: 3}
---- !u!114 &7439441737416704896 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7439441737416704896, guid: 53f86975df848a6498226713f0708f58, type: 3}
-  m_PrefabInstance: {fileID: 7439441737416704894}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73863c194c6581645bcee413651a7b58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7588028080978829254
 PrefabInstance:
   m_ObjectHideFlags: 0
