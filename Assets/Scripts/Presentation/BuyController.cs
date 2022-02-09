@@ -9,8 +9,6 @@ namespace Presentation
 {
     public class BuyController : MonoBehaviour
     {
-        [SerializeField] private InputTileManager inputTileManager;
-
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private BuildingType currentBuildingBuyType;
         private ResourcesManager _resourcesManager;
