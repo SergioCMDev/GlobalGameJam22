@@ -102,5 +102,11 @@ namespace Application_.SceneManagement
             SceneInfo nextSceneInfo = _scenesListModel.GetNextScene(GetCurrentSceneName());
             return nextSceneInfo.SceneName;
         }
+
+        public string GetSceneDataByName(string levelName)
+        {
+            var sceneInfo = GetCurrentSceneInfoByName(levelName);
+            return sceneInfo.SceneName;
+        }
     }
 }

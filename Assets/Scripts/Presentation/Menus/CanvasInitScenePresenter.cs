@@ -1,6 +1,8 @@
-﻿using Application_.SceneManagement;
+﻿using System;
+using Application_.SceneManagement;
 using Application_.Services;
 using Presentation.InputPlayer;
+using Presentation.Languages;
 using UnityEngine;
 using Utils;
 
@@ -16,16 +18,14 @@ namespace Presentation.Menus
         private ReadInputPlayer _readInputPlayer;
 
         private SceneChanger _sceneChanger;
-        // private ILanguageManager _languageManager;
+        private ILanguageManager _languageManager;
+        public event Action OnStartNewGame;
 
         private void Awake()
         {
             //TODO LOAD GAMEDATA
 
-            // _deleteSavedGameView.OnPlayerDeleteSavedGameData += DeleteLastGameAndStartNewGame;
-            // _deleteSavedGameView.OnPlayerCancelDeleteSavedGameData += CloseDeleteLastGameWindow;
-            // _gameDataStatusLoader.OnShowContinueButton += ShowContinueButton;
-            // _gameDataStatusLoader.OnShowPromptToDeleteLastGame += OpenDeleteLastGameWindow;
+           
             _initMenuView.OnContinueButtonPressed += ContinueGame;
             _initMenuView.OnNewGameButtonPressed += NewGame;
             _initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
@@ -44,7 +44,6 @@ namespace Presentation.Menus
 
         private void Start()
         {
-            // _initMenuView.SetButtons(_gameDataService.HasStartedGame());
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
 
             _readInputPlayer.DisableGameplayInput();
@@ -85,17 +84,11 @@ namespace Presentation.Menus
             _initMenuView.gameObject.SetActive(true);
         }
 
-
-        private void DeleteLastGameAndStartNewGame()
-        {
-            // _gameDataStatusLoader.DeleteLastGameAndStartNewGame();
-            NewGame();
-        }
+        
 
         private void NewGame()
         {
-            _sceneChanger.GoToFirstLevel(null);
-            // _gameDataStatusLoader.StartNewGame();
+            if (OnStartNewGame != null) OnStartNewGame();
         }
 
         private void ContinueGame()
@@ -106,23 +99,7 @@ namespace Presentation.Menus
             //
             // _gameDataStatusLoader.ContinueGame();
         }
-
-        private void OpenDeleteLastGameWindow()
-        {
-            _initMenuView.SetCanMoveButtonsStatus(false);
-            _initMenuView.DisableInput();
-
-            // _deleteSavedGameView.gameObject.SetActive(true);
-        }
-
-        private void CloseDeleteLastGameWindow()
-        {
-            _initMenuView.SetCanMoveButtonsStatus(true);
-            _initMenuView.EnableInput();
-
-            // _deleteSavedGameView.gameObject.SetActive(false);
-        }
-
+        
 
         private void ShowContinueButton(bool show)
         {
