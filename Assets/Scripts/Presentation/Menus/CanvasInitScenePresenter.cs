@@ -14,10 +14,10 @@ namespace Presentation.Menus
 
         // [SerializeField] private GameDataStatusLoader _gameDataStatusLoader;
         [SerializeField] private OptionsMenuView _optionsMenuView;
-        [SerializeField] private GameDataService _gameDataService;
+        // [SerializeField] private GameDataService _gameDataService;
         private ReadInputPlayer _readInputPlayer;
 
-        private SceneChanger _sceneChanger;
+        // private SceneChanger _sceneChanger;
         private ILanguageManager _languageManager;
         public event Action OnStartNewGame;
 
@@ -33,8 +33,8 @@ namespace Presentation.Menus
             _initMenuView.OnShowCreditsButtonPressed += ShowCreditsMenu;
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
-            _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            // _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            // _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
 
 
             // _deleteSavedGameView.gameObject.SetActive(false);

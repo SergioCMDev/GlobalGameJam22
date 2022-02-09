@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7031292711848581802}
   - component: {fileID: 7031292711848581805}
   m_Layer: 0
-  m_Name: FaderController
+  m_Name: FaderControllerMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

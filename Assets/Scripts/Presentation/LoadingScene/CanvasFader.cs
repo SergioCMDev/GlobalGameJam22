@@ -9,7 +9,7 @@ namespace Presentation.LoadingScene
     {
         public event Action OnFadeCompleted;
         public event Action OnUnfadeCompleted;
-        [SerializeField] private float _fadeDuration = 1, _unfadeDuration = 0.5f;
+        [SerializeField] private float _fadeDuration, _unfadeDuration = 0.5f;
 
         [SerializeField] private Image _fader;
 

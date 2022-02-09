@@ -11,13 +11,6 @@ namespace Application_.SceneManagement
     {
         [SerializeField] private ScenesListModel _scenesListModel;
 
-        public void HandleCompletedLevel(PlayerHasCompletedLevelEvent obj)
-        {
-            var currentSceneInfo = GetCurrentSceneInfoById(obj.level);
-
-            GoToNextLevel(currentSceneInfo);
-        }
-
         private SceneInfo GetCurrentSceneInfoById(int id)
         {
             var currentSceneInfo =

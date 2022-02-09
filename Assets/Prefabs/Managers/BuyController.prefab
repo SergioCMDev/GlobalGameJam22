@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34808e7364095b47a7a434f7db682d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputTileManager: {fileID: 0}
   _playerSetBuildingInTilemapEvent: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
 --- !u!114 &820448688
 MonoBehaviour:
