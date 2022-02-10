@@ -29,15 +29,32 @@ namespace Presentation
         {
             ChangeToNextScene();
         }
+        
+        public void ChangeToSpecificScene(ChangeToSpecificSceneEvent sceneEvent)
+        {
+            ChangeToScene(sceneEvent.SceneName);
+        }
     
         private void ChangeToNextScene()
         {
             _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
             _sceneModel.NextScene = _sceneChanger.GetNextSceneFromCurrent();
+            StartTransition();
+        }
+
+        private void StartTransition()
+        {
             _canvasFader.ActivateFader();
             operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
             operationLoadingScene.allowSceneActivation = false;
             operationLoadingScene.completed += LoadingSceneLoaded;
+        }
+
+        private void ChangeToScene(string scene)
+        {
+            _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
+            _sceneModel.NextScene = _sceneChanger.GetSceneDataByName(scene);
+            StartTransition();
         }
     
         private void InitializeLoadingScene()

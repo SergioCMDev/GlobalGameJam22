@@ -98,8 +98,17 @@ namespace Application_.SceneManagement
 
         public string GetSceneDataByName(string levelName)
         {
+            if (levelName == GetMainMenuSceneName())
+            {
+                return GetMainMenuSceneName();
+            }
             var sceneInfo = GetCurrentSceneInfoByName(levelName);
             return sceneInfo.SceneName;
+        }
+
+        public string GetMainMenuSceneName()
+        {
+            return _scenesListModel.GetMainMenuSceneName();
         }
     }
 }

@@ -67,4 +67,4 @@ MonoBehaviour:
   _creditsSceneName: Credits
   _firstLevelSceneName: Level1
   _tutorialSceneName: 
-  _mainMenuSceneName: MainMenu
+  _mainMenuSceneName: InitScene

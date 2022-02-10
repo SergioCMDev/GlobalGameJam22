@@ -14,6 +14,7 @@ namespace Presentation.Menus
         [SerializeField] private TextMeshProUGUI _tmpText;
         [SerializeField] private PlayerWantsToBuyBuildingEvent _playerWantsToBuyBuildingEvent;
         [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
+        [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private WinLoseMenuView _winLoseMenuView;
@@ -36,7 +37,8 @@ namespace Presentation.Menus
 
         private void OnGoToMainLevel()
         {
-            _sceneChanger.GoToMenu();
+            _changeToSpecificSceneEvent.SceneName = _sceneChanger.GetMainMenuSceneName();
+            _changeToSpecificSceneEvent.Fire();
         }
 
         private void RestartButtonPressedLevel()

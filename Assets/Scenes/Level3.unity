@@ -739,10 +739,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 3449160122288460458, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
-      propertyPath: mSpeed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1766,17 +1762,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
---- !u!114 &1892437675 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7788073181800920044, guid: 8aba390eaa709c64d87595c01862ffbf, type: 3}
-  m_PrefabInstance: {fileID: 7788073182242921028}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 828b7cc0a2b991c4b84989e653cd6900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1931498613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1849,6 +1834,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2341795770455548728, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 82216153}
     - target: {fileID: 2341795770455548732, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -2200,38 +2189,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: _map
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 215311263145991048, guid: 8dc236a61d2bac746bd3a3c2d46d5410, type: 3}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: inputTileManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: _resourcesManager
-      value: 
-      objectReference: {fileID: 1892437675}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: _buildingSelectable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: _buildingCost.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: _buildingCost.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 09ed20a0451ac42408ea207ff6c73709, type: 2}
-    - target: {fileID: 6849419769269339580, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
-      propertyPath: _playerSetBuildingInTilemapEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
     - target: {fileID: 6849419769269339581, guid: 41dba77c3f8cd5c4da3629add6d9a22e, type: 3}
       propertyPath: m_Name
       value: LevelController

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837e4c593f0247099961fec26bd30eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSpeed: 2
+  mSpeed: 6
 --- !u!114 &3449160121476668682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,12 +147,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3449160122288460458}
-        m_TargetAssemblyTypeName: IA.EnemyMovement, Presentation
+        m_TargetAssemblyTypeName: Presentation.Enemy.EnemyMovement, Presentation
         m_MethodName: StopEnemyMovement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ShowLostMenuUIEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.ShowLostMenuUIEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -175,12 +176,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3449160122288460458}
-        m_TargetAssemblyTypeName: IA.EnemyMovement, Presentation
+        m_TargetAssemblyTypeName: Presentation.Enemy.EnemyMovement, Presentation
         m_MethodName: StopEnemyMovement
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ShowWinMenuUIEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.ShowWinMenuUIEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

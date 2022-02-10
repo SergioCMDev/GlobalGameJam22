@@ -1388,12 +1388,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1354093165}
-        m_TargetAssemblyTypeName: CanvasPresenter, Assembly-CSharp
+        m_TargetAssemblyTypeName: Presentation.Menus.CanvasPresenter, Presentation
         m_MethodName: UpdateResources
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 656f0a0c9fae5954ebeae63b84e85cc5, type: 2}
-          m_ObjectArgumentAssemblyTypeName: UpdateUIResourcesEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.UpdateUIResourcesEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1414,6 +1415,7 @@ MonoBehaviour:
   _tmpText: {fileID: 622386405}
   _playerWantsToBuyBuildingEvent: {fileID: 11400000, guid: 345dd8d39ab6011459cd32d39689f839, type: 2}
   _changeToNextSceneEvent: {fileID: 11400000, guid: e594dafef8cbee84d8fcc74aad088604, type: 2}
+  _changeToSpecificSceneEvent: {fileID: 11400000, guid: 88a4b964054bc084db687831a41b25f9, type: 2}
   _playerHasRestartedLevelEvent: {fileID: 11400000, guid: d65df97f1ccd7f746b1c4b3b8962ad58, type: 2}
   _buildingsSelectable: {fileID: 2341795771788345203}
   _winLoseMenuView: {fileID: 4942551226777560064}
@@ -1434,12 +1436,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1354093165}
-        m_TargetAssemblyTypeName: Presentation.CanvasPresenter, Presentation
+        m_TargetAssemblyTypeName: Presentation.Menus.CanvasPresenter, Presentation
         m_MethodName: PlayerHasLost
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ShowLostMenuUIEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.ShowLostMenuUIEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1462,12 +1465,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1354093165}
-        m_TargetAssemblyTypeName: Presentation.CanvasPresenter, Presentation
+        m_TargetAssemblyTypeName: Presentation.Menus.CanvasPresenter, Presentation
         m_MethodName: PlayerHasWon
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ShowWinMenuUIEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.ShowWinMenuUIEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1724,6 +1728,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2341795770455548733}
     m_Modifications:
+    - target: {fileID: 1806764897884661688, guid: 343ccdc5d43116a4cb8cd168f2d86683, type: 3}
+      propertyPath: response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6250432162588826672}
     - target: {fileID: 5062933702836965952, guid: 343ccdc5d43116a4cb8cd168f2d86683, type: 3}
       propertyPath: m_Name
       value: Fader
@@ -1880,12 +1888,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6250432162588826672}
-        m_TargetAssemblyTypeName: FaderController, Presentation
+        m_TargetAssemblyTypeName: Presentation.FaderController, Presentation
         m_MethodName: ChangeToNextScene
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e594dafef8cbee84d8fcc74aad088604, type: 2}
-          m_ObjectArgumentAssemblyTypeName: ChangeToNextSceneEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.ChangeToNextSceneEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
