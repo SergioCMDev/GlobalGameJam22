@@ -17,7 +17,7 @@ namespace Presentation
         {
             _winImage.gameObject.SetActive(false);
             _loseImage.gameObject.SetActive(false);
-
+            _buttonContinue.gameObject.SetActive(false);
             _buttonRestart.onClick.AddListener(Restart);
             _buttonMainMenu.onClick.AddListener(GoToMainMenu);
             _buttonContinue.onClick.AddListener(Continue);
@@ -50,6 +50,7 @@ namespace Presentation
         {
             _buttonsParent.gameObject.SetActive(true);
             _winImage.gameObject.SetActive(true);
+            _buttonContinue.gameObject.SetActive(true);
         }
     }
 }

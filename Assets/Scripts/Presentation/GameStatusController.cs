@@ -8,13 +8,12 @@ namespace Presentation
 {
     public class GameStatusController : MonoBehaviour
     {
-        private Enemy _enemy;
         [SerializeField] private CityBuilding _cityBuilding;
-        [SerializeField] private FaderController _faderController;
 
-        [SerializeField] private PlayerHasWonEvent _playerHasWonEvent;
-        [SerializeField] private PlayerHasLostEvent _playerHasLostEvent;
+        [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
+        [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         private SceneChanger _sceneChanger;
+        private Enemy _enemy;
 
         void Start()
         {
@@ -23,29 +22,20 @@ namespace Presentation
             if (_enemy)
                 _enemy.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             _cityBuilding.OnBuildingDestroyed += PlayerHasBeenDefeated;
+            
         }
 
 
         private void EnemyHasBeenDefeated()
         {
-            _playerHasWonEvent.Fire();
+            showWinMenuUIEvent.Fire();
         }
 
         private void PlayerHasBeenDefeated(Building building)
         {
-            _playerHasLostEvent.Fire();
+            showLostMenuUIEvent.Fire();
         }
-
-        public void PlayerHasWon(PlayerHasWonEvent levelEvent)
-        {
-            _faderController.ChangeToNextScene();
-        }
-
-        public void PlayerHasLost(PlayerHasLostEvent levelEvent)
-        {
-            PlayerHasBeenDefeated(null);
-        }
-
+        
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
         {
             _sceneChanger.RestartScene(levelEvent);

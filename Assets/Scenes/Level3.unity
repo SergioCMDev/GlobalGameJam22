@@ -567,78 +567,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &570508059
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4027554830111637461, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_Name
-      value: FaderControllerInGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4507207442140684860, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5134778424191840815, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-      propertyPath: _canvasFader
-      value: 
-      objectReference: {fileID: 1941191229}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
---- !u!114 &570508060 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5134778424191840815, guid: e3f4e92365e17c8458f9a6a6c7c92e1e, type: 3}
-  m_PrefabInstance: {fileID: 570508059}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4e631d8043427589783f58953525a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &621552280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,7 +1839,7 @@ PrefabInstance:
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _faderController
       value: 
-      objectReference: {fileID: 570508060}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
 --- !u!1001 &1941191228
@@ -2011,17 +1939,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
---- !u!114 &1941191229 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5062933702073699478, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
-  m_PrefabInstance: {fileID: 1941191228}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d5c07959abe44e4b97f2141c9b3decb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!213 &2037531866
 Sprite:
   m_ObjectHideFlags: 0

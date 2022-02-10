@@ -2,6 +2,6 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerHasLostEvent", menuName = "Events/Game/PlayerHasLostEvent")]
-public class PlayerHasLostEvent : GameEventScriptable
+public class ShowLostMenuUIEvent : GameEventScriptable
 {
 }

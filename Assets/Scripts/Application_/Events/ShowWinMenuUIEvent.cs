@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerHasWonEvent", menuName = "Events/Game/PlayerHasWonEvent")]
-public class PlayerHasWonEvent : GameEventScriptable
+public class ShowWinMenuUIEvent : GameEventScriptable
 {
     public int level;
 }

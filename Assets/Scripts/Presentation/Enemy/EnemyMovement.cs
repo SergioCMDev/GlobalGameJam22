@@ -26,8 +26,7 @@ namespace IA
         {
             _currentSpeed = newSpeed;
         }
-
-
+        
 
         public void MoveTo(Vector3 position)
         {
@@ -42,6 +41,17 @@ namespace IA
         public void Stop()
         {
             _currentSpeed = 0;
+        }
+        
+        
+        public void StopEnemyMovement(ShowLostMenuUIEvent levelEvent)
+        {
+            Stop();
+        }
+        
+        public void StopEnemyMovement(ShowWinMenuUIEvent levelEvent)
+        {
+            Stop();
         }
     }
 }

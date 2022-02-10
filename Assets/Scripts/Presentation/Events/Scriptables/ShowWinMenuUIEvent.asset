@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61dfdb40554f48bf85d5e164c6984619, type: 3}
-  m_Name: PlayerHasWonEvent
+  m_Name: ShowWinMenuUIEvent
   m_EditorClassIdentifier: 
   level: 0

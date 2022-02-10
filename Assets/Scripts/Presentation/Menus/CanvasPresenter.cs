@@ -11,8 +11,10 @@ namespace Presentation
 {
     public class CanvasPresenter : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _tmpText;
-        [SerializeField] private PlayerWantsToBuyBuildingEvent _event;
+        [SerializeField] private TextMeshProUGUI _tmpText;
+        [SerializeField] private PlayerWantsToBuyBuildingEvent _playerWantsToBuyBuildingEvent;
+        [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
+        [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private WinLoseMenuView _winLoseMenuView;
         private SceneChanger _sceneChanger;
@@ -25,6 +27,7 @@ namespace Presentation
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             UpdateResources(null);
+            
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += OnPlayerWantsToBuyBuilding;
             _winLoseMenuView.OnContinueButtonPressed += ContinueButtonPressedLevel;
             _winLoseMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
@@ -38,39 +41,35 @@ namespace Presentation
 
         private void RestartButtonPressedLevel()
         {
-            _sceneChanger.RestartScene(null);
+            _playerHasRestartedLevelEvent.Fire();
         }
         
         private void ContinueButtonPressedLevel()
         {
-            _sceneChanger.GoToNextScene();
+            _changeToNextSceneEvent.Fire();
         }
 
         private void OnPlayerWantsToBuyBuilding(BuildingType buildingType)
         {
-            _event.BuildingType = buildingType;
-            _event.Fire();
+            _playerWantsToBuyBuildingEvent.BuildingType = buildingType;
+            _playerWantsToBuyBuildingEvent.Fire();
         }
-
 
         public void UpdateResources(UpdateUIResourcesEvent resourcesEvent)
         {
             _tmpText.SetText($"Recurso {_resourcesManager.ResourcesModel.Gold}");
         }
 
-
-        public void PlayerHasWon(PlayerHasWonEvent playerHasWonEvent)
+        public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
             _winLoseMenuView.ShowWinImage();
             _buildingsSelectable.gameObject.SetActive(false);
-            Debug.Log("HAS GANAO");
         }
 
-        public void PlayerHasLost(PlayerHasLostEvent playerHasLostEvent)
+        public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
             _winLoseMenuView.ShowLoseImage();
             _buildingsSelectable.gameObject.SetActive(false);
-            Debug.Log("HAS PERDIO");
         }
     }
 }

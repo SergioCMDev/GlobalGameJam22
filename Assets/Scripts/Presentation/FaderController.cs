@@ -21,7 +21,13 @@ public class FaderController : MonoBehaviour
         _canvasFader.OnFadeCompleted += InitializeLoadingScene;
 
     }
-    public void ChangeToNextScene()
+    
+    public void ChangeToNextScene(ChangeToNextSceneEvent sceneEvent)
+    {
+        ChangeToNextScene();
+    }
+    
+    private void ChangeToNextScene()
     {
         _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
         _sceneModel.NextScene = _sceneChanger.GetNextSceneFromCurrent();
