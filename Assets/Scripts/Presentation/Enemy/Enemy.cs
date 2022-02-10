@@ -1,54 +1,56 @@
 ﻿using System;
-using IA;
-using Presentation;
+using Presentation.Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
 
-public class Enemy : MonoBehaviour, IReceiveDamage, ILife
+namespace Presentation.Enemy
 {
-    [FormerlySerializedAs("_enemyMovement")] public EnemyMovement enemyMovement;
-    [SerializeField] private int _maximumLife;
-    private float _life;
-    private bool _isAlive;
-
-    public event Action OnEnemyHasBeenDefeated;
-
-    private void Start()
+    public class Enemy : MonoBehaviour, IReceiveDamage, ILife
     {
-        _life = _maximumLife;
-    }
+        [FormerlySerializedAs("_enemyMovement")] public EnemyMovement enemyMovement;
+        [SerializeField] private int _maximumLife;
+        private float _life;
+        private bool _isAlive;
 
-    public void ReceiveDamage(float receivedDamage, DamageType damageType)
-    {
-        //TODO REFRACTOR USING COMMAND PATTERN
-        _life -= receivedDamage;
-        CheckIfAlive();
-        if (damageType != DamageType.TeslaTower) return;
-        enemyMovement.ChangeSpeed(enemyMovement.Speed *= 0.25f);
-        Invoke(nameof(ResetSpeed), 0.4f);
+        public event Action OnEnemyHasBeenDefeated;
 
-    }
+        private void Start()
+        {
+            _life = _maximumLife;
+        }
 
-    public bool IsAlive()
-    {
-        return _life > 0;
-    }
+        public void ReceiveDamage(float receivedDamage, DamageType damageType)
+        {
+            //TODO REFRACTOR USING COMMAND PATTERN
+            _life -= receivedDamage;
+            CheckIfAlive();
+            if (damageType != DamageType.TeslaTower) return;
+            enemyMovement.ChangeSpeed(enemyMovement.Speed *= 0.25f);
+            Invoke(nameof(ResetSpeed), 0.4f);
 
-    private void ResetSpeed()
-    {
-        enemyMovement.ResetSpeed();
-    }
+        }
 
-    private void CheckIfAlive()
-    {
-        if (IsAlive()) return;
-        enemyMovement.Stop();
-        OnEnemyHasBeenDefeated.Invoke();
-    }
+        public bool IsAlive()
+        {
+            return _life > 0;
+        }
 
-    public void AddLife(float lifeToAdd)
-    {
-        _life = _life.CircularClamp(0, _maximumLife);
+        private void ResetSpeed()
+        {
+            enemyMovement.ResetSpeed();
+        }
+
+        private void CheckIfAlive()
+        {
+            if (IsAlive()) return;
+            enemyMovement.Stop();
+            OnEnemyHasBeenDefeated.Invoke();
+        }
+
+        public void AddLife(float lifeToAdd)
+        {
+            _life = _life.CircularClamp(0, _maximumLife);
+        }
     }
 }

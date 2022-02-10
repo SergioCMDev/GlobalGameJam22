@@ -2,9 +2,12 @@
 using Application_;
 using UnityEngine;
 
-[Serializable]
-public struct BuildingDataTuple
+namespace Presentation.Building
 {
-    public BuildingType BuildingType;
-    public GameObject Prefab;
+    [Serializable]
+    public struct BuildingDataTuple
+    {
+        public BuildingType BuildingType;
+        public GameObject Prefab;
+    }
 }

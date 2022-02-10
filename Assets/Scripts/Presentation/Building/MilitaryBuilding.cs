@@ -1,9 +1,10 @@
 using System;
 using Application_.Events;
+using Presentation.Interfaces;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Building
 {
     public abstract class MilitaryBuilding : Building, IAttack
     {

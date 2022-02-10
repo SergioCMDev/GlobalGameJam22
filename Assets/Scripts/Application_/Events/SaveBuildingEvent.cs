@@ -1,8 +1,10 @@
-﻿using Application_.Events;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "SaveBuildingEvent", menuName = "Events/Building/SaveBuildingEvent")]
-public class SaveBuildingEvent : GameEventScriptable
+namespace Application_.Events
 {
-    public GameObject Instance;
+    [CreateAssetMenu(fileName = "SaveBuildingEvent", menuName = "Events/Building/SaveBuildingEvent")]
+    public class SaveBuildingEvent : GameEventScriptable
+    {
+        public GameObject Instance;
+    }
 }

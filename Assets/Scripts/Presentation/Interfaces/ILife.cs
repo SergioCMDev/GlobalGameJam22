@@ -1,4 +1,4 @@
-﻿namespace Presentation
+﻿namespace Presentation.Interfaces
 {
     public interface ILife
     {

@@ -1,8 +1,8 @@
 using Application_.Events;
-using Presentation;
+using Presentation.Building;
 using UnityEngine;
 
-namespace Presentationn.Events
+namespace Presentation.Events
 {
     [CreateAssetMenu(fileName = "BuildingHasBeenSetEvent", menuName = "Events/Grid/BuildingHasBeenSetEvent")]
     public class BuildingHasBeenSetEvent : GameEventScriptable

@@ -1,8 +1,9 @@
 using Application_.Events;
+using Presentation.Interfaces;
 using Presentation.Menus;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Building
 {
     public abstract class Building : MonoBehaviour, IReceiveDamage, ILife, IConstructable
     {

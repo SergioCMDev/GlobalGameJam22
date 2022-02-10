@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Presentation
+namespace Presentation.Interfaces
 {
     public interface IDestructible
     {
         void DestroyBuilding();
-        event Action<Building> OnBuildingDestroyed;
+        event Action<Building.Building> OnBuildingDestroyed;
     }
 }

@@ -1,7 +1,10 @@
-public enum TileType
+namespace Presentation
 {
-    Empty, 
-    White,
-    Green, 
-    Red
+    public enum TileType
+    {
+        Empty, 
+        White,
+        Green, 
+        Red
+    }
 }

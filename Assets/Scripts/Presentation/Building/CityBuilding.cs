@@ -1,30 +1,33 @@
 ﻿using System;
-using Presentation;
+using Presentation.Interfaces;
 
-public class CityBuilding : Building, IDestructible
+namespace Presentation.Building
 {
-    public event Action<Building> OnBuildingDestroyed;
-
-
-    public void ReceiveDamage(float receivedDamage, int citySize)
+    public class CityBuilding : Building, IDestructible
     {
-        ReceiveDamage(receivedDamage);
-        if ((((100/MaxLife)*Life)% citySize) == 0)
+        public event Action<Building> OnBuildingDestroyed;
+
+
+        public void ReceiveDamage(float receivedDamage, int citySize)
         {
-            DestroyBuilding();
+            ReceiveDamage(receivedDamage);
+            if ((((100/MaxLife)*Life)% citySize) == 0)
+            {
+                DestroyBuilding();
+            }
         }
-    }
-    public override void ReceiveDamage(float receivedDamage)
-    {
-        _currentLife -= receivedDamage;
-        if (_currentLife <= 0)
+        public override void ReceiveDamage(float receivedDamage)
         {
-            DestroyBuilding();
+            _currentLife -= receivedDamage;
+            if (_currentLife <= 0)
+            {
+                DestroyBuilding();
+            }
         }
-    }
 
-    public void DestroyBuilding()
-    {
-        OnBuildingDestroyed.Invoke(this);
+        public void DestroyBuilding()
+        {
+            OnBuildingDestroyed.Invoke(this);
+        }
     }
 }

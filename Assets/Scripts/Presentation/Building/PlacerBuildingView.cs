@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation
+namespace Presentation.Building
 {
     public class PlacerBuildingView : MonoBehaviour
     {

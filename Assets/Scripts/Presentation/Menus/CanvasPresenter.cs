@@ -1,13 +1,13 @@
 using Application_;
 using Application_.Events;
 using Application_.SceneManagement;
-using Presentation;
+using Presentation.Events;
 using Presentation.Managers;
 using TMPro;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Menus
 {
     public class CanvasPresenter : MonoBehaviour
     {

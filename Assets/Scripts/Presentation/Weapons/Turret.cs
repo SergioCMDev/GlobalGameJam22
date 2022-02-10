@@ -1,6 +1,7 @@
 using System;
+using Presentation.Building;
 
-namespace Presentation
+namespace Presentation.Weapons
 {
     public class Turret : MilitaryBuilding
     {

@@ -1,7 +1,9 @@
-﻿using Application_.Events;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerHasLostEvent", menuName = "Events/Game/PlayerHasLostEvent")]
-public class ShowLostMenuUIEvent : GameEventScriptable
+namespace Application_.Events
 {
+    [CreateAssetMenu(fileName = "PlayerHasLostEvent", menuName = "Events/Game/PlayerHasLostEvent")]
+    public class ShowLostMenuUIEvent : GameEventScriptable
+    {
+    }
 }

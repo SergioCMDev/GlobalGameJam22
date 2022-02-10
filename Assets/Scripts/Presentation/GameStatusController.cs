@@ -1,6 +1,7 @@
 using Application_.Events;
 using Application_.SceneManagement;
 using Presentation;
+using Presentation.Building;
 using UnityEngine;
 using Utils;
 
@@ -13,12 +14,12 @@ namespace Presentation
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         private SceneChanger _sceneChanger;
-        private Enemy _enemy;
+        private Enemy.Enemy _enemy;
 
         void Start()
         {
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
-            _enemy = FindObjectOfType<Enemy>();
+            _enemy = FindObjectOfType<Enemy.Enemy>();
             if (_enemy)
                 _enemy.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             _cityBuilding.OnBuildingDestroyed += PlayerHasBeenDefeated;
@@ -31,7 +32,7 @@ namespace Presentation
             showWinMenuUIEvent.Fire();
         }
 
-        private void PlayerHasBeenDefeated(Building building)
+        private void PlayerHasBeenDefeated(Building.Building building)
         {
             showLostMenuUIEvent.Fire();
         }

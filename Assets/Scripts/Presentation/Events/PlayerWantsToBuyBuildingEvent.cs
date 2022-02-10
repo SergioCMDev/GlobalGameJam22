@@ -2,7 +2,7 @@
 using Application_.Events;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Events
 {
     [CreateAssetMenu(fileName = "PlayerWantsToBuyBuildingEvent",
         menuName = "Events/Building/PlayerWantsToBuyBuildingEvent")]

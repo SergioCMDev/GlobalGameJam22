@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application_;
+using Application_.Events;
 using Application_.Models;
+using Presentation.Building;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;
@@ -29,8 +31,8 @@ namespace Presentation
                 });
             }
 
-            if(FindObjectOfType<Enemy>())
-                _enemy = FindObjectOfType<Enemy>().gameObject;
+            if(FindObjectOfType<Enemy.Enemy>())
+                _enemy = FindObjectOfType<Enemy.Enemy>().gameObject;
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)

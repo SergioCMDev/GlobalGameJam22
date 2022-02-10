@@ -1,6 +1,7 @@
+using Application_.Events;
 using UnityEngine;
 
-namespace IA
+namespace Presentation.Enemy
 {
     public class EnemyMovement:MonoBehaviour
     {
