@@ -15,8 +15,10 @@ namespace Presentation
         private ResourcesManager _resourcesManager;
         private BuildingManager _buildingManager;
 
-        [SerializeField] private PlayerSetBuildingInTilemapEvent _playerSetBuildingInTilemapEvent;
+        [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent _allowPlayerToSetBuildingInTilemapEvent;
         private bool _playerIsCurrentlyBuying;
+
+
         void Start()
         {
             _buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
@@ -24,46 +26,37 @@ namespace Presentation
             _playerIsCurrentlyBuying = false;
         }
 
-        public void PlayerWantsToBuyBuildingEvent(PlayerWantsToBuyBuildingEvent playerWantsToBuyBuildingEvent)
+        public void PlayerWantsToBuyBuilding(PlayerWantsToBuyBuildingEvent playerWantsToBuyBuildingEvent)
         {
-            OnPlayerWantsToBuyBuilding(playerWantsToBuyBuildingEvent.BuildingType);
+            PlayerWantsToBuyBuilding(playerWantsToBuyBuildingEvent.BuildingType);
         }
-        private void OnPlayerWantsToBuyBuilding(BuildingType buildingType)
+
+        public void PlayerWantsToBuyBuilding(BuildingType buildingType)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
-            //Get LastLevel of building
             var buildingsStatus = _buildingManager.GetBuildingStatus(buildingType);
             currentBuildingBuyType = buildingType;
             resourcesNeededForCurrentBuy =
                 _buildingManager.GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
-                    resourcesNeededForCurrentBuy.Metal)) return;
+                resourcesNeededForCurrentBuy.Metal)) return;
 
-            OnFinishBuy(null);
-        }
-
-
-
-        private void OnFinishBuy(SelectedTileData obj)
-        {
-            Debug.Log($"Data Player has selected Tile");
             var prefab = _buildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
-            _playerSetBuildingInTilemapEvent.Prefab = prefab;
-            // _playerSetBuildingInTilemapEvent.GridPosition = obj.GridPosition;
-            _playerSetBuildingInTilemapEvent.Fire();
-            // _buildingManager.UpgradeBoughtBuilding(currentBuildingBuyType);
-            // _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
-            _playerIsCurrentlyBuying = false;
-
+            _allowPlayerToSetBuildingInTilemapEvent.Prefab = prefab;
+            _allowPlayerToSetBuildingInTilemapEvent.BuildingType = buildingType;
+            _allowPlayerToSetBuildingInTilemapEvent.Fire();
         }
 
-        private void OnCancelBuy()
+        public void EndBuy()
         {
-            Debug.Log($"Canceled Buy");
+            _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
             _playerIsCurrentlyBuying = false;
         }
 
-        //TODO
+        public void BuyHasBeenCanceled()
+        {
+            _playerIsCurrentlyBuying = false;
+        }
     }
 }

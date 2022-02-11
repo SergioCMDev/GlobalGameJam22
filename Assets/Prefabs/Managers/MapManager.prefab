@@ -69,12 +69,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7439441737509163149}
-        m_TargetAssemblyTypeName: Presentation.MapManager, Presentation
-        m_MethodName: PlayerSetBuildingInTilemap
+        m_TargetAssemblyTypeName: Presentation.GridBuildingManager, Presentation
+        m_MethodName: AllowPlayerToSetBuildingInTilemap
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.PlayerSetBuildingInTilemapEvent,
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.AllowPlayerToSetBuildingInTilemapEvent,
             Application
           m_IntArgument: 0
           m_FloatArgument: 0

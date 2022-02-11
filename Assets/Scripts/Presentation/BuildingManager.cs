@@ -63,9 +63,9 @@ namespace Presentation
                 x.buildingType == type);
         }
 
-        public void SaveBuilding(SaveBuildingEvent tilemapEvent)
+        public void SaveBuilding(SaveBuildingEvent buildingEvent)
         {
-            var militaryBuilding = tilemapEvent.Instance.GetComponent<MilitaryBuilding>();
+            var militaryBuilding = buildingEvent.Instance.GetComponent<MilitaryBuilding>();
             militaryBuilding.SetEnemyToAttack(_enemy);
             _ownMilitaryBuilding.Add(militaryBuilding);
         }

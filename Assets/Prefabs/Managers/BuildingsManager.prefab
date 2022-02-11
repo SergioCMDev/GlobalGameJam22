@@ -46,8 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildingCost:
   - {fileID: 11400000, guid: 09ed20a0451ac42408ea207ff6c73709, type: 2}
+  - {fileID: 11400000, guid: fe84ecd6013dfbd42a61530e46184354, type: 2}
+  - {fileID: 11400000, guid: c8e1f752e6633ec47b3af0a9a5c939eb, type: 2}
   buildingData:
   - BuildingType: 0
+    Prefab: {fileID: 5069552752378941104, guid: 0d9c76bd77eae6b4f97e14d319764a17, type: 3}
+  - BuildingType: 1
+    Prefab: {fileID: 5069552752378941104, guid: c482e581c1b301d408ffc894c8650c73, type: 3}
+  - BuildingType: 2
     Prefab: {fileID: 5069552752378941104, guid: 9961c61ee5ca95e41a8540ccf8e44056, type: 3}
 --- !u!114 &505893361544698900
 MonoBehaviour:
@@ -71,7 +77,8 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
-          m_ObjectArgumentAssemblyTypeName: SaveBuildingEvent, Application
+          m_ObjectArgumentAssemblyTypeName: Application_.Events.SaveBuildingEvent,
+            Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

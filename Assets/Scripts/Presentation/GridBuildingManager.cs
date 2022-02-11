@@ -12,14 +12,6 @@ using UnityEngine.Tilemaps;
 namespace Presentation
 {
     [Serializable]
-    public struct TileTuple
-    {
-        public Vector3 WorlddPosition;
-        public Vector3Int GridPosition;
-        public TileInnerData TileInnerData;
-    }
-
-    [Serializable]
     public struct SetBuildingData
     {
         public GameObject Building;
@@ -48,6 +40,9 @@ namespace Presentation
 
         [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
 
+        public event Action OnPlayerHasSetBuildingOnGrid, OnPlayerHasCanceledSetBuildingOnGrid;
+
+
         private void Awake()
         {
             string tilePath = @"Tiles\";
@@ -65,7 +60,7 @@ namespace Presentation
         }
 
 
-        public void PlayerSetBuildingInTilemap(PlayerSetBuildingInTilemapEvent tilemapEvent)
+        public void AllowPlayerToSetBuildingInTilemap(AllowPlayerToSetBuildingInTilemapEvent tilemapEvent)
         {
             ShowTemporalTileMap();
             _building = Instantiate(tilemapEvent.Prefab); //GET POOL
@@ -76,8 +71,6 @@ namespace Presentation
             _buildingArea = _buildingComponent.Area;
 
             _building.transform.position = _tilemap.GetCellCenterWorld(new Vector3Int());
-            saveBuildingEvent.Instance = _building;
-            saveBuildingEvent.Fire();
         }
 
         private void CancelTakingPlace()
@@ -88,23 +81,44 @@ namespace Presentation
             _buildingComponent = null;
             _currentPosition = Vector3Int.zero;
             Destroy(_building);
-            _previousColour = TileType.Empty;
+            switch (_previousColour)
+            {
+                //TODO GET PREVIOUS ZONE AND SET COLOUR
+                case TileType.Green:
+                case TileType.Red:
+                case TileType.White:
+                    _previousColour = TileType.White;
+                    break;
+                default:
+                    _previousColour = TileType.Empty;
+                    break;
+            }
+
             ClearPreviousPaintedArea();
+            OnPlayerHasCanceledSetBuildingOnGrid.Invoke();
         }
 
 
         private void BuildingTriesToTakePlace()
         {
             if (!CanTakeArea(_temporalArea)) return;
+            SetBuildingInGrid();
+        }
+
+        private void SetBuildingInGrid()
+        {
             TakeArea(_temporalArea);
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             _buildingComponent.SetStatusChooserCanvas(false);
             HideTemporalTileMap();
-            _building = null;
             _currentPosition = Vector3Int.zero;
             _buildingComponent = null;
             _previousColour = TileType.Red;
+            OnPlayerHasSetBuildingOnGrid.Invoke();
+            saveBuildingEvent.Instance = _building;
+            saveBuildingEvent.Fire();
+            _building = null;
         }
 
 

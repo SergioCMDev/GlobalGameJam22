@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60fdd0deef4544f5b275f5e7ceafce75, type: 3}
-  m_Name: PlayerSetBuildingInTilemapEvent
+  m_Name: AllowPlayerToSetBuildingInTilemapEvent
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5069552752378941104, guid: 9961c61ee5ca95e41a8540ccf8e44056, type: 3}
   WolrdPosition: {x: 0, y: 0, z: 0}

@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 namespace Presentation.Menus
 {
-    public class WinLoseMenuView : MonoBehaviour
+    public class WinMenuView : MonoBehaviour
     {
-        [SerializeField] private Image _winImage, _loseImage;
+        [SerializeField] private Image _winImage;
         [SerializeField] private Button _buttonRestart, _buttonMainMenu, _buttonContinue;
         [SerializeField] private GameObject _buttonsParent;
         public event Action OnGoToMainMenuButtonPressed;
@@ -16,7 +16,6 @@ namespace Presentation.Menus
         private void Start()
         {
             _winImage.gameObject.SetActive(false);
-            _loseImage.gameObject.SetActive(false);
             _buttonContinue.gameObject.SetActive(false);
             _buttonRestart.onClick.AddListener(Restart);
             _buttonMainMenu.onClick.AddListener(GoToMainMenu);
@@ -37,20 +36,6 @@ namespace Presentation.Menus
         private void Restart()
         {
             OnRestartButtonPressed();
-        }
-
-        public void ShowLoseImage()
-
-        {
-            _buttonsParent.gameObject.SetActive(true);
-            _loseImage.gameObject.SetActive(true);
-        }
-
-        public void ShowWinImage()
-        {
-            _buttonsParent.gameObject.SetActive(true);
-            _winImage.gameObject.SetActive(true);
-            _buttonContinue.gameObject.SetActive(true);
         }
     }
 }

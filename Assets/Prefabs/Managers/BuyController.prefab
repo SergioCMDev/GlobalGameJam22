@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6849419769269339523}
   - component: {fileID: 6849419769269339580}
   - component: {fileID: 820448688}
+  - component: {fileID: 5462270180332281075}
   m_Layer: 0
   m_Name: BuyController
   m_TagString: Untagged
@@ -44,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34808e7364095b47a7a434f7db682d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSetBuildingInTilemapEvent: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
+  _allowPlayerToSetBuildingInTilemapEvent: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
 --- !u!114 &820448688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +64,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6849419769269339580}
         m_TargetAssemblyTypeName: Presentation.BuyController, Presentation
-        m_MethodName: PlayerWantsToBuyBuildingEvent
+        m_MethodName: PlayerWantsToBuyBuilding
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 345dd8d39ab6011459cd32d39689f839, type: 2}
@@ -74,3 +75,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5462270180332281075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6849419769269339581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7525f1caeb74b4a8292116b41da5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasPresenter: {fileID: 0}
+  _buyController: {fileID: 6849419769269339580}
+  _gridBuildingManager: {fileID: 0}
