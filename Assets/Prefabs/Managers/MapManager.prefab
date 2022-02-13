@@ -49,8 +49,9 @@ MonoBehaviour:
   _grid: {fileID: 0}
   saveBuildingEvent: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
   _red: {fileID: 11400000, guid: 989821a4204883b4094f48460c7dbc88, type: 2}
-  white: {fileID: 11400000, guid: 09a3f5a17a20d92438b3195adf927059, type: 2}
+  white: {fileID: 11400000, guid: 4491f5959acf30f49b423b627d0fa035, type: 2}
   green: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
+  _purple: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
   _buildingHasBeenSetEvent: {fileID: 11400000, guid: 6f0c1ebec5e128946b1b18dd6f3d5bdc, type: 2}
 --- !u!114 &7439441737509163147
 MonoBehaviour:

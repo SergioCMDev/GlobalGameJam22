@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderBarView: {fileID: 9180457173023002144}
-  _maximumLife: 0
+  _maximumLife: 100
   _area: {x: 1, y: 1, z: 1}
   _cadence: 2
   _damage: 20
@@ -627,6 +627,7 @@ MonoBehaviour:
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
   _particles: {fileID: 0}
   _chooserCanvas: {fileID: 4851429865776267670}
+  _attackArea: {x: 3, y: 3, z: 1}
 --- !u!1 &5450088459547540391
 GameObject:
   m_ObjectHideFlags: 0

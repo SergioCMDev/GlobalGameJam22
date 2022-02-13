@@ -5,6 +5,8 @@ namespace Presentation
         Empty, 
         White,
         Green, 
-        Red
+        Red,
+        Purple,
+        Mixed
     }
 }

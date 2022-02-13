@@ -16,6 +16,7 @@ namespace Presentation.Building
         [SerializeField] private PlacerBuildingView _chooserCanvas;
         public event Action OnBuildingTriesToTakePlace, OnCancelTakingPlace;
 
+        [SerializeField] private Vector3Int _attackArea;
         private IReceiveDamage enemyToAttack;
         private ILife enemyLife;
         private GameObject enemyGameObject;
@@ -34,6 +35,9 @@ namespace Presentation.Building
             get => _damage;
             set => _damage = value;
         }
+
+        public Vector3Int AttackArea => _attackArea;
+
 
         private void Awake()
         {
