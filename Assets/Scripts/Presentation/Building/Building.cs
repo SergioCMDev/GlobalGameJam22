@@ -37,8 +37,8 @@ namespace Presentation.Building
         
         void Start()
         {
-            _sliderBarView.SetMaxValue(Life);
             _currentLife = _maximumLife;
+            _sliderBarView.SetMaxValue(Life);
         }
 
         public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
