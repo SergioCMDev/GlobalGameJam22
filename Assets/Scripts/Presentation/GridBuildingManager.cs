@@ -80,6 +80,7 @@ namespace Presentation
         public void AllowPlayerToSetBuildingInTilemap(AllowPlayerToSetBuildingInTilemapEvent tilemapEvent)
         {
             ShowTemporalTileMap();
+            LoadBuildings();
             _building = Instantiate(tilemapEvent.Prefab); //GET POOL
             _buildingComponent = _building.GetComponent<MilitaryBuilding>();
             _buildingComponent.SetStatusChooserCanvas(true);
@@ -177,7 +178,6 @@ namespace Presentation
         private void ShowTemporalTileMap()
         {
             _tilemapOverWorld.gameObject.SetActive(true);
-            LoadBuildings();
         }
 
         private void LoadBuildings()
@@ -241,7 +241,7 @@ namespace Presentation
             var attackArray = GetTilesBlock(attackArea, _tilemapOverWorld);
 
             tileDatas.Clear();
-            SetBuildingArrayWithBuildingSize(attackArray, _temporalBuildingArea.size);
+            FillBuildingArrayWithBuildingSize(attackArray, _temporalBuildingArea.size);
             SetColourOfAttackZone(attackArray, _temporalBuildingArea);
             var filledTiles = CopyFromTileDataToArray();
 
@@ -308,13 +308,13 @@ namespace Presentation
             }
         }
 
-        private void SetBuildingArrayWithBuildingSize(TileBase[] baseArray, Vector3Int buildingArea)
+        private void FillBuildingArrayWithBuildingSize(TileBase[] baseArray, Vector3Int buildingArea)
         {
             for (var i = 0; i < buildingArea.x * buildingArea.y * buildingArea.z; i++)
             {
                 if (baseArray[i] != _tileTypeBase[TileType.White]) continue;
+                AddTileData( _tileTypeBase[TileType.Green], TileType.White, TileType.Green);
                 baseArray[i] = _tileTypeBase[TileType.Green];
-                AddTileData(baseArray[i], TileType.White, TileType.Green);
             }
         }
 
@@ -331,16 +331,7 @@ namespace Presentation
                 CanBeChanged = canBeChanged
             });
         }
-
-        private void EditTileData(TileBase tileArray, TileType previousColour, TileType currentColour)
-        {
-            if (tileArray == null) return;
-            if (tileDatas.Any(x => x.Tile == tileArray)) return;
-            var tileRetrieved = tileDatas.Single(x => x.Tile == tileArray);
-            tileDatas.Remove(tileRetrieved);
-            AddTileData(tileArray, previousColour, currentColour);
-        }
-
+        
         private void ClearPreviousPaintedArea()
         {
             var lastArea = GetObjectArea(_lastPosition, _buildingArea);
@@ -357,8 +348,8 @@ namespace Presentation
                         tile.CurrentColour = tile.PreviousColour;
                         break;
                     case TileType.Red when tile.PreviousColour == TileType.Empty:
-                        tile.Tile = _tileTypeBase[TileType.White];
-                        tile.CurrentColour = TileType.White;
+                        tile.Tile = _tileTypeBase[TileType.Empty];
+                        tile.CurrentColour = TileType.Empty;
                         break;
                     case TileType.Red when tile.PreviousColour == TileType.Red:
                         tile.Tile = _tileTypeBase[TileType.Red];
@@ -425,8 +416,8 @@ namespace Presentation
         {
             for (int i = 0; i < tileArray.ToArray().Length; i++)
             {
+                AddTileData(_tileTypeBase[type], GetCurrentTileType(tileArray[i]), type);
                 tileArray[i] = _tileTypeBase[type];
-                AddTileData(tileArray[i], GetCurrentTileType(tileArray[i]), type);
             }
         }
 
