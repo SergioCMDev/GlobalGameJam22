@@ -41,7 +41,6 @@ namespace Presentation
         private GameObject _building;
         private BoundsInt _temporalBuildingArea;
         private Vector3Int _currentPosition;
-        private Vector3Int _lastPosition;
         private Vector3Int _buildingArea, _originalBuildingArea;
 
         private MilitaryBuilding _buildingComponent;
@@ -166,15 +165,12 @@ namespace Presentation
             }
         }
 
-
         private Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
-            // Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
             return gridPosition;
         }
-
 
         private void ShowTemporalTileMap()
         {
@@ -212,17 +208,15 @@ namespace Presentation
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
             var gridPosition = GetGridPositionByMouse(Input.mousePosition);
-            if (gridPosition == _lastPosition) return;
+            if (gridPosition == _currentPosition) return;
 
             ClearPreviousPaintedArea();
-            _currentPosition = gridPosition;
-            _lastPosition = gridPosition;
-            // _building.transform.position = _tilemap.GetCellCenterLocal(_currentPosition);
-            _building.transform.position = _tilemap.GetCellCenterWorld(_currentPosition);
+            _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
 
             _temporalBuildingArea = GetObjectArea(gridPosition, _buildingArea);
             var buildingArray = GetTilesBlock(_temporalBuildingArea, _tilemapOverWorld);
             SetColourOfBuildingTiles(buildingArray, _buildingArea);
+            _currentPosition = gridPosition;
             currentTileArray = CopyFromTileDataToArray();
             // if (CanBePlacedHere(currentTileArray))
             // {
@@ -232,7 +226,7 @@ namespace Presentation
             //     return;
             // }
 
-            var buildingArea = GetObjectArea(_currentPosition, _temporalBuildingArea.size);
+            var buildingArea = GetObjectArea(gridPosition, _temporalBuildingArea.size);
             SetTilesInTilemap(buildingArea, currentTileArray, _tilemapOverWorld);
         }
 
@@ -335,7 +329,7 @@ namespace Presentation
         
         private void ClearPreviousPaintedArea()
         {
-            var lastArea = GetObjectArea(_lastPosition, _buildingArea);
+            var lastArea = GetObjectArea(_currentPosition, _buildingArea);
             if (tileDatas.Count == 0) return;
 
             for (var index = 0; index < tileDatas.Count; index++)
