@@ -171,6 +171,7 @@ namespace Presentation
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
+            // Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
             return gridPosition;
         }
 
@@ -216,19 +217,20 @@ namespace Presentation
             ClearPreviousPaintedArea();
             _currentPosition = gridPosition;
             _lastPosition = gridPosition;
-            _building.transform.position = _tilemap.GetCellCenterLocal(_currentPosition);
+            // _building.transform.position = _tilemap.GetCellCenterLocal(_currentPosition);
+            _building.transform.position = _tilemap.GetCellCenterWorld(_currentPosition);
 
-            _temporalBuildingArea = GetObjectArea(_currentPosition, _buildingArea);
+            _temporalBuildingArea = GetObjectArea(gridPosition, _buildingArea);
             var buildingArray = GetTilesBlock(_temporalBuildingArea, _tilemapOverWorld);
             SetColourOfBuildingTiles(buildingArray, _buildingArea);
             currentTileArray = CopyFromTileDataToArray();
-            if (CanBePlacedHere(currentTileArray))
-            {
-                _canBePlacedSomewhere = true;
-                Debug.Log("Can Place");
-                ShowAttackZone();
-                return;
-            }
+            // if (CanBePlacedHere(currentTileArray))
+            // {
+            //     _canBePlacedSomewhere = true;
+            //     Debug.Log("Can Place");
+            //     ShowAttackZone();
+            //     return;
+            // }
 
             var buildingArea = GetObjectArea(_currentPosition, _temporalBuildingArea.size);
             SetTilesInTilemap(buildingArea, currentTileArray, _tilemapOverWorld);
@@ -293,7 +295,6 @@ namespace Presentation
 
         private void SetColourOfBuildingTiles(TileBase[] baseArray, Vector3Int buildingArea)
         {
-            // for (var i = 0; i < baseArray.Length; i++)
             for (var i = 0; i < buildingArea.x * buildingArea.y * buildingArea.z; i++)
             {
                 if (baseArray[i] == _tileTypeBase[TileType.White])
