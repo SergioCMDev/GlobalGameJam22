@@ -106,13 +106,14 @@ namespace Presentation
 
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
+            
             HideTemporalTileMap();
             _buildingComponent.Deselect();
-
-            _buildingComponent = null;
-            _currentPosition = Vector3Int.zero;
             Destroy(_building);
             ClearPreviousPaintedArea();
+            
+            _buildingComponent = null;
+            _currentPosition = Vector3Int.zero;
             OnPlayerHasCanceledSetBuildingOnGrid.Invoke();
         }
 
