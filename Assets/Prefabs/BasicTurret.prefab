@@ -526,9 +526,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1381625415
+  m_SortingLayer: -1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 52a32185cfe17784e82246dedb76fe5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -592,8 +592,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1575899184}
-        m_TargetAssemblyTypeName: Presentation.Building, Presentation
-        m_MethodName: 
+        m_TargetAssemblyTypeName: Presentation.Building.Building, Presentation
+        m_MethodName: ReceiveDamage
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 9ac34b6095afcae49bd593d26603a76f, type: 2}
@@ -617,6 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderBarView: {fileID: 9180457173023002144}
+  _spriteRenderer: {fileID: 5069552752093065831}
   _maximumLife: 100
   _area: {x: 1, y: 1, z: 1}
   _cadence: 2

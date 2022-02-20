@@ -1,3 +1,4 @@
+using System;
 using Application_.Events;
 using Presentation.Interfaces;
 using Presentation.Menus;
@@ -5,15 +6,18 @@ using UnityEngine;
 
 namespace Presentation.Building
 {
-    public abstract class Building : MonoBehaviour, IReceiveDamage, ILife, IConstructable
+    public abstract class Building : MonoBehaviour, IReceiveDamage, ILife
     {
         [SerializeField] private SliderBarView _sliderBarView;
+        [SerializeField] protected SpriteRenderer _spriteRenderer;
 
-        [SerializeField] protected float  _maximumLife;
+        [SerializeField] protected float _maximumLife, _alphaWhenSelected = 0.475f;
         [SerializeField] private Vector3Int _area;
         private int _id, _level;
         protected float _currentLife;
         private bool _placed;
+        protected Color originalColor;
+        protected Color colorWithTransparency;
 
         protected int Level
         {
@@ -26,7 +30,7 @@ namespace Presentation.Building
             get => _currentLife;
             set => _currentLife = value;
         }
-        
+
         public float MaxLife
         {
             get => _maximumLife;
@@ -34,11 +38,24 @@ namespace Presentation.Building
         }
 
         public Vector3Int Area => _area;
-        
+
+        private void Awake()
+        {
+            var color = _spriteRenderer.color;
+            originalColor = color;
+            colorWithTransparency = new Color(color.r, color.g, color.b,
+                _alphaWhenSelected);
+        }
+
         void Start()
         {
             _currentLife = _maximumLife;
             _sliderBarView.SetMaxValue(Life);
+        }
+
+        public void Initialize()
+        {
+            Awake();
         }
 
         public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
@@ -73,11 +90,6 @@ namespace Presentation.Building
             }
 
             UpdateLifeSliderBar();
-        }
-
-        public void ConstructBuilding()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void ReceiveDamage(float receivedDamage, DamageType damageType)

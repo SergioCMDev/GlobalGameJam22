@@ -82,6 +82,8 @@ namespace Presentation
             LoadBuildings();
             _building = Instantiate(tilemapEvent.Prefab); //GET POOL
             _buildingComponent = _building.GetComponent<MilitaryBuilding>();
+            _buildingComponent.Initialize();
+            _buildingComponent.Select();
             _buildingComponent.SetStatusChooserCanvas(true);
             _buildingComponent.OnCancelTakingPlace += CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
@@ -105,6 +107,8 @@ namespace Presentation
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             HideTemporalTileMap();
+            _buildingComponent.Deselect();
+
             _buildingComponent = null;
             _currentPosition = Vector3Int.zero;
             Destroy(_building);
@@ -138,6 +142,8 @@ namespace Presentation
             SetTilesInTilemap(_temporalBuildingArea, filledTiles, _tilemapOverWorld);
             HideTemporalTileMap();
             _currentPosition = Vector3Int.zero;
+            _buildingComponent.Deselect();
+
             _buildingComponent = null;
             OnPlayerHasSetBuildingOnGrid.Invoke();
             saveBuildingEvent.Instance = _building;

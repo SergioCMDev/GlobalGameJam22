@@ -117,5 +117,20 @@ namespace Presentation.Building
         {
             _chooserCanvas.gameObject.SetActive(status);
         }
+
+        public void Select()
+        {
+            _spriteRenderer.color = colorWithTransparency;
+            _spriteRenderer.transform.position += Vector3.up;
+            
+        }
+
+        public void Deselect()
+        {
+            _spriteRenderer.color = originalColor;
+            _spriteRenderer.transform.position -= Vector3.up;
+        }
+
+
     }
 }
