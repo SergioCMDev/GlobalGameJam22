@@ -51,7 +51,7 @@ namespace Presentation
 
         [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
         private Vector3Int _attackArea;
-        private bool _canBePlacedSomewhere;
+        private bool _hasShownAttackZone;
         private TileBase[] currentTileArray;
 
         public event Action OnPlayerHasSetBuildingOnGrid, OnPlayerHasCanceledSetBuildingOnGrid;
@@ -95,10 +95,11 @@ namespace Presentation
 
         private void CancelTakingPlace()
         {
-            if (_canBePlacedSomewhere)
+            if (_hasShownAttackZone)
             {
                 HideAttackZone();
-                _canBePlacedSomewhere = false;
+                // HideAttackZone();
+                _hasShownAttackZone = false;
             }
 
             _buildingArea = _originalBuildingArea;
@@ -126,10 +127,11 @@ namespace Presentation
 
         private void SetBuildingInGrid()
         {
-            if (_canBePlacedSomewhere)
+            if (_hasShownAttackZone)
             {
                 HideAttackZone();
-                _canBePlacedSomewhere = false;
+                // HideAttackZone();
+                _hasShownAttackZone = false;
             }
 
             _buildingArea = _originalBuildingArea;
