@@ -97,12 +97,10 @@ namespace Presentation
         {
             if (_hasShownAttackZone)
             {
-                HideAttackZone();
                 // HideAttackZone();
                 _hasShownAttackZone = false;
             }
 
-            _buildingArea = _originalBuildingArea;
             currentTileArray = new TileBase[] { };
 
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
@@ -227,13 +225,13 @@ namespace Presentation
             SetColourOfBuildingTiles(buildingArray, _buildingArea);
             _currentPosition = gridPosition;
             currentTileArray = CopyFromTileDataToArray();
-            // if (CanBePlacedHere(currentTileArray))
-            // {
-            //     _canBePlacedSomewhere = true;
-            //     Debug.Log("Can Place");
-            //     ShowAttackZone();
-            //     return;
-            // }
+            if (CanBePlacedHere(currentTileArray))
+            {
+                _hasShownAttackZone = true;
+                Debug.Log("Can Place");
+                ShowAttackZone();
+                return;
+            }
 
             var buildingArea = GetObjectArea(gridPosition, _temporalBuildingArea.size);
             SetTilesInTilemap(buildingArea, currentTileArray, _tilemapOverWorld);
@@ -252,31 +250,7 @@ namespace Presentation
 
             SetTilesInTilemap(attackArea, filledTiles, _tilemapOverWorld);
         }
-
-        private void HideAttackZone()
-        {
-            var temporalAttackArea = GetObjectArea(_currentPosition, _attackArea);
-            var tileMixedArray = GetTilesBlock(temporalAttackArea, _tilemapOverWorld);
-            for (int i = 0; i < currentTileArray.Length; i++)
-            {
-                tileMixedArray[i] = currentTileArray[i];
-            }
-
-            tileMixedArray = HideColourOfAttackZone(tileMixedArray, _temporalBuildingArea);
-            SetTilesInTilemap(temporalAttackArea, tileMixedArray, _tilemapOverWorld);
-        }
-
-        private TileBase[] HideColourOfAttackZone(TileBase[] tileMixedArray, BoundsInt buildingArea)
-        {
-            for (var i = buildingArea.size.x * buildingArea.size.y * buildingArea.size.z;
-                 i < tileMixedArray.Length;
-                 i++)
-            {
-                tileMixedArray[i] = _tileTypeBase[TileType.White];
-            }
-
-            return tileMixedArray;
-        }
+        
 
         private void SetColourOfAttackZone(TileBase[] tileMixedArray, BoundsInt buildingArea)
         {

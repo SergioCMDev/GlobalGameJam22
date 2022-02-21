@@ -121,16 +121,12 @@ namespace Presentation.Building
         public void Select()
         {
             _spriteRenderer.color = colorWithTransparency;
-            _spriteRenderer.transform.position += Vector3.up;
             
         }
 
         public void Deselect()
         {
             _spriteRenderer.color = originalColor;
-            _spriteRenderer.transform.position -= Vector3.up;
         }
-
-
     }
 }
