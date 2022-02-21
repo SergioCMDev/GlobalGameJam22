@@ -483,7 +483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5069552752093065832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5069552752378941103}
@@ -619,6 +619,7 @@ MonoBehaviour:
   _sliderBarView: {fileID: 9180457173023002144}
   _spriteRenderer: {fileID: 5069552752093065831}
   _maximumLife: 100
+  _alphaWhenSelected: 0.475
   _area: {x: 1, y: 1, z: 1}
   _cadence: 2
   _damage: 20
@@ -628,7 +629,7 @@ MonoBehaviour:
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
   _particles: {fileID: 0}
   _chooserCanvas: {fileID: 4851429865776267670}
-  _attackArea: {x: 3, y: 3, z: 1}
+  _attackArea: {x: 2, y: 2, z: 1}
 --- !u!1 &5450088459547540391
 GameObject:
   m_ObjectHideFlags: 0
