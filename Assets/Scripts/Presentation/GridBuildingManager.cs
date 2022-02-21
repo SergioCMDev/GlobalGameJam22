@@ -97,7 +97,6 @@ namespace Presentation
         {
             if (_hasShownAttackZone)
             {
-                // HideAttackZone();
                 _hasShownAttackZone = false;
             }
 
@@ -105,13 +104,13 @@ namespace Presentation
 
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
-            
+
             HideTemporalTileMap();
             _buildingComponent.Deselect();
             Destroy(_building);
             ClearPreviousPaintedArea();
             _buildingArea = _originalBuildingArea;
-            
+
             _buildingComponent = null;
             _currentPosition = Vector3Int.zero;
             OnPlayerHasCanceledSetBuildingOnGrid.Invoke();
@@ -128,7 +127,6 @@ namespace Presentation
         {
             if (_hasShownAttackZone)
             {
-                // HideAttackZone();
                 _hasShownAttackZone = false;
             }
 
@@ -309,7 +307,7 @@ namespace Presentation
                 CanBeChanged = canBeChanged
             });
         }
-        
+
         private void ClearPreviousPaintedArea()
         {
             var lastArea = GetObjectArea(_currentPosition, _buildingArea);
