@@ -112,6 +112,7 @@ namespace Presentation
             _buildingComponent.Deselect();
             Destroy(_building);
             ClearPreviousPaintedArea();
+            _buildingArea = _originalBuildingArea;
             
             _buildingComponent = null;
             _currentPosition = Vector3Int.zero;
@@ -129,7 +130,6 @@ namespace Presentation
         {
             if (_hasShownAttackZone)
             {
-                HideAttackZone();
                 // HideAttackZone();
                 _hasShownAttackZone = false;
             }
@@ -318,7 +318,7 @@ namespace Presentation
             {
                 if (baseArray[i] != _tileTypeBase[TileType.White]) continue;
                 AddTileData( _tileTypeBase[TileType.Green], TileType.White, TileType.Green);
-                baseArray[i] = _tileTypeBase[TileType.Green];
+                baseArray[i] = _tileTypeBase[TileType.White];
             }
         }
 
@@ -363,6 +363,11 @@ namespace Presentation
                         tile.Tile = _tileTypeBase[TileType.White];
                         tile.CurrentColour = TileType.White;
                         break;
+                    case TileType.Red when tile.PreviousColour == TileType.Purple:
+                        tile.Tile = _tileTypeBase[TileType.Purple];
+                        tile.CurrentColour = TileType.Purple;
+                        tile.PreviousColour = TileType.Purple;
+                        break;
                     case TileType.Purple when tile.PreviousColour == TileType.Red:
                         tile.Tile = _tileTypeBase[tile.PreviousColour];
                         tile.CurrentColour = tile.PreviousColour;
@@ -374,7 +379,10 @@ namespace Presentation
                     case TileType.Purple when tile.PreviousColour == TileType.Empty:
                         tile.Tile = _tileTypeBase[TileType.Empty];
                         tile.CurrentColour = TileType.Empty;
-                        tile.PreviousColour = TileType.Empty;
+                        break;
+                    case TileType.Purple when tile.PreviousColour == TileType.Purple:
+                        tile.Tile = _tileTypeBase[TileType.Purple];
+                        tile.CurrentColour = TileType.Purple;
                         break;
                     default:
                         tile.Tile = _tileTypeBase[TileType.White];
