@@ -291,8 +291,8 @@ namespace Presentation
             for (var i = 0; i < buildingArea.x * buildingArea.y * buildingArea.z; i++)
             {
                 if (baseArray[i] != _tileTypeBase[TileType.White]) continue;
-                AddTileData( _tileTypeBase[TileType.Green], TileType.White, TileType.Green);
-                baseArray[i] = _tileTypeBase[TileType.White];
+                AddTileData(_tileTypeBase[TileType.Green], TileType.White, TileType.Green);
+                baseArray[i] = _tileTypeBase[TileType.Green];
             }
         }
 

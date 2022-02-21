@@ -6,9 +6,16 @@ using Utils;
 
 namespace Presentation.Building
 {
+
+    public enum AttackRangeType
+    {
+        Ring,
+        Square
+    }
     public abstract class MilitaryBuilding : Building, IAttack
     {
         [SerializeField] private float _cadence, _damage, _distanceToAttack;
+        [SerializeField] private int  _attackRingRange = 1;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private DamageType _damageType;
         [SerializeField] private PlaySFXEvent _playSfxEvent;
@@ -17,6 +24,7 @@ namespace Presentation.Building
         public event Action OnBuildingTriesToTakePlace, OnCancelTakingPlace;
 
         [SerializeField] private Vector3Int _attackArea;
+        [SerializeField] private AttackRangeType _attackAreaType;
         private IReceiveDamage enemyToAttack;
         private ILife enemyLife;
         private GameObject enemyGameObject;
@@ -37,6 +45,10 @@ namespace Presentation.Building
         }
 
         public Vector3Int AttackArea => _attackArea;
+
+        public AttackRangeType AttackAreaType => _attackAreaType;
+
+        public int AttackRingRange => _attackRingRange;
 
 
         private void Awake()

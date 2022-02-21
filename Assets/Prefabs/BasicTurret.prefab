@@ -624,12 +624,14 @@ MonoBehaviour:
   _cadence: 2
   _damage: 20
   _distanceToAttack: 4
+  _attackRingRange: 1
   _sfxWhenAttack: 8
   _damageType: 0
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
   _particles: {fileID: 0}
   _chooserCanvas: {fileID: 4851429865776267670}
-  _attackArea: {x: 2, y: 2, z: 1}
+  _attackArea: {x: 3, y: 3, z: 1}
+  _attackAreaType: 0
 --- !u!1 &5450088459547540391
 GameObject:
   m_ObjectHideFlags: 0
