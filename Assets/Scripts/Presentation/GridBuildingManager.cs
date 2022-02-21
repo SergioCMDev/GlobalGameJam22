@@ -322,41 +322,16 @@ namespace Presentation
                 switch (tile.CurrentColour)
                 {
                     case TileType.Green:
-                        tile.Tile = _tileTypeBase[tile.PreviousColour];
-                        tile.CurrentColour = tile.PreviousColour;
-                        break;
                     case TileType.Red when tile.PreviousColour == TileType.Empty:
-                        tile.Tile = _tileTypeBase[TileType.Empty];
-                        tile.CurrentColour = TileType.Empty;
-                        break;
                     case TileType.Red when tile.PreviousColour == TileType.Red:
-                        tile.Tile = _tileTypeBase[TileType.Red];
-                        tile.CurrentColour = TileType.Red;
-                        break;
                     case TileType.Red when tile.PreviousColour == TileType.White:
-                        tile.Tile = _tileTypeBase[TileType.White];
-                        tile.CurrentColour = TileType.White;
-                        break;
                     case TileType.Red when tile.PreviousColour == TileType.Purple:
-                        tile.Tile = _tileTypeBase[TileType.Purple];
-                        tile.CurrentColour = TileType.Purple;
-                        tile.PreviousColour = TileType.Purple;
-                        break;
                     case TileType.Purple when tile.PreviousColour == TileType.Red:
-                        tile.Tile = _tileTypeBase[tile.PreviousColour];
-                        tile.CurrentColour = tile.PreviousColour;
-                        break;
                     case TileType.Purple when tile.PreviousColour == TileType.White:
+                    case TileType.Purple when tile.PreviousColour == TileType.Purple:
+                    case TileType.Purple when tile.PreviousColour == TileType.Empty:
                         tile.Tile = _tileTypeBase[tile.PreviousColour];
                         tile.CurrentColour = tile.PreviousColour;
-                        break;
-                    case TileType.Purple when tile.PreviousColour == TileType.Empty:
-                        tile.Tile = _tileTypeBase[TileType.Empty];
-                        tile.CurrentColour = TileType.Empty;
-                        break;
-                    case TileType.Purple when tile.PreviousColour == TileType.Purple:
-                        tile.Tile = _tileTypeBase[TileType.Purple];
-                        tile.CurrentColour = TileType.Purple;
                         break;
                     default:
                         tile.Tile = _tileTypeBase[TileType.White];

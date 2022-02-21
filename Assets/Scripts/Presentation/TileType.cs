@@ -7,6 +7,5 @@ namespace Presentation
         Green, 
         Red,
         Purple,
-        Mixed
     }
 }
