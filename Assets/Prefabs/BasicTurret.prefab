@@ -623,7 +623,7 @@ MonoBehaviour:
   _area: {x: 1, y: 1, z: 1}
   _cadence: 2
   _damage: 20
-  _distanceToAttack: 4
+  _distanceToAttack: 2
   _attackRingRange: 1
   _sfxWhenAttack: 8
   _damageType: 0
