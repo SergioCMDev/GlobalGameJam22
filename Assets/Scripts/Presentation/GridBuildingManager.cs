@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Application_.Events;
+using DG.Tweening;
 using Presentation.Building;
 using Presentation.Events;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace Presentation
             // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
             // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
             _tileTypeBase.Add(TileType.Red, _red);
-            _tileTypeBase.Add(TileType.Purple, _purple);
+            _tileTypeBase.Add(TileType.Blue, _purple);
 
 
             HideTemporalTileMap();
@@ -182,19 +183,26 @@ namespace Presentation
         {
             foreach (var buildingData in _savedBuildings)
             {
-                var lastArea = GetObjectArea(buildingData.Position, buildingData.BuildingComponent.Area);
-                var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
-                FillTiles(baseArray, TileType.Red);
-                for (var index = 0; index < tileDatas.Count; index++)
-                {
-                    var tile = tileDatas[index];
-                    tile.CanBeChanged = false;
-                    tileDatas[index] = tile;
-                }
-
-                var filledTiles = CopyFromTileDataToArray();
-                SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
+                ShowAttackZone(buildingData.BuildingComponent, buildingData.Position,
+                    buildingData.BuildingComponent.AttackArea, TileType.Red);
+                //
+                // //Get area de ataque
+                // //Use the same we use to show attack zone in Update
+                // var lastArea = GetObjectArea(buildingData.Position, buildingData.BuildingComponent.Area);
+                // var baseArray = GetTilesBlock(lastArea, _tilemapOverWorld);
+                // FillTiles(baseArray, TileType.Red);
+                // for (var index = 0; index < tileDatas.Count; index++)
+                // {
+                //     var tile = tileDatas[index];
+                //     tile.CanBeChanged = false;
+                //     tileDatas[index] = tile;
+                // }
+                //
+                // var filledTiles = CopyFromTileDataToArray();
+                // SetTilesInTilemap(lastArea, filledTiles, _tilemapOverWorld);
             }
+
+            tileDatas.Clear();
         }
 
         private void HideTemporalTileMap()
@@ -224,7 +232,9 @@ namespace Presentation
             {
                 _hasShownAttackZone = true;
                 Debug.Log("Can Place");
-                ShowAttackZone();
+                _temporalBuildingPosition = _attackArea;
+
+                ShowAttackZone(_buildingComponent, _currentObjectPosition, _attackArea);
                 return;
             }
 
@@ -232,26 +242,26 @@ namespace Presentation
             SetTilesInTilemap(buildingArea, _currentTileArray, _tilemapOverWorld);
         }
 
-        private void ShowAttackZone()
+        private void ShowAttackZone(MilitaryBuilding militaryBuilding, Vector3Int buildingPosition,
+            Vector3Int attackArea, TileType buildingType = TileType.Green)
         {
-            var offset = Vector3Int.up * _buildingComponent.AttackRingRange +
-                         Vector3Int.right * _buildingComponent.AttackRingRange;
-            BoundsInt attackArea;
+            var offset = Vector3Int.up * militaryBuilding.AttackRingRange +
+                         Vector3Int.right * militaryBuilding.AttackRingRange;
             TileBase[] attackArray;
             TileBase[] filledTiles;
             tileDatas.Clear();
 
-            switch (_buildingComponent.AttackAreaType)
+            switch (militaryBuilding.AttackAreaType)
             {
                 case AttackRangeType.Ring:
-                    _temporalObjectArea = GetObjectArea(_currentObjectPosition - offset, _attackArea);
+                    _temporalObjectArea = GetObjectArea(buildingPosition - offset, attackArea);
                     attackArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
-                    SetColourOfAttackZone(attackArray);
+                    SetColourOfAttackZone(attackArray, buildingType);
                     filledTiles = CopyFromTileDataToArray();
 
                     break;
                 default:
-                    _temporalObjectArea = GetObjectArea(_currentObjectPosition, _attackArea);
+                    _temporalObjectArea = GetObjectArea(buildingPosition, attackArea);
                     attackArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
 
                     FillBuildingArrayWithBuildingSize(attackArray, _temporalObjectArea.size);
@@ -259,12 +269,11 @@ namespace Presentation
                     break;
             }
 
-            _temporalBuildingPosition = _attackArea;
 
             SetTilesInTilemap(_temporalObjectArea, filledTiles, _tilemapOverWorld);
         }
 
-        private void SetColourOfAttackZone(TileBase[] attackArray)
+        private void SetColourOfAttackZone(TileBase[] attackArray, TileType buildingType)
         {
             int GetPositionInTheMiddle()
             {
@@ -276,13 +285,13 @@ namespace Presentation
             {
                 if (i == positionOfBuilding)
                 {
-                    AddTileData(_tileTypeBase[TileType.Green], GetCurrentTileType(attackArray[i]),
-                        TileType.Green);
+                    AddTileData(_tileTypeBase[buildingType], GetCurrentTileType(attackArray[i]),
+                        buildingType);
                     continue;
                 }
 
-                AddTileData(_tileTypeBase[TileType.Purple], GetCurrentTileType(attackArray[i]),
-                    TileType.Purple);
+                AddTileData(_tileTypeBase[TileType.Blue], GetCurrentTileType(attackArray[i]),
+                    TileType.Blue);
             }
         }
 
@@ -345,11 +354,11 @@ namespace Presentation
                     case TileType.Red when tile.PreviousColour == TileType.Empty:
                     case TileType.Red when tile.PreviousColour == TileType.Red:
                     case TileType.Red when tile.PreviousColour == TileType.White:
-                    case TileType.Red when tile.PreviousColour == TileType.Purple:
-                    case TileType.Purple when tile.PreviousColour == TileType.Red:
-                    case TileType.Purple when tile.PreviousColour == TileType.White:
-                    case TileType.Purple when tile.PreviousColour == TileType.Purple:
-                    case TileType.Purple when tile.PreviousColour == TileType.Empty:
+                    case TileType.Red when tile.PreviousColour == TileType.Blue:
+                    case TileType.Blue when tile.PreviousColour == TileType.Red:
+                    case TileType.Blue when tile.PreviousColour == TileType.White:
+                    case TileType.Blue when tile.PreviousColour == TileType.Blue:
+                    case TileType.Blue when tile.PreviousColour == TileType.Empty:
                         tile.Tile = _tileTypeBase[tile.PreviousColour];
                         tile.CurrentColour = tile.PreviousColour;
                         break;
@@ -429,7 +438,7 @@ namespace Presentation
                 return TileType.Red;
             }
 
-            return tile == _tileTypeBase[TileType.Purple] ? TileType.Purple : TileType.White;
+            return tile == _tileTypeBase[TileType.Blue] ? TileType.Blue : TileType.White;
         }
 
 
