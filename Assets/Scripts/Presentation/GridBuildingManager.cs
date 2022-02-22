@@ -14,18 +14,18 @@ namespace Presentation
     [Serializable]
     public struct SetBuildingData
     {
-        public GameObject Building;
-        public MilitaryBuilding BuildingComponent;
-        public Vector3Int Position;
+        public GameObject building;
+        public MilitaryBuilding buildingComponent;
+        public Vector3Int position;
     }
 
     [Serializable]
     public struct TileData
     {
-        public TileBase Tile;
-        public TileType PreviousColour;
-        public TileType CurrentColour;
-        public bool CanBeChanged;
+        public TileBase tile;
+        public TileType previousColour;
+        public TileType currentColour;
+        public bool canBeChanged;
     }
 
     public class GridBuildingManager : MonoBehaviour
@@ -39,16 +39,15 @@ namespace Presentation
 
         public IDictionary<Vector3, Vector3Int> world; //REMOVE
         private GameObject _building;
-        private BoundsInt _temporalObjectArea, _originalObjectArea;
-        private Vector3Int _currentObjectPosition, _temporalBuildingPosition, _originalBuildingPosition, _attackArea;
+        private BoundsInt _temporalObjectArea;
+        private Vector3Int _currentObjectPosition, _currentBuildingArea, _originalBuildingArea;
 
         private MilitaryBuilding _buildingComponent;
 
         private readonly List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
-        private List<TileData> tileDatas = new List<TileData>();
+        private readonly List<TileData> tileDatas = new List<TileData>();
 
         [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
-        private bool _hasShownAttackZone;
         private TileBase[] _currentTileArray;
 
         public event Action OnPlayerHasSetBuildingOnGrid, OnPlayerHasCanceledSetBuildingOnGrid;
@@ -84,21 +83,13 @@ namespace Presentation
             _buildingComponent.SetStatusChooserCanvas(true);
             _buildingComponent.OnCancelTakingPlace += CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
-            _temporalBuildingPosition = _buildingComponent.Area;
-            _originalBuildingPosition = _buildingComponent.Area;
-            _attackArea = _buildingComponent.AttackArea;
+            _currentBuildingArea = _buildingComponent.Area;
+            _originalBuildingArea = _buildingComponent.Area;
             _building.transform.position = _tilemap.GetCellCenterWorld(new Vector3Int());
         }
 
         private void CancelTakingPlace()
         {
-            if (_hasShownAttackZone)
-            {
-                _hasShownAttackZone = false;
-            }
-
-            _currentTileArray = new TileBase[] { };
-
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
 
@@ -106,31 +97,19 @@ namespace Presentation
             _buildingComponent.Deselect();
             Destroy(_building);
             ClearPreviousPaintedArea();
-            _temporalBuildingPosition = _originalBuildingPosition;
 
-            _buildingComponent = null;
-            _currentObjectPosition = Vector3Int.zero;
             OnPlayerHasCanceledSetBuildingOnGrid.Invoke();
         }
 
 
         private void BuildingTriesToTakePlace()
         {
-            
             if(!CanBePlacedHere(_currentTileArray)) return;
-            // if (!CanTakeArea(_originalObjectArea)) return;
             SetBuildingInGrid();
         }
 
         private void SetBuildingInGrid()
         {
-            if (_hasShownAttackZone)
-            {
-                _hasShownAttackZone = false;
-            }
-
-            _temporalBuildingPosition = _originalBuildingPosition;
-            _currentTileArray = new TileBase[] { };
             TakeArea(_temporalObjectArea);
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
@@ -146,7 +125,6 @@ namespace Presentation
             OnPlayerHasSetBuildingOnGrid.Invoke();
             saveBuildingEvent.Instance = _building;
             saveBuildingEvent.Fire();
-            _building = null;
             tileDatas.Clear();
         }
 
@@ -185,9 +163,9 @@ namespace Presentation
         {
             foreach (var buildingData in _savedBuildings)
             {
-                SetAttackZone(buildingData.BuildingComponent, buildingData.Position,
-                    buildingData.BuildingComponent.AttackArea);
-                SetBuildingZone(TileType.Red);
+                SetAttackZone(buildingData.buildingComponent, buildingData.position,
+                    buildingData.buildingComponent.AttackArea);
+                SetBuildingZone(TileType.Red, buildingData.buildingComponent.AttackArea);
                 
                 var filledTiles = CopyFromTileDataToArray();
 
@@ -214,20 +192,18 @@ namespace Presentation
             ClearPreviousPaintedArea();
             _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
 
-            _temporalObjectArea = GetObjectArea(gridPosition, _temporalBuildingPosition);
-            _originalObjectArea = GetObjectArea(gridPosition, _temporalBuildingPosition);
+            _temporalObjectArea = GetObjectArea(gridPosition, _currentBuildingArea);
             var buildingArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
-            SetColourOfBuildingTiles(buildingArray, _temporalBuildingPosition);
+            SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
             _currentObjectPosition = gridPosition;
             _currentTileArray = CopyFromTileDataToArray();
             if (CanBePlacedHere(_currentTileArray))
             {
-                _hasShownAttackZone = true;
                 Debug.Log("Can Place");
-                _temporalBuildingPosition = _attackArea;
+                _currentBuildingArea = _buildingComponent.AttackArea;
 
-                SetAttackZone(_buildingComponent, _currentObjectPosition, _attackArea);
-                SetBuildingZone(TileType.Green);
+                SetAttackZone(_buildingComponent, _currentObjectPosition, _currentBuildingArea);
+                SetBuildingZone(TileType.Green, _currentBuildingArea);
                 _currentTileArray = CopyFromTileDataToArray();
 
                 SetTilesInTilemap(_temporalObjectArea, _currentTileArray, _tilemapOverWorld);
@@ -239,20 +215,20 @@ namespace Presentation
         }
         
 
-        private void SetBuildingZone(TileType tileTypeBuilding)
+        private void SetBuildingZone(TileType tileTypeBuilding, Vector3Int buildingArea)
         {
             int GetPositionOfBuilding()
             {
-                return _attackArea.x * _attackArea.y / 2;
+                return buildingArea.x * buildingArea.y / 2;
             }
 
             int positionOfBuilding = GetPositionOfBuilding();
             tileDatas[positionOfBuilding] = new TileData()
             {
-                Tile = _tileTypeBase[tileTypeBuilding],
-                CurrentColour = tileTypeBuilding,
-                PreviousColour = tileDatas[positionOfBuilding].PreviousColour,
-                CanBeChanged = tileDatas[positionOfBuilding].CanBeChanged
+                tile = _tileTypeBase[tileTypeBuilding],
+                currentColour = tileTypeBuilding,
+                previousColour = tileDatas[positionOfBuilding].previousColour,
+                canBeChanged = tileDatas[positionOfBuilding].canBeChanged
             };
         }
 
@@ -268,15 +244,15 @@ namespace Presentation
                 case AttackRangeType.Ring:
                     _temporalObjectArea = GetObjectArea(buildingPosition - offset, attackArea);
                     TileBase[] attackArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
-                    SetColourOfAttackZone(attackArray);
+                    SetColourOfAttackZone(attackArray, militaryBuilding.AttackArea);
 
                     break;
             }
         }
 
-        private void SetColourOfAttackZone(TileBase[] attackArray)
+        private void SetColourOfAttackZone(TileBase[] attackArray, Vector3Int attackArea)
         {
-            for (int i = 0; i < _attackArea.x * _attackArea.y * _attackArea.z; i++)
+            for (int i = 0; i < attackArea.x * attackArea.y * attackArea.z; i++)
             {
                 AddTileData(_tileTypeBase[TileType.Blue], GetCurrentTileType(attackArray[i]),
                     TileType.Blue);
@@ -287,20 +263,7 @@ namespace Presentation
         {
             return tileArray.Any(x => x == _tileTypeBase[TileType.Green] || x == _tileTypeBase[TileType.Blue]);
         }
-        
-        // private bool CanTakeArea(BoundsInt area)
-        // {
-        //     var baseArray = GetTilesBlock(area, _tilemapOverWorld);
-        //     foreach (var tile in baseArray)
-        //     {
-        //         if (tile == _tileTypeBase[TileType.Green]) continue;
-        //         Debug.Log("Cannot place here");
-        //         return false;
-        //     }
-        //
-        //     return true;
-        // }
-
+ 
         private void SetColourOfBuildingTiles(TileBase[] baseArray, Vector3Int buildingArea)
         {
             for (var i = 0; i < buildingArea.x * buildingArea.y * buildingArea.z; i++)
@@ -323,10 +286,10 @@ namespace Presentation
             if (tileArray == null) return;
             tileDatas.Add(new TileData()
             {
-                Tile = tileArray,
-                CurrentColour = currentColour,
-                PreviousColour = previousColour,
-                CanBeChanged = canBeChanged
+                tile = tileArray,
+                currentColour = currentColour,
+                previousColour = previousColour,
+                canBeChanged = canBeChanged
             });
         }
 
@@ -337,25 +300,25 @@ namespace Presentation
             for (var index = 0; index < tileDatas.Count; index++)
             {
                 var tile = tileDatas[index];
-                if (!tile.CanBeChanged) continue;
-                switch (tile.CurrentColour)
+                if (!tile.canBeChanged) continue;
+                switch (tile.currentColour)
                 {
                     case TileType.Green:
-                    case TileType.Red when tile.PreviousColour == TileType.Empty:
-                    case TileType.Red when tile.PreviousColour == TileType.Red:
-                    case TileType.Red when tile.PreviousColour == TileType.White:
-                    case TileType.Red when tile.PreviousColour == TileType.Blue:
-                    case TileType.Blue when tile.PreviousColour == TileType.Red:
-                    case TileType.Blue when tile.PreviousColour == TileType.White:
-                    case TileType.Blue when tile.PreviousColour == TileType.Blue:
-                    case TileType.Blue when tile.PreviousColour == TileType.Empty:
-                        tile.Tile = _tileTypeBase[tile.PreviousColour];
-                        tile.CurrentColour = tile.PreviousColour;
+                    case TileType.Red when tile.previousColour == TileType.Empty:
+                    case TileType.Red when tile.previousColour == TileType.Red:
+                    case TileType.Red when tile.previousColour == TileType.White:
+                    case TileType.Red when tile.previousColour == TileType.Blue:
+                    case TileType.Blue when tile.previousColour == TileType.Red:
+                    case TileType.Blue when tile.previousColour == TileType.White:
+                    case TileType.Blue when tile.previousColour == TileType.Blue:
+                    case TileType.Blue when tile.previousColour == TileType.Empty:
+                        tile.tile = _tileTypeBase[tile.previousColour];
+                        tile.currentColour = tile.previousColour;
                         break;
                     default:
-                        tile.Tile = _tileTypeBase[TileType.White];
-                        tile.CurrentColour = TileType.White;
-                        tile.PreviousColour = TileType.White;
+                        tile.tile = _tileTypeBase[TileType.White];
+                        tile.currentColour = TileType.White;
+                        tile.previousColour = TileType.White;
                         break;
                 }
 
@@ -367,7 +330,7 @@ namespace Presentation
 
             SetTilesInTilemap(_temporalObjectArea, filledTiles, _tilemapOverWorld);
             tileDatas.Clear();
-            _temporalBuildingPosition = _originalBuildingPosition;
+            _currentBuildingArea = _originalBuildingArea;
         }
 
         private TileBase[] CopyFromTileDataToArray()
@@ -375,7 +338,7 @@ namespace Presentation
             var filledTiles = new TileBase[tileDatas.Count];
             for (var index = 0; index < tileDatas.Count; index++)
             {
-                filledTiles[index] = tileDatas[index].Tile;
+                filledTiles[index] = tileDatas[index].tile;
             }
 
             return filledTiles;
@@ -444,9 +407,9 @@ namespace Presentation
 
             _savedBuildings.Add(new SetBuildingData()
                 {
-                    Building = _building,
-                    BuildingComponent = _buildingComponent,
-                    Position = _currentObjectPosition
+                    building = _building,
+                    buildingComponent = _buildingComponent,
+                    position = _currentObjectPosition
                 }
             );
         }
