@@ -6,6 +6,6 @@ namespace Presentation
         White,
         Green, 
         Red,
-        Purple,
+        Blue,
     }
 }
