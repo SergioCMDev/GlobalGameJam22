@@ -79,14 +79,14 @@ namespace Presentation.Building
         {
             if (!Utilities.HasPastTime(_lastTimeAttacked, Cadence) || !CanReach(enemyGameObject)) return;
             _lastTimeAttacked = Time.deltaTime;
-            MakeSoundWhenAttacks();
+            PlaySoundWhenAttacks();
             ThrowParticlesWhenAttacks();
             objectToAttack.ReceiveDamage(Damage, _damageType);
         }
 
         protected abstract void ThrowParticlesWhenAttacks();
 
-        private void MakeSoundWhenAttacks()
+        private void PlaySoundWhenAttacks()
         {
             _playSfxEvent.soundName = _sfxWhenAttack;
             _playSfxEvent.Fire();
