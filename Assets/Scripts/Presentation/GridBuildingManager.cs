@@ -110,13 +110,14 @@ namespace Presentation
         private void SetBuildingInGrid()
         {
             SaveBuilding();
+            //TODO REMOVE THE ATTACK ZONE TO LEAVE WHITE ZONE SURROUNDING THE BUILDING
             _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             _buildingComponent.SetStatusChooserCanvas(false);
-            HideTemporalTileMap();
+            ClearPreviousPaintedArea();
+            // HideTemporalTileMap();
             _currentObjectPosition = Vector3Int.zero;
             _buildingComponent.Deselect();
-
             _buildingComponent = null;
             OnPlayerHasSetBuildingOnGrid.Invoke();
             saveBuildingEvent.Instance = _building;
@@ -252,15 +253,8 @@ namespace Presentation
             {
                 TileBase currentTile;
                 TileType currentColour, previousColour;
-
-
-                //TODO Find a better way
-                if (attackArray[i] == null)
-                {
-                    currentTile = _tileTypeBase[TileType.Red];
-                    currentColour = TileType.Red;
-                    previousColour = TileType.Empty;
-                }else if (GetCurrentTileType(attackArray[i]) == TileType.Red )
+                
+                if (GetCurrentTileType(attackArray[i]) == TileType.Red)
                 {
                     currentTile = _tileTypeBase[TileType.Red];
                     currentColour = TileType.Red;
