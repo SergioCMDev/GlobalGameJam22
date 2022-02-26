@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Presentation.Weapons
 {
-    public class Canons : MilitaryBuilding
+    public class Canons : MilitaryBuildingFacade
     {
         protected override void ThrowParticlesWhenAttacks()
         {

@@ -4,8 +4,9 @@ using Utils;
 
 namespace Presentation.Weapons
 {
-    public class Turret : MilitaryBuilding
+    public class Turret : MilitaryBuildingFacade
     {
+        
         protected override void ThrowParticlesWhenAttacks()
         {
             // throw new NotImplementedException();

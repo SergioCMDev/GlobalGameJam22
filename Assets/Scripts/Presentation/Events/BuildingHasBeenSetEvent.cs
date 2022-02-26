@@ -8,7 +8,7 @@ namespace Presentation.Events
     public class BuildingHasBeenSetEvent : GameEventScriptable
     {
         public GameObject Building;
-        public MilitaryBuilding BuildingComponent;
+        public MilitaryBuildingFacade buildingFacadeComponent;
         public Vector3Int Position;
     }
 }

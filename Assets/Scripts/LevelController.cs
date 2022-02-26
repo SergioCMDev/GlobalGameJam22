@@ -24,7 +24,7 @@ public class LevelController : MonoBehaviour
         _buyController.BuyHasBeenCanceled();
     }
 
-    private void PlayerHasSetBuildingInGrid(MilitaryBuilding militaryBuilding)
+    private void PlayerHasSetBuildingInGrid(MilitaryBuildingFacade militaryBuildingFacade)
     {
         _canvasPresenter.SetBuildingSelectableStatus(true);
         _buyController.EndBuy();

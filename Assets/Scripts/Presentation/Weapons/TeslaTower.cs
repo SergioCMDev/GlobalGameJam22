@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Presentation.Weapons
 {
-    public class TeslaTower : MilitaryBuilding
+    public class TeslaTower : MilitaryBuildingFacade
     {
         protected override void ThrowParticlesWhenAttacks()
         {

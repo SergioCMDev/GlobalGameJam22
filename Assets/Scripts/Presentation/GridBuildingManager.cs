@@ -14,7 +14,7 @@ namespace Presentation
     public struct SetBuildingData
     {
         public GameObject building;
-        public MilitaryBuilding buildingComponent;
+        public MilitaryBuildingFacade buildingFacadeComponent;
         public Vector3Int position;
     }
 
@@ -41,7 +41,7 @@ namespace Presentation
         private BoundsInt _temporalObjectArea;
         private Vector3Int _currentObjectPosition, _currentBuildingArea, _originalBuildingArea;
 
-        private MilitaryBuilding _buildingComponent;
+        private MilitaryBuildingFacade _buildingFacadeComponent;
 
         private readonly List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
         private readonly List<TileData> tileDatas = new List<TileData>();
@@ -50,7 +50,7 @@ namespace Presentation
         private TileBase[] _currentTileArray;
 
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
-        public event Action<MilitaryBuilding> OnPlayerHasSetBuildingOnGrid;
+        public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
 
 
         private void Awake()
@@ -77,24 +77,24 @@ namespace Presentation
             ShowTemporalTileMap();
             LoadMilitaryBuildings();
             _building = Instantiate(tilemapEvent.Prefab); //GET POOL
-            _buildingComponent = _building.GetComponent<MilitaryBuilding>();
-            _buildingComponent.Initialize();
-            _buildingComponent.Select();
-            _buildingComponent.SetStatusChooserCanvas(true);
-            _buildingComponent.OnCancelTakingPlace += CancelTakingPlace;
-            _buildingComponent.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
-            _currentBuildingArea = _buildingComponent.Area;
-            _originalBuildingArea = _buildingComponent.Area;
+            _buildingFacadeComponent = _building.GetComponent<MilitaryBuildingFacade>();
+            _buildingFacadeComponent.Initialize();
+            _buildingFacadeComponent.Select();
+            _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(true);
+            _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace += CancelTakingPlace;
+            _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
+            _currentBuildingArea = _buildingFacadeComponent.Area;
+            _originalBuildingArea = _buildingFacadeComponent.Area;
             _building.transform.position = _tilemap.GetCellCenterWorld(new Vector3Int());
         }
 
         private void CancelTakingPlace()
         {
-            _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
-            _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
+            _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace -= CancelTakingPlace;
+            _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
 
             HideTemporalTileMap();
-            _buildingComponent.Deselect();
+            _buildingFacadeComponent.Deselect();
             Destroy(_building);
             ClearPreviousPaintedArea();
 
@@ -112,15 +112,15 @@ namespace Presentation
         {
             SaveBuilding();
             //TODO REMOVE THE ATTACK ZONE TO LEAVE WHITE ZONE SURROUNDING THE BUILDING
-            _buildingComponent.OnCancelTakingPlace -= CancelTakingPlace;
-            _buildingComponent.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
-            _buildingComponent.SetStatusChooserCanvas(false);
+            _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace -= CancelTakingPlace;
+            _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
+            _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
             ClearPreviousPaintedArea();
             // HideTemporalTileMap();
             _currentObjectPosition = Vector3Int.zero;
-            _buildingComponent.Deselect();
-            OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingComponent);
-            _buildingComponent = null;
+            _buildingFacadeComponent.Deselect();
+            OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingFacadeComponent);
+            _buildingFacadeComponent = null;
             saveBuildingEvent.Instance = _building;
             saveBuildingEvent.Fire();
             tileDatas.Clear();
@@ -161,9 +161,9 @@ namespace Presentation
         {
             foreach (var buildingData in _savedBuildings)
             {
-                SetAttackZone(buildingData.buildingComponent, buildingData.position,
-                    buildingData.buildingComponent.AttackArea, false);
-                SetBuildingZone(TileType.Red, buildingData.buildingComponent.AttackArea);
+                SetAttackZone(buildingData.buildingFacadeComponent, buildingData.position,
+                    buildingData.buildingFacadeComponent.BuildingAttacker.AttackArea, false);
+                SetBuildingZone(TileType.Red, buildingData.buildingFacadeComponent.BuildingAttacker.AttackArea);
 
                 var filledTiles = CopyFromTileDataToArray();
 
@@ -198,9 +198,9 @@ namespace Presentation
             if (CanBePlacedHere(_currentTileArray))
             {
                 Debug.Log("Can Place");
-                _currentBuildingArea = _buildingComponent.AttackArea;
+                _currentBuildingArea = _buildingFacadeComponent.BuildingAttacker.AttackArea;
 
-                SetAttackZone(_buildingComponent, _currentObjectPosition, _currentBuildingArea);
+                SetAttackZone(_buildingFacadeComponent, _currentObjectPosition, _currentBuildingArea);
                 SetBuildingZone(TileType.Green, _currentBuildingArea);
                 _currentTileArray = CopyFromTileDataToArray();
 
@@ -230,19 +230,20 @@ namespace Presentation
             };
         }
 
-        private void SetAttackZone(MilitaryBuilding militaryBuilding, Vector3Int buildingPosition,
+        private void SetAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int buildingPosition,
             Vector3Int attackArea, bool canBeChanged = true)
         {
-            var offset = Vector3Int.up * militaryBuilding.AttackRingRange +
-                         Vector3Int.right * militaryBuilding.AttackRingRange;
+            var offset = Vector3Int.up * militaryBuildingFacade.BuildingAttacker.AttackRingRange +
+                         Vector3Int.right * militaryBuildingFacade.BuildingAttacker.AttackRingRange;
             tileDatas.Clear();
 
-            switch (militaryBuilding.AttackAreaType)
+            switch (militaryBuildingFacade.BuildingAttacker.AttackAreaType)
             {
                 case AttackRangeType.Ring:
                     _temporalObjectArea = GetObjectArea(buildingPosition - offset, attackArea);
                     TileBase[] attackArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
-                    SetColourOfAttackZone(attackArray, militaryBuilding.AttackArea, canBeChanged);
+                    SetColourOfAttackZone(attackArray, militaryBuildingFacade.BuildingAttacker.AttackArea,
+                        canBeChanged);
 
                     break;
             }
@@ -254,7 +255,7 @@ namespace Presentation
             {
                 TileBase currentTile;
                 TileType currentColour, previousColour;
-                
+
                 if (GetCurrentTileType(attackArray[i]) == TileType.Red)
                 {
                     currentTile = _tileTypeBase[TileType.Red];
@@ -405,14 +406,14 @@ namespace Presentation
         private void SaveBuilding()
         {
             _buildingHasBeenSetEvent.Building = _building;
-            _buildingHasBeenSetEvent.BuildingComponent = _buildingComponent;
+            _buildingHasBeenSetEvent.buildingFacadeComponent = _buildingFacadeComponent;
             _buildingHasBeenSetEvent.Position = _currentObjectPosition;
             _buildingHasBeenSetEvent.Fire();
 
             _savedBuildings.Add(new SetBuildingData()
                 {
                     building = _building,
-                    buildingComponent = _buildingComponent,
+                    buildingFacadeComponent = _buildingFacadeComponent,
                     position = _currentObjectPosition
                 }
             );

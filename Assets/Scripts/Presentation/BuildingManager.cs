@@ -17,7 +17,7 @@ namespace Presentation
         [SerializeField] private List<BuildingCost> _buildingCost;
         [SerializeField] private List<BuildingDataTuple> buildingData;
         private IBuildingStatusModel _buildingStatusModel;
-        private List<MilitaryBuilding> _ownMilitaryBuilding = new List<MilitaryBuilding>();
+        private List<MilitaryBuildingFacade> _ownMilitaryBuilding = new List<MilitaryBuildingFacade>();
 
         private GameObject _enemy;
 
@@ -67,7 +67,7 @@ namespace Presentation
 
         public void SaveBuilding(SaveBuildingEvent buildingEvent)
         {
-            var militaryBuilding = buildingEvent.Instance.GetComponent<MilitaryBuilding>();
+            var militaryBuilding = buildingEvent.Instance.GetComponent<MilitaryBuildingFacade>();
             militaryBuilding.SetEnemyToAttack(_enemy);
             _ownMilitaryBuilding.Add(militaryBuilding);
         }
