@@ -44,15 +44,14 @@ namespace Presentation.Hostiles
             _currentSpeed = 0;
         }
         
-        
-        public void StopEnemyMovement(ShowLostMenuUIEvent levelEvent)
+        public void StopEnemyMovement(StopMovementEnemyEvent levelEvent)
         {
             Stop();
         }
         
-        public void StopEnemyMovement(ShowWinMenuUIEvent levelEvent)
+        public void ResumeEnemyMovement(ResumeMovementEnemyEvent levelEvent)
         {
-            Stop();
+            ResetSpeed();
         }
     }
 }
