@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Presentation.Dialog
+namespace Presentation.UI
 {
     public class SelectorView : MonoBehaviour
     {

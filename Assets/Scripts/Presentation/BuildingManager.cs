@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application_;
 using Application_.Events;
 using Application_.Models;
 using Presentation.Building;
+using Presentation.Hostiles;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;
@@ -31,8 +33,8 @@ namespace Presentation
                 });
             }
 
-            if(FindObjectOfType<Enemy.Enemy>())
-                _enemy = FindObjectOfType<Enemy.Enemy>().gameObject;
+            if(FindObjectOfType<Enemy>())
+                _enemy = FindObjectOfType<Enemy>().gameObject;
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)
@@ -68,6 +70,14 @@ namespace Presentation
             var militaryBuilding = buildingEvent.Instance.GetComponent<MilitaryBuilding>();
             militaryBuilding.SetEnemyToAttack(_enemy);
             _ownMilitaryBuilding.Add(militaryBuilding);
+        }
+
+        public void StopMilitaryBuildings(StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent)
+        {
+            foreach (var building in _ownMilitaryBuilding)
+            {
+                building.Stop();
+            }
         }
     }
 }

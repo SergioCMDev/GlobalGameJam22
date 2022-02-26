@@ -4,7 +4,7 @@ using Presentation.InputPlayer;
 using TMPro;
 using UnityEngine;
 
-namespace Presentation.Dialog
+namespace Presentation.UI
 {
     public class DialogView : MonoBehaviour
     {

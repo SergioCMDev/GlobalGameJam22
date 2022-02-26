@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Presentation.Building;
+using Presentation.Hostiles;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -12,7 +13,7 @@ namespace Presentation
     public class GridPathfinding:MonoBehaviour
     {
         [SerializeField] private GridBuildingManager gridBuildingManager;
-        [SerializeField] private Enemy.Enemy enemy;
+        [SerializeField] private Enemy enemy;
         [FormerlySerializedAs("_cityBuilding")] 
         [SerializeField] private CityBuilding cityBuilding;
     
@@ -48,7 +49,7 @@ namespace Presentation
             start = (friend) ? _tilemap.cellBounds.min : _tilemap.cellBounds.max; //mover a enemy
             end = (friend) ? _tilemap.cellBounds.max : _tilemap.cellBounds.min; //mover a enemy
             //_enemy.InitialPosition(_tilemap.WorldToLocal(start)); //mover a enemy
-            nextDestination = Pathfinder(enemy.enemyMovement.transform.position); //mover a enemy
+            nextDestination = Pathfinder(enemy.EnemyMovement.transform.position); //mover a enemy
             cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
 
             initialPotition = false; //mover a enemy
@@ -74,7 +75,7 @@ namespace Presentation
                     nextDestination = Pathfinder(enemy.transform.position);
                 }
             }
-            enemy.enemyMovement.MoveTo(nextDestination.Key);
+            enemy.EnemyMovement.MoveTo(nextDestination.Key);
         }
     
         private void DivideWorld()

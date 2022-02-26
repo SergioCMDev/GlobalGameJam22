@@ -14,7 +14,7 @@ namespace Presentation.Utils
         private JobHandle _jobHandle;
         public Action OnWallAhead;
         public Action OnNotWall;
-        private Vector3 _direction;
+        private Vector3 _direction = Vector3.forward;
 
         public Vector3 Direction
         {

@@ -15,12 +15,9 @@ namespace Presentation.Menus
 
         private void Start()
         {
-            _winImage.gameObject.SetActive(false);
-            _buttonContinue.gameObject.SetActive(false);
             _buttonRestart.onClick.AddListener(Restart);
             _buttonMainMenu.onClick.AddListener(GoToMainMenu);
             _buttonContinue.onClick.AddListener(Continue);
-            _buttonsParent.gameObject.SetActive(false);
         }
 
         private void GoToMainMenu()

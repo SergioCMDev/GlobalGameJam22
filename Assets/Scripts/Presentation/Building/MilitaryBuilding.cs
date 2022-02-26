@@ -6,16 +6,16 @@ using Utils;
 
 namespace Presentation.Building
 {
-
     public enum AttackRangeType
     {
         Ring,
         Square
     }
+
     public abstract class MilitaryBuilding : Building, IAttack
     {
         [SerializeField] private float _cadence, _damage, _distanceToAttack;
-        [SerializeField] private int  _attackRingRange = 1;
+        [SerializeField] private int _attackRingRange = 1;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private DamageType _damageType;
         [SerializeField] private PlaySFXEvent _playSfxEvent;
@@ -26,11 +26,11 @@ namespace Presentation.Building
         [SerializeField] private Vector3Int _attackArea;
         [SerializeField] private AttackRangeType _attackAreaType;
         private IReceiveDamage enemyToAttack;
-        private ILife enemyLife;
         private GameObject enemyGameObject;
 
         private float _lastTimeAttacked;
         private bool _enemyIsSet;
+        private bool _isActive;
 
         private float Cadence
         {
@@ -77,8 +77,8 @@ namespace Presentation.Building
 
         public void Attack(IReceiveDamage objectToAttack)
         {
-            if (!Utilities.HasPastTime(_lastTimeAttacked, Cadence) || !CanReach(enemyGameObject)) return;
             _lastTimeAttacked = Time.deltaTime;
+
             PlaySoundWhenAttacks();
             ThrowParticlesWhenAttacks();
             objectToAttack.ReceiveDamage(Damage, _damageType);
@@ -102,11 +102,11 @@ namespace Presentation.Building
 
 
         private void Update()
-        {
-            if (_enemyIsSet && enemyLife.IsAlive() && CanAttack() && CanReach(enemyGameObject))
-            {
-                Attack(enemyToAttack);
-            }
+        { 
+            if (!_isActive || !_enemyIsSet || !CanAttack() || !CanReach(enemyGameObject)) return;
+            
+            Debug.Log("ATTACK");
+            Attack(enemyToAttack);
         }
 
         //TODO REFRACTOR
@@ -120,9 +120,9 @@ namespace Presentation.Building
         {
             if (enemy == null) return;
             enemyToAttack = enemy.GetComponent<IReceiveDamage>();
-            enemyLife = enemy.GetComponent<ILife>();
             enemyGameObject = enemy;
             _enemyIsSet = true;
+            _isActive = true;
         }
 
         public void SetStatusChooserCanvas(bool status)
@@ -133,12 +133,26 @@ namespace Presentation.Building
         public void Select()
         {
             _spriteRenderer.color = colorWithTransparency;
-            
         }
 
         public void Deselect()
         {
             _spriteRenderer.color = originalColor;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!_enemyIsSet) return;
+            Gizmos.color = Color.magenta;
+            var directionToEnemy = enemyGameObject.transform.position - transform.position;
+            Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy) * _distanceToAttack);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy));
+        }
+
+        public void Stop()
+        {
+            _isActive = false;
         }
     }
 }

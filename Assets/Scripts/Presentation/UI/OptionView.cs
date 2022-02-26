@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace Presentation.Dialog
+namespace Presentation.UI
 {
     public class OptionView : MonoBehaviour
     {

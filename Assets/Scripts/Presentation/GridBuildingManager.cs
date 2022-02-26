@@ -49,7 +49,8 @@ namespace Presentation
         [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
         private TileBase[] _currentTileArray;
 
-        public event Action OnPlayerHasSetBuildingOnGrid, OnPlayerHasCanceledSetBuildingOnGrid;
+        public event Action OnPlayerHasCanceledSetBuildingOnGrid;
+        public event Action<MilitaryBuilding> OnPlayerHasSetBuildingOnGrid;
 
 
         private void Awake()
@@ -118,8 +119,8 @@ namespace Presentation
             // HideTemporalTileMap();
             _currentObjectPosition = Vector3Int.zero;
             _buildingComponent.Deselect();
+            OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingComponent);
             _buildingComponent = null;
-            OnPlayerHasSetBuildingOnGrid.Invoke();
             saveBuildingEvent.Instance = _building;
             saveBuildingEvent.Fire();
             tileDatas.Clear();

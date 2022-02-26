@@ -1,5 +1,6 @@
 using Application_;
 using Presentation;
+using Presentation.Building;
 using Presentation.Menus;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class LevelController : MonoBehaviour
         _buyController.BuyHasBeenCanceled();
     }
 
-    private void PlayerHasSetBuildingInGrid()
+    private void PlayerHasSetBuildingInGrid(MilitaryBuilding militaryBuilding)
     {
         _canvasPresenter.SetBuildingSelectableStatus(true);
         _buyController.EndBuy();

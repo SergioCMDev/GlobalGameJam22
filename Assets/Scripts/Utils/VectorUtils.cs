@@ -36,7 +36,7 @@ namespace Utils
         public static bool VectorIsNearVector(Vector3 transformPosition, Vector3 position,
             float distanceToCheck)
         {
-            return Vector2.Distance(transformPosition, position) < distanceToCheck;
+            return Vector3.Distance(transformPosition, position) < distanceToCheck;
         }
         
         public static bool Vector3IsNearVector3(Vector3 transformPosition, Vector3 position,

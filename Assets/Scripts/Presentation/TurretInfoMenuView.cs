@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation.Menus
+namespace Presentation
 {
     public class TurretInfoMenuView : MonoBehaviour
     {
