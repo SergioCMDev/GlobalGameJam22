@@ -1,5 +1,6 @@
 ﻿using System;
 using Presentation.Building;
+using UnityEngine;
 
 namespace Presentation.Weapons
 {
@@ -9,7 +10,7 @@ namespace Presentation.Weapons
         {
             throw new NotImplementedException();
         }
-        protected override bool CanReach()
+        protected override bool CanReach(GameObject gameObject)
         {
             throw new NotImplementedException();
         }

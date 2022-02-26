@@ -1,5 +1,6 @@
-using System;
 using Presentation.Building;
+using UnityEngine;
+using Utils;
 
 namespace Presentation.Weapons
 {
@@ -11,9 +12,10 @@ namespace Presentation.Weapons
         }
 
 
-        protected override bool CanReach()
+        protected override bool CanReach(GameObject objectToAttack)
         {
-            throw new NotImplementedException();
+            return VectorUtils.VectorIsNearVector(gameObject.transform.position, objectToAttack.transform.position,
+                DistanceToAttack);
         }
     }
 }

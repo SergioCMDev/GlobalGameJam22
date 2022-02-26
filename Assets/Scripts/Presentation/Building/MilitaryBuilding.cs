@@ -23,7 +23,9 @@ namespace Presentation.Building
         [SerializeField] private PlacerBuildingView _chooserCanvas;
         public event Action OnBuildingTriesToTakePlace, OnCancelTakingPlace;
 
+        //TODO TO BASIC TURRET?
         [SerializeField] private Vector3Int _attackArea;
+        //TODO TO BASIC TURRET?
         [SerializeField] private AttackRangeType _attackAreaType;
         private IReceiveDamage enemyToAttack;
         private GameObject enemyGameObject;
@@ -49,6 +51,11 @@ namespace Presentation.Building
         public AttackRangeType AttackAreaType => _attackAreaType;
 
         public int AttackRingRange => _attackRingRange;
+
+        private protected float DistanceToAttack
+        {
+            get => _distanceToAttack;
+        }
 
 
         private void Awake()
@@ -92,19 +99,13 @@ namespace Presentation.Building
             _playSfxEvent.Fire();
         }
 
-        private bool CanReach(GameObject objectToAttack)
-        {
-            return VectorUtils.VectorIsNearVector(gameObject.transform.position, objectToAttack.transform.position,
-                _distanceToAttack);
-        }
 
-        protected abstract bool CanReach();
-
+        protected abstract bool CanReach(GameObject objectToAttack);
 
         private void Update()
-        { 
+        {
             if (!_isActive || !_enemyIsSet || !CanAttack() || !CanReach(enemyGameObject)) return;
-            
+
             Debug.Log("ATTACK");
             Attack(enemyToAttack);
         }
@@ -145,7 +146,7 @@ namespace Presentation.Building
             if (!_enemyIsSet) return;
             Gizmos.color = Color.magenta;
             var directionToEnemy = enemyGameObject.transform.position - transform.position;
-            Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy) * _distanceToAttack);
+            Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy) * DistanceToAttack);
             Gizmos.color = Color.blue;
             Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy));
         }
