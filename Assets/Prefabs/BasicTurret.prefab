@@ -629,8 +629,9 @@ MonoBehaviour:
   _playSfxEvent: {fileID: 11400000, guid: 04172f459f1dd074c8142f58597d7989, type: 2}
   _cadence: 2
   _damage: 20
-  _distanceToAttack: 2
   _particles: {fileID: 0}
+  _attackRingRange: 1
+  _offsetForEachTile: 2.5
 --- !u!114 &8426418225386911925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,9 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23dc902b7ff4ce6b06691a5284a3db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackArea: {x: 3, y: 3, z: 1}
   _attackAreaType: 0
-  _attackRingRange: 1
   _damageType: 0
 --- !u!114 &7201745983478259591
 MonoBehaviour:

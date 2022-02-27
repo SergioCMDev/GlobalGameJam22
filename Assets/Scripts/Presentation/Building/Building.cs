@@ -39,9 +39,11 @@ namespace Presentation.Building
 
         public Vector3Int Area => _area;
 
+        protected SpriteRenderer SpriteRenderer => _spriteRenderer;
+
         private void Awake()
         {
-            var color = _spriteRenderer.color;
+            var color = SpriteRenderer.color;
             originalColor = color;
             colorWithTransparency = new Color(color.r, color.g, color.b,
                 _alphaWhenSelected);

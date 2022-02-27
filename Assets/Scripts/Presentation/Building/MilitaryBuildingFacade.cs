@@ -17,18 +17,29 @@ namespace Presentation.Building
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private PlaySFXEvent _playSfxEvent;
-        [SerializeField] private float _cadence, _damage, _distanceToAttack;
+        [SerializeField] private float _cadence, _damage;
         [SerializeField] private GameObject _particles;
+        [SerializeField] private int _attackRingRange = 1;
+
         private IReceiveDamage enemyToAttack;
         private GameObject enemyGameObject;
+        public Vector3Int AttackArea => _attackArea;
+        private Vector3Int _attackArea;
 
         private bool _isActive;
+
         private bool _enemyIsSet;
-        public float DistanceToAttack => _distanceToAttack;
+        // public float DistanceToAttack => _distanceToAttack;
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
 
         public MilitaryBuildingAttacker BuildingAttacker => _militaryBuildingAttacker;
+
+        protected internal int AttackRingRange
+        {
+            get => _attackRingRange;
+            set => _attackRingRange = value;
+        }
 
 
         public override void ReceiveDamage(float receivedDamage)
@@ -37,8 +48,10 @@ namespace Presentation.Building
             UpdateLifeSliderBar();
         }
 
+
         private void Awake()
         {
+            _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
             BuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
         }
 
@@ -72,19 +85,19 @@ namespace Presentation.Building
             if (enemy == null) return;
             enemyToAttack = enemy.GetComponent<IReceiveDamage>();
             enemyGameObject = enemy;
-            BuildingAttacker.Init(enemyGameObject, _cadence, _distanceToAttack, _damage);
+            BuildingAttacker.Init(enemyGameObject, _cadence, _damage);
             _enemyIsSet = true;
             _isActive = true;
         }
 
         public void Select()
         {
-            _spriteRenderer.color = colorWithTransparency;
+            SpriteRenderer.color = colorWithTransparency;
         }
 
         public void Deselect()
         {
-            _spriteRenderer.color = originalColor;
+            SpriteRenderer.color = originalColor;
         }
 
 

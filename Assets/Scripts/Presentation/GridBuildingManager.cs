@@ -162,8 +162,8 @@ namespace Presentation
             foreach (var buildingData in _savedBuildings)
             {
                 SetAttackZone(buildingData.buildingFacadeComponent, buildingData.position,
-                    buildingData.buildingFacadeComponent.BuildingAttacker.AttackArea, false);
-                SetBuildingZone(TileType.Red, buildingData.buildingFacadeComponent.BuildingAttacker.AttackArea);
+                    buildingData.buildingFacadeComponent.AttackArea, false);
+                SetBuildingZone(TileType.Red, buildingData.buildingFacadeComponent.AttackArea);
 
                 var filledTiles = CopyFromTileDataToArray();
 
@@ -198,7 +198,7 @@ namespace Presentation
             if (CanBePlacedHere(_currentTileArray))
             {
                 Debug.Log("Can Place");
-                _currentBuildingArea = _buildingFacadeComponent.BuildingAttacker.AttackArea;
+                _currentBuildingArea = _buildingFacadeComponent.AttackArea;
 
                 SetAttackZone(_buildingFacadeComponent, _currentObjectPosition, _currentBuildingArea);
                 SetBuildingZone(TileType.Green, _currentBuildingArea);
@@ -233,16 +233,15 @@ namespace Presentation
         private void SetAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int buildingPosition,
             Vector3Int attackArea, bool canBeChanged = true)
         {
-            var offset = Vector3Int.up * militaryBuildingFacade.BuildingAttacker.AttackRingRange +
-                         Vector3Int.right * militaryBuildingFacade.BuildingAttacker.AttackRingRange;
+            var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
+                         Vector3Int.right * militaryBuildingFacade.AttackRingRange;
             tileDatas.Clear();
-
             switch (militaryBuildingFacade.BuildingAttacker.AttackAreaType)
             {
                 case AttackRangeType.Ring:
                     _temporalObjectArea = GetObjectArea(buildingPosition - offset, attackArea);
                     TileBase[] attackArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
-                    SetColourOfAttackZone(attackArray, militaryBuildingFacade.BuildingAttacker.AttackArea,
+                    SetColourOfAttackZone(attackArray, militaryBuildingFacade.AttackArea,
                         canBeChanged);
 
                     break;
