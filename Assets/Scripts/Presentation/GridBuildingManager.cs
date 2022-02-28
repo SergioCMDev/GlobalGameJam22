@@ -29,7 +29,7 @@ namespace Presentation
 
     public class GridBuildingManager : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap, _tilemapOverWorld;
+        [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap;
         [SerializeField] private Grid _grid;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private Tile _red, white, green, _purple;
@@ -154,7 +154,7 @@ namespace Presentation
 
         private void ShowTemporalTileMap()
         {
-            _tilemapOverWorld.gameObject.SetActive(true);
+            _buildingTilemap.gameObject.SetActive(true);
         }
 
         private void LoadMilitaryBuildings()
@@ -167,7 +167,7 @@ namespace Presentation
 
                 var filledTiles = CopyFromTileDataToArray();
 
-                SetTilesInTilemap(_temporalObjectArea, filledTiles, _tilemapOverWorld);
+                SetTilesInTilemap(_temporalObjectArea, filledTiles, _buildingTilemap);
             }
 
             tileDatas.Clear();
@@ -175,12 +175,12 @@ namespace Presentation
 
         private void HideTemporalTileMap()
         {
-            _tilemapOverWorld.gameObject.SetActive(false);
+            _buildingTilemap.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (!_tilemapOverWorld.gameObject.activeInHierarchy || !_building) return;
+            if (!_buildingTilemap.gameObject.activeInHierarchy || !_building) return;
             if (!Input.GetMouseButton(0)) return;
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
@@ -191,7 +191,7 @@ namespace Presentation
             _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
 
             _temporalObjectArea = GetObjectArea(gridPosition, _currentBuildingArea);
-            var buildingArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
+            var buildingArray = GetTilesBlock(_temporalObjectArea, _buildingTilemap);
             SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
             _currentObjectPosition = gridPosition;
             _currentTileArray = CopyFromTileDataToArray();
@@ -204,12 +204,12 @@ namespace Presentation
                 SetBuildingZone(TileType.Green, _currentBuildingArea);
                 _currentTileArray = CopyFromTileDataToArray();
 
-                SetTilesInTilemap(_temporalObjectArea, _currentTileArray, _tilemapOverWorld);
+                SetTilesInTilemap(_temporalObjectArea, _currentTileArray, _buildingTilemap);
                 return;
             }
 
             var buildingArea = GetObjectArea(gridPosition, _temporalObjectArea.size);
-            SetTilesInTilemap(buildingArea, _currentTileArray, _tilemapOverWorld);
+            SetTilesInTilemap(buildingArea, _currentTileArray, _buildingTilemap);
         }
 
 
@@ -240,7 +240,7 @@ namespace Presentation
             {
                 case AttackRangeType.Ring:
                     _temporalObjectArea = GetObjectArea(buildingPosition - offset, attackArea);
-                    TileBase[] attackArray = GetTilesBlock(_temporalObjectArea, _tilemapOverWorld);
+                    TileBase[] attackArray = GetTilesBlock(_temporalObjectArea, _buildingTilemap);
                     SetColourOfAttackZone(attackArray, militaryBuildingFacade.AttackArea,
                         canBeChanged);
 
@@ -345,7 +345,7 @@ namespace Presentation
             var filledTiles = CopyFromTileDataToArray();
 
 
-            SetTilesInTilemap(_temporalObjectArea, filledTiles, _tilemapOverWorld);
+            SetTilesInTilemap(_temporalObjectArea, filledTiles, _buildingTilemap);
             tileDatas.Clear();
             _currentBuildingArea = _originalBuildingArea;
         }
