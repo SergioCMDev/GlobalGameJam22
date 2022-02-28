@@ -15,12 +15,12 @@ public class GridBuildingManager2 : MonoBehaviour
     [SerializeField] private Grid _grid;
     [SerializeField] private SaveBuildingEvent saveBuildingEvent;
     [SerializeField] private Tile _red, white, green, _purple;
+    [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
 
     private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
 
     public IDictionary<Vector3, Vector3Int> world; //REMOVE
     private GameObject _building;
-    private BoundsInt _temporalObjectArea;
     private Vector3Int _currentObjectPosition, _currentBuildingArea, _originalBuildingArea;
 
     private MilitaryBuildingFacade _buildingFacadeComponent;
@@ -28,7 +28,6 @@ public class GridBuildingManager2 : MonoBehaviour
     private readonly List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
     private readonly List<TileDataEntity> tileDatas = new List<TileDataEntity>();
 
-    [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
     private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionary = new Dictionary<Vector3Int, TileDataEntity>();
 
     public event Action OnPlayerHasCanceledSetBuildingOnGrid;
@@ -102,13 +101,26 @@ public class GridBuildingManager2 : MonoBehaviour
         HideTemporalTileMap();
         _worldTileDictionary[_currentObjectPosition].IsOccupied = true;
         _worldTileDictionary[_currentObjectPosition].Occupier = _buildingFacadeComponent.gameObject;
-        _currentObjectPosition = Vector3Int.zero;
         _buildingFacadeComponent.Deselect();
+
+        var attackTiles = GetAttackTilesOfBuilding(_currentObjectPosition, _buildingFacadeComponent, _buildingTilemap);
+        _currentObjectPosition = Vector3Int.zero;
+        _buildingFacadeComponent.SetTilesToAttack(attackTiles);
         OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingFacadeComponent);
         _buildingFacadeComponent = null;
         saveBuildingEvent.Instance = _building;
         saveBuildingEvent.Fire();
         tileDatas.Clear();
+    }
+
+    private List<TileDataEntity> GetAttackTilesOfBuilding(Vector3Int buildingPosition,
+        MilitaryBuildingFacade militaryBuildingFacade, Tilemap tilemap)
+    {
+        var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
+                     Vector3Int.right * militaryBuildingFacade.AttackRingRange;
+        var temporalObjectArea = GetObjectArea(buildingPosition - offset, militaryBuildingFacade.AttackArea);
+        var attackArray = GetTilesBlock(temporalObjectArea, tilemap);
+        return attackArray;
     }
 
 
@@ -157,18 +169,19 @@ public class GridBuildingManager2 : MonoBehaviour
     {
         foreach (var buildingData in _savedBuildings)
         {
-            ShowAttackZone(buildingData.buildingFacadeComponent,
-                buildingData.buildingFacadeComponent.AttackArea, buildingData.position, TileType.Red, false);
+            ShowAttackZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red, false);
+            _worldTileDictionary[buildingData.position].Occupier = buildingData.buildingFacadeComponent.gameObject;
+            _worldTileDictionary[buildingData.position].IsOccupied = true;
         }
 
         tileDatas.Clear();
     }
 
-    private void ShowAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int currentBuildingArea,
+    private void ShowAttackZone(MilitaryBuildingFacade militaryBuildingFacade,
         Vector3Int gridPosition,
         TileType buildingColour = TileType.Green, bool canBeCleaned = true)
     {
-        SetAttackZone(militaryBuildingFacade, gridPosition, currentBuildingArea, canBeCleaned);
+        SetAttackZone(militaryBuildingFacade, gridPosition, canBeCleaned);
         SetBuildingZone(buildingColour, gridPosition);
         var currentTileArray = CopyFromTileDataToArray();
         var tilePositions = GetTilePositionsOfTileData();
@@ -198,7 +211,7 @@ public class GridBuildingManager2 : MonoBehaviour
         ClearPreviousPaintedArea();
         _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);
 
-        _temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
+        var _temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
         var buildingArray = GetTilesBlock(_temporalObjectArea, _buildingTilemap);
 
         if (buildingArray.Count <= 0) return;
@@ -211,7 +224,7 @@ public class GridBuildingManager2 : MonoBehaviour
             Debug.Log("Can Place");
             _currentBuildingArea = _buildingFacadeComponent.AttackArea;
 
-            ShowAttackZone(_buildingFacadeComponent, _currentBuildingArea, _currentObjectPosition);
+            ShowAttackZone(_buildingFacadeComponent, _currentObjectPosition);
             return;
         }
 
@@ -226,20 +239,17 @@ public class GridBuildingManager2 : MonoBehaviour
         tileData.CurrentColour = tileTypeBuilding;
         tileData.GridPosition = buildingPosition;
         tileData.TileBase = _tileTypeBase[tileTypeBuilding];
-        tileDatas.Add(tileData);
+        // tileDatas.Add(tileData);
     }
 
     private void SetAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int buildingPosition,
-        Vector3Int attackArea, bool canBeCleaned)
+        bool canBeCleaned)
     {
-        var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
-                     Vector3Int.right * militaryBuildingFacade.AttackRingRange;
         tileDatas.Clear();
         switch (militaryBuildingFacade.BuildingAttacker.AttackAreaType)
         {
             case AttackRangeType.Ring:
-                _temporalObjectArea = GetObjectArea(buildingPosition - offset, attackArea);
-                var attackArray = GetTilesBlock(_temporalObjectArea, _buildingTilemap);
+                var attackArray = GetAttackTilesOfBuilding(buildingPosition, militaryBuildingFacade, _buildingTilemap);
                 SetColourOfAttackZone(attackArray, canBeCleaned);
 
                 break;
@@ -250,19 +260,20 @@ public class GridBuildingManager2 : MonoBehaviour
     {
         for (int i = 0; i < attackArray.Count; i++)
         {
-            if (GetCurrentTileType(attackArray[i].TileBase) == TileType.Red)
+            if (attackArray[i].CurrentColour == TileType.Red)
             {
                 attackArray[i].TileBase = _tileTypeBase[TileType.Red];
                 attackArray[i].CurrentColour = TileType.Red;
+                attackArray[i].PreviousColour = TileType.Red;
             }
             else
             {
                 attackArray[i].TileBase = _tileTypeBase[TileType.Blue];
                 attackArray[i].CurrentColour = TileType.Blue;
+                if (!canBeCleaned)
+                    attackArray[i].PreviousColour = TileType.Blue;
             }
 
-            attackArray[i].CanBeCleaned =
-                attackArray[i].CanBeCleaned == false ? attackArray[i].CanBeCleaned : canBeCleaned;
 
             AddTemporalTileData(attackArray[i]);
         }
@@ -315,7 +326,6 @@ public class GridBuildingManager2 : MonoBehaviour
         for (var index = 0; index < tileDatas.Count; index++)
         {
             var tile = tileDatas[index];
-            if (!tile.CanBeCleaned) continue;
             switch (tile.CurrentColour)
             {
                 case TileType.Green:
@@ -338,10 +348,6 @@ public class GridBuildingManager2 : MonoBehaviour
             }
 
             tileDatas[index] = tile;
-            if (_worldTileDictionary.ContainsValue(tileDatas[index]))
-            {
-                Debug.Log("D");
-            }
         }
 
         var filledTiles = CopyFromTileDataToArray();

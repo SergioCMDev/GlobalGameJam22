@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Application_.Events;
 using Presentation.Interfaces;
 using Presentation.Weapons;
@@ -104,6 +105,11 @@ namespace Presentation.Building
         public void Stop()
         {
             _isActive = false;
+        }
+
+        public void SetTilesToAttack(List<TileDataEntity> tileDataEntities)
+        {
+            // throw new System.NotImplementedException();
         }
     }
 }
