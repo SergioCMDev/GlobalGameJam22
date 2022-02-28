@@ -9,7 +9,7 @@ public class LevelController : MonoBehaviour
     [SerializeField] private CanvasPresenter _canvasPresenter;
 
     [SerializeField] private BuyController _buyController;
-    [SerializeField] private GridBuildingManager _gridBuildingManager;
+    [SerializeField] private GridBuildingManager2 _gridBuildingManager;
     // Start is called before the first frame update
     void Start()
     {

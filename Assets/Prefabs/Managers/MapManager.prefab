@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7439441737509163146}
-  - component: {fileID: 7439441737509163149}
   - component: {fileID: 7439441737509163147}
+  - component: {fileID: 1539259234}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -32,27 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7439441737509163149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7439441737509163148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d62ccae9fa63d4e83fd7bbd4981940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tilemap: {fileID: 0}
-  _tilemapOverWorld: {fileID: 0}
-  _grid: {fileID: 0}
-  saveBuildingEvent: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
-  _red: {fileID: 11400000, guid: 989821a4204883b4094f48460c7dbc88, type: 2}
-  white: {fileID: 11400000, guid: 4491f5959acf30f49b423b627d0fa035, type: 2}
-  green: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
-  _purple: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
-  _buildingHasBeenSetEvent: {fileID: 11400000, guid: 6f0c1ebec5e128946b1b18dd6f3d5bdc, type: 2}
 --- !u!114 &7439441737509163147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,8 +48,8 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7439441737509163149}
-        m_TargetAssemblyTypeName: Presentation.GridBuildingManager, Presentation
+      - m_Target: {fileID: 1539259234}
+        m_TargetAssemblyTypeName: GridBuildingManager2, Presentation
         m_MethodName: AllowPlayerToSetBuildingInTilemap
         m_Mode: 2
         m_Arguments:
@@ -82,3 +61,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1539259234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439441737509163148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f0adacdf8f435a9725907c436c5821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilemap: {fileID: 0}
+  _buildingTilemap: {fileID: 0}
+  _weaponRangeTilemap: {fileID: 0}
+  _grid: {fileID: 0}
+  saveBuildingEvent: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
+  _red: {fileID: 11400000, guid: 989821a4204883b4094f48460c7dbc88, type: 2}
+  white: {fileID: 11400000, guid: 4491f5959acf30f49b423b627d0fa035, type: 2}
+  green: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
+  _purple: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
+  _buildingHasBeenSetEvent: {fileID: 11400000, guid: 6f0c1ebec5e128946b1b18dd6f3d5bdc, type: 2}

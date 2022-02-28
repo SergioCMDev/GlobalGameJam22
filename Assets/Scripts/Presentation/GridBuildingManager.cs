@@ -48,6 +48,7 @@ namespace Presentation
 
         [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
         private TileBase[] _currentTileArray;
+        private Dictionary<Vector3Int, TileDataEntity> _tileDictionary = new Dictionary<Vector3Int, TileDataEntity>();
 
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
@@ -135,15 +136,24 @@ namespace Presentation
             {
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
                 {
-                    Vector3Int localPlace = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
-                    Vector3 place = _tilemap.CellToWorld(localPlace);
-                    if (_tilemap.HasTile(localPlace))
+                    Vector3Int gridPosition = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
+                    Vector3 worldPosition = _tilemap.CellToWorld(gridPosition);
+                    if (!_tilemap.HasTile(gridPosition)) continue;
+
+                    _tileDictionary.Add(gridPosition, new TileDataEntity()
                     {
-                        world.Add(place, localPlace);
-                    }
+                        WorldPosition = worldPosition,
+                        Occupier = null,
+                        IsOccupied = false,
+                        OriginalColour = TileType.White,
+                        PreviousColour = TileType.White,
+                        CurrentColour = TileType.White
+                    });
+                    world.Add(worldPosition, gridPosition);
                 }
             }
         }
+
 
         private Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
         {
@@ -432,5 +442,18 @@ namespace Presentation
 
             return array;
         }
+    }
+
+    [Serializable]
+    public class TileDataEntity
+    {
+        public TileBase TileBase;
+        public Vector3Int GridPosition;
+        public bool IsOccupied;
+        public GameObject Occupier;
+        public TileType OriginalColour;
+        public TileType PreviousColour;
+        public TileType CurrentColour;
+        public Vector3 WorldPosition;
     }
 }

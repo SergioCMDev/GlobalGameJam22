@@ -77,7 +77,7 @@ namespace Presentation.Building
                 !CanReach(enemyGameObject)) return;
 
             Debug.Log("ATTACK");
-            BuildingAttacker.Attack(enemyToAttack);
+            // BuildingAttacker.Attack(enemyToAttack);
         }
 
         public void SetEnemyToAttack(GameObject enemy)
