@@ -124,7 +124,6 @@ public class GridBuildingManager2 : MonoBehaviour
     }
 
 
-    //REMOVE
     private void ReadWorld()
     {
         world = new Dictionary<Vector3, Vector3Int>();
@@ -169,7 +168,7 @@ public class GridBuildingManager2 : MonoBehaviour
     {
         foreach (var buildingData in _savedBuildings)
         {
-            ShowAttackZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red, false);
+            SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red, false);
             _worldTileDictionary[buildingData.position].Occupier = buildingData.buildingFacadeComponent.gameObject;
             _worldTileDictionary[buildingData.position].IsOccupied = true;
         }
@@ -177,7 +176,7 @@ public class GridBuildingManager2 : MonoBehaviour
         tileDatas.Clear();
     }
 
-    private void ShowAttackZone(MilitaryBuildingFacade militaryBuildingFacade,
+    private void SetBuildingRelativeZone(MilitaryBuildingFacade militaryBuildingFacade,
         Vector3Int gridPosition,
         TileType buildingColour = TileType.Green, bool canBeCleaned = true)
     {
@@ -211,8 +210,8 @@ public class GridBuildingManager2 : MonoBehaviour
         ClearPreviousPaintedArea();
         _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);
 
-        var _temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
-        var buildingArray = GetTilesBlock(_temporalObjectArea, _buildingTilemap);
+        var temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
+        var buildingArray = GetTilesBlock(temporalObjectArea, _buildingTilemap);
 
         if (buildingArray.Count <= 0) return;
         SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
@@ -224,11 +223,11 @@ public class GridBuildingManager2 : MonoBehaviour
             Debug.Log("Can Place");
             _currentBuildingArea = _buildingFacadeComponent.AttackArea;
 
-            ShowAttackZone(_buildingFacadeComponent, _currentObjectPosition);
+            SetBuildingRelativeZone(_buildingFacadeComponent, _currentObjectPosition);
             return;
         }
 
-        var buildingArea = GetObjectArea(buildingGridPosition, _temporalObjectArea.size);
+        var buildingArea = GetObjectArea(buildingGridPosition, temporalObjectArea.size);
         SetTilesInTilemap(buildingArea, CopyFromTileDataToArray(), _buildingTilemap);
     }
 
@@ -239,7 +238,6 @@ public class GridBuildingManager2 : MonoBehaviour
         tileData.CurrentColour = tileTypeBuilding;
         tileData.GridPosition = buildingPosition;
         tileData.TileBase = _tileTypeBase[tileTypeBuilding];
-        // tileDatas.Add(tileData);
     }
 
     private void SetAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int buildingPosition,

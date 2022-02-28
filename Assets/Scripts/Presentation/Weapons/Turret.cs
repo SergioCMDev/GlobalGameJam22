@@ -1,3 +1,4 @@
+using System.Linq;
 using Presentation.Building;
 using UnityEngine;
 using Utils;
@@ -18,6 +19,8 @@ namespace Presentation.Weapons
 
         protected override bool CanReach(GameObject objectToAttack)
         {
+            return tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier == objectToAttack);
+
             //Method 1
             // var distance = objectToAttack.transform.position - transform.position;
             // var magninute = distance.magnitude / 2;
@@ -31,13 +34,13 @@ namespace Presentation.Weapons
             // return roundToInt < AttackRingRange;
             
             //Method2
-            return Mathf.Pow(transform.position.x - objectToAttack.transform.position.x, 2) +
-                   Mathf.Pow(transform.position.y - objectToAttack.transform.position.y, 2) <=
-                   AttackRingRange * AttackRingRange;
+            // return Mathf.Pow(transform.position.x - objectToAttack.transform.position.x, 2) +
+            //        Mathf.Pow(transform.position.y - objectToAttack.transform.position.y, 2) <=
+            //        AttackRingRange * AttackRingRange;
             
             //Method3
-            return VectorUtils.VectorIsNearVector(transform.position, objectToAttack.transform.position,
-                AttackRingRange * _offsetForEachTile);
+            // return VectorUtils.VectorIsNearVector(transform.position, objectToAttack.transform.position,
+            //     AttackRingRange * _offsetForEachTile);
         }
     }
 }

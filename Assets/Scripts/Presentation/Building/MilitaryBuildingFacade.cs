@@ -21,6 +21,7 @@ namespace Presentation.Building
         [SerializeField] private float _cadence, _damage;
         [SerializeField] private GameObject _particles;
         [SerializeField] private int _attackRingRange = 1;
+        [SerializeField] protected List<TileDataEntity> tilesToAttack;
 
         private IReceiveDamage enemyToAttack;
         private GameObject enemyGameObject;
@@ -109,7 +110,7 @@ namespace Presentation.Building
 
         public void SetTilesToAttack(List<TileDataEntity> tileDataEntities)
         {
-            // throw new System.NotImplementedException();
+            tilesToAttack = tileDataEntities;
         }
     }
 }
