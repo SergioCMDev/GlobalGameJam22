@@ -155,24 +155,18 @@ public class GridBuildingManager2 : MonoBehaviour
     {
         foreach (var buildingData in _savedBuildings)
         {
-            // ShowAttackZone( buildingData.position);
-
-
-            SetAttackZone(buildingData.buildingFacadeComponent, buildingData.position,
-                buildingData.buildingFacadeComponent.AttackArea);
-            SetBuildingZone(TileType.Red, buildingData.buildingFacadeComponent.AttackArea);
-
-            var filledTiles = CopyFromTileDataToArray();
-            var tilePositions = GetTilePositionsOfTileData();
-            SetTilesInTilemap(tilePositions, filledTiles, _buildingTilemap);
+            ShowAttackZone(buildingData.buildingFacadeComponent,
+                buildingData.buildingFacadeComponent.AttackArea, buildingData.position, TileType.Red);
         }
 
         tileDatas.Clear();
     }
 
-    private void ShowAttackZone(Vector3Int gridPosition, TileType buildingColour = TileType.Green)
+    private void ShowAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int currentBuildingArea,
+        Vector3Int gridPosition,
+        TileType buildingColour = TileType.Green)
     {
-        SetAttackZone(_buildingFacadeComponent, _currentObjectPosition, _currentBuildingArea);
+        SetAttackZone(militaryBuildingFacade, gridPosition, currentBuildingArea);
         SetBuildingZone(buildingColour, gridPosition);
         var currentTileArray = CopyFromTileDataToArray();
         var tilePositions = GetTilePositionsOfTileData();
@@ -215,7 +209,7 @@ public class GridBuildingManager2 : MonoBehaviour
             Debug.Log("Can Place");
             _currentBuildingArea = _buildingFacadeComponent.AttackArea;
 
-            ShowAttackZone(buildingGridPosition);
+            ShowAttackZone(_buildingFacadeComponent, _currentBuildingArea, _currentObjectPosition);
             return;
         }
 
@@ -227,7 +221,7 @@ public class GridBuildingManager2 : MonoBehaviour
     private void SetBuildingZone(TileType tileTypeBuilding, Vector3Int buildingPosition)
     {
         var tileData = _worldTileDictionary[buildingPosition];
-        tileData.CurrentColour = TileType.Green;
+        tileData.CurrentColour = tileTypeBuilding;
         tileData.GridPosition = buildingPosition;
         tileData.TileBase = _tileTypeBase[tileTypeBuilding];
         tileDatas.Add(tileData);
