@@ -11,7 +11,6 @@ using UnityEngine.Tilemaps;
 
 public class GridBuildingManager2 : MonoBehaviour
 {
-
     [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap;
     [SerializeField] private Grid _grid;
     [SerializeField] private SaveBuildingEvent saveBuildingEvent;
@@ -30,7 +29,6 @@ public class GridBuildingManager2 : MonoBehaviour
     private readonly List<TileDataEntity> tileDatas = new List<TileDataEntity>();
 
     [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
-    private TileBase[] _currentTileArray;
     private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionary = new Dictionary<Vector3Int, TileDataEntity>();
 
     public event Action OnPlayerHasCanceledSetBuildingOnGrid;
@@ -88,7 +86,8 @@ public class GridBuildingManager2 : MonoBehaviour
 
     private void BuildingTriesToTakePlace()
     {
-        if (!CanBePlacedHere(_currentTileArray)) return;
+        var colours = tileDatas.Select(x => x.CurrentColour).ToList();
+        if (!CanBePlacedHere(colours)) return;
         SetBuildingInGrid();
     }
 
@@ -156,6 +155,9 @@ public class GridBuildingManager2 : MonoBehaviour
     {
         foreach (var buildingData in _savedBuildings)
         {
+            // ShowAttackZone( buildingData.position);
+
+
             SetAttackZone(buildingData.buildingFacadeComponent, buildingData.position,
                 buildingData.buildingFacadeComponent.AttackArea);
             SetBuildingZone(TileType.Red, buildingData.buildingFacadeComponent.AttackArea);
@@ -166,6 +168,15 @@ public class GridBuildingManager2 : MonoBehaviour
         }
 
         tileDatas.Clear();
+    }
+
+    private void ShowAttackZone(Vector3Int gridPosition, TileType buildingColour = TileType.Green)
+    {
+        SetAttackZone(_buildingFacadeComponent, _currentObjectPosition, _currentBuildingArea);
+        SetBuildingZone(buildingColour, gridPosition);
+        var currentTileArray = CopyFromTileDataToArray();
+        var tilePositions = GetTilePositionsOfTileData();
+        SetTilesInTilemap(tilePositions, currentTileArray, _buildingTilemap);
     }
 
     private Vector3Int[] GetTilePositionsOfTileData()
@@ -185,34 +196,31 @@ public class GridBuildingManager2 : MonoBehaviour
         if (!Input.GetMouseButton(0)) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        var gridPosition = GetGridPositionByMouse(Input.mousePosition);
-        if (gridPosition == _currentObjectPosition) return;
+        var buildingGridPosition = GetGridPositionByMouse(Input.mousePosition);
+        if (buildingGridPosition == _currentObjectPosition) return;
 
         ClearPreviousPaintedArea();
-        _building.transform.position = _tilemap.GetCellCenterLocal(gridPosition);
+        _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);
 
-        _temporalObjectArea = GetObjectArea(gridPosition, _currentBuildingArea);
+        _temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
         var buildingArray = GetTilesBlock(_temporalObjectArea, _buildingTilemap);
 
         if (buildingArray.Count <= 0) return;
         SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
-        _currentObjectPosition = gridPosition;
-        _currentTileArray = CopyFromTileDataToArray();
-        if (CanBePlacedHere(_currentTileArray))
+        _currentObjectPosition = buildingGridPosition;
+        var colours = tileDatas.Select(x => x.CurrentColour).ToList();
+
+        if (CanBePlacedHere(colours))
         {
             Debug.Log("Can Place");
             _currentBuildingArea = _buildingFacadeComponent.AttackArea;
 
-            SetAttackZone(_buildingFacadeComponent, _currentObjectPosition, _currentBuildingArea);
-            SetBuildingZone(TileType.Green, gridPosition);
-            _currentTileArray = CopyFromTileDataToArray();
-            var tilePositions = GetTilePositionsOfTileData();
-            SetTilesInTilemap(tilePositions, _currentTileArray, _buildingTilemap);
+            ShowAttackZone(buildingGridPosition);
             return;
         }
 
-        var buildingArea = GetObjectArea(gridPosition, _temporalObjectArea.size);
-        SetTilesInTilemap(buildingArea, _currentTileArray, _buildingTilemap);
+        var buildingArea = GetObjectArea(buildingGridPosition, _temporalObjectArea.size);
+        SetTilesInTilemap(buildingArea, CopyFromTileDataToArray(), _buildingTilemap);
     }
 
 
@@ -261,9 +269,9 @@ public class GridBuildingManager2 : MonoBehaviour
         }
     }
 
-    private bool CanBePlacedHere(TileBase[] tileArray)
+    private bool CanBePlacedHere(List<TileType> tileArray)
     {
-        return tileArray.Any(x => x == _tileTypeBase[TileType.Green] || x == _tileTypeBase[TileType.Blue]);
+        return tileArray.Any(x => x == TileType.Green || x == TileType.Blue);
     }
 
     private void SetColourOfBuildingTiles(List<TileDataEntity> baseArray, Vector3Int buildingArea)
