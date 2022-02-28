@@ -455,5 +455,11 @@ namespace Presentation
         public TileType PreviousColour;
         public TileType CurrentColour;
         public Vector3 WorldPosition;
+        public bool CanBeCleaned;
+
+        public TileDataEntity()
+        {
+            CanBeCleaned = true;
+        }
     }
 }
