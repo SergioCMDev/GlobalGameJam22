@@ -18,24 +18,31 @@ public struct SetBuildingData
     public Vector3Int position;
 }
 
+[Serializable]
+public struct TilemapColours
+{
+    public TileType OriginalColour;
+    public TileType PreviousColour;
+    public TileType CurrentColour;
+}
+
 
 [Serializable]
 public class TileDataEntity
 {
-    public Tilemap Tilemap;
+    public Dictionary<Tilemap, TilemapColours> TilemapColours;
     public TileBase TileBase;
     public Vector3Int GridPosition;
     public bool IsOccupied;
     public GameObject Occupier;
-    public TileType OriginalColour;
-    public TileType PreviousColour;
-    public TileType CurrentColour;
+
     public Vector3 WorldPosition;
     public bool Locked;
 
     public TileDataEntity()
     {
         Locked = false;
+        TilemapColours = new Dictionary<Tilemap, TilemapColours>();
     }
 
     public void ResetOccupy()
@@ -126,7 +133,7 @@ public class GridBuildingManager : MonoBehaviour
 
     private void BuildingTriesToTakePlace()
     {
-        var colours = tileDatasBuilding.Select(x => x.CurrentColour).ToList();
+        var colours = tileDatasBuilding.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour).ToList();
         if (!CanBePlacedHere(colours)) return;
         SetBuildingInGrid();
     }
@@ -162,7 +169,7 @@ public class GridBuildingManager : MonoBehaviour
                      Vector3Int.right * militaryBuildingFacade.AttackRingRange;
         var temporalObjectArea = GetObjectArea(buildingPosition - offset, militaryBuildingFacade.AttackArea);
         var attackArray = GetTilesBlock(temporalObjectArea, tilemapBuilding, _worldTileDictionaryBuildingTilemap);
-        var buildingArray = GetTilesBlock(temporalObjectArea, tilemapBuilding, _worldTileDictionaryBuildingTilemap);
+        // var buildingArray = GetTilesBlock(temporalObjectArea, tilemapBuilding, _worldTileDictionaryBuildingTilemap);
         // if (attackArray.Any(x => x.GridPosition == buildingPosition) &&
         //     buildingArray.Any(x => x.GridPosition == buildingPosition))
         // {
@@ -188,29 +195,28 @@ public class GridBuildingManager : MonoBehaviour
                 Vector3 worldPosition = _tilemap.CellToWorld(gridPosition);
                 if (!_tilemap.HasTile(gridPosition) || !_buildingTilemap.HasTile(gridPosition)) continue;
 
+                var tilemapColourDictionary = new Dictionary<Tilemap, TilemapColours>();
+                tilemapColourDictionary.Add(_buildingTilemap, new TilemapColours()
+                {
+                    PreviousColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                    CurrentColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                    OriginalColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                });
+                tilemapColourDictionary.Add(_weaponRangeTilemap, new TilemapColours()
+                {
+                    PreviousColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
+                    CurrentColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
+                    OriginalColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
+                });
                 _worldTileDictionaryBuildingTilemap.Add(gridPosition, new TileDataEntity()
                 {
                     WorldPosition = worldPosition,
                     GridPosition = gridPosition,
                     Occupier = null,
                     IsOccupied = false,
-                    OriginalColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                    PreviousColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                    CurrentColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                    TilemapColours = tilemapColourDictionary,
                     TileBase = _buildingTilemap.GetTile(gridPosition)
                 });
-
-                // _worldTileDictionaryAttackTilemap.Add(gridPosition, new TileDataEntity()
-                // {
-                //     WorldPosition = worldPosition,
-                //     GridPosition = gridPosition,
-                //     Occupier = null,
-                //     IsOccupied = false,
-                //     OriginalColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                //     PreviousColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                //     CurrentColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                //     TileBase = _buildingTilemap.GetTile(gridPosition)
-                // });
                 world.Add(worldPosition, gridPosition);
             }
         }
@@ -294,7 +300,7 @@ public class GridBuildingManager : MonoBehaviour
         if (buildingArray.Count <= 0) return;
         SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
         _currentObjectPosition = buildingGridPosition;
-        var colours = tileDatasBuilding.Select(x => x.CurrentColour).ToList();
+        var colours = tileDatasBuilding.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour).ToList();
 
         if (CanBePlacedHere(colours))
         {
@@ -313,9 +319,12 @@ public class GridBuildingManager : MonoBehaviour
     private void SetBuildingZone(TileType tileTypeBuilding, Vector3Int buildingPosition)
     {
         var tileData = _worldTileDictionaryBuildingTilemap[buildingPosition];
-        tileData.CurrentColour = tileTypeBuilding;
+        var tileDataColour =  GetTilemapColour(tileData, _buildingTilemap);
+       
+        tileDataColour.CurrentColour = tileTypeBuilding;
         tileData.GridPosition = buildingPosition;
         tileData.TileBase = _tileTypeBase[tileTypeBuilding];
+        tileData.TilemapColours[_buildingTilemap] = tileDataColour;
         tileDatasBuilding.Add(tileData);
     }
 
@@ -348,21 +357,23 @@ public class GridBuildingManager : MonoBehaviour
             {
                 continue;
             }
-            if (attackArray[i].CurrentColour == TileType.Red)
+
+            var colours = attackArray[i].TilemapColours[_weaponRangeTilemap];
+            if (attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Red)
             {
                 attackArray[i].TileBase = _tileTypeBase[TileType.Red];
-                attackArray[i].CurrentColour = TileType.Red;
-                attackArray[i].PreviousColour = TileType.Red;
+                colours.CurrentColour = TileType.Red;
+                colours.PreviousColour = TileType.Red;
             }
             else
             {
                 attackArray[i].TileBase = _tileTypeBase[TileType.Blue];
-                attackArray[i].CurrentColour = TileType.Blue;
+                colours.CurrentColour = TileType.Blue;
                 if (!canBeCleaned)
-                    attackArray[i].PreviousColour = TileType.Blue;
+                    colours.PreviousColour = TileType.Blue;
             }
 
-
+            attackArray[i].TilemapColours[_weaponRangeTilemap] = colours;
             AddTemporalTileData(attackArray[i], tileDatasAttack);
         }
     }
@@ -377,12 +388,13 @@ public class GridBuildingManager : MonoBehaviour
     {
         for (var i = 0; i < buildingArea.x * buildingArea.y * buildingArea.z; i++)
         {
-            if (baseArray[i].CurrentColour == TileType.White ||
-                baseArray[i].CurrentColour == TileType.Blue && baseArray[i].OriginalColour == TileType.White)
+            var tilemapColour = GetTilemapColour(baseArray[i], _buildingTilemap);
+            if (tilemapColour.CurrentColour == TileType.White ||
+                tilemapColour.CurrentColour == TileType.Blue && tilemapColour.OriginalColour == TileType.White)
             {
-                baseArray[i].CurrentColour = TileType.Green;
+                tilemapColour.CurrentColour = TileType.Green;
                 baseArray[i].TileBase = _tileTypeBase[TileType.Green];
-
+                baseArray[i].TilemapColours[_buildingTilemap] = tilemapColour;
                 AddTemporalTileData(baseArray[i], tileDatasBuilding);
                 continue;
             }
@@ -390,7 +402,7 @@ public class GridBuildingManager : MonoBehaviour
             tileDatasBuilding.Clear();
             for (var x = 0; i < buildingArea.x * buildingArea.y * buildingArea.z; i++)
             {
-                baseArray[x].CurrentColour = TileType.Red;
+                tilemapColour.CurrentColour = TileType.Red;
                 baseArray[x].TileBase = _tileTypeBase[TileType.Red];
 
                 AddTemporalTileData(baseArray[x], tileDatasBuilding);
@@ -398,6 +410,11 @@ public class GridBuildingManager : MonoBehaviour
 
             break;
         }
+    }
+
+    private TilemapColours GetTilemapColour(TileDataEntity baseArray, Tilemap tilemap)
+    {
+        return baseArray.TilemapColours[tilemap];
     }
 
 
@@ -423,27 +440,28 @@ public class GridBuildingManager : MonoBehaviour
         for (var index = 0; index < tilesToClear.Count; index++)
         {
             var tile = tilesToClear[index];
-            switch (tile.CurrentColour)
+           var tileMapColour = GetTilemapColour(tile, _weaponRangeTilemap);
+            switch (tileMapColour.CurrentColour)
             {
                 // case TileType.Green:
-                case TileType.Red when tile.PreviousColour == TileType.Empty:
-                case TileType.Red when tile.PreviousColour == TileType.Red:
-                case TileType.Red when tile.PreviousColour == TileType.White:
-                case TileType.Red when tile.PreviousColour == TileType.Blue:
-                case TileType.Blue when tile.PreviousColour == TileType.Red:
-                case TileType.Blue when tile.PreviousColour == TileType.Empty:
-                    tile.TileBase = _tileTypeBase[tile.PreviousColour];
-                    tile.CurrentColour = tile.PreviousColour;
+                case TileType.Red when tileMapColour.PreviousColour == TileType.Empty:
+                case TileType.Red when tileMapColour.PreviousColour == TileType.Red:
+                case TileType.Red when tileMapColour.PreviousColour == TileType.White:
+                case TileType.Red when tileMapColour.PreviousColour == TileType.Blue:
+                case TileType.Blue when tileMapColour.PreviousColour == TileType.Red:
+                case TileType.Blue when tileMapColour.PreviousColour == TileType.Empty:
+                    tile.TileBase = _tileTypeBase[tileMapColour.PreviousColour];
+                    tileMapColour.CurrentColour = tileMapColour.PreviousColour;
                     break;
-                case TileType.Blue when tile.PreviousColour == TileType.Blue:
+                case TileType.Blue when tileMapColour.PreviousColour == TileType.Blue:
                     tile.TileBase = _tileTypeBase[TileType.Blue];
-                    tile.CurrentColour = TileType.Blue;
-                    tile.PreviousColour = TileType.Blue;
+                    tileMapColour.CurrentColour = TileType.Blue;
+                    tileMapColour.PreviousColour = TileType.Blue;
                     break;
                 default:
                     tile.TileBase = _tileTypeBase[TileType.Empty];
-                    tile.CurrentColour = TileType.White;
-                    tile.PreviousColour = TileType.White;
+                    tileMapColour.CurrentColour = TileType.White;
+                    tileMapColour.PreviousColour = TileType.White;
                     break;
             }
 
@@ -464,28 +482,30 @@ public class GridBuildingManager : MonoBehaviour
         for (var index = 0; index < tilesToClear.Count; index++)
         {
             var tile = tilesToClear[index];
-            switch (tile.CurrentColour)
+            var tileMapColour = GetTilemapColour(tile, _weaponRangeTilemap);
+
+            switch (tileMapColour.CurrentColour)
             {
-                case TileType.Blue when tile.PreviousColour == TileType.Blue:
+                case TileType.Blue when tileMapColour.PreviousColour == TileType.Blue:
                     tile.TileBase = _tileTypeBase[TileType.Empty];
 
                     break;
                 case TileType.Green:
-                case TileType.Red when tile.PreviousColour == TileType.Empty:
-                case TileType.Red when tile.PreviousColour == TileType.Red:
-                case TileType.Red when tile.PreviousColour == TileType.White:
-                // case TileType.Red when tile.PreviousColour == TileType.Blue:
-                // case TileType.Blue when tile.PreviousColour == TileType.White:
-                // case TileType.Blue when tile.PreviousColour == TileType.Red:
-                // case TileType.Blue when tile.PreviousColour == TileType.Empty:
+                case TileType.Red when tileMapColour.PreviousColour == TileType.Empty:
+                case TileType.Red when tileMapColour.PreviousColour == TileType.Red:
+                case TileType.Red when tileMapColour.PreviousColour == TileType.White:
+                    // case TileType.Red when tile.PreviousColour == TileType.Blue:
+                    // case TileType.Blue when tile.PreviousColour == TileType.White:
+                    // case TileType.Blue when tile.PreviousColour == TileType.Red:
+                    // case TileType.Blue when tile.PreviousColour == TileType.Empty:
 
-                    tile.TileBase = _tileTypeBase[tile.PreviousColour];
-                    tile.CurrentColour = tile.PreviousColour;
+                    tile.TileBase = _tileTypeBase[tileMapColour.PreviousColour];
+                    tileMapColour.CurrentColour = tileMapColour.PreviousColour;
                     break;
                 default:
                     tile.TileBase = _tileTypeBase[TileType.White];
-                    tile.CurrentColour = TileType.White;
-                    tile.PreviousColour = TileType.White;
+                    tileMapColour.CurrentColour = TileType.White;
+                    tileMapColour.PreviousColour = TileType.White;
                     break;
             }
 
