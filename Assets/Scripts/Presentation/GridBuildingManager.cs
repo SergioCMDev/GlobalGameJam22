@@ -473,8 +473,11 @@ public class GridBuildingManager : MonoBehaviour
 
     public void ObjectHasMovedToNewTile(ObjectHasMovedToNewTileEvent tileEvent)
     {
+        if(tileEvent.OldPosition == tileEvent.NewPositionToMove || !_worldTileDictionary.ContainsKey(tileEvent.NewPositionToMove)) return;
+        
         _worldTileDictionary[tileEvent.NewPositionToMove].IsOccupied = true;
         _worldTileDictionary[tileEvent.NewPositionToMove].Occupier = tileEvent.occupier;
+        
         _worldTileDictionary[tileEvent.OldPosition].ResetOccupy();
     }
 }
