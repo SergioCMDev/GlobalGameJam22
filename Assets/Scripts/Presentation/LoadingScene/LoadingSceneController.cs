@@ -1,4 +1,4 @@
-using Application_.Models;
+using App.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;

@@ -1,5 +1,5 @@
-﻿using Application_;
-using Application_.Events;
+﻿using App;
+using App.Events;
 using UnityEngine;
 
 namespace Presentation.Events

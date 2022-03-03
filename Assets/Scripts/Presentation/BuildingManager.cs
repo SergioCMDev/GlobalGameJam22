@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application_;
-using Application_.Events;
-using Application_.Models;
+using App;
+using App.Events;
+using App.Models;
 using Presentation.Building;
 using Presentation.Hostiles;
 using Presentation.Structs;

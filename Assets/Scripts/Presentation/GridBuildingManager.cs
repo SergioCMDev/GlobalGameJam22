@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application_.Events;
+using App.Events;
 using Presentation;
 using Presentation.Building;
 using Presentation.Events;

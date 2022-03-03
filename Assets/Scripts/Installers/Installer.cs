@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Application_.Models;
-using Application_.SceneManagement;
-using Application_.Services;
+using App.Models;
+using App.SceneManagement;
+using App.Services;
 using Domain;
 using Presentation;
 using Presentation.InputPlayer;

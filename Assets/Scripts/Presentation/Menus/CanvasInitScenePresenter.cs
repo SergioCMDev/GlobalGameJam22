@@ -1,6 +1,4 @@
 ﻿using System;
-using Application_.SceneManagement;
-using Application_.Services;
 using Presentation.InputPlayer;
 using Presentation.Languages;
 using UnityEngine;

@@ -1,4 +1,4 @@
-using Application_.Events;
+using App.Events;
 using UnityEngine;
 
 namespace Presentation.Hostiles

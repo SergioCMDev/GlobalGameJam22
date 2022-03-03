@@ -1,7 +1,7 @@
 using System;
-using Application_;
-using Application_.Events;
-using Application_.SceneManagement;
+using App;
+using App.Events;
+using App.SceneManagement;
 using Presentation.Events;
 using Presentation.Managers;
 using TMPro;

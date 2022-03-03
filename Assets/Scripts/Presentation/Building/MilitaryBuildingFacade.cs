@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Application_.Events;
+using App.Events;
 using Presentation.Interfaces;
 using Presentation.Weapons;
 using UnityEngine;

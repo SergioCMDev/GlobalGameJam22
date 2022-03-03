@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application_.Events;
-using Application_.Services;
+using App.Events;
+using App.Services;
 using UnityEngine;
 
 namespace Presentation.Managers

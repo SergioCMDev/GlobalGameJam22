@@ -1,6 +1,5 @@
-using Application_;
-using Application_.Events;
-using Application_.Models;
+using App.Events;
+using App.Models;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;

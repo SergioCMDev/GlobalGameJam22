@@ -1,6 +1,6 @@
-using Application_.Events;
-using Application_.Models;
-using Application_.SceneManagement;
+using App.Events;
+using App.Models;
+using App.SceneManagement;
 using Presentation.LoadingScene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
