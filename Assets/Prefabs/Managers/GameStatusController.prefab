@@ -65,12 +65,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4967238188201839983}
-        m_TargetAssemblyTypeName: GameStatusController, Assembly-CSharp
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
         m_MethodName: RestartLevel
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: d65df97f1ccd7f746b1c4b3b8962ad58, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.PlayerHasRestartedLevelEvent,
+          m_ObjectArgumentAssemblyTypeName: App.Events.PlayerHasRestartedLevelEvent,
             Application
           m_IntArgument: 0
           m_FloatArgument: 0

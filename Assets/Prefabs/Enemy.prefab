@@ -186,8 +186,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 8a396486b38227c41b9721ed420c8a82, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.StopMovementEnemyEvent,
-            Application
+          m_ObjectArgumentAssemblyTypeName: App.Events.StopMovementEnemyEvent, Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -215,7 +214,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 0d021a7ce7f85b541bfb6c0f5f2e0124, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.ResumeMovementEnemyEvent,
+          m_ObjectArgumentAssemblyTypeName: App.Events.ResumeMovementEnemyEvent,
             Application
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -248,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6941301912902136923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3449160122288460460}
@@ -294,12 +293,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 237510107985767388, guid: e4482765e47e1bf49b417152f3f66835, type: 3}
+  m_Sprite: {fileID: 237510107985767388, guid: 6a0cf7108bc2fe941916f3c42cc2fa3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.1875, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

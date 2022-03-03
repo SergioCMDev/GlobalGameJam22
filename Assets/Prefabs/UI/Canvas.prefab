@@ -340,8 +340,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 656f0a0c9fae5954ebeae63b84e85cc5, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.UpdateUIResourcesEvent,
-            Application
+          m_ObjectArgumentAssemblyTypeName: App.Events.UpdateUIResourcesEvent, Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -390,8 +389,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.ShowLostMenuUIEvent,
-            Application
+          m_ObjectArgumentAssemblyTypeName: App.Events.ShowLostMenuUIEvent, Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -419,8 +417,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.ShowWinMenuUIEvent,
-            Application
+          m_ObjectArgumentAssemblyTypeName: App.Events.ShowWinMenuUIEvent, Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -688,6 +685,10 @@ PrefabInstance:
     - target: {fileID: 1850273516978452170, guid: 5d7a8e590cdaab94c950c1dda259e702, type: 3}
       propertyPath: m_Name
       value: LoseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173399451058519211, guid: 5d7a8e590cdaab94c950c1dda259e702, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -233.77603
       objectReference: {fileID: 0}
     - target: {fileID: 3939868610933715689, guid: 5d7a8e590cdaab94c950c1dda259e702, type: 3}
       propertyPath: m_Pivot.x
