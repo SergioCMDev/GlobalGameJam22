@@ -36,6 +36,12 @@ public class TileDataEntity
     {
         Locked = false;
     }
+
+    public void ResetOccupy()
+    {
+        IsOccupied = false;
+        Occupier = null;
+    }
 }
 
 public class GridBuildingManager : MonoBehaviour
@@ -463,5 +469,12 @@ public class GridBuildingManager : MonoBehaviour
         }
 
         return list;
+    }
+
+    public void ObjectHasMovedToNewTile(ObjectHasMovedToNewTileEvent tileEvent)
+    {
+        _worldTileDictionary[tileEvent.NewPositionToMove].IsOccupied = true;
+        _worldTileDictionary[tileEvent.NewPositionToMove].Occupier = tileEvent.occupier;
+        _worldTileDictionary[tileEvent.OldPosition].ResetOccupy();
     }
 }
