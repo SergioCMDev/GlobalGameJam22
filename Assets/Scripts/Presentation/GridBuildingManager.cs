@@ -26,7 +26,6 @@ public struct TilemapColours
     public TileType CurrentColour;
 }
 
-
 [Serializable]
 public class TileDataEntity
 {
@@ -35,7 +34,6 @@ public class TileDataEntity
     public Vector3Int GridPosition;
     public bool IsOccupied;
     public GameObject Occupier;
-
     public Vector3 WorldPosition;
     public bool Locked;
 
@@ -74,10 +72,7 @@ public class GridBuildingManager : MonoBehaviour
 
     private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
         new Dictionary<Vector3Int, TileDataEntity>();
-
-    private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryAttackTilemap =
-        new Dictionary<Vector3Int, TileDataEntity>();
-
+    
     [SerializeField] private bool _showAttackZone;
 
     public event Action OnPlayerHasCanceledSetBuildingOnGrid;
@@ -288,8 +283,7 @@ public class GridBuildingManager : MonoBehaviour
         SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
         _currentObjectPosition = buildingGridPosition;
         var colours = tileDatasBuilding.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour).ToList();
-        var tileDataEntity = GetTileDataByGridPosition(tileDatasBuilding, _currentObjectPosition);
-        if (CanBePlacedHere(colours) && _showAttackZone /*&& tileDataEntity is { IsOccupied: false }*/)
+        if (CanBePlacedHere(colours) && _showAttackZone)
         {
             Debug.Log("Can Place");
             _currentBuildingArea = _buildingFacadeComponent.AttackArea;
@@ -474,7 +468,6 @@ public class GridBuildingManager : MonoBehaviour
             {
                 case TileType.Blue when tileMapColour.PreviousColour == TileType.Blue:
                     tile.TileBase = _tileTypeBase[TileType.Empty];
-
                     break;
                 case TileType.Green:
                 case TileType.Red when tileMapColour.PreviousColour == TileType.Empty:
@@ -548,7 +541,6 @@ public class GridBuildingManager : MonoBehaviour
         return tile == _tileTypeBase[TileType.Blue] ? TileType.Blue : TileType.White;
     }
 
-
     private void SaveBuilding()
     {
         _buildingHasBeenSetEvent.Building = _building;
@@ -574,8 +566,7 @@ public class GridBuildingManager : MonoBehaviour
         {
             var pos = new Vector3Int(v.x, v.y, 0);
             if (!worldDictionary.ContainsKey(pos) || list.Contains(worldDictionary[pos])) continue;
-
-
+            
             list.Add(worldDictionary[pos]);
         }
 
