@@ -112,5 +112,10 @@ namespace Presentation.Building
         {
             tilesToAttack = tileDataEntities;
         }
+
+        public void ClearAttackTiles()
+        {
+            tilesToAttack.Clear();
+        }
     }
 }

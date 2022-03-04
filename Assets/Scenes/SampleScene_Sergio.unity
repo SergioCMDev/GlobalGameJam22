@@ -10414,6 +10414,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 377284499}
     - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
+      propertyPath: _showAttackZone
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _buildingTilemap
       value: 
       objectReference: {fileID: 1964186081}
