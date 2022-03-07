@@ -25,9 +25,8 @@ namespace Presentation
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _playerIsCurrentlyBuying = false;
         }
-        
 
-        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action onPlayerNeedMoreResources)
+        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action OnPlayerNeedMoreResources)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
@@ -38,7 +37,7 @@ namespace Presentation
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
                     resourcesNeededForCurrentBuy.Metal))
             {
-                onPlayerNeedMoreResources();
+                OnPlayerNeedMoreResources();
                 return;
             }
 

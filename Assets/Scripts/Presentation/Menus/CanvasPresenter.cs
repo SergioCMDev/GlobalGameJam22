@@ -12,7 +12,6 @@ namespace Presentation.Menus
     public class CanvasPresenter : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _tmpText;
-        [SerializeField] private PlayerWantsToBuyBuildingEvent _playerWantsToBuyBuildingEvent;
         [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
         [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
@@ -23,8 +22,7 @@ namespace Presentation.Menus
         private SceneChanger _sceneChanger;
 
         private ResourcesManager _resourcesManager;
-
-
+        
         public event Action<BuildingType> OnPlayerWantsToSetBuildingInGrid;
 
         void Start()
@@ -66,9 +64,8 @@ namespace Presentation.Menus
         {
             HideTurretInfoView();
             SetBuildingSelectableStatus(false);
-            // OnPlayerWantsToSetBuildingInGrid.Invoke(buildingType);
-            _playerWantsToBuyBuildingEvent.BuildingType = buildingType;
-            _playerWantsToBuyBuildingEvent.Fire();
+            OnPlayerWantsToSetBuildingInGrid.Invoke(buildingType);
+
         }
 
         private void CancelBuy()
