@@ -4,7 +4,6 @@ using System.Linq;
 using App.Events;
 using Presentation;
 using Presentation.Building;
-using Presentation.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -56,7 +55,6 @@ public class GridBuildingManager : MonoBehaviour
     [SerializeField] private Grid _grid;
     [SerializeField] private SaveBuildingEvent saveBuildingEvent;
     [SerializeField] private Tile _red, white, green, _purple;
-    [SerializeField] private BuildingHasBeenSetEvent _buildingHasBeenSetEvent;
 
     private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
 
@@ -543,11 +541,6 @@ public class GridBuildingManager : MonoBehaviour
 
     private void SaveBuilding()
     {
-        _buildingHasBeenSetEvent.Building = _building;
-        _buildingHasBeenSetEvent.buildingFacadeComponent = _buildingFacadeComponent;
-        _buildingHasBeenSetEvent.Position = _currentObjectPosition;
-        _buildingHasBeenSetEvent.Fire();
-
         _savedBuildings.Add(new SetBuildingData()
             {
                 building = _building,

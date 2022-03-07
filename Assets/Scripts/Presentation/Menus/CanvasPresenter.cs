@@ -2,7 +2,6 @@ using System;
 using App;
 using App.Events;
 using App.SceneManagement;
-using Presentation.Events;
 using Presentation.Managers;
 using TMPro;
 using UnityEngine;

@@ -1,6 +1,5 @@
 using App;
 using App.Events;
-using Presentation.Events;
 using Presentation.Managers;
 using Presentation.Structs;
 using UnityEngine;
@@ -24,11 +23,6 @@ namespace Presentation
             _buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _playerIsCurrentlyBuying = false;
-        }
-
-        public void PlayerWantsToBuyBuilding(PlayerWantsToBuyBuildingEvent playerWantsToBuyBuildingEvent)
-        {
-            PlayerWantsToBuyBuilding(playerWantsToBuyBuildingEvent.BuildingType);
         }
 
         public void PlayerWantsToBuyBuilding(BuildingType buildingType)
