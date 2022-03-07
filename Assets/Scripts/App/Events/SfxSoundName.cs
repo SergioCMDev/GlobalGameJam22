@@ -23,6 +23,7 @@ namespace App.Events
         Laser2,
         Tesla,
         BuyCanceled,
-        BuildingHasBeenSet
+        BuildingHasBeenSet,
+        PlayerNeedsMoreResources
     }
 }

@@ -16,7 +16,6 @@ public class LevelController : MonoBehaviour
 
     private SoundManager _soundManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
@@ -48,6 +47,9 @@ public class LevelController : MonoBehaviour
 
     private void OnPlayerNeedsMoreResources()
     {
-        _soundManager.PlaySfx(SfxSoundName.BuyCanceled);
+        _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
+        
+        _canvasPresenter.SetBuildingSelectableStatus(true);
+        _buyController.BuyHasBeenCanceled();
     }
 }
