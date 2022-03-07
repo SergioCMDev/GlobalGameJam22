@@ -359,7 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tmpText: {fileID: 622386405}
-  _playerWantsToBuyBuildingEvent: {fileID: 11400000, guid: 345dd8d39ab6011459cd32d39689f839, type: 2}
   _changeToNextSceneEvent: {fileID: 11400000, guid: e594dafef8cbee84d8fcc74aad088604, type: 2}
   _changeToSpecificSceneEvent: {fileID: 11400000, guid: 88a4b964054bc084db687831a41b25f9, type: 2}
   _playerHasRestartedLevelEvent: {fileID: 11400000, guid: d65df97f1ccd7f746b1c4b3b8962ad58, type: 2}
@@ -657,10 +656,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingsSelector
       objectReference: {fileID: 0}
-    - target: {fileID: 782231886237612997, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e7591170e52a7f143b8d02171311416a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
 --- !u!224 &2341795771788345202 stripped
