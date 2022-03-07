@@ -10,7 +10,7 @@ namespace Presentation.Weapons
         {
             throw new NotImplementedException();
         }
-        protected override bool CanReach(GameObject gameObject)
+        protected override bool CanReach( )
         {
             throw new NotImplementedException();
         }
