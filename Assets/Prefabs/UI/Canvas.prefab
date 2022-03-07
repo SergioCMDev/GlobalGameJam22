@@ -275,7 +275,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1051247173
   m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &2341795770455548731
@@ -657,6 +657,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingsSelector
       objectReference: {fileID: 0}
+    - target: {fileID: 782231886237612997, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e7591170e52a7f143b8d02171311416a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
 --- !u!224 &2341795771788345202 stripped
