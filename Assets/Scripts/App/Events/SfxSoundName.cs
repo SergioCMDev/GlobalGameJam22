@@ -21,6 +21,8 @@ namespace App.Events
         Stage_Clear,
         Laser1,
         Laser2,
-        Tesla
+        Tesla,
+        BuyCanceled,
+        BuildingHasBeenSet
     }
 }

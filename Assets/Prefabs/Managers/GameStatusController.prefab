@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4967238188201839980}
   - component: {fileID: 4967238188201839983}
   - component: {fileID: 1446073707}
+  - component: {fileID: 1067263519}
   m_Layer: 0
   m_Name: GameStatusController
   m_TagString: Untagged
@@ -77,3 +78,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1067263519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0bbb4953ac00448acf2dfd73bfb2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backgroundSoundName: 1
+  _active: 1

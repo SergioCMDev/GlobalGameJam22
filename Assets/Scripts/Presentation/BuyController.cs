@@ -1,3 +1,4 @@
+using System;
 using App;
 using App.Events;
 using Presentation.Managers;
@@ -24,8 +25,9 @@ namespace Presentation
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _playerIsCurrentlyBuying = false;
         }
+        
 
-        public void PlayerWantsToBuyBuilding(BuildingType buildingType)
+        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action onPlayerNeedMoreResources)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
@@ -34,7 +36,11 @@ namespace Presentation
             resourcesNeededForCurrentBuy =
                 _buildingManager.GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
-                resourcesNeededForCurrentBuy.Metal)) return;
+                    resourcesNeededForCurrentBuy.Metal))
+            {
+                onPlayerNeedMoreResources();
+                return;
+            }
 
             var prefab = _buildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
             _allowPlayerToSetBuildingInTilemapEvent.Prefab = prefab;
