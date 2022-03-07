@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using App.Events;
 using Presentation.Interfaces;
+using Presentation.Managers;
 using Presentation.Weapons;
 using UnityEngine;
+using Utils;
 
 namespace Presentation.Building
 {
@@ -17,7 +19,6 @@ namespace Presentation.Building
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
-        [SerializeField] private PlaySFXEvent _playSfxEvent;
         [SerializeField] private float _cadence, _damage;
         [SerializeField] private GameObject _particles;
         [SerializeField] private int _attackRingRange = 1;
@@ -25,6 +26,7 @@ namespace Presentation.Building
 
         private IReceiveDamage enemyToAttack;
         private GameObject enemyGameObject;
+        private SoundManager _soundManager;
         public Vector3Int AttackArea => _attackArea;
         private Vector3Int _attackArea;
 
@@ -54,6 +56,7 @@ namespace Presentation.Building
         private void Awake()
         {
             _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
+            _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             BuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
         }
 
@@ -67,16 +70,15 @@ namespace Presentation.Building
 
         private void PlaySoundWhenAttacks()
         {
-            _playSfxEvent.soundName = _sfxWhenAttack;
-            _playSfxEvent.Fire();
+            _soundManager.PlaySfx(_sfxWhenAttack);
         }
 
-        protected abstract bool CanReach(GameObject objectToAttack);
+        protected abstract bool CanReach( );
 
         private void Update()
         {
             if (!_isActive || !_enemyIsSet || !BuildingAttacker.CanAttack() ||
-                !CanReach(enemyGameObject)) return;
+                !CanReach()) return;
 
             Debug.Log("ATTACK");
             // BuildingAttacker.Attack(enemyToAttack);
