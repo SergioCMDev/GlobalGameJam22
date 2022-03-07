@@ -1,6 +1,8 @@
 ﻿using System;
 using Presentation.InputPlayer;
 using Presentation.Languages;
+using Presentation.Managers;
+using Presentation.MusicEmitter;
 using UnityEngine;
 using Utils;
 
@@ -10,8 +12,10 @@ namespace Presentation.Menus
     {
         [SerializeField] private InitMenuView _initMenuView;
 
-        // [SerializeField] private GameDataStatusLoader _gameDataStatusLoader;
+        [SerializeField] private BackgroundSoundEmitter _backgroundSoundEmitter;
+
         [SerializeField] private OptionsMenuView _optionsMenuView;
+
         // [SerializeField] private GameDataService _gameDataService;
         private ReadInputPlayer _readInputPlayer;
 
@@ -23,7 +27,7 @@ namespace Presentation.Menus
         {
             //TODO LOAD GAMEDATA
 
-           
+
             _initMenuView.OnContinueButtonPressed += ContinueGame;
             _initMenuView.OnNewGameButtonPressed += NewGame;
             _initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
@@ -32,7 +36,6 @@ namespace Presentation.Menus
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
             // _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
-            // _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
 
 
             // _deleteSavedGameView.gameObject.SetActive(false);
@@ -54,10 +57,6 @@ namespace Presentation.Menus
 
         private void OnDestroy()
         {
-            // _deleteSavedGameView.OnPlayerDeleteSavedGameData -= DeleteLastGameAndStartNewGame;
-            // _deleteSavedGameView.OnPlayerCancelDeleteSavedGameData -= CloseDeleteLastGameWindow;
-            // _gameDataStatusLoader.OnShowContinueButton -= ShowContinueButton;
-            // _gameDataStatusLoader.OnShowPromptToDeleteLastGame -= OpenDeleteLastGameWindow;
             _initMenuView.OnContinueButtonPressed -= ContinueGame;
             _initMenuView.OnNewGameButtonPressed -= NewGame;
             _initMenuView.OnShowOptionsMenuButtonPressed -= ShowOptionsMenu;
@@ -82,22 +81,25 @@ namespace Presentation.Menus
             _initMenuView.gameObject.SetActive(true);
         }
 
-        
 
         private void NewGame()
         {
-            if (OnStartNewGame != null) OnStartNewGame();
+            if (OnStartNewGame == null) return;
+
+            _backgroundSoundEmitter.StopMusic();
+            OnStartNewGame();
         }
 
         private void ContinueGame()
         {
+            _backgroundSoundEmitter.StopMusic();
             //TODO GET REAL SCENE
 
             // _changerSceneModel.SceneToGo = "LevelStable";
             //
             // _gameDataStatusLoader.ContinueGame();
         }
-        
+
 
         private void ShowContinueButton(bool show)
         {

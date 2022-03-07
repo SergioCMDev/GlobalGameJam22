@@ -36,19 +36,35 @@ namespace Presentation.Managers
         }
 
         //From Event
-        public void PlaySFX(PlaySFXEvent playSfxEvent)
+        public void PlaySfx(PlaySFXEvent playSfxEvent)
         {
-            Debug.Log($"SFX {playSfxEvent.soundName}");
-            PlaySfx(_sfxSoundDictionary.Single(x => x.SfxSoundName == playSfxEvent.soundName).AudioClip);
+            PlaySfx(playSfxEvent.soundName);
+        }
+        
+        public void PlaySfx(SfxSoundName sfxSoundName)
+        {
+            Debug.Log($"SFX {sfxSoundName}");
+            PlaySfx(_sfxSoundDictionary.Single(x => x.SfxSoundName == sfxSoundName).AudioClip);
         }
 
 
         //From Event
         public void PlayMusic(PlayMusicEvent playMusicEvent)
         {
-            PlayMusic(_musicSoundDictionary.Single(x => x.MusicSoundName == playMusicEvent.soundName).AudioClip);
+            PlayMusic(playMusicEvent.soundName);
+        }
+        
+        public void PlayMusic(MusicSoundName musicSoundName)
+        {
+            PlayMusic(_musicSoundDictionary.Single(x => x.MusicSoundName == musicSoundName).AudioClip);
         }
 
+        
+        public void StopMusic()
+        {
+            _music.Stop();
+        }
+        
 
         private void PlaySfx(AudioClip audioClip)
         {
