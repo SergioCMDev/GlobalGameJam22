@@ -100,17 +100,24 @@ namespace Presentation.Menus
 
         public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
+            CloseMenus();
             _winMenuView.gameObject.SetActive(true);
-            _buildingsSelectable.gameObject.SetActive(false);
             _winMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
             _winMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
             _winMenuView.OnContinueButtonPressed += GoToNextLevel;
         }
 
+        private void CloseMenus()
+        {
+            _buildingsSelectable.gameObject.SetActive(false);
+            _turretInfoMenuView.gameObject.SetActive(false);
+            _needMoreResourcesView.gameObject.SetActive(false);
+        }
+
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
             _loseMenuView.gameObject.SetActive(true);
-            _buildingsSelectable.gameObject.SetActive(false);
+            CloseMenus();
             _loseMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
             _loseMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
         }
