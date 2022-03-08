@@ -4,6 +4,7 @@ using Presentation;
 using Presentation.Building;
 using Presentation.Managers;
 using Presentation.Menus;
+using Presentation.Structs;
 using UnityEngine;
 using Utils;
 
@@ -45,11 +46,14 @@ public class LevelController : MonoBehaviour
         _buyController.PlayerWantsToBuyBuilding(buildingType, OnPlayerNeedsMoreResources);
     }
 
-    private void OnPlayerNeedsMoreResources()
+    private void OnPlayerNeedsMoreResources(ResourcesTuple resourcesNeeded, BuildingType buildingType)
     {
-        _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
+        _canvasPresenter.ShowNeedMoreResourcesPanel(resourcesNeeded, buildingType);
+
+        // _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
         
         _canvasPresenter.SetBuildingSelectableStatus(true);
         _buyController.BuyHasBeenCanceled();
     }
+    
 }
