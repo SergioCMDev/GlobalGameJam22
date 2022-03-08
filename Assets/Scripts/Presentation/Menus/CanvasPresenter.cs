@@ -3,6 +3,7 @@ using App;
 using App.Events;
 using App.SceneManagement;
 using Presentation.Managers;
+using Presentation.Structs;
 using TMPro;
 using UnityEngine;
 using Utils;
@@ -19,20 +20,23 @@ namespace Presentation.Menus
         [SerializeField] private WinMenuView _winMenuView;
         [SerializeField] private LoseMenuView _loseMenuView;
         [SerializeField] private TurretInfoMenuView _turretInfoMenuView;
+        [SerializeField] private NeedMoreResourcesView _needMoreResourcesView;
         private SceneChanger _sceneChanger;
 
         private ResourcesManager _resourcesManager;
-        
+
         public event Action<BuildingType> OnPlayerWantsToSetBuildingInGrid;
 
         void Start()
         {
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
-            UpdateResources(null);
+            UpdateResources();
             _turretInfoMenuView.gameObject.SetActive(false);
             _loseMenuView.gameObject.SetActive(false);
             _winMenuView.gameObject.SetActive(false);
+            _needMoreResourcesView.gameObject.SetActive(false);
+
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += PlayerWantsToBuyBuilding;
         }
 
@@ -65,7 +69,6 @@ namespace Presentation.Menus
             HideTurretInfoView();
             SetBuildingSelectableStatus(false);
             OnPlayerWantsToSetBuildingInGrid.Invoke(buildingType);
-
         }
 
         private void CancelBuy()
@@ -86,6 +89,11 @@ namespace Presentation.Menus
         }
 
         public void UpdateResources(UpdateUIResourcesEvent resourcesEvent)
+        {
+            UpdateResources();
+        }
+
+        private void UpdateResources()
         {
             _tmpText.SetText($"Recurso {_resourcesManager.ResourcesModel.Gold}");
         }
@@ -119,6 +127,13 @@ namespace Presentation.Menus
             _winMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
             _winMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
             _winMenuView.OnContinueButtonPressed += GoToNextLevel;
+        }
+
+        public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
+        {
+            _needMoreResourcesView.gameObject.SetActive(true);
+            _needMoreResourcesView.Init(resourcesNeeded, buildingType);
+            _needMoreResourcesView.OnClosePopup += () => { _needMoreResourcesView.gameObject.SetActive(false); };
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Presentation
             _playerIsCurrentlyBuying = false;
         }
 
-        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action OnPlayerNeedMoreResources)
+        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action<ResourcesTuple, BuildingType> OnPlayerNeedMoreResources)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
@@ -37,7 +37,7 @@ namespace Presentation
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
                     resourcesNeededForCurrentBuy.Metal))
             {
-                OnPlayerNeedMoreResources();
+                OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, buildingType);
                 return;
             }
 
