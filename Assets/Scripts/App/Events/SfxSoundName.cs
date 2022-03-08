@@ -24,6 +24,8 @@ namespace App.Events
         Tesla,
         BuyCanceled,
         BuildingHasBeenSet,
-        PlayerNeedsMoreResources
+        PlayerNeedsMoreResources,
+        PlayerWinLevel,
+        PlayerLoseLevel
     }
 }

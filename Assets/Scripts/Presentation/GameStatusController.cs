@@ -3,6 +3,7 @@ using App.Events;
 using App.SceneManagement;
 using Presentation.Building;
 using Presentation.Hostiles;
+using Presentation.Managers;
 using Presentation.Menus;
 using UnityEngine;
 using Utils;
@@ -19,6 +20,7 @@ namespace Presentation
         [SerializeField] private StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent;
         [SerializeField] private float _timeToWin = 20;
         private SceneChanger _sceneChanger;
+        private SoundManager _soundManager;
         private float _remainingTimeToWin;
         private Enemy _enemy;
         private bool _timerIsRunning;
@@ -26,6 +28,7 @@ namespace Presentation
         void Start()
         {
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _enemy = FindObjectOfType<Enemy>();
             if (_enemy)
                 _enemy.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
@@ -52,12 +55,14 @@ namespace Presentation
         
         private void EnemyHasBeenDefeated()
         {
+            _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
         }
 
         private void PlayerHasBeenDefeated(Building.Building building)
         {
+            _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
         }
         
