@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Presentation.Menus
@@ -8,18 +9,29 @@ namespace Presentation.Menus
         [SerializeField] private Slider _slider;
         [SerializeField] private Gradient _gradient;
         [SerializeField] private Image _fill, _border;
+        public event Action OnSliderReachZero;
 
-        public void SetMaxValue(float life)
+        public void SetMaxValue(float maxValue)
         {
-            _slider.maxValue = life;
+            _slider.maxValue = maxValue;
             _gradient.Evaluate(1f);
-            SetValue(life);
+            SetValue(maxValue);
         }
 
-        public void SetValue(float energy)
+        public void SetValue(float value)
         {
-            _slider.value = energy;
+            _slider.value = value;
+            if (_slider.value <= 0)
+            {
+                OnSliderReachZero.Invoke();
+            }
+
             _fill.color = _gradient.Evaluate(_slider.normalizedValue);
+        }
+
+        private Slider.SliderEvent CheckValue()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
