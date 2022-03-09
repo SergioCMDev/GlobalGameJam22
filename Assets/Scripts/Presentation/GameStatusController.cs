@@ -18,7 +18,8 @@ namespace Presentation
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent;
-        [SerializeField] private float _timeToWin = 20;
+        [SerializeField] private float _timeToWin = 20, _timeToAllowPlayerBuildsTurrets;
+        [SerializeField] private bool _skipTimer;
         private SceneChanger _sceneChanger;
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
@@ -32,7 +33,7 @@ namespace Presentation
             _enemy = FindObjectOfType<Enemy>();
             if (_enemy)
                 _enemy.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
-            
+
             _cityBuilding.OnBuildingDestroyed += PlayerHasBeenDefeated;
             _sliderBarView.SetMaxValue(_timeToWin);
             _sliderBarView.OnSliderReachZero += TimeHasEnded;
@@ -48,11 +49,11 @@ namespace Presentation
 
         private void Update()
         {
-            if (!_timerIsRunning) return;
+            if (!_timerIsRunning || _skipTimer) return;
             _remainingTimeToWin -= Time.deltaTime;
             _sliderBarView.SetValue(_remainingTimeToWin);
         }
-        
+
         private void EnemyHasBeenDefeated()
         {
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
@@ -65,7 +66,7 @@ namespace Presentation
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
         }
-        
+
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
         {
             _sceneChanger.RestartScene(levelEvent);
