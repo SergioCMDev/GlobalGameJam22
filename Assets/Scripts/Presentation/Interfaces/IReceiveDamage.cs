@@ -1,7 +1,7 @@
-﻿namespace Presentation.Interfaces
+namespace Presentation.Interfaces
 {
     public interface IReceiveDamage
     {
-        void ReceiveDamage(float receivedDamage, DamageType damageType);
+        void ReceiveDamage(float receivedDamage);
     }
 }

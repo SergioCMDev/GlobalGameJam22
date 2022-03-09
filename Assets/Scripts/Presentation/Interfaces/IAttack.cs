@@ -1,7 +1,9 @@
-﻿namespace Presentation.Interfaces
+﻿using UnityEngine;
+
+namespace Presentation.Interfaces
 {
     public interface IAttack
     {
-        public void Attack(IReceiveDamage objectToAttack);
+        public void Attack(GameObject objectToAttack);
     }
 }

@@ -6,7 +6,7 @@ using Utils;
 
 namespace Presentation.Hostiles
 {
-    public class Enemy : MonoBehaviour, IReceiveDamage, ILife
+    public class Enemy : MonoBehaviour, IReceiveDamage, ILife, IStatusApplier
     {
         [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private int _maximumLife;
@@ -29,9 +29,8 @@ namespace Presentation.Hostiles
             _sliderBarView.SetValue(_life);
         }
 
-        public void ReceiveDamage(float receivedDamage, DamageType damageType)
+        public void ReceiveDamage(float receivedDamage)
         {
-            //TODO REFRACTOR USING COMMAND PATTERN
             _life -= receivedDamage;
             UpdateLifeBar();
             if (!IsAlive())
@@ -39,10 +38,12 @@ namespace Presentation.Hostiles
                 EnemyMovement.Stop();
                 OnEnemyHasBeenDefeated.Invoke();
             }
-            
-            if (damageType != DamageType.TeslaTower) return;
-            EnemyMovement.ChangeSpeed(EnemyMovement.Speed *= 0.25f);
-            Invoke(nameof(ResetSpeed), 0.4f);
+        }
+
+        public void ReduceSpeed(float percentageToReduce, float effectDuration)
+        {
+            Invoke(nameof(ResetSpeed), effectDuration);
+            EnemyMovement.ChangeSpeed(EnemyMovement.Speed *= percentageToReduce);
         }
 
         public bool IsAlive()

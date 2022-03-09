@@ -3,7 +3,6 @@ using System.Linq;
 using App.Events;
 using Presentation.Interfaces;
 using Presentation.Managers;
-using Presentation.Weapons;
 using UnityEngine;
 using Utils;
 
@@ -15,7 +14,7 @@ namespace Presentation.Building
         Square
     }
 
-    public abstract class MilitaryBuildingFacade : Building
+    public class MilitaryBuildingFacade : Building
     {
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;
@@ -26,8 +25,7 @@ namespace Presentation.Building
         [SerializeField] private int _attackRingRange = 1;
         [SerializeField] protected List<TileDataEntity> tilesToAttack;
 
-        private IReceiveDamage enemyToAttack;
-        private GameObject enemyGameObject;
+        private GameObject _enemyGameObject;
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
         private bool _enemyIsSet, _isActive;
@@ -66,7 +64,9 @@ namespace Presentation.Building
             ThrowParticlesWhenAttacks();
         }
 
-        protected abstract void ThrowParticlesWhenAttacks();
+        private void ThrowParticlesWhenAttacks()
+        {
+        }
 
         private void PlaySoundWhenAttacks()
         {
@@ -84,15 +84,14 @@ namespace Presentation.Building
                 !CanReach()) return;
 
             Debug.Log("ATTACK");
-            BuildingAttacker.Attack(enemyToAttack);
+            BuildingAttacker.Attack(_enemyGameObject);
         }
 
         public void SetEnemyToAttack(GameObject enemy)
         {
             if (enemy == null) return;
-            enemyToAttack = enemy.GetComponent<IReceiveDamage>();
-            enemyGameObject = enemy;
-            BuildingAttacker.Init(enemyGameObject, _cadence, _damage);
+            _enemyGameObject = enemy;
+            BuildingAttacker.Init(_enemyGameObject, _cadence, _damage);
             _enemyIsSet = true;
             _isActive = true;
         }
