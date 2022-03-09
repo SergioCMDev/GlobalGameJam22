@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using App.Events;
 using Presentation.Interfaces;
 using Presentation.Managers;
@@ -21,19 +22,18 @@ namespace Presentation.Building
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private float _cadence, _damage;
         [SerializeField] private GameObject _particles;
+        [SerializeField] private MilitaryBuildingData _militaryBuildingData;
         [SerializeField] private int _attackRingRange = 1;
         [SerializeField] protected List<TileDataEntity> tilesToAttack;
 
         private IReceiveDamage enemyToAttack;
         private GameObject enemyGameObject;
         private SoundManager _soundManager;
-        public Vector3Int AttackArea => _attackArea;
         private Vector3Int _attackArea;
+        private bool _enemyIsSet, _isActive;
 
-        private bool _isActive;
+        public Vector3Int AttackArea => _attackArea;
 
-        private bool _enemyIsSet;
-        // public float DistanceToAttack => _distanceToAttack;
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
 
@@ -73,7 +73,10 @@ namespace Presentation.Building
             _soundManager.PlaySfx(_sfxWhenAttack);
         }
 
-        protected abstract bool CanReach( );
+        private bool CanReach()
+        {
+            return tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier != gameObject);
+        }
 
         private void Update()
         {
@@ -81,7 +84,7 @@ namespace Presentation.Building
                 !CanReach()) return;
 
             Debug.Log("ATTACK");
-            // BuildingAttacker.Attack(enemyToAttack);
+            BuildingAttacker.Attack(enemyToAttack);
         }
 
         public void SetEnemyToAttack(GameObject enemy)
