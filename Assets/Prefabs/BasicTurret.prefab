@@ -260,9 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23dc902b7ff4ce6b06691a5284a3db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackAreaType: 0
-  _damageType: 0
   _attackBehaviour: {fileID: 11400000, guid: 4463d3c6b5c773543868664bd79d9aa2, type: 2}
+  _militaryBuildingData: {fileID: 11400000, guid: 3ec32a3ff7ce4cf458dbdb271896697c, type: 2}
 --- !u!114 &7201745983478259591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,10 +295,7 @@ MonoBehaviour:
   _militaryBuildingPlacementSetter: {fileID: 7201745983478259591}
   _militaryBuildingAttacker: {fileID: 8426418225386911925}
   _sfxWhenAttack: 0
-  _cadence: 1
-  _damage: 1
   _particles: {fileID: 0}
-  _militaryBuildingData: {fileID: 0}
   _attackRingRange: 1
   tilesToAttack: []
 --- !u!1001 &5069552750814868134

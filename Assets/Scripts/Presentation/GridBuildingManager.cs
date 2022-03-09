@@ -70,7 +70,7 @@ public class GridBuildingManager : MonoBehaviour
 
     private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
         new Dictionary<Vector3Int, TileDataEntity>();
-    
+
     [SerializeField] private bool _showAttackZone;
 
     public event Action OnPlayerHasCanceledSetBuildingOnGrid;
@@ -314,20 +314,16 @@ public class GridBuildingManager : MonoBehaviour
         bool canBeCleaned)
     {
         tileDatasAttack.Clear();
-        switch (militaryBuildingFacade.BuildingAttacker.AttackAreaType)
-        {
-            case AttackRangeType.Ring:
-                var attackArray =
-                    GetAttackTilesOfBuilding(buildingPosition, militaryBuildingFacade, _weaponRangeTilemap);
-                if (attackArray.Any(x => x.GridPosition == buildingPosition))
-                {
-                    var buildingTile = attackArray.Single(x => x.GridPosition == buildingPosition);
-                    attackArray.Remove(buildingTile);
-                }
 
-                SetColourOfAttackZone(attackArray, canBeCleaned);
-                break;
+        var attackArray =
+            GetAttackTilesOfBuilding(buildingPosition, militaryBuildingFacade, _weaponRangeTilemap);
+        if (attackArray.Any(x => x.GridPosition == buildingPosition))
+        {
+            var buildingTile = attackArray.Single(x => x.GridPosition == buildingPosition);
+            attackArray.Remove(buildingTile);
         }
+
+        SetColourOfAttackZone(attackArray, canBeCleaned);
     }
 
     private void SetColourOfAttackZone(List<TileDataEntity> attackArray, bool canBeCleaned)
@@ -559,7 +555,7 @@ public class GridBuildingManager : MonoBehaviour
         {
             var pos = new Vector3Int(v.x, v.y, 0);
             if (!worldDictionary.ContainsKey(pos) || list.Contains(worldDictionary[pos])) continue;
-            
+
             list.Add(worldDictionary[pos]);
         }
 

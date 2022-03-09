@@ -7,19 +7,24 @@ namespace Presentation.Building
     public class TeslaBehaviour : AttackBehaviour
     {
         private float _damageAmount;
+        private float _percentageToReduce, _durationOfEffect;
         private IReceiveDamage _damageReceiver;
         private IStatusApplier _statusApplier;
 
-        public override void Init(GameObject objectToAttack, AttackBehaviourData attackBehaviourData)
+        public override void Init(GameObject objectToAttack, MilitaryBuildingData militaryBuildingData)
         {
             _damageReceiver = objectToAttack.GetComponent<IReceiveDamage>();
             _statusApplier = objectToAttack.GetComponent<IStatusApplier>();
+            
+            var teslaMilitaryData = (TeslaMilitaryBuildingData)militaryBuildingData;
+            _percentageToReduce = teslaMilitaryData.percentageToReduceSpeed;
+            _durationOfEffect = teslaMilitaryData.durationOfEffect;
         }
 
         public override void DoAttack()
         {
             _damageReceiver.ReceiveDamage(_damageAmount);
-            _statusApplier.ReduceSpeed(_damageAmount, _damageAmount);
+            _statusApplier.ReduceSpeed(_percentageToReduce, _durationOfEffect);
         }
     }
 }

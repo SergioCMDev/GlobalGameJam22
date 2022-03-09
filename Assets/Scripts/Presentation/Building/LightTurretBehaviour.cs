@@ -9,9 +9,10 @@ namespace Presentation.Building
         private float _damageAmount;
         private IReceiveDamage _damageReceiver;
 
-        public override void Init(GameObject objectToAttack, AttackBehaviourData attackBehaviourData)
+        public override void Init(GameObject objectToAttack, MilitaryBuildingData militaryBuildingData)
         {
             _damageReceiver = objectToAttack.GetComponent<IReceiveDamage>();
+            _damageAmount = militaryBuildingData.damage;
         }
 
         public override void DoAttack()

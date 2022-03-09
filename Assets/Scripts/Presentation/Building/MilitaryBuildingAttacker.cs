@@ -6,40 +6,16 @@ namespace Presentation.Building
 {
     public class MilitaryBuildingAttacker : MonoBehaviour, IAttack
     {
-        //TODO TO BASIC TURRET?
-        [SerializeField] private AttackRangeType _attackAreaType;
-        [SerializeField] private DamageType _damageType;
         [SerializeField] private AttackBehaviour _attackBehaviour;
-        private float _cadence, _damage;
+        [SerializeField] private MilitaryBuildingData _militaryBuildingData;
+        private float _cadence;
+        private bool _enemyIsSet;
+        private float _lastTimeAttacked;
 
         private GameObject _enemyGameObject;
 
-        private AttackBehaviourData _attackBehaviourData;
-        //TODO TO BASIC TURRET?
-
-        private float Cadence
-        {
-            get => _cadence;
-            set => _cadence = value;
-        }
-
-        private float Damage
-        {
-            get => _damage;
-            set => _damage = value;
-        }
-
-
-        public AttackRangeType AttackAreaType => _attackAreaType;
-
-
-        private float _lastTimeAttacked;
-        private bool _enemyIsSet;
-
-
         public event Action OnBuildingAttacks;
-
-
+        
         public void Attack(GameObject objectToAttack)
         {
             _lastTimeAttacked = Time.deltaTime;
@@ -48,12 +24,10 @@ namespace Presentation.Building
             _attackBehaviour.DoAttack();
         }
 
-
-        //TODO REFRACTOR
         public bool CanAttack()
         {
             _lastTimeAttacked += Time.deltaTime;
-            return _lastTimeAttacked > Cadence;
+            return _lastTimeAttacked > _cadence;
         }
 
         private void OnDrawGizmos()
@@ -66,14 +40,12 @@ namespace Presentation.Building
             Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy));
         }
 
-
-        public void Init(GameObject enemy, float cadence, float damage)
+        public void Init(GameObject enemy)
         {
             _enemyIsSet = true;
-            _cadence = cadence;
-            _damage = damage;
+            _cadence = _militaryBuildingData.cadence;
             _enemyGameObject = enemy;
-            _attackBehaviour.Init(_enemyGameObject, _attackBehaviourData);
+            _attackBehaviour.Init(_enemyGameObject, _militaryBuildingData);
         }
     }
 }

@@ -8,20 +8,12 @@ using Utils;
 
 namespace Presentation.Building
 {
-    public enum AttackRangeType
-    {
-        Ring,
-        Square
-    }
-
     public class MilitaryBuildingFacade : Building
     {
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
-        [SerializeField] private float _cadence, _damage;
         [SerializeField] private GameObject _particles;
-        [SerializeField] private MilitaryBuildingData _militaryBuildingData;
         [SerializeField] private int _attackRingRange = 1;
         [SerializeField] protected List<TileDataEntity> tilesToAttack;
 
@@ -34,8 +26,6 @@ namespace Presentation.Building
 
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
-
-        public MilitaryBuildingAttacker BuildingAttacker => _militaryBuildingAttacker;
 
         protected internal int AttackRingRange
         {
@@ -55,7 +45,7 @@ namespace Presentation.Building
         {
             _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
-            BuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
+            _militaryBuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
         }
 
         private void OnBuildingAttacks()
@@ -80,18 +70,18 @@ namespace Presentation.Building
 
         private void Update()
         {
-            if (!_isActive || !_enemyIsSet || !BuildingAttacker.CanAttack() ||
+            if (!_isActive || !_enemyIsSet || !_militaryBuildingAttacker.CanAttack() ||
                 !CanReach()) return;
 
             Debug.Log("ATTACK");
-            BuildingAttacker.Attack(_enemyGameObject);
+            _militaryBuildingAttacker.Attack(_enemyGameObject);
         }
 
         public void SetEnemyToAttack(GameObject enemy)
         {
             if (enemy == null) return;
             _enemyGameObject = enemy;
-            BuildingAttacker.Init(_enemyGameObject, _cadence, _damage);
+            _militaryBuildingAttacker.Init(_enemyGameObject);
             _enemyIsSet = true;
             _isActive = true;
         }
