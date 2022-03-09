@@ -47,7 +47,7 @@ namespace Presentation
             _allowPlayerToSetBuildingInTilemapEvent.Fire();
         }
 
-        public void EndBuy()
+        public void EndBuyCorrectly()
         {
             _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
             _playerIsCurrentlyBuying = false;

@@ -38,7 +38,7 @@ public class LevelController : MonoBehaviour
         _soundManager.PlaySfx(SfxSoundName.BuildingHasBeenSet);
 
         _canvasPresenter.SetBuildingSelectableStatus(true);
-        _buyController.EndBuy();
+        _buyController.EndBuyCorrectly();
     }
 
     private void PlayerWantsToSetBuildingInGrid(BuildingType buildingType)
