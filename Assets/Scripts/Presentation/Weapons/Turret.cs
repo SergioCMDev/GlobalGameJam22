@@ -13,7 +13,6 @@ namespace Presentation.Weapons
 
         protected override bool CanReach()
         {
-            // return tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier == objectToAttack);
             return tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier != gameObject);
         }
     }

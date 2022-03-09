@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Presentation.Building;
 using UnityEngine;
 
@@ -10,9 +11,10 @@ namespace Presentation.Weapons
         {
             throw new NotImplementedException();
         }
-        protected override bool CanReach( )
+
+        protected override bool CanReach()
         {
-            throw new NotImplementedException();
+            return tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier != gameObject);
         }
     }
 }
