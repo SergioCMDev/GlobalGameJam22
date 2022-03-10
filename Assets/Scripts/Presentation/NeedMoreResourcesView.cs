@@ -5,11 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NeedMoreResourcesView : MonoBehaviour
+public class NeedMoreResourcesView : MonoBehaviour, ICloseablePopup
 {
     [SerializeField] private Button _closeButton, _aceptButton;
     [SerializeField] private TextMeshProUGUI _title, _resourcesText;
-    public Action OnClosePopup;
+    // public Action<GameObject> OnClosePopup;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class NeedMoreResourcesView : MonoBehaviour
 
     private void ClosePopup()
     {
-        OnClosePopup.Invoke();
+        OnClosePopup.Invoke(gameObject);
     }
 
     public void Init(ResourcesTuple resourcesNeeded, BuildingType buildingType)
@@ -34,4 +34,6 @@ public class NeedMoreResourcesView : MonoBehaviour
         _title.SetText(String.Empty);
         _resourcesText.SetText(String.Empty);
     }
+
+    public Action<GameObject> OnClosePopup { get; set; }
 }

@@ -138,9 +138,9 @@ namespace Presentation.Menus
 
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
         {
-            _needMoreResourcesView.gameObject.SetActive(true);
-            _needMoreResourcesView.Init(resourcesNeeded, buildingType);
-            _needMoreResourcesView.OnClosePopup += () => { _needMoreResourcesView.gameObject.SetActive(false); };
+            // _needMoreResourcesView.gameObject.SetActive(true);
+            // _needMoreResourcesView.Init(resourcesNeeded, buildingType);
+            // _needMoreResourcesView.OnClosePopup += () => { _needMoreResourcesView.gameObject.SetActive(false); };
         }
     }
 }
