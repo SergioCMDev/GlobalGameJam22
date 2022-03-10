@@ -15,9 +15,9 @@ MonoBehaviour:
   PopupListEditor:
   - PopupType: 0
     Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
-  - PopupType: 0
-    Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
-  - PopupType: 0
-    Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
-  - PopupType: 0
-    Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
+  - PopupType: 3
+    Prefab: {fileID: 1303714845276138054, guid: 6bdb672ffecf6a840874c90692a4d8ca, type: 3}
+  - PopupType: 2
+    Prefab: {fileID: 4827490494231582081, guid: 7ba9824be0fb28f40b1fd646c6c85dfd, type: 3}
+  - PopupType: 1
+    Prefab: {fileID: 9150215738821352194, guid: d8655fcfff0fbe143beb15b9126bc451, type: 3}

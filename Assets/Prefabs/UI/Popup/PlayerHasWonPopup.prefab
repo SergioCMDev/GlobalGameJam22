@@ -1095,8 +1095,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611609aac55313547a4395f206e41c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winImage: {fileID: 8314611356724376585}
   _buttonRestart: {fileID: 2097723332025209426}
   _buttonMainMenu: {fileID: 2097723331769112880}
   _buttonContinue: {fileID: 2097723333683425520}
-  _buttonsParent: {fileID: 2097723332823731033}

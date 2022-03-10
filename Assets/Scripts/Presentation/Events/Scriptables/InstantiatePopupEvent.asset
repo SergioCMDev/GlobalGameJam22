@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cceab641a0d4adda7d8bd3ddd2c7cf4, type: 3}
   m_Name: InstantiatePopupEvent
   m_EditorClassIdentifier: 
+  popupType: 3

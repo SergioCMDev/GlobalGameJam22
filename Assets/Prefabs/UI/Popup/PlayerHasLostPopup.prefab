@@ -364,7 +364,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1051247173
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &6442499033143135282
@@ -674,10 +674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66b00a222a8d894b9218d9d00f58355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loseImage: {fileID: 6489380557178377209}
   _buttonRestart: {fileID: 5745901325093298733}
   _buttonMainMenu: {fileID: 3949864004302214089}
-  _buttonsParent: {fileID: 3260210496001685847}
 --- !u!1 &9150215738821352194
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,9 +6,7 @@ namespace Presentation.Menus
 {
     public class PlayerHasWonPopup : MonoBehaviour, ICloseablePopup
     {
-        [SerializeField] private Image _winImage;
         [SerializeField] private Button _buttonRestart, _buttonMainMenu, _buttonContinue;
-        [SerializeField] private GameObject _buttonsParent;
         public event Action OnGoToMainMenuButtonPressed;
         public event Action OnContinueButtonPressed;
         public event Action OnRestartButtonPressed;

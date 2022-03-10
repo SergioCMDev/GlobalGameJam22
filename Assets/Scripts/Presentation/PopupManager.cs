@@ -32,7 +32,10 @@ namespace Presentation.Menus
 
         public void InstantiatePopup(InstantiatePopupEvent instantiatePopupEvent)
         {
-            InstantiatePopup(instantiatePopupEvent.popupType);
+            GameObject instance = InstantiatePopup(instantiatePopupEvent.popupType);
+            var closeablePopup = instance.GetComponentInChildren<ICloseablePopup>();
+            closeablePopup.OnClosePopup += ClosePopup;
+            instance.gameObject.SetActive(true);
         }
 
         public GameObject InstantiatePopup(PopupType popupType)
