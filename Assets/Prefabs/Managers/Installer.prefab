@@ -48,4 +48,5 @@ MonoBehaviour:
   _soundManagerPrefab: {fileID: 7924285615697014437, guid: 3327e78d459fa3d4687b54281ac408c9, type: 3}
   _timeManagerPrefab: {fileID: 8051633545354572411, guid: eee513133fcd42446859afcf79f80e6d, type: 3}
   _buildingManagerPrefab: {fileID: 907901481322753423, guid: 5aab8ac33af42a84ab09d7609287dfd9, type: 3}
+  _popupManagerPrefab: {fileID: 7300505498221509653, guid: 7dda5936ab3bcfc458ae9b34620e9b55, type: 3}
   _resourcesManagerPrefab: {fileID: 7788073181800920034, guid: 8aba390eaa709c64d87595c01862ffbf, type: 3}

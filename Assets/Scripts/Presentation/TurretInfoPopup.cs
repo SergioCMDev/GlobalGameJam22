@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Presentation
 {
-    public class TurretInfoMenuView : MonoBehaviour
+    public class TurretInfoPopup : MonoBehaviour, ICloseablePopup
     {
         [SerializeField] private Button _buyButton, _cancelButton;
         [SerializeField] private TextMeshProUGUI  _buildingTypeText;
@@ -24,11 +24,13 @@ namespace Presentation
 
         private void CancelBuyButtonPressed()
         {
+            OnClosePopup.Invoke(gameObject);
             OnCancelBuyPressed.Invoke();
         }
 
         private void BuyTurretButtonPressed()
         {
+            OnClosePopup.Invoke(gameObject);
             OnBuyTurretPressed.Invoke(_buildingType);
         }
 
@@ -43,5 +45,7 @@ namespace Presentation
             _buildingTypeText.SetText(buildingType.ToString());
             _buildingType = buildingType;
         }
+
+        public Action<GameObject> OnClosePopup { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Domain;
 using Presentation;
 using Presentation.InputPlayer;
 using Presentation.Managers;
+using Presentation.Menus;
 using UnityEngine;
 using Utils;
 
@@ -18,6 +19,7 @@ namespace Installers
         [SerializeField] private GameObject _soundManagerPrefab;
         [SerializeField] private GameObject _timeManagerPrefab;
         [SerializeField] private GameObject _buildingManagerPrefab;
+        [SerializeField] private GameObject _popupManagerPrefab;
 
         [SerializeField] private GameObject _resourcesManagerPrefab;
         // [SerializeField] private GameObject _collectibleManagerPrefab;
@@ -27,6 +29,7 @@ namespace Installers
             _soundManagerInstance,
             _buildingManagerInstance,
             _resourcesManagerInstance,
+            _popupManagerInstance,
             _timeManagerInstance;
 
         private bool _initialized;
@@ -44,6 +47,7 @@ namespace Installers
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
             _buildingManagerInstance = Instantiate(_buildingManagerPrefab);
             _resourcesManagerInstance = Instantiate(_resourcesManagerPrefab);
+            _popupManagerInstance = Instantiate(_popupManagerPrefab);
             
             //TODO HACERLO PARA N OBJETOS NO SOLO 1
             ServiceLocator.Instance.RegisterService<IJsonator>(new JsonUtililyTransformer());
@@ -56,6 +60,7 @@ namespace Installers
             ServiceLocator.Instance.RegisterService<ReadInputPlayer>(
                 _readInputPlayerInstance.GetComponent<ReadInputPlayer>());
             ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
+            ServiceLocator.Instance.RegisterService<PopupManager>(_popupManagerInstance.GetComponent<PopupManager>());
             ServiceLocator.Instance.RegisterService<TimeManager>(_timeManagerInstance.GetComponent<TimeManager>());
             ServiceLocator.Instance.RegisterService<ResourcesManager>(_resourcesManagerInstance.GetComponent<ResourcesManager>());
             ServiceLocator.Instance.RegisterService<BuildingManager>(_buildingManagerInstance

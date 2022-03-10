@@ -17,13 +17,10 @@ namespace Presentation.Menus
         [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
-        [SerializeField] private WinMenuView _winMenuView;
-        [SerializeField] private LoseMenuView _loseMenuView;
-        [SerializeField] private TurretInfoMenuView _turretInfoMenuView;
-        [SerializeField] private NeedMoreResourcesView _needMoreResourcesView;
         private SceneChanger _sceneChanger;
 
         private ResourcesManager _resourcesManager;
+        private PopupManager _popupManager;
 
         public event Action<BuildingType> OnPlayerWantsToSetBuildingInGrid;
 
@@ -31,11 +28,9 @@ namespace Presentation.Menus
         {
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
             UpdateResources();
-            _turretInfoMenuView.gameObject.SetActive(false);
-            _loseMenuView.gameObject.SetActive(false);
-            _winMenuView.gameObject.SetActive(false);
-            _needMoreResourcesView.gameObject.SetActive(false);
+            
 
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += PlayerWantsToBuyBuilding;
         }
@@ -58,10 +53,16 @@ namespace Presentation.Menus
 
         private void PlayerWantsToBuyBuilding(BuildingType buildingType)
         {
-            _turretInfoMenuView.gameObject.SetActive(true);
-            _turretInfoMenuView.SetData(buildingType);
-            _turretInfoMenuView.OnBuyTurretPressed += AllowSetPositionOfTurret;
-            _turretInfoMenuView.OnCancelBuyPressed += CancelBuy;
+            var popUpInstance = _popupManager.InstantiatePopup(PopupType.TurretInformation);
+            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
+            var popupComponent = popUpInstance.GetComponent<TurretInfoPopup>();
+            closeablePopup.OnClosePopup += OnClosePopUp;
+            
+            popupComponent.gameObject.SetActive(true);
+            popupComponent.SetData(buildingType);
+            popupComponent.OnBuyTurretPressed += AllowSetPositionOfTurret;
+            popupComponent.OnCancelBuyPressed += CancelBuy;
+            popUpInstance.gameObject.SetActive(true);
         }
 
         private void AllowSetPositionOfTurret(BuildingType buildingType)
@@ -83,9 +84,9 @@ namespace Presentation.Menus
 
         private void HideTurretInfoView()
         {
-            _turretInfoMenuView.gameObject.SetActive(false);
-            _turretInfoMenuView.OnBuyTurretPressed -= AllowSetPositionOfTurret;
-            _turretInfoMenuView.OnCancelBuyPressed -= CancelBuy;
+            // turretInfoPopup.gameObject.SetActive(false);
+            // turretInfoPopup.OnBuyTurretPressed -= AllowSetPositionOfTurret;
+            // turretInfoPopup.OnCancelBuyPressed -= CancelBuy;
         }
 
         public void UpdateResources(UpdateUIResourcesEvent resourcesEvent)
@@ -101,46 +102,64 @@ namespace Presentation.Menus
         public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
             CloseMenus();
-            _winMenuView.gameObject.SetActive(true);
-            _winMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
-            _winMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
-            _winMenuView.OnContinueButtonPressed += GoToNextLevel;
+            
+            var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasWon);
+            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
+            var popupComponent = popUpInstance.GetComponent<PlayerHasWonPopup>();
+            closeablePopup.OnClosePopup += OnClosePopUp;
+            
+            popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
+            popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
+            popupComponent.OnContinueButtonPressed += GoToNextLevel;
+
+            popUpInstance.gameObject.SetActive(true);
         }
 
         private void CloseMenus()
         {
             _buildingsSelectable.gameObject.SetActive(false);
-            _turretInfoMenuView.gameObject.SetActive(false);
-            _needMoreResourcesView.gameObject.SetActive(false);
         }
 
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
-            _loseMenuView.gameObject.SetActive(true);
             CloseMenus();
-            _loseMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
-            _loseMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
+            var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasLost);
+            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
+            var popupComponent = popUpInstance.GetComponent<PlayerHasLostPopup>();
+            popUpInstance.gameObject.SetActive(true);
+            closeablePopup.OnClosePopup += OnClosePopUp;
+            
+            popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
+            popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
         }
 
         private void OnDestroy()
         {
-            if (_loseMenuView)
-            {
-                _loseMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
-                _loseMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
-            }
+            // if (_loseMenuView)
+            // {
+            //     _loseMenuView.OnRestartButtonPressed -= RestartButtonPressedLevel;
+            //     _loseMenuView.OnGoToMainMenuButtonPressed -= GoToMainLevel;
+            // }
 
-            if (!_winMenuView) return;
-            _winMenuView.OnRestartButtonPressed += RestartButtonPressedLevel;
-            _winMenuView.OnGoToMainMenuButtonPressed += GoToMainLevel;
-            _winMenuView.OnContinueButtonPressed += GoToNextLevel;
+            // if (!pLayerHasWonPopup) return;
+            // pLayerHasWonPopup.OnRestartButtonPressed += RestartButtonPressedLevel;
+            // pLayerHasWonPopup.OnGoToMainMenuButtonPressed += GoToMainLevel;
+            // pLayerHasWonPopup.OnContinueButtonPressed += GoToNextLevel;
         }
 
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
         {
-            // _needMoreResourcesView.gameObject.SetActive(true);
-            // _needMoreResourcesView.Init(resourcesNeeded, buildingType);
-            // _needMoreResourcesView.OnClosePopup += () => { _needMoreResourcesView.gameObject.SetActive(false); };
+            var popUpInstance = _popupManager.InstantiatePopup(PopupType.NeedMoreResources);
+            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
+            var popupComponent = popUpInstance.GetComponent<NeedMoreResourcesPopup>();
+            popUpInstance.gameObject.SetActive(true);
+            closeablePopup.OnClosePopup += OnClosePopUp;
+            popupComponent.Init(resourcesNeeded, buildingType);
+        }
+
+        private void OnClosePopUp(GameObject obj)
+        {
+            obj.gameObject.SetActive(false);
         }
     }
 }

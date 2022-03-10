@@ -15,3 +15,9 @@ MonoBehaviour:
   PopupListEditor:
   - PopupType: 0
     Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
+  - PopupType: 0
+    Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
+  - PopupType: 0
+    Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
+  - PopupType: 0
+    Prefab: {fileID: 3048924180472638602, guid: ea253d2a001c4ae4ab2637c2bc8712c4, type: 3}
