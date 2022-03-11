@@ -79,6 +79,7 @@ namespace Installers
             DontDestroyOnLoad(_timeManagerInstance);
             DontDestroyOnLoad(_resourcesManagerInstance);
             DontDestroyOnLoad(_buildingManagerInstance);
+            DontDestroyOnLoad(_popupManagerInstance);
             _initialized = true;
         }
 
