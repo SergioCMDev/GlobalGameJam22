@@ -69,6 +69,7 @@ namespace Presentation
         {
             var militaryBuilding = buildingEvent.Instance.GetComponent<MilitaryBuildingFacade>();
             militaryBuilding.SetEnemyToAttack(_enemy);
+            militaryBuilding.Deploy();
             _ownMilitaryBuilding.Add(militaryBuilding);
         }
 

@@ -110,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5069552752093065830}
   - component: {fileID: 5069552752093065831}
+  - component: {fileID: 923199599}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -171,7 +172,7 @@ SpriteRenderer:
   m_SortingLayerID: -1381625415
   m_SortingLayer: -1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 52a32185cfe17784e82246dedb76fe5e, type: 3}
+  m_Sprite: {fileID: -3786912250384423456, guid: 4308f1f44a531c348a9aa8efddce224e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -182,6 +183,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &923199599
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5069552752093065832}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f8d870c3a0d9b6e47a5de62b783ef446, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5069552752378941104
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +316,7 @@ MonoBehaviour:
   _militaryBuildingAttacker: {fileID: 8426418225386911925}
   _sfxWhenAttack: 0
   _particles: {fileID: 0}
+  _animator: {fileID: 923199599}
   _attackRingRange: 1
   tilesToAttack: []
 --- !u!1001 &5069552750814868134
