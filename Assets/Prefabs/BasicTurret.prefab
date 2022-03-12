@@ -314,7 +314,7 @@ MonoBehaviour:
   _area: {x: 1, y: 1, z: 1}
   _militaryBuildingPlacementSetter: {fileID: 7201745983478259591}
   _militaryBuildingAttacker: {fileID: 8426418225386911925}
-  _sfxWhenAttack: 0
+  _sfxWhenAttack: 5
   _particles: {fileID: 0}
   _animator: {fileID: 923199599}
   _attackRingRange: 1
