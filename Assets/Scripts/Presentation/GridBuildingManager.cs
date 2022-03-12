@@ -78,7 +78,7 @@ public class GridBuildingManager : MonoBehaviour
 
     private void Awake()
     {
-        string tilePath = @"Tiles\";
+        // string tilePath = @"Tiles\";
         //TODO LOAD FROM RESOURCES
         _tileTypeBase.Add(TileType.Empty, null);
         _tileTypeBase.Add(TileType.White, white);
