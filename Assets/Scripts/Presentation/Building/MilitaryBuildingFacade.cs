@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using App.Events;
-using Presentation.Interfaces;
 using Presentation.Managers;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Building
+namespace Presentation
 {
-    public class MilitaryBuildingFacade : Building
+    public class MilitaryBuildingFacade : Building.Building
     {
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;

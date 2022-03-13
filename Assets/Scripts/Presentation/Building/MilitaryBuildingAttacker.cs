@@ -1,8 +1,9 @@
 using System;
+using Presentation.Building;
 using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation
 {
     public class MilitaryBuildingAttacker : MonoBehaviour, IAttack
     {

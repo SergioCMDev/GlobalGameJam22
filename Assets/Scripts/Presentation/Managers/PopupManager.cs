@@ -1,23 +1,23 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public struct PopupGetter
+namespace Presentation
 {
-    public PopupType PopupType;
-    public GameObject Prefab;
-}
+    [Serializable]
+    public struct PopupGetter
+    {
+        public PopupType PopupType;
+        public GameObject Prefab;
+    }
 
-public enum PopupType
-{
-    NeedMoreResources,
-    PlayerHasLost,
-    PlayerHasWon,
-    TurretInformation
-}
+    public enum PopupType
+    {
+        NeedMoreResources,
+        PlayerHasLost,
+        PlayerHasWon,
+        TurretInformation
+    }
 
-namespace Presentation.Menus
-{
     public class PopupManager : MonoBehaviour
     {
         // [SerializeField] private GameObject _prefab;
