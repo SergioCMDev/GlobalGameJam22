@@ -30,6 +30,7 @@ public class TileDataEntity
 {
     public Dictionary<Tilemap, TilemapColours> TilemapColours;
     public TileBase TileBase;
+    public TileBase TileBaseWorld;
     public Vector3Int GridPosition;
     public bool IsOccupied;
     public GameObject Occupier;
@@ -68,7 +69,7 @@ public class GridBuildingManager : MonoBehaviour
     private readonly List<TileDataEntity> tileDatasBuilding = new List<TileDataEntity>();
     private readonly List<TileDataEntity> tileDatasAttack = new List<TileDataEntity>();
 
-    private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
+    public Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
         new Dictionary<Vector3Int, TileDataEntity>();
 
     [SerializeField] private bool _showAttackZone;
@@ -196,7 +197,8 @@ public class GridBuildingManager : MonoBehaviour
                     Occupier = null,
                     IsOccupied = false,
                     TilemapColours = tilemapColourDictionary,
-                    TileBase = _buildingTilemap.GetTile(gridPosition)
+                    TileBase = _buildingTilemap.GetTile(gridPosition),
+                    TileBaseWorld = _tilemap.GetTile(gridPosition)
                 });
                 world.Add(worldPosition, gridPosition);
             }
