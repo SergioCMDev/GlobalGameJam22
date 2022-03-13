@@ -524,6 +524,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 135698290}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: _sliderBarView
+      value: 
+      objectReference: {fileID: 1993865170}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _faderController
       value: 
       objectReference: {fileID: 0}
@@ -1644,6 +1648,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f2feb23bff29bc4db3a079a4c1e5088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1993865170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6669224032419472503, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+  m_PrefabInstance: {fileID: 1993865168}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f2e37ddb106644aa9aa511d78c7424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!213 &2072855158
