@@ -9,6 +9,7 @@ namespace Presentation.Hostiles
     public class Enemy : MonoBehaviour, IReceiveDamage, ILife, IStatusApplier
     {
         [SerializeField] private EnemyMovement enemyMovement;
+        [SerializeField] private EnemyAttacker enemyAttacker;
         [SerializeField] private int _maximumLife;
         [SerializeField] private SliderBarView _sliderBarView;
         private float _life;
@@ -17,6 +18,7 @@ namespace Presentation.Hostiles
         public event Action OnEnemyHasBeenDefeated;
 
         public EnemyMovement EnemyMovement => enemyMovement;
+        public EnemyAttacker EnemyAttacker => enemyAttacker;
 
         private void Start()
         {
