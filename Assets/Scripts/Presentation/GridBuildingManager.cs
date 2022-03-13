@@ -568,7 +568,7 @@ public class GridBuildingManager : MonoBehaviour
             !_worldTileDictionaryBuildingTilemap.ContainsKey(tileEvent.NewPositionToMove)) return;
 
         _worldTileDictionaryBuildingTilemap[tileEvent.NewPositionToMove].IsOccupied = true;
-        _worldTileDictionaryBuildingTilemap[tileEvent.NewPositionToMove].Occupier = tileEvent.occupier;
+        _worldTileDictionaryBuildingTilemap[tileEvent.NewPositionToMove].Occupier = tileEvent.Occupier;
 
         _worldTileDictionaryBuildingTilemap[tileEvent.OldPosition].ResetOccupy();
     }
