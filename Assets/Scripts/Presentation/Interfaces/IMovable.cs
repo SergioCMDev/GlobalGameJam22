@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using App;
+using UnityEngine;
 
 namespace Presentation.Interfaces
 {
     public interface IMovable
     {
-        Vector3 VectorOfMovement { get; }
-        void SetMovementSpeed(float movementSpeed);
-        void StopMovement();
-        void ResumeMovement();
+        public event Action<GameObject, WorldPositionTuple> OnObjectMoved;
     }
 }

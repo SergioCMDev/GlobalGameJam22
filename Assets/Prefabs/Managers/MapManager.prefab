@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7439441737509163147}
   - component: {fileID: 1539259234}
   - component: {fileID: 1419162534}
+  - component: {fileID: 1560579011}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -83,7 +84,7 @@ MonoBehaviour:
   white: {fileID: 11400000, guid: 4491f5959acf30f49b423b627d0fa035, type: 2}
   green: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
   _purple: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
-  _buildingHasBeenSetEvent: {fileID: 11400000, guid: 6f0c1ebec5e128946b1b18dd6f3d5bdc, type: 2}
+  _showAttackZone: 1
 --- !u!114 &1419162534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,3 +114,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1560579011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439441737509163148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa972ed4170b5b46a87b1cf1611d247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grid: {fileID: 0}
+  _gridBuildingManager: {fileID: 1539259234}
+  _testMovement: {fileID: 0}

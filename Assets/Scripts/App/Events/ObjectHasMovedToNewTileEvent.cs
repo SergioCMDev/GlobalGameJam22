@@ -7,7 +7,9 @@ namespace App.Events
     public class ObjectHasMovedToNewTileEvent : GameEventScriptable
     {
         public GameObject Occupier;
+        
         public Vector3Int NewPositionToMove;
         public Vector3Int OldPosition;
+        public GridPositionTuple GridPositions { get; set; }
     }
 }

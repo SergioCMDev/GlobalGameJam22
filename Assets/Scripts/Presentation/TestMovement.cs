@@ -1,32 +1,31 @@
 using System;
+using App;
 using App.Events;
+using Presentation.Interfaces;
 using UnityEngine;
 
-public class TestMovement : MonoBehaviour
+namespace Presentation
 {
-    [SerializeField] private ObjectHasMovedToNewTileEvent _eventMovement;
-    [SerializeField] private Grid _grid;
-    // private Vector3Int _objectGridPosition;
-    private Vector3 _previousObjectWorldPosition;
-    public event Action OnObjectMoved;
-
-
-    private void Start()
+    public class TestMovement : MonoBehaviour, IMovable
     {
-        _previousObjectWorldPosition = transform.position;
-    }
+        public event Action<GameObject, WorldPositionTuple> OnObjectMoved;
+        private Vector3 _previousObjectWorldPosition;
 
-    void Update()
-    {
-        if (_previousObjectWorldPosition == transform.position) return;
-        var objectWorldPosition = transform.position;
-        var objectGridPosition = _grid.LocalToCell(objectWorldPosition);
-        OnObjectMoved?.Invoke();
-        Debug.Log($"Vamos a casilla {objectGridPosition}");
-        _eventMovement.Occupier = gameObject;
-        _eventMovement.NewPositionToMove = objectGridPosition;
-        _eventMovement.OldPosition = _grid.LocalToCell(_previousObjectWorldPosition);
-        _previousObjectWorldPosition = objectWorldPosition;
-        _eventMovement.Fire();
+        private void Start()
+        {
+            _previousObjectWorldPosition = transform.position;
+        }
+
+        void Update()
+        {
+            if (Math.Abs(_previousObjectWorldPosition.sqrMagnitude - transform.position.sqrMagnitude) < 0.02) return;
+            var objectWorldPosition = transform.position;
+            OnObjectMoved?.Invoke(gameObject, new WorldPositionTuple()
+            {
+                NewWorldPosition = objectWorldPosition,
+                OldWorldPosition = _previousObjectWorldPosition
+            });
+            _previousObjectWorldPosition = objectWorldPosition;
+        }
     }
 }

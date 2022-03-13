@@ -27,7 +27,7 @@ namespace Presentation
             TilemapColours = new Dictionary<Tilemap, TilemapColours>();
         }
 
-        public void ResetOccupy()
+        public void CleanOccupier()
         {
             IsOccupied = false;
             Occupier = null;
@@ -551,24 +551,18 @@ namespace Presentation
         public void ObjectHasMovedToNewTile(ObjectHasMovedToNewTileEvent tileEvent)
         {
             ObjectHasMovedToNewTile(tileEvent.Occupier, tileEvent.GridPositions);
-            // if (tileEvent.OldPosition == tileEvent.NewPositionToMove ||
-            //     !_worldTileDictionaryBuildingTilemap.ContainsKey(tileEvent.NewPositionToMove)) return;
-            //
-            // _worldTileDictionaryBuildingTilemap[tileEvent.NewPositionToMove].IsOccupied = true;
-            // _worldTileDictionaryBuildingTilemap[tileEvent.NewPositionToMove].Occupier = tileEvent.Occupier;
-            //
-            // _worldTileDictionaryBuildingTilemap[tileEvent.OldPosition].ResetOccupy();
         }
     
-        private void ObjectHasMovedToNewTile(GameObject occupier, GridPositionTuple tuplePosition)
+        public void ObjectHasMovedToNewTile(GameObject occupier, GridPositionTuple tuplePosition)
         {
             if (tuplePosition.OldGridPosition == tuplePosition.NewGridPosition ||
                 !_worldTileDictionaryBuildingTilemap.ContainsKey(tuplePosition.NewGridPosition)) return;
+            Debug.Log("NUEVA TILE");
 
             _worldTileDictionaryBuildingTilemap[tuplePosition.NewGridPosition].IsOccupied = true;
             _worldTileDictionaryBuildingTilemap[tuplePosition.NewGridPosition].Occupier = occupier;
 
-            _worldTileDictionaryBuildingTilemap[tuplePosition.OldGridPosition].ResetOccupy();
+            _worldTileDictionaryBuildingTilemap[tuplePosition.OldGridPosition].CleanOccupier();
         }
     }
 }
