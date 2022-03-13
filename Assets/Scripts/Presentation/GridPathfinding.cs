@@ -22,12 +22,12 @@ namespace Presentation
         [SerializeField] private bool friend; //mover a enemy
         [SerializeField] private Tile cityDestroyed; //mover a build
 
-        private IDictionary<Vector3, Vector3Int> _yellowBrickRoad;
-        private IDictionary<Vector3, Vector3Int> _defensiveBuilds;
-        private IDictionary<Vector3, Vector3Int> _cityBuilds;
+        private List<TileDataEntity> _yellowBrickRoad;
+        private List<TileDataEntity> _defensiveBuilds;
+        private List<TileDataEntity> _cityBuilds;
 
-        private KeyValuePair<Vector3, Vector3Int> nextDestination;
-        private KeyValuePair<Vector3, Vector3Int> lastBrick;
+        private TileDataEntity nextDestination;
+        private TileDataEntity lastBrick;
         private bool attacking = false; //mover a enemy
         public bool initialPotition = true; //mover a enemy
 
@@ -40,9 +40,9 @@ namespace Presentation
     
         private void Start()
         {
-            _defensiveBuilds = new Dictionary<Vector3, Vector3Int>();
-            _yellowBrickRoad = new Dictionary<Vector3, Vector3Int>();
-            _cityBuilds = new Dictionary<Vector3, Vector3Int>();
+            _defensiveBuilds = new List<TileDataEntity>();
+            _yellowBrickRoad = new List<TileDataEntity>();
+            _cityBuilds = new List<TileDataEntity>();
             DivideWorld();
         
         
@@ -57,7 +57,7 @@ namespace Presentation
 
         private void Update()
         {
-            if (enemy.transform.position == nextDestination.Key)
+            if (enemy.transform.position == nextDestination.WorldPosition)
             {
                 if (attacking)
                 {
@@ -75,52 +75,52 @@ namespace Presentation
                     nextDestination = Pathfinder(enemy.transform.position);
                 }
             }
-            enemy.EnemyMovement.MoveTo(nextDestination.Key);
+            enemy.EnemyMovement.MoveTo(nextDestination.WorldPosition);
         }
     
         private void DivideWorld()
         {
-            foreach (var tile in gridBuildingManager.world)
+            foreach (var tile in gridBuildingManager._worldTileDictionaryBuildingTilemap)
             {
-                switch (_tilemap.GetTile(tile.Value).name)
+                switch (tile.Value.TileBaseWorld.name)
                 {
                     case "bocetoedificos":
-                        _cityBuilds.Add(tile);
+                        _cityBuilds.Add(tile.Value);
                         break;
                     case "bocetotierra":
-                        _yellowBrickRoad.Add(tile);
+                        _yellowBrickRoad.Add(tile.Value);
                         break;
                     case "bocetotorreta":
-                        _defensiveBuilds.Add(tile);
+                        _defensiveBuilds.Add(tile.Value);
                         break;
                 }
             }
         }
 
-        private KeyValuePair<Vector3, Vector3Int> Pathfinder(Vector3 currentPos)
+        private TileDataEntity Pathfinder(Vector3 currentPos)
         {
-            KeyValuePair<Vector3, Vector3Int> bestOptionVectorToWorld = new KeyValuePair<Vector3, Vector3Int>();
+            TileDataEntity bestTileOption = new TileDataEntity();
             float bestOption = 99999;
         
             if (!_yellowBrickRoad.Any())
             {
-                bestOptionVectorToWorld = lastBrick;
+                bestTileOption = lastBrick;
             }
             else
             {
-                HeuristicValue(currentPos, _yellowBrickRoad, ref bestOption, ref bestOptionVectorToWorld);
-                if(_defensiveBuilds.Any()) HeuristicValue(currentPos, _defensiveBuilds, ref bestOption, ref bestOptionVectorToWorld);
-                HeuristicValue(currentPos, _cityBuilds, ref bestOption, ref bestOptionVectorToWorld);
+                HeuristicValue(currentPos, _yellowBrickRoad, ref bestOption, ref bestTileOption);
+                if(_defensiveBuilds.Any()) HeuristicValue(currentPos, _defensiveBuilds, ref bestOption, ref bestTileOption);
+                HeuristicValue(currentPos, _cityBuilds, ref bestOption, ref bestTileOption);
             }
 
-            if (_defensiveBuilds.Contains(bestOptionVectorToWorld))
+            if (_defensiveBuilds.Contains(bestTileOption))
             {
                 attacking = true;
                 lastBrick = nextDestination;
             }
-            else if(_yellowBrickRoad.Contains(bestOptionVectorToWorld))
+            else if(_yellowBrickRoad.Contains(bestTileOption))
             {
-                _yellowBrickRoad.Remove(bestOptionVectorToWorld);
+                _yellowBrickRoad.Remove(bestTileOption);
             }
             /*else if (bestOptionVectorToWorld == end)
         {
@@ -128,25 +128,26 @@ namespace Presentation
             _yellowBrickRoad.Clear();
         }*/
 
-            return bestOptionVectorToWorld;
+            return bestTileOption;
         }
 
         private void DestroyTile(Building.Building obj)
         {
             if (_defensiveBuilds.Any())
             {
-                var randomKey = _defensiveBuilds.Keys.ToArray()[(int)Random.Range(0, _defensiveBuilds.Keys.Count - 1)];
-                _tilemap.SetTile(_defensiveBuilds[randomKey], cityDestroyed);
+                //var randomKey = _defensiveBuilds.Keys.ToArray()[(int)Random.Range(0, _defensiveBuilds.Keys.Count - 1)];
+                var randomKey = _defensiveBuilds[(int)Random.Range(0, _defensiveBuilds.Count - 1)];
+                _tilemap.SetTile(randomKey.GridPosition, cityDestroyed);
                 _defensiveBuilds.Remove(randomKey);
             }
         
         }
-        private void HeuristicValue(Vector3 current, IDictionary<Vector3, Vector3Int> listCandidates, ref float result, ref KeyValuePair<Vector3, Vector3Int> chosen)
+        private void HeuristicValue(Vector3 current, List<TileDataEntity> listCandidates, ref float result, ref TileDataEntity chosen)
         {
             float HValue;
             foreach(var tile in listCandidates)
             {
-                HValue = Math.Abs(current.x - tile.Key.x) + Math.Abs(current.y - tile.Key.y);
+                HValue = Math.Abs(current.x - tile.WorldPosition.x) + Math.Abs(current.y - tile.WorldPosition.y);
                 if (HValue < result)
                 {
                     chosen = tile;
