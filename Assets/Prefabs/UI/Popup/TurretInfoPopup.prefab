@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1303714845276138055}
-  - component: {fileID: 7583927636182023929}
+  - component: {fileID: 6465068780969691632}
   m_Layer: 0
-  m_Name: TurretIfoPopup
+  m_Name: TurretInfoPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7583927636182023929
+--- !u!114 &6465068780969691632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

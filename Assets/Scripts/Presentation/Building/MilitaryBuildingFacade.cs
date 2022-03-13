@@ -14,6 +14,7 @@ namespace Presentation.Building
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private GameObject _particles;
+        [SerializeField] private Animator _animator;
         [SerializeField] private int _attackRingRange = 1;
         [SerializeField] protected List<TileDataEntity> tilesToAttack;
 
@@ -21,6 +22,8 @@ namespace Presentation.Building
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
         private bool _enemyIsSet, _isActive;
+        private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
+        private static readonly int AttackTrigger = Animator.StringToHash("Shoot");
 
         public Vector3Int AttackArea => _attackArea;
 
@@ -50,6 +53,7 @@ namespace Presentation.Building
 
         private void OnBuildingAttacks()
         {
+            _animator.SetTrigger(AttackTrigger);
             PlaySoundWhenAttacks();
             ThrowParticlesWhenAttacks();
         }
@@ -84,6 +88,11 @@ namespace Presentation.Building
             _militaryBuildingAttacker.Init(_enemyGameObject);
             _enemyIsSet = true;
             _isActive = true;
+        }
+
+        public void Deploy()
+        {
+            _animator.SetTrigger(DeployTrigger);
         }
 
         public void Select()

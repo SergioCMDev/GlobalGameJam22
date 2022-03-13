@@ -306,10 +306,8 @@ MonoBehaviour:
   _sfxSoundDictionary:
   - AudioClip: {fileID: 8300000, guid: 121df4ff91858d9498a8f60b32028fb2, type: 3}
     SfxSoundName: 5
-  - AudioClip: {fileID: 8300000, guid: bbfb443b78966564789aaeb0a4e2d300, type: 3}
-    SfxSoundName: 12
   - AudioClip: {fileID: 8300000, guid: 72fcaae84669b104f8bb5d50062aa5a0, type: 3}
-    SfxSoundName: 0
+    SfxSoundName: 12
   - AudioClip: {fileID: 8300000, guid: 37f265a41b78abb4584dac8a74373594, type: 3}
     SfxSoundName: 18
   - AudioClip: {fileID: 8300000, guid: 6c537a1b835d6b24680d041758149a23, type: 3}
