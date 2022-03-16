@@ -159,31 +159,44 @@ namespace Presentation
                 {
                     Vector3Int gridPosition = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
                     Vector3 worldPosition = _tilemap.CellToWorld(gridPosition);
-                    if (!_tilemap.HasTile(gridPosition) || !_buildingTilemap.HasTile(gridPosition)) continue;
+                    Debug.Log($"Grid POsition {gridPosition}");
+                    // if (!_tilemap.HasTile(gridPosition) || !_buildingTilemap.HasTile(gridPosition)) continue;
+                    Debug.Log($"Grid POsition OK {gridPosition} ");
 
                     var tilemapColourDictionary = new Dictionary<Tilemap, TilemapColours>();
-                    tilemapColourDictionary.Add(_buildingTilemap, new TilemapColours()
+                    if (_buildingTilemap.HasTile(gridPosition))
                     {
-                        PreviousColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                        CurrentColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                        OriginalColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
-                    });
+                        tilemapColourDictionary.Add(_buildingTilemap, new TilemapColours()
+                        {
+                            PreviousColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                            CurrentColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                            OriginalColour = GetCurrentTileType(_buildingTilemap.GetTile(gridPosition)),
+                        });
+                    }
+
+                    // if (_weaponRangeTilemap.HasTile(gridPosition))
+                    // {
                     tilemapColourDictionary.Add(_weaponRangeTilemap, new TilemapColours()
                     {
                         PreviousColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
                         CurrentColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
                         OriginalColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
                     });
-                    _worldTileDictionaryBuildingTilemap.Add(gridPosition, new TileDataEntity()
+                    // }
+                    if (_tilemap.HasTile(gridPosition))
                     {
-                        WorldPosition = worldPosition,
-                        GridPosition = gridPosition,
-                        Occupier = null,
-                        IsOccupied = false,
-                        TilemapColours = tilemapColourDictionary,
-                        TileBase = _buildingTilemap.GetTile(gridPosition),
-                        TileBaseWorld = _tilemap.GetTile(gridPosition)
-                    });
+                        _worldTileDictionaryBuildingTilemap.Add(gridPosition, new TileDataEntity()
+                        {
+                            WorldPosition = worldPosition,
+                            GridPosition = gridPosition,
+                            Occupier = null,
+                            IsOccupied = false,
+                            TilemapColours = tilemapColourDictionary,
+                            TileBase = _buildingTilemap.GetTile(gridPosition),
+                            TileBaseWorld = _tilemap.GetTile(gridPosition)
+                        });
+                    }
+
                     world.Add(worldPosition, gridPosition);
                 }
             }
