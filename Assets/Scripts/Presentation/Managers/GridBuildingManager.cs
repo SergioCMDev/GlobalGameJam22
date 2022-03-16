@@ -43,7 +43,7 @@ namespace Presentation
 
         private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
 
-        public IDictionary<Vector3, Vector3Int> world; //REMOVE
+        // public IDictionary<Vector3, Vector3Int> world; //REMOVE
         private GameObject _building;
         private Vector3Int _currentObjectPosition, _currentBuildingArea, _originalBuildingArea;
 
@@ -53,13 +53,15 @@ namespace Presentation
         private readonly List<TileDataEntity> tileDatasBuilding = new List<TileDataEntity>();
         private readonly List<TileDataEntity> tileDatasAttack = new List<TileDataEntity>();
 
-        public Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
+        private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
             new Dictionary<Vector3Int, TileDataEntity>();
 
         [SerializeField] private bool _showAttackZone;
 
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
+
+        public Dictionary<Vector3Int, TileDataEntity> WorldTileDictionary => _worldTileDictionaryBuildingTilemap;
 
         private void Awake()
         {
@@ -124,8 +126,8 @@ namespace Presentation
             _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
             ClearPreviousPaintedArea();
             HideTemporalTileMap();
-            _worldTileDictionaryBuildingTilemap[_currentObjectPosition].IsOccupied = true;
-            _worldTileDictionaryBuildingTilemap[_currentObjectPosition].Occupier = _buildingFacadeComponent.gameObject;
+            WorldTileDictionary[_currentObjectPosition].IsOccupied = true;
+            WorldTileDictionary[_currentObjectPosition].Occupier = _buildingFacadeComponent.gameObject;
             _buildingFacadeComponent.Deselect();
 
             var attackTiles =
@@ -146,14 +148,14 @@ namespace Presentation
             var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
                          Vector3Int.right * militaryBuildingFacade.AttackRingRange;
             var temporalObjectArea = GetObjectArea(buildingPosition - offset, militaryBuildingFacade.AttackArea);
-            var attackArray = GetTilesBlock(temporalObjectArea, tilemapBuilding, _worldTileDictionaryBuildingTilemap);
+            var attackArray = GetTilesBlock(temporalObjectArea, tilemapBuilding, WorldTileDictionary);
             militaryBuildingFacade.SetTilesToAttack(attackArray);
             return attackArray;
         }
 
         private void ReadWorld()
         {
-            world = new Dictionary<Vector3, Vector3Int>();
+            // world = new Dictionary<Vector3, Vector3Int>();
             for (int n = _tilemap.cellBounds.xMin; n < _tilemap.cellBounds.xMax; n++)
             {
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
@@ -186,7 +188,7 @@ namespace Presentation
                     // }
                     if (_tilemap.HasTile(gridPosition))
                     {
-                        _worldTileDictionaryBuildingTilemap.Add(gridPosition, new TileDataEntity()
+                        WorldTileDictionary.Add(gridPosition, new TileDataEntity()
                         {
                             WorldPosition = worldPosition,
                             GridPosition = gridPosition,
@@ -198,7 +200,7 @@ namespace Presentation
                         });
                     }
 
-                    world.Add(worldPosition, gridPosition);
+                    // world.Add(worldPosition, gridPosition);
                 }
             }
         }
@@ -223,9 +225,9 @@ namespace Presentation
                 SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red,
                     false);
 
-                _worldTileDictionaryBuildingTilemap[buildingData.position].Occupier =
+                WorldTileDictionary[buildingData.position].Occupier =
                     buildingData.buildingFacadeComponent.gameObject;
-                _worldTileDictionaryBuildingTilemap[buildingData.position].IsOccupied = true;
+                WorldTileDictionary[buildingData.position].IsOccupied = true;
             }
 
             tileDatasAttack.Clear();
@@ -277,7 +279,7 @@ namespace Presentation
 
             var temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
             var buildingArray =
-                GetTilesBlock(temporalObjectArea, _buildingTilemap, _worldTileDictionaryBuildingTilemap);
+                GetTilesBlock(temporalObjectArea, _buildingTilemap, WorldTileDictionary);
 
             if (buildingArray.Count <= 0) return;
             SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
@@ -302,7 +304,7 @@ namespace Presentation
 
         private void SetBuildingZone(TileType tileTypeBuilding, Vector3Int buildingPosition)
         {
-            var tileData = _worldTileDictionaryBuildingTilemap[buildingPosition];
+            var tileData = WorldTileDictionary[buildingPosition];
             var tileDataColour = GetTilemapColour(tileData, _buildingTilemap);
 
             tileDataColour.CurrentColour = tileTypeBuilding;
@@ -572,13 +574,13 @@ namespace Presentation
         public void ObjectHasMovedToNewTile(GameObject occupier, GridPositionTuple tuplePosition)
         {
             if (tuplePosition.OldGridPosition == tuplePosition.NewGridPosition ||
-                !_worldTileDictionaryBuildingTilemap.ContainsKey(tuplePosition.NewGridPosition)) return;
+                !WorldTileDictionary.ContainsKey(tuplePosition.NewGridPosition)) return;
             Debug.Log("NUEVA TILE");
 
-            _worldTileDictionaryBuildingTilemap[tuplePosition.NewGridPosition].IsOccupied = true;
-            _worldTileDictionaryBuildingTilemap[tuplePosition.NewGridPosition].Occupier = occupier;
+            WorldTileDictionary[tuplePosition.NewGridPosition].IsOccupied = true;
+            WorldTileDictionary[tuplePosition.NewGridPosition].Occupier = occupier;
 
-            _worldTileDictionaryBuildingTilemap[tuplePosition.OldGridPosition].CleanOccupier();
+            WorldTileDictionary[tuplePosition.OldGridPosition].CleanOccupier();
         }
     }
 }
