@@ -1,4 +1,5 @@
 ﻿using System;
+using Presentation.Building;
 using Presentation.Interfaces;
 using Presentation.Menus;
 using UnityEngine;
@@ -10,10 +11,14 @@ namespace Presentation.Hostiles
     {
         [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private EnemyAttacker enemyAttacker;
-        [SerializeField] private int _maximumLife;
-        [SerializeField] private SliderBarView _sliderBarView;
+        [SerializeField] private int maximumLife;
+        [SerializeField] private SliderBarView sliderBarView;
+        
         private float _life;
         private bool _isAlive;
+        private TileDataEntity nextDestination;
+        private CityBuilding cityBuilding;
+        private GridPathfinding gridPathfinding;
 
         public event Action OnEnemyHasBeenDefeated;
 
@@ -22,13 +27,23 @@ namespace Presentation.Hostiles
 
         private void Start()
         {
-            _life = _maximumLife;
-            _sliderBarView.SetMaxValue(_life);
+            _isAlive = false;
+            _life = maximumLife;
+            sliderBarView.SetMaxValue(_life);
+        }
+
+        public void Init(Vector3Int initialPosition, CityBuilding cityBuilding, GridPathfinding pathfinding)
+        {
+            this.cityBuilding = cityBuilding;
+            gridPathfinding = pathfinding;
+            // cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
+            nextDestination = gridPathfinding.GetNextPositionFromCurrent(transform.position);
+            _isAlive = true; //mover a enemy
         }
 
         private void UpdateLifeBar()
         {
-            _sliderBarView.SetValue(_life);
+            sliderBarView.SetValue(_life);
         }
 
         public void ReceiveDamage(float receivedDamage)
@@ -60,8 +75,45 @@ namespace Presentation.Hostiles
 
         public void AddLife(float lifeToAdd)
         {
-            _life = _life.CircularClamp(0, _maximumLife);
+            _life = _life.CircularClamp(0, maximumLife);
             UpdateLifeBar();
+        }
+
+
+        private void Update()
+        {
+            if (!_isAlive) return;
+            if (HasToFindNewDestination())
+            {
+                //attacking = true;
+                //nextDestination = lastBrick;
+                if (enemyAttacker.CanAttack() && cityBuilding.Life >= 0)
+                {
+                    EnemyAttacker.Attack(cityBuilding);
+                }
+            }
+            else
+            {
+                nextDestination = gridPathfinding.GetNextPositionFromCurrent(transform.position);
+            }
+
+            enemyMovement.MoveTo(nextDestination.WorldPosition);
+        }
+
+        private void DestroyTile(Building.Building obj)
+        {
+            // if (_defensiveBuilds.Any())
+            // {
+            //     //var randomKey = _defensiveBuilds.Keys.ToArray()[(int)Random.Range(0, _defensiveBuilds.Keys.Count - 1)];
+            //     var randomKey = _defensiveBuilds[(int)Random.Range(0, _defensiveBuilds.Count - 1)];
+            //     _tilemap.SetTile(randomKey.GridPosition, cityDestroyed);
+            //     _defensiveBuilds.Remove(randomKey);
+            // }
+        }
+
+        private bool HasToFindNewDestination()
+        {
+            return transform.position == nextDestination.WorldPosition;
         }
     }
 }

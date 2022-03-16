@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 3449160121476668682}
   - component: {fileID: 259709254}
   - component: {fileID: 259709253}
+  - component: {fileID: 4608155188211158495}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -162,8 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 3449160122288460458}
-  _maximumLife: 100
-  _sliderBarView: {fileID: 4124490727882134518}
+  enemyAttacker: {fileID: 4608155188211158495}
+  maximumLife: 0
+  sliderBarView: {fileID: 4124490727882134518}
 --- !u!114 &259709254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +223,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4608155188211158495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3449160122288460457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 131689745e384506a69c65e3b8ba278f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSpeed: 1
+  damage: 1
 --- !u!1 &6941301912902136923
 GameObject:
   m_ObjectHideFlags: 0
