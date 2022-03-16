@@ -11,6 +11,7 @@ namespace Presentation.Building
         public void ReceiveDamage(float receivedDamage, int citySize)
         {
             ReceiveDamage(receivedDamage);
+            //TODO Refactor, create a method to describe what is their meaning
             if (100/MaxLife*Life% citySize == 0)
             {
                 DestroyBuilding();

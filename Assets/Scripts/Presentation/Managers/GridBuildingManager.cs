@@ -128,7 +128,8 @@ namespace Presentation
             _worldTileDictionaryBuildingTilemap[_currentObjectPosition].Occupier = _buildingFacadeComponent.gameObject;
             _buildingFacadeComponent.Deselect();
 
-            var attackTiles = GetAttackTilesOfBuilding(_currentObjectPosition, _buildingFacadeComponent, _buildingTilemap);
+            var attackTiles =
+                GetAttackTilesOfBuilding(_currentObjectPosition, _buildingFacadeComponent, _buildingTilemap);
             _currentObjectPosition = Vector3Int.zero;
             _buildingFacadeComponent.SetTilesToAttack(attackTiles);
             OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingFacadeComponent);
@@ -219,7 +220,8 @@ namespace Presentation
         {
             foreach (var buildingData in _savedBuildings)
             {
-                SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red, false);
+                SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red,
+                    false);
 
                 _worldTileDictionaryBuildingTilemap[buildingData.position].Occupier =
                     buildingData.buildingFacadeComponent.gameObject;
@@ -274,7 +276,8 @@ namespace Presentation
             _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);
 
             var temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
-            var buildingArray = GetTilesBlock(temporalObjectArea, _buildingTilemap, _worldTileDictionaryBuildingTilemap);
+            var buildingArray =
+                GetTilesBlock(temporalObjectArea, _buildingTilemap, _worldTileDictionaryBuildingTilemap);
 
             if (buildingArray.Count <= 0) return;
             SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
@@ -565,7 +568,7 @@ namespace Presentation
         {
             ObjectHasMovedToNewTile(tileEvent.Occupier, tileEvent.GridPositions);
         }
-    
+
         public void ObjectHasMovedToNewTile(GameObject occupier, GridPositionTuple tuplePosition)
         {
             if (tuplePosition.OldGridPosition == tuplePosition.NewGridPosition ||
