@@ -1,5 +1,6 @@
 ﻿using System;
 using Presentation.Interfaces;
+using UnityEngine;
 
 namespace Presentation.Building
 {
@@ -12,13 +13,16 @@ namespace Presentation.Building
         {
             ReceiveDamage(receivedDamage);
             //TODO Refactor, create a method to describe what is their meaning
-            if (100/MaxLife*Life% citySize == 0)
+            if (100 / MaxLife * Life % citySize == 0)
             {
                 DestroyBuilding();
             }
         }
+
         public override void ReceiveDamage(float receivedDamage)
         {
+            Debug.Log("Damage percentage: " + (100 / MaxLife) * Life);
+
             _currentLife -= receivedDamage;
             if (_currentLife <= 0)
             {
