@@ -50,7 +50,9 @@ MonoBehaviour:
   showWinMenuUIEvent: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
   showLostMenuUIEvent: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
   stopMilitaryBuildingsEvent: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
-  _timeToWin: 20
+  _timeToWin: 2
+  _timeToAllowPlayerBuildsTurrets: 20
+  _skipTimer: 1
 --- !u!114 &1446073707
 MonoBehaviour:
   m_ObjectHideFlags: 0
