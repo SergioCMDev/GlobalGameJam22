@@ -9,7 +9,7 @@ using Utils;
 
 namespace Presentation
 {
-    public class LevelController : MonoBehaviour
+    public class UICanvasController : MonoBehaviour
     {
         [SerializeField] private CanvasPresenter _canvasPresenter;
 
