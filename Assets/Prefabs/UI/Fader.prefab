@@ -72,12 +72,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6250432162588826672}
-        m_TargetAssemblyTypeName: Presentation.FaderController, Presentation
+        m_TargetAssemblyTypeName: Presentation.UI.FaderController, Presentation
         m_MethodName: ChangeToSpecificScene
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 88a4b964054bc084db687831a41b25f9, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.ChangeToSpecificSceneEvent,
+          m_ObjectArgumentAssemblyTypeName: App.Events.ChangeToSpecificSceneEvent,
             Application
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -101,13 +101,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6250432162588826672}
-        m_TargetAssemblyTypeName: Presentation.FaderController, Presentation
+        m_TargetAssemblyTypeName: Presentation.UI.FaderController, Presentation
         m_MethodName: ChangeToNextScene
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: e594dafef8cbee84d8fcc74aad088604, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Application_.Events.ChangeToNextSceneEvent,
-            Application
+          m_ObjectArgumentAssemblyTypeName: App.Events.ChangeToNextSceneEvent, Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

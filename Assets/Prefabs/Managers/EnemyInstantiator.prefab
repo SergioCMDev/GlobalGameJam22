@@ -46,6 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cityBuilding: {fileID: 0}
   gridBuildingManager: {fileID: 0}
+  instantiate: 0
+  positionToInstantiate: {x: 0, y: 0, z: 0}
+  enemyPrefab: {fileID: 0}
 --- !u!114 &6189538332134597973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +71,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 40595c44231b2b74ab2d1175c697f741, type: 2}
-          m_ObjectArgumentAssemblyTypeName: InstantiateEnemyEvent, Presentation
+          m_ObjectArgumentAssemblyTypeName: Presentation.InstantiateEnemyEvent, Presentation
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
