@@ -57,12 +57,15 @@ namespace Presentation
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
+            enemyInstantiator.StopEnemies();
         }
 
         private void PlayerHasBeenDefeated(Building.Building building)
         {
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
+            stopMilitaryBuildingsEvent.Fire();
+            enemyInstantiator.StopEnemies();
         }
 
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
