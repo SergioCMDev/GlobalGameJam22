@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Presentation;
 using Presentation.Building;
 using Presentation.Hostiles;
@@ -14,33 +15,59 @@ namespace Presentation
         [SerializeField] private GridBuildingManager gridBuildingManager;
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
-        // [SerializeField] private bool instantiate;
-        // [SerializeField] private Vector3Int positionToInstantiate;
-        // private GameObject enemyInstance;
+        [SerializeField] private bool instantiate;
+        [SerializeField] private Vector3Int positionToInstantiate;
+        [SerializeField] private GameObject enemyPrefab;
 
-        // private Enemy enemy;
+        private List<Enemy> activeEnemies = new List<Enemy>();
+
+        private void Start()
+        {
+            if (!instantiate) return;
+
+            InstantiateEnemy(enemyPrefab, positionToInstantiate,
+                100, 1);
+        }
 
 
         public void InstantiateEnemy(InstantiateEnemyEvent instantiateEnemyEvent)
+
         {
-            if (!gridBuildingManager.WorldTileDictionary.ContainsKey(instantiateEnemyEvent.PositionToInstantiate))
+            InstantiateEnemy(instantiateEnemyEvent.Prefab, instantiateEnemyEvent.PositionToInstantiate,
+                instantiateEnemyEvent.Life, instantiateEnemyEvent.Speed);
+        }
+
+        public void InstantiateEnemy(GameObject enemyPrefab, Vector3Int positionToInstantiate, float life, float speed)
+        {
+            if (!gridBuildingManager.WorldTileDictionary.ContainsKey(positionToInstantiate))
                 return;
 
             var positionToPutEnemy = gridBuildingManager
-                .WorldTileDictionary[instantiateEnemyEvent.PositionToInstantiate]
-                .WorldPosition;
-            var enemyInstance = Instantiate(instantiateEnemyEvent.Prefab, positionToPutEnemy, Quaternion.identity);
+                .WorldTileDictionary[positionToInstantiate].WorldPosition;
+            var enemyInstance = Instantiate(enemyPrefab, positionToPutEnemy, Quaternion.identity);
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
             gridPathfinding.Init(gridBuildingManager.WorldTileDictionary);
-            enemy.Init(instantiateEnemyEvent.PositionToInstantiate, cityBuilding, gridPathfinding);
+            enemy.Init(positionToInstantiate, cityBuilding, gridPathfinding, life, speed);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
+            activeEnemies.Add(enemy);
         }
 
         private void EnemyDefeated(Enemy enemy)
         {
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
             OnEnemyHasBeenDefeated?.Invoke(enemy);
+            activeEnemies.Remove(enemy);
+        }
+
+        public void StopEnemies()
+        {
+            foreach (var enemy in activeEnemies)
+            {
+                enemy.Deactivate();
+            }
+
+            Debug.Log("enemies have been stopped");
         }
     }
 }

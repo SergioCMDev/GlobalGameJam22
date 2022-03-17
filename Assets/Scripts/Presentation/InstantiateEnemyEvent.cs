@@ -6,5 +6,7 @@ using UnityEngine;
 public class InstantiateEnemyEvent : GameEventScriptable
 {
     public GameObject Prefab;
+    public float Life;
     public Vector3Int PositionToInstantiate;
+    public float Speed;
 }

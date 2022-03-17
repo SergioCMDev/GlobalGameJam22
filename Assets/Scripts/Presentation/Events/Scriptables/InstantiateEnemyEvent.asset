@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fef074409e14c79971b3ac8f7364fb9, type: 3}
   m_Name: InstantiateEnemyEvent
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  PositionToInstantiate: {x: 0, y: 0, z: 0}
+  Prefab: {fileID: 3449160122288460457, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
+  Life: 100
+  PositionToInstantiate: {x: 1, y: -4, z: 0}
+  Speed: 0
