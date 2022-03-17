@@ -1,11 +1,12 @@
 using System;
 using App;
+using Presentation.Interfaces;
 using Presentation.Structs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation
+namespace Presentation.UI
 {
     public class NeedMoreResourcesPopup : MonoBehaviour, ICloseablePopup
     {

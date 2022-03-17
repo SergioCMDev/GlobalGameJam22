@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using App;
-using App.Events;
 using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     public class GridMovementManager : MonoBehaviour
     {

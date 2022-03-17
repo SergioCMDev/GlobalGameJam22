@@ -1,10 +1,11 @@
 using System;
 using App;
+using Presentation.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation
+namespace Presentation.UI
 {
     public class TurretInfoPopup : MonoBehaviour, ICloseablePopup
     {

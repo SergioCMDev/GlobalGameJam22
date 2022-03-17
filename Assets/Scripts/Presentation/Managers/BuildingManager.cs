@@ -1,16 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using App;
 using App.Events;
 using App.Models;
-using Presentation.Building;
 using Presentation.Hostiles;
+using Presentation.Infrastructure;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     public class BuildingManager : MonoBehaviour
     {

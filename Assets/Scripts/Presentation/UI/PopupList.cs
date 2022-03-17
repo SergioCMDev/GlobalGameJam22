@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Presentation.Managers;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.UI
 {
     [CreateAssetMenu(fileName = "PopupList",
         menuName = "Popup/PopupList")]

@@ -2,7 +2,7 @@
 using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     public class CityBuilding : Building, IDestructible
     {

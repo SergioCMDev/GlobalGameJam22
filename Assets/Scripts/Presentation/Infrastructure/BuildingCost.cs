@@ -1,7 +1,7 @@
 ﻿using App;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     [CreateAssetMenu(fileName = "ResourcesCostToUpgrade", menuName = "Resources/ResourcesCostToUpgrade")]
     public class BuildingCost : ScriptableObject

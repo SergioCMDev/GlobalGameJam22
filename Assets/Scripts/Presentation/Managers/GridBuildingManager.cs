@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using App;
 using App.Events;
+using Presentation.Infrastructure;
+using Presentation.Structs;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     [Serializable]
     public class TileDataEntity

@@ -1,7 +1,10 @@
 using System;
+using Presentation.Events;
+using Presentation.Interfaces;
+using Presentation.UI;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     [Serializable]
     public struct PopupGetter

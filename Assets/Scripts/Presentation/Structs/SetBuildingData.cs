@@ -1,7 +1,8 @@
 ﻿using System;
+using Presentation.Infrastructure;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Structs
 {
     [Serializable]
     public struct SetBuildingData

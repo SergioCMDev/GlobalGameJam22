@@ -3,7 +3,7 @@ using App;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation
+namespace Presentation.UI
 {
     public class BuildingSelector : MonoBehaviour
     {

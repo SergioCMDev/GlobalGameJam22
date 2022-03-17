@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
 
-namespace Presentation
+namespace Presentation.UI
 {
     public class MainMenuController : MonoBehaviour
     {

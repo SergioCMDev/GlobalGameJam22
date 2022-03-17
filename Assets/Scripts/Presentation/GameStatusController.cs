@@ -1,8 +1,8 @@
 using System;
 using App.Events;
 using App.SceneManagement;
-using Presentation.Building;
 using Presentation.Hostiles;
+using Presentation.Infrastructure;
 using Presentation.Managers;
 using Presentation.Menus;
 using UnityEngine;
@@ -60,7 +60,7 @@ namespace Presentation
             enemyInstantiator.StopEnemies();
         }
 
-        private void PlayerHasBeenDefeated(Building.Building building)
+        private void PlayerHasBeenDefeated(Building building)
         {
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();

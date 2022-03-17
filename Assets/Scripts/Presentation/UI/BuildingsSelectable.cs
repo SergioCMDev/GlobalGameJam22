@@ -4,7 +4,7 @@ using App;
 using Presentation.Structs;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.UI
 {
     public class BuildingsSelectable : MonoBehaviour
     {

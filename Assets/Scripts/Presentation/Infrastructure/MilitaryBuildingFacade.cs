@@ -5,9 +5,9 @@ using Presentation.Managers;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Infrastructure
 {
-    public class MilitaryBuildingFacade : Building.Building
+    public class MilitaryBuildingFacade : Building
     {
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;

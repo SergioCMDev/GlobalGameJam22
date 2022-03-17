@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     [CreateAssetMenu(fileName = "TeslaAttackBehaviourData", menuName = "Turrets/AttackBehaviourData/TeslaAttackBehaviourData")]
     public class TeslaMilitaryBuildingData : MilitaryBuildingData

@@ -1,4 +1,4 @@
-namespace Presentation
+namespace Presentation.Structs
 {
     public enum TileType
     {

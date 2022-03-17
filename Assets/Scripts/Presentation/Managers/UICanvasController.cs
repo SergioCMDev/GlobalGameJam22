@@ -1,13 +1,12 @@
 using App;
 using App.Events;
-using Presentation.Building;
-using Presentation.Managers;
+using Presentation.Infrastructure;
 using Presentation.Menus;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     public class UICanvasController : MonoBehaviour
     {

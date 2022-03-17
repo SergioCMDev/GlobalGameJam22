@@ -1,7 +1,7 @@
 using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     [CreateAssetMenu(fileName = "LightTurretBehaviourAttack", menuName = "Turrets/BehaviourAttacks/LightTurret")]
     public class LightTurretBehaviour : AttackBehaviour

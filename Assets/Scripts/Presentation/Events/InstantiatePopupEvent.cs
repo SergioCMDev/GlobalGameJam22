@@ -1,7 +1,8 @@
 using App.Events;
+using Presentation.Managers;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Events
 {
     [CreateAssetMenu(fileName = "InstantiatePopupEvent",
         menuName = "Events/Popup/InstantiatePopupEvent")]

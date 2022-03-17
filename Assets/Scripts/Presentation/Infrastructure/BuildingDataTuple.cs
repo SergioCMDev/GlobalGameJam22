@@ -2,7 +2,7 @@
 using App;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     [Serializable]
     public struct BuildingDataTuple

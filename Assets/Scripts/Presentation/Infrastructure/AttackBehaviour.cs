@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     public abstract class AttackBehaviour : ScriptableObject
     {

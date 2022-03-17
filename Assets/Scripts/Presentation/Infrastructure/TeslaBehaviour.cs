@@ -1,7 +1,7 @@
 using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     [CreateAssetMenu(fileName = "TeslaBehaviourAttack", menuName = "Turrets/BehaviourAttacks/Tesla")]
     public class TeslaBehaviour : AttackBehaviour

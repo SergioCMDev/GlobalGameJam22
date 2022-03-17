@@ -1,6 +1,7 @@
 ﻿using System;
-using Presentation.Building;
+using Presentation.Infrastructure;
 using Presentation.Interfaces;
+using Presentation.Managers;
 using Presentation.Menus;
 using UnityEngine;
 using Utils;
@@ -102,7 +103,7 @@ namespace Presentation.Hostiles
             enemyMovement.MoveTo(_nextDestination.WorldPosition);
         }
 
-        private void DestroyTile(Building.Building obj)
+        private void DestroyTile(Building obj)
         {
             // if (_defensiveBuilds.Any())
             // {

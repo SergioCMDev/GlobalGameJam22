@@ -1,8 +1,7 @@
 using System;
-using Presentation.Building;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Infrastructure
 {
     public class MilitaryBuildingPlacementSetter : MonoBehaviour
     {

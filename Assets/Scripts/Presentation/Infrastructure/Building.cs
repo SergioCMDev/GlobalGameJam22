@@ -1,10 +1,10 @@
-using System;
 using App.Events;
 using Presentation.Interfaces;
 using Presentation.Menus;
+using Presentation.Structs;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     public abstract class Building : MonoBehaviour, IReceiveDamage, ILife
     {

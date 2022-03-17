@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Presentation
+namespace Presentation.Structs
 {
     [Serializable]
     public struct TilemapColours

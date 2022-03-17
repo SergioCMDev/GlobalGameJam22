@@ -1,6 +1,7 @@
+using Presentation.Structs;
 using UnityEngine;
 
-namespace Presentation.Building
+namespace Presentation.Infrastructure
 {
     [CreateAssetMenu(fileName = "AttackBehaviourData", menuName = "Turrets/AttackBehaviourData/Turrets")]
     public class MilitaryBuildingData : ScriptableObject
