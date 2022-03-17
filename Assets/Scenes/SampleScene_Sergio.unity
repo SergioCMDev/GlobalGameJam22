@@ -456,7 +456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6757109771876727624, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6757109771876727626, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_RootOrder
@@ -504,11 +504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6894131667303687480, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6894131667303687480, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8254545866751651199, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -2350,6 +2350,10 @@ PrefabInstance:
       propertyPath: _gridBuildingManager
       value: 
       objectReference: {fileID: 1539259234}
+    - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 3449160122288460457, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
     - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: instantiate
       value: 1
