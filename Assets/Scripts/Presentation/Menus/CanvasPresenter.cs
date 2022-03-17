@@ -133,20 +133,7 @@ namespace Presentation.Menus
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
         }
 
-        private void OnDestroy()
-        {
-            // if (_loseMenuView)
-            // {
-            //     _loseMenuView.OnRestartButtonPressed -= RestartButtonPressedLevel;
-            //     _loseMenuView.OnGoToMainMenuButtonPressed -= GoToMainLevel;
-            // }
-
-            // if (!pLayerHasWonPopup) return;
-            // pLayerHasWonPopup.OnRestartButtonPressed += RestartButtonPressedLevel;
-            // pLayerHasWonPopup.OnGoToMainMenuButtonPressed += GoToMainLevel;
-            // pLayerHasWonPopup.OnContinueButtonPressed += GoToNextLevel;
-        }
-
+       
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
         {
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.NeedMoreResources);
