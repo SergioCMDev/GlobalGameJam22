@@ -11,34 +11,33 @@ namespace Presentation.Hostiles
     {
         [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private EnemyAttacker enemyAttacker;
-        [SerializeField] private int maximumLife;
         [SerializeField] private SliderBarView sliderBarView;
-        
+
         private float _life;
+        private float _maximumLife;
         private bool _isAlive;
-        private TileDataEntity nextDestination;
-        private CityBuilding cityBuilding;
-        private GridPathfinding gridPathfinding;
+        private TileDataEntity _nextDestination;
+        private CityBuilding _cityBuilding;
+        private GridPathfinding _gridPathfinding;
 
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
-        public EnemyMovement EnemyMovement => enemyMovement;
+        private EnemyMovement EnemyMovement => enemyMovement;
         public EnemyAttacker EnemyAttacker => enemyAttacker;
 
-        private void Start()
-        {
-            _isAlive = false;
-            _life = maximumLife;
-            sliderBarView.SetMaxValue(_life);
-        }
 
-        public void Init(Vector3Int initialPosition, CityBuilding cityBuilding, GridPathfinding pathfinding)
+        public void Init(Vector3Int initialPosition, CityBuilding cityBuilding, GridPathfinding pathfinding,
+            float maximumLife, float speed)
         {
-            this.cityBuilding = cityBuilding;
-            gridPathfinding = pathfinding;
+            _maximumLife = maximumLife;
+            enemyMovement.Speed = speed;
+            _life = maximumLife;
+            sliderBarView.SetMaxValue(maximumLife);
+            _cityBuilding = cityBuilding;
+            _gridPathfinding = pathfinding;
             // cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
-            nextDestination = gridPathfinding.GetNextPositionFromCurrent(transform.position);
-            _isAlive = true; 
+            _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(transform.position);
+            _isAlive = true;
         }
 
         private void UpdateLifeBar()
@@ -51,7 +50,7 @@ namespace Presentation.Hostiles
             _life -= receivedDamage;
             UpdateLifeBar();
             if (IsAlive()) return;
-            EnemyMovement.Stop();
+            Deactivate();
             OnEnemyHasBeenDefeated.Invoke(this);
         }
 
@@ -73,10 +72,15 @@ namespace Presentation.Hostiles
 
         public void AddLife(float lifeToAdd)
         {
-            _life = _life.CircularClamp(0, maximumLife);
+            _life = _life.CircularClamp(0, _maximumLife);
             UpdateLifeBar();
         }
 
+        public void Deactivate()
+        {
+            _isAlive = false;
+            EnemyMovement.Stop();
+        }
 
         private void Update()
         {
@@ -85,17 +89,17 @@ namespace Presentation.Hostiles
             {
                 //attacking = true;
                 //nextDestination = lastBrick;
-                if (enemyAttacker.CanAttack() && cityBuilding.Life >= 0)
+                if (enemyAttacker.CanAttack() && _cityBuilding != null && _cityBuilding.Life >= 0)
                 {
-                    EnemyAttacker.Attack(cityBuilding);
+                    EnemyAttacker.Attack(_cityBuilding);
                 }
             }
             else
             {
-                nextDestination = gridPathfinding.GetNextPositionFromCurrent(transform.position);
+                _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(transform.position);
             }
 
-            enemyMovement.MoveTo(nextDestination.WorldPosition);
+            enemyMovement.MoveTo(_nextDestination.WorldPosition);
         }
 
         private void DestroyTile(Building.Building obj)
@@ -111,7 +115,7 @@ namespace Presentation.Hostiles
 
         private bool HasToFindNewDestination()
         {
-            return transform.position == nextDestination.WorldPosition;
+            return transform.position == _nextDestination.WorldPosition;
         }
     }
 }
