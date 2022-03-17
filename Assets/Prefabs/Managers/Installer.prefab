@@ -52,7 +52,6 @@ MonoBehaviour:
   _timeManagerPrefab: {fileID: 8051633545354572411, guid: eee513133fcd42446859afcf79f80e6d, type: 3}
   _buildingManagerPrefab: {fileID: 907901481322753423, guid: 5aab8ac33af42a84ab09d7609287dfd9, type: 3}
   _popupManagerPrefab: {fileID: 7300505498221509653, guid: 7dda5936ab3bcfc458ae9b34620e9b55, type: 3}
-  _enemyInstantiatorPrefab: {fileID: 1494359398275991657, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
   _resourcesManagerPrefab: {fileID: 7788073181800920034, guid: 8aba390eaa709c64d87595c01862ffbf, type: 3}
 --- !u!1001 &3909143906642519141
 PrefabInstance:
@@ -187,6 +186,10 @@ PrefabInstance:
       propertyPath: _sliderBarView
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: enemyInstantiator
+      value: 
+      objectReference: {fileID: 9075615966201424918}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
 --- !u!4 &3287974653144982756 stripped
@@ -264,3 +267,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1494359398275991659, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
   m_PrefabInstance: {fileID: 7588028082352383100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9075615966201424918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
+  m_PrefabInstance: {fileID: 7588028082352383100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c242808e018955d4abde581cb2893913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14,6 +14,7 @@ namespace Presentation
     {
         [SerializeField] private CityBuilding _cityBuilding;
         [SerializeField] private SliderBarView _sliderBarView;
+        [SerializeField] private EnemyInstantiator enemyInstantiator;
 
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
@@ -23,16 +24,13 @@ namespace Presentation
         private SceneChanger _sceneChanger;
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
-        private Enemy _enemy;
         private bool _timerIsRunning;
 
         void Start()
         {
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
-            _enemy = FindObjectOfType<Enemy>();
-            if (_enemy)
-                _enemy.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
+            enemyInstantiator.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
 
             _cityBuilding.OnBuildingDestroyed += PlayerHasBeenDefeated;
             _sliderBarView.SetMaxValue(_timeToWin);
@@ -44,7 +42,7 @@ namespace Presentation
         private void TimeHasEnded()
         {
             _timerIsRunning = false;
-            EnemyHasBeenDefeated();
+            EnemyHasBeenDefeated(null);
         }
 
         private void Update()
@@ -53,8 +51,8 @@ namespace Presentation
             _remainingTimeToWin -= Time.deltaTime;
             _sliderBarView.SetValue(_remainingTimeToWin);
         }
-
-        private void EnemyHasBeenDefeated()
+//Refactor
+        private void EnemyHasBeenDefeated(Enemy enemy)
         {
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();

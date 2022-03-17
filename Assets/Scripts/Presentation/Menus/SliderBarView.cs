@@ -23,7 +23,7 @@ namespace Presentation.Menus
             _slider.value = value;
             if (_slider.value <= 0)
             {
-                OnSliderReachZero.Invoke();
+                OnSliderReachZero?.Invoke();
             }
 
             _fill.color = _gradient.Evaluate(_slider.normalizedValue);

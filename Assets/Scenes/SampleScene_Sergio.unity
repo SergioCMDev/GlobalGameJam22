@@ -2351,6 +2351,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1539259234}
     - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: instantiate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: cityBuilding
       value: 
       objectReference: {fileID: 772795250}
@@ -2358,6 +2362,14 @@ PrefabInstance:
       propertyPath: gridBuildingManager
       value: 
       objectReference: {fileID: 1539259234}
+    - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: positionToInstantiate.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: positionToInstantiate.y
+      value: -4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
 --- !u!4 &8790425707887277880

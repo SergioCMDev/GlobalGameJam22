@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 3449160122288460458}
   enemyAttacker: {fileID: 4608155188211158495}
-  maximumLife: 0
+  maximumLife: 100
   sliderBarView: {fileID: 4124490727882134518}
 --- !u!114 &259709254
 MonoBehaviour:

@@ -20,7 +20,7 @@ namespace Presentation.Hostiles
         private CityBuilding cityBuilding;
         private GridPathfinding gridPathfinding;
 
-        public event Action OnEnemyHasBeenDefeated;
+        public event Action<Enemy> OnEnemyHasBeenDefeated;
 
         public EnemyMovement EnemyMovement => enemyMovement;
         public EnemyAttacker EnemyAttacker => enemyAttacker;
@@ -38,7 +38,7 @@ namespace Presentation.Hostiles
             gridPathfinding = pathfinding;
             // cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
             nextDestination = gridPathfinding.GetNextPositionFromCurrent(transform.position);
-            _isAlive = true; //mover a enemy
+            _isAlive = true; 
         }
 
         private void UpdateLifeBar()
@@ -50,11 +50,9 @@ namespace Presentation.Hostiles
         {
             _life -= receivedDamage;
             UpdateLifeBar();
-            if (!IsAlive())
-            {
-                EnemyMovement.Stop();
-                OnEnemyHasBeenDefeated.Invoke();
-            }
+            if (IsAlive()) return;
+            EnemyMovement.Stop();
+            OnEnemyHasBeenDefeated.Invoke(this);
         }
 
         public void ReduceSpeed(float percentageToReduce, float effectDuration)
@@ -83,7 +81,7 @@ namespace Presentation.Hostiles
         private void Update()
         {
             if (!_isAlive) return;
-            if (HasToFindNewDestination())
+            if (!HasToFindNewDestination())
             {
                 //attacking = true;
                 //nextDestination = lastBrick;
