@@ -12,7 +12,6 @@ namespace Presentation
 {
     public class EnemyInstantiator : MonoBehaviour
     {
-        // [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private CityBuilding cityBuilding;
 
         [SerializeField] private GridBuildingManager gridBuildingManager;
@@ -29,7 +28,7 @@ namespace Presentation
         {
             if (!instantiate) return;
 
-            InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.1f);
+            InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.5f);
         }
 
 
