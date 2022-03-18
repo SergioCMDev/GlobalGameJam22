@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using App.Events;
+using Presentation.Hostiles;
+using Presentation.Interfaces;
 using Presentation.Managers;
 using UnityEngine;
 using Utils;
@@ -66,25 +68,31 @@ namespace Presentation.Infrastructure
             _soundManager.PlaySfx(_sfxWhenAttack);
         }
 
-        private bool CanReach()
+        private bool CanReachSomeEnemy()
         {
-            return tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier != gameObject);
+            return
+                tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier != gameObject);
         }
 
         private void Update()
         {
-            if (!_isActive || !_enemyIsSet || !_militaryBuildingAttacker.CanAttack() ||
-                !CanReach()) return;
-
-            Debug.Log("ATTACK");
-            _militaryBuildingAttacker.Attack(_enemyGameObject);
+            if (!_isActive || !_militaryBuildingAttacker.CanAttack()) return;
+            var enemiesToAttack = GetReachableEnemies();
+            if (!enemiesToAttack.Any()) return;
+            _militaryBuildingAttacker.Attack(enemiesToAttack);
         }
 
-        public void SetEnemyToAttack(GameObject enemy)
+        private List<GameObject> GetReachableEnemies()
         {
-            if (enemy == null) return;
-            _enemyGameObject = enemy;
-            _militaryBuildingAttacker.Init(_enemyGameObject);
+            var reachableEnemies = tilesToAttack.FindAll(tile =>
+                    tile.IsOccupied && tile.Occupier != gameObject)
+                .Select(tile => tile.Occupier).ToList();
+            return reachableEnemies;
+        }
+
+        public void Init()
+        {
+            _militaryBuildingAttacker.Init();
             _enemyIsSet = true;
             _isActive = true;
         }

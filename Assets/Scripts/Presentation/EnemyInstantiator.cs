@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using App;
 using Presentation;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
+using Presentation.Interfaces;
 using Presentation.Managers;
 using UnityEngine;
 
@@ -14,6 +16,7 @@ namespace Presentation
         [SerializeField] private CityBuilding cityBuilding;
 
         [SerializeField] private GridBuildingManager gridBuildingManager;
+        [SerializeField] private GridMovementManager gridMovementManager;
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
         [SerializeField] private bool instantiate;
@@ -26,8 +29,7 @@ namespace Presentation
         {
             if (!instantiate) return;
 
-            InstantiateEnemy(enemyPrefab, positionToInstantiate,
-                100, 1);
+            InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.1f);
         }
 
 
@@ -52,11 +54,18 @@ namespace Presentation
             enemy.Init(positionToInstantiate, cityBuilding, gridPathfinding, life, speed);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
             activeEnemies.Add(enemy);
+            enemy.OnObjectMoved += OnObjectMoved;
+        }
+
+        private void OnObjectMoved(GameObject movable, WorldPositionTuple worldPosition)
+        {
+            gridMovementManager.OnObjectMoved(movable, worldPosition);
         }
 
         private void EnemyDefeated(Enemy enemy)
         {
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
+            enemy.OnObjectMoved -= OnObjectMoved;
             OnEnemyHasBeenDefeated?.Invoke(enemy);
             activeEnemies.Remove(enemy);
         }

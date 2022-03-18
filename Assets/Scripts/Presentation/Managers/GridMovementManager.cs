@@ -26,7 +26,7 @@ namespace Presentation.Managers
             _testMovement.OnObjectMoved += OnObjectMoved;
         }
 
-        private void OnObjectMoved(GameObject occupier, WorldPositionTuple worldPosition)
+        public void OnObjectMoved(GameObject occupier, WorldPositionTuple worldPosition)
         {
             var gridPositions = WorldToGridPositionsConverter(worldPosition);
             // _eventMovement.Occupier = occupier;

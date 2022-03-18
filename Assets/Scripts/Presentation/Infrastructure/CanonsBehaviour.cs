@@ -7,17 +7,15 @@ namespace Presentation.Infrastructure
     public class CanonsBehaviour : AttackBehaviour
     {
         private float _damageAmount;
-        private IReceiveDamage _damageReceiver;
 
-        public override void Init(GameObject objectToAttack, MilitaryBuildingData militaryBuildingData)
+        public override void Init(MilitaryBuildingData militaryBuildingData)
         {
-            _damageReceiver = objectToAttack.GetComponent<IReceiveDamage>();
             _damageAmount = militaryBuildingData.damage;
         }
-
-        public override void DoAttack()
+        
+        public override void DoAttack(GameObject receiveDamage)
         {
-            _damageReceiver.ReceiveDamage(_damageAmount);
+            receiveDamage.GetComponent<IReceiveDamage>().ReceiveDamage(_damageAmount);
         }
     }
 }

@@ -11,20 +11,23 @@ namespace Presentation.Infrastructure
         private IReceiveDamage _damageReceiver;
         private IStatusApplier _statusApplier;
 
-        public override void Init(GameObject objectToAttack, MilitaryBuildingData militaryBuildingData)
+        public override void Init(MilitaryBuildingData militaryBuildingData)
         {
-            _damageReceiver = objectToAttack.GetComponent<IReceiveDamage>();
-            _statusApplier = objectToAttack.GetComponent<IStatusApplier>();
-            
             var teslaMilitaryData = (TeslaMilitaryBuildingData)militaryBuildingData;
             _percentageToReduce = teslaMilitaryData.percentageToReduceSpeed;
             _durationOfEffect = teslaMilitaryData.durationOfEffect;
+            _damageAmount = teslaMilitaryData.damage;
         }
 
-        public override void DoAttack()
+        private void ApplySpeedReduction(GameObject receiveDamage)
         {
-            _damageReceiver.ReceiveDamage(_damageAmount);
-            _statusApplier.ReduceSpeed(_percentageToReduce, _durationOfEffect);
+            receiveDamage.GetComponent<IStatusApplier>().ReduceSpeed(_percentageToReduce, _durationOfEffect);
+        }
+
+        public override void DoAttack(GameObject receiveDamage)
+        {
+            receiveDamage.GetComponent<IReceiveDamage>().ReceiveDamage(_damageAmount);
+            ApplySpeedReduction(receiveDamage);
         }
     }
 }

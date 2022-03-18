@@ -20,6 +20,7 @@ namespace Presentation.Managers
 
         private GameObject _enemy;
 
+        
         void Start()
         {
             _buildingStatusModel = ServiceLocator.Instance.GetModel<IBuildingStatusModel>();
@@ -31,9 +32,7 @@ namespace Presentation.Managers
                     MaxLife = 50,
                 });
             }
-
-            if(FindObjectOfType<Enemy>())
-                _enemy = FindObjectOfType<Enemy>().gameObject;
+            
         }
 
         public GameObject GetPrefabByBuildingType(BuildingType type)
@@ -67,7 +66,7 @@ namespace Presentation.Managers
         public void SaveBuilding(SaveBuildingEvent buildingEvent)
         {
             var militaryBuilding = buildingEvent.Instance.GetComponent<MilitaryBuildingFacade>();
-            militaryBuilding.SetEnemyToAttack(_enemy);
+            militaryBuilding.Init();
             militaryBuilding.Deploy();
             _ownMilitaryBuilding.Add(militaryBuilding);
         }

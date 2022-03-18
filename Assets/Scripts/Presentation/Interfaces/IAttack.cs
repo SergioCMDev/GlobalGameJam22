@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Presentation.Interfaces
 {
     public interface IAttack
     {
-        public void Attack(GameObject objectToAttack);
+        public void Attack(List<GameObject> objectsToAttack);
     }
 }

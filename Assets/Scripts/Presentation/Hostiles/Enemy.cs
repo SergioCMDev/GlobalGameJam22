@@ -1,4 +1,5 @@
 ﻿using System;
+using App;
 using Presentation.Infrastructure;
 using Presentation.Interfaces;
 using Presentation.Managers;
@@ -8,7 +9,7 @@ using Utils;
 
 namespace Presentation.Hostiles
 {
-    public class Enemy : MonoBehaviour, IReceiveDamage, ILife, IStatusApplier
+    public class Enemy : MonoBehaviour, IReceiveDamage, ILife, IStatusApplier, IMovable
     {
         [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private EnemyAttacker enemyAttacker;
@@ -92,12 +93,17 @@ namespace Presentation.Hostiles
                 //nextDestination = lastBrick;
                 if (enemyAttacker.CanAttack() && _cityBuilding != null && _cityBuilding.Life >= 0)
                 {
-                    EnemyAttacker.Attack(_cityBuilding);
+                    // EnemyAttacker.Attack(_cityBuilding);
                 }
             }
             else
             {
                 _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(transform.position);
+                OnObjectMoved?.Invoke(gameObject, new WorldPositionTuple()
+                {
+                    NewWorldPosition = _nextDestination.WorldPosition,
+                    OldWorldPosition = transform.position
+                });
             }
 
             enemyMovement.MoveTo(_nextDestination.WorldPosition);
@@ -118,5 +124,7 @@ namespace Presentation.Hostiles
         {
             return transform.position == _nextDestination.WorldPosition;
         }
+
+        public event Action<GameObject, WorldPositionTuple> OnObjectMoved;
     }
 }
