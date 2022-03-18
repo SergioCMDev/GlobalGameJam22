@@ -280,7 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23dc902b7ff4ce6b06691a5284a3db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackBehaviour: {fileID: 11400000, guid: 4463d3c6b5c773543868664bd79d9aa2, type: 2}
+  _attackBehaviour:
+  - {fileID: 11400000, guid: 4463d3c6b5c773543868664bd79d9aa2, type: 2}
   _militaryBuildingData: {fileID: 11400000, guid: 3ec32a3ff7ce4cf458dbdb271896697c, type: 2}
 --- !u!114 &7201745983478259591
 MonoBehaviour:

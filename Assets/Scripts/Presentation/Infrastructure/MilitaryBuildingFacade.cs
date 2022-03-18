@@ -82,11 +82,11 @@ namespace Presentation.Infrastructure
             _militaryBuildingAttacker.Attack(enemiesToAttack);
         }
 
-        private List<GameObject> GetReachableEnemies()
+        private List<Enemy> GetReachableEnemies()
         {
             var reachableEnemies = tilesToAttack.FindAll(tile =>
                     tile.IsOccupied && tile.Occupier != gameObject)
-                .Select(tile => tile.Occupier).ToList();
+                .Select(tile => tile.Occupier.GetComponent<Enemy>()).ToList();
             return reachableEnemies;
         }
 

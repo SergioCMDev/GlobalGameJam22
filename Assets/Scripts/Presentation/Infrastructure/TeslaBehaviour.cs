@@ -1,3 +1,4 @@
+using Presentation.Hostiles;
 using Presentation.Interfaces;
 using UnityEngine;
 
@@ -19,14 +20,14 @@ namespace Presentation.Infrastructure
             _damageAmount = teslaMilitaryData.damage;
         }
 
-        private void ApplySpeedReduction(GameObject receiveDamage)
+        private void ApplySpeedReduction(Enemy receiveDamage)
         {
-            receiveDamage.GetComponent<IStatusApplier>().ReduceSpeed(_percentageToReduce, _durationOfEffect);
+            receiveDamage.ReduceSpeed(_percentageToReduce, _durationOfEffect);
         }
 
-        public override void DoAttack(GameObject receiveDamage)
+        public override void DoAttack(Enemy receiveDamage)
         {
-            receiveDamage.GetComponent<IReceiveDamage>().ReceiveDamage(_damageAmount);
+            receiveDamage.ReceiveDamage(_damageAmount);
             ApplySpeedReduction(receiveDamage);
         }
     }

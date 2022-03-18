@@ -1,4 +1,4 @@
-using Presentation.Interfaces;
+using Presentation.Hostiles;
 using UnityEngine;
 
 namespace Presentation.Infrastructure
@@ -7,6 +7,6 @@ namespace Presentation.Infrastructure
     {
         public abstract void Init(MilitaryBuildingData militaryBuildingData);
 
-        public abstract void DoAttack(GameObject receiveDamage);
+        public abstract void DoAttack(Enemy receiveDamage);
     }
 }

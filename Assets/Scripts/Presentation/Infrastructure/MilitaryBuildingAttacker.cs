@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Presentation.Hostiles;
 using Presentation.Interfaces;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Presentation.Infrastructure
 {
     public class MilitaryBuildingAttacker : MonoBehaviour, IAttack
     {
-        [SerializeField] private AttackBehaviour _attackBehaviour;
+        [SerializeField] private List<AttackBehaviour> _attackBehaviour;
         [SerializeField] private MilitaryBuildingData _militaryBuildingData;
         private float _cadence;
         private float _lastTimeAttacked;
@@ -16,16 +17,18 @@ namespace Presentation.Infrastructure
 
         public event Action OnBuildingAttacks;
 
-        public void Attack(List<GameObject> objectsToAttack)
+        public void Attack(List<Enemy> objectsToAttack)
         {
             Debug.Log("ATTACK");
 
             _lastTimeAttacked = Time.deltaTime;
-
             OnBuildingAttacks.Invoke();
             foreach (var receiveDamage in objectsToAttack)
             {
-                _attackBehaviour.DoAttack(receiveDamage);
+                foreach (var attackBehaviour in _attackBehaviour)
+                {
+                    attackBehaviour.DoAttack(receiveDamage);
+                }
             }
         }
 
@@ -48,7 +51,10 @@ namespace Presentation.Infrastructure
         public void Init()
         {
             _cadence = _militaryBuildingData.cadence;
-            _attackBehaviour.Init(_militaryBuildingData);
+            foreach (var attackBehaviour in _attackBehaviour)
+            {
+                attackBehaviour.Init(_militaryBuildingData);
+            }
         }
     }
 }

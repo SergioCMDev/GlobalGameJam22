@@ -1,4 +1,4 @@
-using Presentation.Interfaces;
+using Presentation.Hostiles;
 using UnityEngine;
 
 namespace Presentation.Infrastructure
@@ -12,10 +12,10 @@ namespace Presentation.Infrastructure
         {
             _damageAmount = militaryBuildingData.damage;
         }
-        
-        public override void DoAttack(GameObject receiveDamage)
+
+        public override void DoAttack(Enemy receiveDamage)
         {
-            receiveDamage.GetComponent<IReceiveDamage>().ReceiveDamage(_damageAmount);
+            receiveDamage.ReceiveDamage(_damageAmount);
         }
     }
 }

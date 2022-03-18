@@ -235,11 +235,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.15
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.77
+      value: -5.87
       objectReference: {fileID: 0}
     - target: {fileID: 3449160122288460460, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5069552752378941103, guid: 9961c61ee5ca95e41a8540ccf8e44056, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 5069552752378941103, guid: 9961c61ee5ca95e41a8540ccf8e44056, type: 3}
       propertyPath: m_LocalPosition.z
@@ -659,6 +659,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8f0adacdf8f435a9725907c436c5821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1826735654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1560579011, guid: 53f86975df848a6498226713f0708f58, type: 3}
+  m_PrefabInstance: {fileID: 7439441737416704894}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa972ed4170b5b46a87b1cf1611d247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &575628211776003664
@@ -2136,14 +2147,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1372231960918796675, guid: 9e992024af5db4849a080a7421259d86, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1372231960918796675, guid: 9e992024af5db4849a080a7421259d86, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1372231962158438977, guid: 9e992024af5db4849a080a7421259d86, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2191,10 +2194,6 @@ PrefabInstance:
     - target: {fileID: 1372231962158439006, guid: 9e992024af5db4849a080a7421259d86, type: 3}
       propertyPath: m_Name
       value: Mountain
-      objectReference: {fileID: 0}
-    - target: {fileID: 1372231962158439006, guid: 9e992024af5db4849a080a7421259d86, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e992024af5db4849a080a7421259d86, type: 3}
@@ -2366,6 +2365,10 @@ PrefabInstance:
       propertyPath: gridBuildingManager
       value: 
       objectReference: {fileID: 1539259234}
+    - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: gridMovementManager
+      value: 
+      objectReference: {fileID: 1826735654}
     - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: positionToInstantiate.x
       value: 1
