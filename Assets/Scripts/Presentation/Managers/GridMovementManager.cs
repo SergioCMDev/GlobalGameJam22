@@ -22,7 +22,7 @@ namespace Presentation.Managers
             // {
             //     movable.OnObjectMoved += OnObjectMoved;
             // }
-
+            if (!_testMovement) return;
             _testMovement.OnObjectMoved += OnObjectMoved;
         }
 

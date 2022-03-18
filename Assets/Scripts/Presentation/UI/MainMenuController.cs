@@ -32,12 +32,15 @@ namespace Presentation.UI
 
         private void StartNewGame()
         {
-            _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
-            _sceneModel.NextScene = _sceneChanger.GetSceneDataByName("Level1");
-            _canvasFader.ActivateFader();
-            operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
-            operationLoadingScene.allowSceneActivation = false;
-            operationLoadingScene.completed += SceneLoaded;        
+            //Temporal
+            SceneManager.LoadScene("SampleScene_Sergio");
+            
+            // _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
+            // _sceneModel.NextScene = _sceneChanger.GetSceneDataByName("Level1");
+            // _canvasFader.ActivateFader();
+            // operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
+            // operationLoadingScene.allowSceneActivation = false;
+            // operationLoadingScene.completed += SceneLoaded;        
         }
 
         private void GoToSelectedScene(string levelName)
