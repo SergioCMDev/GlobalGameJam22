@@ -164,7 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 3449160122288460458}
   enemyAttacker: {fileID: 4608155188211158495}
-  maximumLife: 100
   sliderBarView: {fileID: 4124490727882134518}
 --- !u!114 &259709254
 MonoBehaviour:
@@ -306,9 +305,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1381625415
+  m_SortingLayer: -1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 237510107985767388, guid: 6a0cf7108bc2fe941916f3c42cc2fa3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
