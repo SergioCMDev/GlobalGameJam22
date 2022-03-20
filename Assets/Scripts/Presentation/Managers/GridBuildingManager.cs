@@ -85,9 +85,9 @@ namespace Presentation.Managers
             // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
             _tileTypeBase.Add(TileType.Red, _red);
             _tileTypeBase.Add(TileType.Blue, _purple);
-            
+
             ReadWorld();
-            
+
             foreach (var buildingPosition in buildingPositionTuples)
             {
                 _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].Occupier =
