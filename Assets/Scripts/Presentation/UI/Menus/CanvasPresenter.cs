@@ -5,12 +5,11 @@ using App.SceneManagement;
 using Presentation.Interfaces;
 using Presentation.Managers;
 using Presentation.Structs;
-using Presentation.UI;
 using TMPro;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
     public class CanvasPresenter : MonoBehaviour
     {

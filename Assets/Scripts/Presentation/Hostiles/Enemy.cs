@@ -3,7 +3,7 @@ using App;
 using Presentation.Infrastructure;
 using Presentation.Interfaces;
 using Presentation.Managers;
-using Presentation.Menus;
+using Presentation.UI.Menus;
 using UnityEngine;
 using Utils;
 

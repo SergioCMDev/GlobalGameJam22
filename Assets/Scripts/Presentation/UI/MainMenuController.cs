@@ -2,7 +2,7 @@ using App.Events;
 using App.Models;
 using App.SceneManagement;
 using Presentation.LoadingScene;
-using Presentation.Menus;
+using Presentation.UI.Menus;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;

@@ -1,12 +1,11 @@
 ﻿using System;
 using Presentation.InputPlayer;
 using Presentation.Languages;
-using Presentation.Managers;
 using Presentation.MusicEmitter;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
     public class CanvasInitScenePresenter : MonoBehaviour
     {

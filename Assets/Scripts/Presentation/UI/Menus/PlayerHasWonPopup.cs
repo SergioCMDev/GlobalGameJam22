@@ -3,19 +3,20 @@ using Presentation.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
-    public class PlayerHasLostPopup : MonoBehaviour, ICloseablePopup
+    public class PlayerHasWonPopup : MonoBehaviour, ICloseablePopup
     {
-        [SerializeField] private Button _buttonRestart, _buttonMainMenu;
+        [SerializeField] private Button _buttonRestart, _buttonMainMenu, _buttonContinue;
         public event Action OnGoToMainMenuButtonPressed;
+        public event Action OnContinueButtonPressed;
         public event Action OnRestartButtonPressed;
-        public Action<GameObject> OnClosePopup { get; set; }
 
         private void Start()
         {
             _buttonRestart.onClick.AddListener(Restart);
             _buttonMainMenu.onClick.AddListener(GoToMainMenu);
+            _buttonContinue.onClick.AddListener(Continue);
         }
 
         private void GoToMainMenu()
@@ -24,6 +25,11 @@ namespace Presentation.Menus
             OnGoToMainMenuButtonPressed();
         }
 
+        private void Continue()
+        {
+            OnClosePopup(gameObject);
+            OnContinueButtonPressed();
+        }
 
         private void Restart()
         {
@@ -31,5 +37,6 @@ namespace Presentation.Menus
             OnRestartButtonPressed();
         }
 
+        public Action<GameObject> OnClosePopup { get; set; }
     }
 }

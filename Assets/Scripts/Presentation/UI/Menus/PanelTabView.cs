@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
     public abstract class PanelTabView : MonoBehaviour
     {

@@ -1,14 +1,12 @@
-using System;
 using App.Events;
 using App.SceneManagement;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
-using Presentation.Managers;
-using Presentation.Menus;
+using Presentation.UI.Menus;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     public class GameStatusController : MonoBehaviour
     {

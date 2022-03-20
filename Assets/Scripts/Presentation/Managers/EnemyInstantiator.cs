@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using App;
-using Presentation;
+using Presentation.Events;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
-using Presentation.Interfaces;
-using Presentation.Managers;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     public class EnemyInstantiator : MonoBehaviour
     {

@@ -6,7 +6,6 @@ using Domain;
 using Presentation;
 using Presentation.InputPlayer;
 using Presentation.Managers;
-using Presentation.Menus;
 using UnityEngine;
 using Utils;
 

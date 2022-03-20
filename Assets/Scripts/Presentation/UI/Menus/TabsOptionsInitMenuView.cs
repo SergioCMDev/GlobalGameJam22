@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
     public class TabsOptionsInitMenuView : ViewWithHorizontalButtonsBase
     {

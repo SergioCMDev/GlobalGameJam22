@@ -1,7 +1,7 @@
 using App.Events;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Events
 {
     [CreateAssetMenu(fileName = "InstantiateEnemyEvent",
         menuName = "Events/Enemy/InstantiateEnemyEvent")]

@@ -1,8 +1,8 @@
 using App;
 using App.Events;
 using Presentation.Infrastructure;
-using Presentation.Menus;
 using Presentation.Structs;
+using Presentation.UI.Menus;
 using UnityEngine;
 using Utils;
 

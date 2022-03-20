@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
     [Serializable]
     public struct TabComponent

@@ -1,7 +1,7 @@
 using App.Events;
 using Presentation.Interfaces;
-using Presentation.Menus;
 using Presentation.Structs;
+using Presentation.UI.Menus;
 using UnityEngine;
 
 namespace Presentation.Infrastructure

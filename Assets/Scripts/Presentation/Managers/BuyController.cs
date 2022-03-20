@@ -1,12 +1,11 @@
 using System;
 using App;
 using App.Events;
-using Presentation.Managers;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;
 
-namespace Presentation
+namespace Presentation.Managers
 {
     public class BuyController : MonoBehaviour
     {

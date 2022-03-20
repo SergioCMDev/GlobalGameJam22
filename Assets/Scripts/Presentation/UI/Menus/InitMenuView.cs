@@ -1,13 +1,11 @@
 ﻿using System;
 using Presentation.InputPlayer;
 using Presentation.Languages;
-using Presentation.Menus;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-namespace Presentation.Menus
+namespace Presentation.UI.Menus
 {
     public class InitMenuView : ViewWithVerticalButtonsBase
     {
