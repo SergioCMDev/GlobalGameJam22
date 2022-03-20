@@ -502,6 +502,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6757109771876727627, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
+      propertyPath: _area.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757109771876727627, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
+      propertyPath: _area.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757109771876727627, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
+      propertyPath: _area.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6894131667303687480, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -509,6 +521,14 @@ PrefabInstance:
     - target: {fileID: 6894131667303687480, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788584131345404270, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -247
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788584131345404270, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -612
       objectReference: {fileID: 0}
     - target: {fileID: 8254545866751651199, guid: 16be8c951b70b19468bb97255ce8a43b, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

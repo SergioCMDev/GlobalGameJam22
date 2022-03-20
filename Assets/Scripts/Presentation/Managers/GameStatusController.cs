@@ -1,3 +1,4 @@
+using System;
 using App.Events;
 using App.SceneManagement;
 using Presentation.Hostiles;
@@ -23,6 +24,11 @@ namespace Presentation.Managers
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
+
+        private void Awake()
+        {
+            enemyInstantiator.Init(_cityBuilding);
+        }
 
         void Start()
         {

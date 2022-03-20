@@ -10,7 +10,6 @@ namespace Presentation.Managers
 {
     public class EnemyInstantiator : MonoBehaviour
     {
-        [SerializeField] private CityBuilding cityBuilding;
 
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private GridMovementManager gridMovementManager;
@@ -20,7 +19,8 @@ namespace Presentation.Managers
         [SerializeField] private Vector3Int positionToInstantiate;
         [SerializeField] private GameObject enemyPrefab;
 
-        private List<Enemy> activeEnemies = new List<Enemy>();
+        private CityBuilding _cityBuilding;
+        private readonly List<Enemy> _activeEnemies = new List<Enemy>();
 
         private void Start()
         {
@@ -29,7 +29,10 @@ namespace Presentation.Managers
             InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.5f);
         }
 
-
+        public void Init(CityBuilding cityBuilding1)
+        {
+            _cityBuilding = cityBuilding1;
+        }
         public void InstantiateEnemy(InstantiateEnemyEvent instantiateEnemyEvent)
 
         {
@@ -48,9 +51,9 @@ namespace Presentation.Managers
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
             gridPathfinding.Init(gridBuildingManager.WorldTileDictionary);
-            enemy.Init(positionToInstantiate, cityBuilding, gridPathfinding, life, speed);
+            enemy.Init(positionToInstantiate, _cityBuilding, gridPathfinding, life, speed);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
-            activeEnemies.Add(enemy);
+            _activeEnemies.Add(enemy);
             enemy.OnObjectMoved += OnObjectMoved;
         }
 
@@ -64,17 +67,19 @@ namespace Presentation.Managers
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
             enemy.OnObjectMoved -= OnObjectMoved;
             OnEnemyHasBeenDefeated?.Invoke(enemy);
-            activeEnemies.Remove(enemy);
+            _activeEnemies.Remove(enemy);
         }
 
         public void StopEnemies()
         {
-            foreach (var enemy in activeEnemies)
+            foreach (var enemy in _activeEnemies)
             {
                 enemy.Deactivate();
             }
 
             Debug.Log("enemies have been stopped");
         }
+
+
     }
 }
