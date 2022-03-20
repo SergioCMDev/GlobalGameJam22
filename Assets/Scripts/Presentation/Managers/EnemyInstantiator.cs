@@ -19,7 +19,7 @@ namespace Presentation.Managers
         [SerializeField] private Vector3Int positionToInstantiate;
         [SerializeField] private GameObject enemyPrefab;
 
-        private CityBuilding _cityBuilding;
+        private List<CityBuilding> _citiesToDestroy;
         private readonly List<Enemy> _activeEnemies = new List<Enemy>();
 
         private void Start()
@@ -29,9 +29,9 @@ namespace Presentation.Managers
             InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.5f);
         }
 
-        public void Init(CityBuilding cityBuilding1)
+        public void SetCitiesToDestroy(List<CityBuilding> cityBuilding1)
         {
-            _cityBuilding = cityBuilding1;
+            _citiesToDestroy = cityBuilding1;
         }
         public void InstantiateEnemy(InstantiateEnemyEvent instantiateEnemyEvent)
 
@@ -51,7 +51,7 @@ namespace Presentation.Managers
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
             gridPathfinding.Init(gridBuildingManager.WorldTileDictionary);
-            enemy.Init(positionToInstantiate, _cityBuilding, gridPathfinding, life, speed);
+            enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, life, speed);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
             _activeEnemies.Add(enemy);
             enemy.OnObjectMoved += OnObjectMoved;

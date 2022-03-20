@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using App.Events;
 using App.SceneManagement;
 using Presentation.Hostiles;
@@ -11,7 +12,7 @@ namespace Presentation.Managers
 {
     public class GameStatusController : MonoBehaviour
     {
-        [SerializeField] private CityBuilding _cityBuilding;
+        [SerializeField] private List<CityBuilding> citiesBuilding;
         [SerializeField] private SliderBarView _sliderBarView;
         [SerializeField] private EnemyInstantiator enemyInstantiator;
 
@@ -24,10 +25,12 @@ namespace Presentation.Managers
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
+        private List<Building> citiesToDestroy;
 
         private void Awake()
         {
-            enemyInstantiator.Init(_cityBuilding);
+            citiesToDestroy = new List<Building>(citiesBuilding);
+            enemyInstantiator.SetCitiesToDestroy(citiesBuilding);
         }
 
         void Start()
@@ -35,8 +38,11 @@ namespace Presentation.Managers
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             enemyInstantiator.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
+            foreach (var cityBuilding in citiesBuilding)
+            {
+                cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
+            }
 
-            _cityBuilding.OnBuildingDestroyed += PlayerHasBeenDefeated;
             _sliderBarView.SetMaxValue(_timeToWin);
             _sliderBarView.OnSliderReachZero += TimeHasEnded;
             _remainingTimeToWin = _timeToWin;
@@ -55,6 +61,7 @@ namespace Presentation.Managers
             _remainingTimeToWin -= Time.deltaTime;
             _sliderBarView.SetValue(_remainingTimeToWin);
         }
+
 //Refactor
         private void EnemyHasBeenDefeated(Enemy enemy)
         {
@@ -64,8 +71,10 @@ namespace Presentation.Managers
             enemyInstantiator.StopEnemies();
         }
 
-        private void PlayerHasBeenDefeated(Building building)
+        private void CityHasBeenDestroyed(Building building)
         {
+            citiesToDestroy.Remove(building);
+            if (citiesBuilding.Count != 0) return;
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();

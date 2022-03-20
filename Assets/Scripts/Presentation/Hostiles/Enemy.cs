@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using App;
 using Presentation.Infrastructure;
 using Presentation.Interfaces;
@@ -17,18 +18,19 @@ namespace Presentation.Hostiles
 
         private float _life;
         private float _maximumLife;
+        private int _currentCityToDestroy;
         private bool _isAlive;
         private TileDataEntity _nextDestination;
-        private CityBuilding _cityBuilding;
+        private List<CityBuilding> _cityBuilding;
+        private CityBuilding _cityTarget;
         private GridPathfinding _gridPathfinding;
 
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
         private EnemyMovement EnemyMovement => enemyMovement;
-        public EnemyAttacker EnemyAttacker => enemyAttacker;
 
 
-        public void Init(Vector3Int initialPosition, CityBuilding cityBuilding, GridPathfinding pathfinding,
+        public void Init(Vector3Int initialPosition, List<CityBuilding> cityBuilding, GridPathfinding pathfinding,
             float maximumLife, float speed)
         {
             _maximumLife = maximumLife;
@@ -36,6 +38,8 @@ namespace Presentation.Hostiles
             _life = maximumLife;
             sliderBarView.SetMaxValue(maximumLife);
             _cityBuilding = cityBuilding;
+            _currentCityToDestroy = 0;
+            _cityTarget = cityBuilding[_currentCityToDestroy];
             _gridPathfinding = pathfinding;
             // cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
             _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(transform.position);
@@ -84,16 +88,24 @@ namespace Presentation.Hostiles
             EnemyMovement.Stop();
         }
 
+        private bool HasToFindNewDestination()
+        {
+            return transform.position == _nextDestination.WorldPosition;
+        }
+        
         private void Update()
         {
             if (!_isAlive) return;
             if (!HasToFindNewDestination())
             {
-                //attacking = true;
                 //nextDestination = lastBrick;
-                if (enemyAttacker.CanAttack() && _cityBuilding != null && _cityBuilding.Life >= 0)
+                if (enemyAttacker.CanAttack() && _cityTarget != null && _cityTarget.Life >= 0)
                 {
-                    // EnemyAttacker.Attack(_cityBuilding);
+                    enemyAttacker.Attack(_cityTarget);
+                    if (_cityTarget.Life <= 0)
+                    {
+                        ChangeTarget();
+                    }
                 }
             }
             else
@@ -109,6 +121,13 @@ namespace Presentation.Hostiles
             enemyMovement.MoveTo(_nextDestination.WorldPosition);
         }
 
+        private void ChangeTarget()
+        {
+            _currentCityToDestroy++;
+            if (_currentCityToDestroy >= _cityBuilding.Count) return;
+            _cityTarget = _cityBuilding[_currentCityToDestroy];
+        }
+
         private void DestroyTile(Building obj)
         {
             // if (_defensiveBuilds.Any())
@@ -120,10 +139,7 @@ namespace Presentation.Hostiles
             // }
         }
 
-        private bool HasToFindNewDestination()
-        {
-            return transform.position == _nextDestination.WorldPosition;
-        }
+
 
         public event Action<GameObject, WorldPositionTuple> OnObjectMoved;
     }

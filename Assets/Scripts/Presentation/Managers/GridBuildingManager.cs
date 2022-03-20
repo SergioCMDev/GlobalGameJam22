@@ -36,12 +36,20 @@ namespace Presentation.Managers
         }
     }
 
+    [Serializable]
+    public class BuildingPositionTuple
+    {
+        public Vector3Int positionInGrid;
+        public CityBuilding cityBuilding;
+    }
+
     public class GridBuildingManager : MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap;
         [SerializeField] private Grid _grid;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private Tile _red, white, green, _purple;
+        [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
 
         private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
 
@@ -77,10 +85,18 @@ namespace Presentation.Managers
             // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
             _tileTypeBase.Add(TileType.Red, _red);
             _tileTypeBase.Add(TileType.Blue, _purple);
+            
+            ReadWorld();
+            
+            foreach (var buildingPosition in buildingPositionTuples)
+            {
+                _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].Occupier =
+                    buildingPosition.cityBuilding.gameObject;
+                _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].IsOccupied = true;
+            }
 
 
             HideTemporalTileMap();
-            ReadWorld(); //REMOVE
         }
 
         public void AllowPlayerToSetBuildingInTilemap(AllowPlayerToSetBuildingInTilemapEvent tilemapEvent)
@@ -274,7 +290,7 @@ namespace Presentation.Managers
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
             var buildingGridPosition = GetGridPositionByMouse(Input.mousePosition);
-            if (buildingGridPosition == _currentObjectPosition) return;
+            if (buildingGridPosition == _currentObjectPosition || !_worldTileDictionaryBuildingTilemap.ContainsKey(buildingGridPosition) || _worldTileDictionaryBuildingTilemap[buildingGridPosition].TilemapColours == null) return;
 
             ClearPreviousPaintedArea();
             _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);

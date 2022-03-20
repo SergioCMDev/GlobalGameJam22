@@ -19,11 +19,6 @@ namespace Presentation.Infrastructure
         protected Color originalColor;
         protected Color colorWithTransparency;
 
-        protected int Level
-        {
-            get => _level;
-            set => _level = value;
-        }
 
         public float Life
         {
@@ -65,7 +60,7 @@ namespace Presentation.Infrastructure
             ReceiveDamage(damageEvent.Damage);
         }
 
-        public virtual void AddLife(BuildingReceiveLifeEvent receiveLifeEvent)
+        public void AddLife(BuildingReceiveLifeEvent receiveLifeEvent)
         {
             if (_id != receiveLifeEvent.Id) return;
             AddLife(receiveLifeEvent.Life);
@@ -92,11 +87,6 @@ namespace Presentation.Infrastructure
             }
 
             UpdateLifeSliderBar();
-        }
-
-        public void ReceiveDamage(float receivedDamage, DamageType damageType)
-        {
-            ReceiveDamage(receivedDamage);
         }
     }
 }

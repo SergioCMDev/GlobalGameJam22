@@ -5,23 +5,21 @@ namespace Presentation.Hostiles
 {
     public class EnemyAttacker : MonoBehaviour
     {
-        // private GameObject target;
         [SerializeField] private float attackSpeed = 1;
-        [SerializeField] private float damage = 1f; //mover a enemy
-        private float currentTime = 0; //mover a enemy
+        [SerializeField] private float damage;
+        private float _currentTime;
 
         public void Attack(IReceiveDamage receiveDamage)
         {
-            currentTime -= attackSpeed;
+            _currentTime -= attackSpeed;
             receiveDamage.ReceiveDamage(damage);
-            // cityBuilding.ReceiveDamage(damage, _cityBuilds.Count);
         }
 
 
         public bool CanAttack()
         {
-            currentTime += Time.deltaTime;
-            return currentTime > attackSpeed;
+            _currentTime += Time.deltaTime;
+            return _currentTime > attackSpeed;
         }
     }
 }

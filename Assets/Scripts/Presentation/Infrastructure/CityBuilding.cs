@@ -12,6 +12,7 @@ namespace Presentation.Infrastructure
         {
             //TODO Refactor, create a method to describe what is their meaning
             Debug.Log("Damage percentage: " + (100 / MaxLife) * Life);
+            //ChangeSprite Depending on their life
             if (CurrentLife() == 0)
             {
                 DestroyBuilding();
@@ -20,13 +21,13 @@ namespace Presentation.Infrastructure
 
         private float CurrentLife()
         {
-            return 100 / MaxLife * Life % citySize ;
+            return 100 / MaxLife * Life % citySize;
             // if (_currentLife <= 0)
         }
-        
-        public void DestroyBuilding()
+
+        private void DestroyBuilding()
         {
-            OnBuildingDestroyed.Invoke(this);
+            OnBuildingDestroyed?.Invoke(this);
         }
     }
 }
