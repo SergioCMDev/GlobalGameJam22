@@ -6,29 +6,24 @@ namespace Presentation.Infrastructure
     public class CityBuilding : Building
     {
         public event Action<Building> OnBuildingDestroyed;
-
-
-        public void ReceiveDamage(float receivedDamage, int citySize)
-        {
-            ReceiveDamage(receivedDamage);
-            //TODO Refactor, create a method to describe what is their meaning
-            if (100 / MaxLife * Life % citySize == 0)
-            {
-                DestroyBuilding();
-            }
-        }
+        [SerializeField] private float citySize;
 
         public override void ReceiveDamage(float receivedDamage)
         {
+            //TODO Refactor, create a method to describe what is their meaning
             Debug.Log("Damage percentage: " + (100 / MaxLife) * Life);
-
-            _currentLife -= receivedDamage;
-            if (_currentLife <= 0)
+            if (CurrentLife() == 0)
             {
                 DestroyBuilding();
             }
         }
 
+        private float CurrentLife()
+        {
+            return 100 / MaxLife * Life % citySize ;
+            // if (_currentLife <= 0)
+        }
+        
         public void DestroyBuilding()
         {
             OnBuildingDestroyed.Invoke(this);
