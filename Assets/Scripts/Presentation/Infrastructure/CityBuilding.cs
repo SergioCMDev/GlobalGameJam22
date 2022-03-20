@@ -1,10 +1,9 @@
 ﻿using System;
-using Presentation.Interfaces;
 using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
-    public class CityBuilding : Building, IDestructible
+    public class CityBuilding : Building
     {
         public event Action<Building> OnBuildingDestroyed;
 

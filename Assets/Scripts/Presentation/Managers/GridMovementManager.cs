@@ -10,9 +10,6 @@ namespace Presentation.Managers
         [SerializeField] private Grid _grid;
         // [SerializeField] private ObjectHasMovedToNewTileEvent _eventMovement;
         [SerializeField] private GridBuildingManager _gridBuildingManager;
-
-        [SerializeField] private List<IMovable> _movables;
-
         [SerializeField] private TestMovement _testMovement;
 
         // Start is called before the first frame update
