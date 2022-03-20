@@ -290,7 +290,8 @@ namespace Presentation.Managers
             if (EventSystem.current.IsPointerOverGameObject()) return;
 
             var buildingGridPosition = GetGridPositionByMouse(Input.mousePosition);
-            if (buildingGridPosition == _currentObjectPosition || !_worldTileDictionaryBuildingTilemap.ContainsKey(buildingGridPosition) || _worldTileDictionaryBuildingTilemap[buildingGridPosition].TilemapColours == null) return;
+            if (buildingGridPosition == _currentObjectPosition ||
+                !PositionIsInsideBuildingTilemapGrid(buildingGridPosition)) return;
 
             ClearPreviousPaintedArea();
             _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);
@@ -314,6 +315,13 @@ namespace Presentation.Managers
 
             var buildingArea = GetObjectArea(buildingGridPosition, temporalObjectArea.size);
             SetTilesInTilemap(buildingArea, CopyFromTileDataToArray(tileDatasBuilding), _buildingTilemap);
+        }
+
+        private bool PositionIsInsideBuildingTilemapGrid(Vector3Int buildingGridPosition)
+        {
+            return _worldTileDictionaryBuildingTilemap.ContainsKey(buildingGridPosition) &&
+                   _worldTileDictionaryBuildingTilemap[buildingGridPosition].TilemapColours
+                       .ContainsKey(_buildingTilemap);
         }
 
         private TileDataEntity GetTileDataByGridPosition(List<TileDataEntity> tileDataEntities,
