@@ -85,7 +85,7 @@ namespace Presentation.Infrastructure
         private List<Enemy> GetReachableEnemies()
         {
             var reachableEnemies = tilesToAttack.FindAll(tile =>
-                    tile.IsOccupied && tile.Occupier != gameObject)
+                    tile.IsOccupied && tile.Occupier != gameObject  && tile.Occupier.CompareTag("Enemy"))
                 .Select(tile => tile.Occupier.GetComponent<Enemy>()).ToList();
             return reachableEnemies;
         }
