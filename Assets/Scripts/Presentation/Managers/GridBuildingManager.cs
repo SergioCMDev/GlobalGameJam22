@@ -22,7 +22,7 @@ namespace Presentation.Managers
         public GameObject Occupier;
         public Vector3 WorldPosition;
         public bool Locked;
-
+        public TilePosition TilePosition; //REFACTOR
         public TileDataEntity()
         {
             Locked = false;
@@ -63,8 +63,7 @@ namespace Presentation.Managers
         private readonly List<TileDataEntity> tileDatasBuilding = new List<TileDataEntity>();
         private readonly List<TileDataEntity> tileDatasAttack = new List<TileDataEntity>();
 
-        private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap =
-            new Dictionary<Vector3Int, TileDataEntity>();
+        private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap = new();
 
         [SerializeField] private bool _showAttackZone;
 

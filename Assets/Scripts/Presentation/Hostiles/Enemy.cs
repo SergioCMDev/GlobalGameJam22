@@ -15,12 +15,13 @@ namespace Presentation.Hostiles
         [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private EnemyAttacker enemyAttacker;
         [SerializeField] private SliderBarView sliderBarView;
+        [SerializeField] private TilesToFollow tilesToFollow;
 
         private float _life;
         private float _maximumLife;
         private int _currentCityToDestroy;
         private bool _isAlive;
-        private TileDataEntity _nextDestination;
+        private TilePosition _nextDestination;
         private List<CityBuilding> _cityBuilding;
         private CityBuilding _cityTarget;
         private GridPathfinding _gridPathfinding;
@@ -28,6 +29,8 @@ namespace Presentation.Hostiles
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
         private EnemyMovement EnemyMovement => enemyMovement;
+
+        public List<TilePosition> TilesToFollow => tilesToFollow.TilePositions;
 
 
         public void Init(Vector3Int initialPosition, List<CityBuilding> cityBuilding, GridPathfinding pathfinding,
@@ -41,8 +44,8 @@ namespace Presentation.Hostiles
             _currentCityToDestroy = 0;
             _cityTarget = cityBuilding[_currentCityToDestroy];
             _gridPathfinding = pathfinding;
-            // cityBuilding.OnBuildingDestroyed += DestroyTile; //mover a enemy
-            _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(transform.position);
+            enemyMovement.tilePosition = _gridPathfinding.InitialTile;
+            _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(enemyMovement.tilePosition);
             _isAlive = true;
         }
 
@@ -92,13 +95,16 @@ namespace Presentation.Hostiles
         {
             return transform.position == _nextDestination.WorldPosition;
         }
-        
+
         private void Update()
         {
             if (!_isAlive) return;
-            if (!HasToFindNewDestination())
+            //Ver donde se encuentra
+            //COmprobar si esta en la ultima posicion
+            //SI NO  => Obtener siguiente posicion con respecto a la actual
+            //SI ESTA => ATACAR
+            if (enemyMovement.tilePosition == _gridPathfinding.LastPosition)
             {
-                //nextDestination = lastBrick;
                 if (enemyAttacker.CanAttack() && _cityTarget != null && _cityTarget.Life >= 0)
                 {
                     enemyAttacker.Attack(_cityTarget);
@@ -107,10 +113,12 @@ namespace Presentation.Hostiles
                         ChangeTarget();
                     }
                 }
+                return;
             }
-            else
+            if (enemyMovement.transform.position == _nextDestination.WorldPosition)//BUscar manera para saber si llego a dicha casilla
             {
-                _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(transform.position);
+                enemyMovement.tilePosition = _nextDestination;
+                _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(enemyMovement.tilePosition);
                 OnObjectMoved?.Invoke(gameObject, new WorldPositionTuple()
                 {
                     NewWorldPosition = _nextDestination.WorldPosition,
@@ -138,7 +146,6 @@ namespace Presentation.Hostiles
             //     _defensiveBuilds.Remove(randomKey);
             // }
         }
-
 
 
         public event Action<GameObject, WorldPositionTuple> OnObjectMoved;

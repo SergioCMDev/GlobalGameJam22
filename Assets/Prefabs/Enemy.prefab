@@ -151,7 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837e4c593f0247099961fec26bd30eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSpeed: 5
+  speed: 0
+  tilePosition:
+    GridPosition: {x: 0, y: 0, z: 0}
+    WorldPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &3449160121476668682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +170,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 3449160122288460458}
   enemyAttacker: {fileID: 4608155188211158495}
   sliderBarView: {fileID: 4124490727882134518}
+  tilesToFollow: {fileID: 11400000, guid: 853d012296733c34cb7338daf173e44c, type: 2}
 --- !u!114 &259709254
 MonoBehaviour:
   m_ObjectHideFlags: 0

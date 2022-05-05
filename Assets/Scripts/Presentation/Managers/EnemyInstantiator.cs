@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using App;
@@ -34,13 +35,13 @@ namespace Presentation.Managers
             _citiesToDestroy = cityBuilding1;
         }
         public void InstantiateEnemy(InstantiateEnemyEvent instantiateEnemyEvent)
-
         {
             InstantiateEnemy(instantiateEnemyEvent.Prefab, instantiateEnemyEvent.PositionToInstantiate,
                 instantiateEnemyEvent.Life, instantiateEnemyEvent.Speed);
         }
 
-        public void InstantiateEnemy(GameObject enemyPrefab, Vector3Int positionToInstantiate, float life, float speed)
+        //TODO USE ScriptableObjects to life and speed
+        private void InstantiateEnemy(GameObject enemyPrefab, Vector3Int positionToInstantiate, float life, float speed)
         {
             if (!gridBuildingManager.WorldTileDictionary.ContainsKey(positionToInstantiate))
                 return;
@@ -50,7 +51,8 @@ namespace Presentation.Managers
             var enemyInstance = Instantiate(enemyPrefab, positionToPutEnemy, Quaternion.identity);
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
-            gridPathfinding.Init(gridBuildingManager.WorldTileDictionary);
+            gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemy.TilesToFollow);
+            
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, life, speed);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
             _activeEnemies.Add(enemy);
