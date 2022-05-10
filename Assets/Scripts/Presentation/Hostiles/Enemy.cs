@@ -19,7 +19,7 @@ namespace Presentation.Hostiles
 
         private float _life;
         private float _maximumLife;
-        private int _currentCityToDestroy;
+        private int _currentCityToDestroyed;
         private bool _isAlive;
         private TilePosition _nextDestination;
         private List<CityBuilding> _cityBuilding;
@@ -41,8 +41,8 @@ namespace Presentation.Hostiles
             _life = maximumLife;
             sliderBarView.SetMaxValue(maximumLife);
             _cityBuilding = cityBuilding;
-            _currentCityToDestroy = 0;
-            _cityTarget = cityBuilding[_currentCityToDestroy];
+            _currentCityToDestroyed = 0;
+            _cityTarget = cityBuilding[_currentCityToDestroyed];
             _gridPathfinding = pathfinding;
             enemyMovement.tilePosition = _gridPathfinding.InitialTile;
             _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(enemyMovement.tilePosition);
@@ -105,19 +105,28 @@ namespace Presentation.Hostiles
             //SI ESTA => ATACAR
             if (enemyMovement.tilePosition == _gridPathfinding.LastPosition)
             {
-                if (enemyAttacker.CanAttack() && _cityTarget != null && _cityTarget.Life >= 0)
+                if (!enemyAttacker.CanAttack() || _cityTarget == null) return;
+                enemyAttacker.Attack(_cityTarget);
+                if (_cityTarget.Life > 0) return;
+                _currentCityToDestroyed++;
+                if (ExistsMoreTargets())
                 {
-                    enemyAttacker.Attack(_cityTarget);
-                    if (_cityTarget.Life <= 0)
-                    {
-                        ChangeTarget();
-                    }
+                    ChangeTarget();
                 }
+
                 return;
             }
-            if (enemyMovement.transform.position == _nextDestination.WorldPosition)//BUscar manera para saber si llego a dicha casilla
+
+            if (enemyMovement.transform.position ==
+                _nextDestination.WorldPosition) //BUscar manera para saber si llego a dicha casilla
             {
                 enemyMovement.tilePosition = _nextDestination;
+
+                if (enemyMovement.tilePosition == _gridPathfinding.LastPosition)
+                {
+                    return;
+                }
+
                 _nextDestination = _gridPathfinding.GetNextPositionFromCurrent(enemyMovement.tilePosition);
                 OnObjectMoved?.Invoke(gameObject, new WorldPositionTuple()
                 {
@@ -129,11 +138,14 @@ namespace Presentation.Hostiles
             enemyMovement.MoveTo(_nextDestination.WorldPosition);
         }
 
+        private bool ExistsMoreTargets()
+        {
+            return _currentCityToDestroyed <= _cityBuilding.Count;
+        }
+
         private void ChangeTarget()
         {
-            _currentCityToDestroy++;
-            if (_currentCityToDestroy >= _cityBuilding.Count) return;
-            _cityTarget = _cityBuilding[_currentCityToDestroy];
+            _cityTarget = _cityBuilding[_currentCityToDestroyed];
         }
 
         private void DestroyTile(Building obj)

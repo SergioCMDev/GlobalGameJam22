@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837e4c593f0247099961fec26bd30eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 3
   tilePosition:
     GridPosition: {x: 0, y: 0, z: 0}
     WorldPosition: {x: 0, y: 0, z: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 3449160122288460458}
   enemyAttacker: {fileID: 4608155188211158495}
   sliderBarView: {fileID: 4124490727882134518}
-  tilesToFollow: {fileID: 11400000, guid: 853d012296733c34cb7338daf173e44c, type: 2}
+  tilesToFollow: {fileID: 11400000, guid: f7f820ce0013fae4389315216d8cb94a, type: 2}
 --- !u!114 &259709254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpeed: 1
-  damage: 1
+  damage: 5
 --- !u!1 &6941301912902136923
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6941301912902136923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

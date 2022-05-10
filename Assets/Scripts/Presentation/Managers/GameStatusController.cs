@@ -29,6 +29,7 @@ namespace Presentation.Managers
 
         private void Awake()
         {
+            //TODO REFACTOR
             citiesToDestroy = new List<Building>(citiesBuilding);
             enemyInstantiator.SetCitiesToDestroy(citiesBuilding);
         }
@@ -74,7 +75,7 @@ namespace Presentation.Managers
         private void CityHasBeenDestroyed(Building building)
         {
             citiesToDestroy.Remove(building);
-            if (citiesBuilding.Count != 0) return;
+            if (citiesToDestroy.Count != 0) return;
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
