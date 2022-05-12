@@ -37,14 +37,7 @@ namespace Presentation.Infrastructure
             set => _attackRingRange = value;
         }
 
-
-        public override void ReceiveDamage(float receivedDamage)
-        {
-            Life -= receivedDamage;
-            UpdateLifeSliderBar();
-        }
-
-
+        
         private void Awake()
         {
             _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
@@ -67,13 +60,7 @@ namespace Presentation.Infrastructure
         {
             _soundManager.PlaySfx(_sfxWhenAttack);
         }
-
-        private bool CanReachSomeEnemy()
-        {
-            return
-                tilesToAttack.Any(tile => tile.IsOccupied && tile.Occupier != gameObject);
-        }
-
+        
         private void Update()
         {
             if (!_isActive || !_militaryBuildingAttacker.CanAttack()) return;

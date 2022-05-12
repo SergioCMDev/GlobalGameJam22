@@ -1,12 +1,12 @@
+using System;
 using App.Events;
 using Presentation.Interfaces;
-using Presentation.Structs;
 using Presentation.UI.Menus;
 using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
-    public abstract class Building : MonoBehaviour, IReceiveDamage, ILife
+    public class Building : MonoBehaviour, IReceiveDamage, ILife
     {
         [SerializeField] private SliderBarView _sliderBarView;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
@@ -18,6 +18,7 @@ namespace Presentation.Infrastructure
         private bool _placed;
         protected Color originalColor;
         protected Color colorWithTransparency;
+        public event Action<Building> OnBuildingDestroyed;
 
 
         public float Life
@@ -59,19 +60,32 @@ namespace Presentation.Infrastructure
         {
             ReceiveDamage(damageEvent.Damage);
         }
-
+        
+        private void DestroyBuilding()
+        {
+            OnBuildingDestroyed?.Invoke(this);
+        }
+        
         public void AddLife(BuildingReceiveLifeEvent receiveLifeEvent)
         {
             if (_id != receiveLifeEvent.Id) return;
             AddLife(receiveLifeEvent.Life);
         }
 
-        protected void UpdateLifeSliderBar()
+        private void UpdateLifeSliderBar()
         {
             _sliderBarView.SetValue(Life);
         }
 
-        public abstract void ReceiveDamage(float receivedDamage);
+        public void ReceiveDamage(float receivedDamage)
+        {
+            Life -= receivedDamage;
+            UpdateLifeSliderBar();
+            if (Life <= 0)
+            {
+                DestroyBuilding();
+            }
+        }
 
         public bool IsAlive()
         {

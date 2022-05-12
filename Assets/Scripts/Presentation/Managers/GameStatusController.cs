@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using App.Events;
 using App.SceneManagement;
@@ -12,10 +11,11 @@ namespace Presentation.Managers
 {
     public class GameStatusController : MonoBehaviour
     {
-        [SerializeField] private List<CityBuilding> citiesBuilding;
         [SerializeField] private SliderBarView _sliderBarView;
         [SerializeField] private EnemyInstantiator enemyInstantiator;
-
+        [SerializeField] private GridBuildingManager gridBuildingManager;
+        [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
+        
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent;
@@ -25,13 +25,15 @@ namespace Presentation.Managers
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
-        private List<Building> citiesToDestroy;
-
+        private List<Building> _buildings;
         private void Awake()
         {
-            //TODO REFACTOR
-            citiesToDestroy = new List<Building>(citiesBuilding);
-            enemyInstantiator.SetCitiesToDestroy(citiesBuilding);
+            foreach (var VARIABLE in buildingPositionTuples)
+            {
+                _buildings.Add(VARIABLE.cityBuilding);
+            }
+            enemyInstantiator.SetCitiesToDestroy(_buildings);
+            gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
         }
 
         void Start()
@@ -39,7 +41,7 @@ namespace Presentation.Managers
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             enemyInstantiator.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
-            foreach (var cityBuilding in citiesBuilding)
+            foreach (var cityBuilding in _buildings)
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
             }
@@ -74,8 +76,8 @@ namespace Presentation.Managers
 
         private void CityHasBeenDestroyed(Building building)
         {
-            citiesToDestroy.Remove(building);
-            if (citiesToDestroy.Count != 0) return;
+            _buildings.Remove(building);
+            if (_buildings.Count != 0) return;
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();

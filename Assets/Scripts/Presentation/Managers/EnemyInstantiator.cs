@@ -20,7 +20,7 @@ namespace Presentation.Managers
         [SerializeField] private Vector3Int positionToInstantiate;
         [SerializeField] private GameObject enemyPrefab;
 
-        private List<CityBuilding> _citiesToDestroy;
+        private List<Building> _citiesToDestroy;
         private readonly List<Enemy> _activeEnemies = new List<Enemy>();
 
         private void Start()
@@ -30,7 +30,7 @@ namespace Presentation.Managers
             InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.5f);
         }
 
-        public void SetCitiesToDestroy(List<CityBuilding> cityBuilding1)
+        public void SetCitiesToDestroy(List<Building> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
         }

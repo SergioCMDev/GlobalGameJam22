@@ -22,8 +22,8 @@ namespace Presentation.Hostiles
         private int _currentCityToDestroyed;
         private bool _isAlive;
         private TilePosition _nextDestination;
-        private List<CityBuilding> _cityBuilding;
-        private CityBuilding _cityTarget;
+        private List<Building> _cityBuilding;
+        private Building _cityTarget;
         private GridPathfinding _gridPathfinding;
 
         public event Action<Enemy> OnEnemyHasBeenDefeated;
@@ -33,7 +33,7 @@ namespace Presentation.Hostiles
         public List<TilePosition> TilesToFollow => tilesToFollow.TilePositions;
 
 
-        public void Init(Vector3Int initialPosition, List<CityBuilding> cityBuilding, GridPathfinding pathfinding,
+        public void Init(Vector3Int initialPosition, List<Building> cityBuilding, GridPathfinding pathfinding,
             float maximumLife, float speed)
         {
             _maximumLife = maximumLife;

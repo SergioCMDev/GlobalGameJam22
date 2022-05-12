@@ -40,7 +40,7 @@ namespace Presentation.Managers
     public class BuildingPositionTuple
     {
         public Vector3Int positionInGrid;
-        public CityBuilding cityBuilding;
+        public Building cityBuilding;
     }
 
     public class GridBuildingManager : MonoBehaviour
@@ -49,7 +49,6 @@ namespace Presentation.Managers
         [SerializeField] private Grid _grid;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private Tile _red, white, green, _purple;
-        [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
 
         private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
 
@@ -87,12 +86,7 @@ namespace Presentation.Managers
 
             ReadWorld();
 
-            foreach (var buildingPosition in buildingPositionTuples)
-            {
-                _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].Occupier =
-                    buildingPosition.cityBuilding.gameObject;
-                _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].IsOccupied = true;
-            }
+    
 
 
             HideTemporalTileMap();
@@ -606,6 +600,16 @@ namespace Presentation.Managers
             WorldTileDictionary[tuplePosition.NewGridPosition].Occupier = occupier;
 
             WorldTileDictionary[tuplePosition.OldGridPosition].CleanOccupier();
+        }
+
+        public void SetCitiesInGrid(List<BuildingPositionTuple> buildingPositionTuples)
+        {
+            foreach (var buildingPosition in buildingPositionTuples)
+            {
+                _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].Occupier =
+                    buildingPosition.cityBuilding.gameObject;
+                _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].IsOccupied = true;
+            }
         }
     }
 }
