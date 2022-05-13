@@ -25,7 +25,7 @@ namespace Presentation.Managers
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
-        private List<Building> _buildings;
+        private List<Building> _buildings = new();
         private void Awake()
         {
             foreach (var VARIABLE in buildingPositionTuples)
@@ -33,7 +33,6 @@ namespace Presentation.Managers
                 _buildings.Add(VARIABLE.cityBuilding);
             }
             enemyInstantiator.SetCitiesToDestroy(_buildings);
-            gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
         }
 
         void Start()
@@ -49,6 +48,7 @@ namespace Presentation.Managers
             _sliderBarView.SetMaxValue(_timeToWin);
             _sliderBarView.OnSliderReachZero += TimeHasEnded;
             _remainingTimeToWin = _timeToWin;
+            gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
             _timerIsRunning = true;
         }
 
