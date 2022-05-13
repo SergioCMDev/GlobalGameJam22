@@ -120,6 +120,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -856,6 +857,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      T_RapidFire09: 3747792825357764849
+      T_RapidFire00: -3786912250384423456
+      T_RapidFire21: 7772045704810945753
+      T_RapidFire06: -6245184560120398786
+      T_RapidFire30: -4596555572135803680
+      T_RapidFire07: -4875202020101123367
+      T_RapidFire20: 4190046138267072794
+      T_RapidFire27: 5575925216676169212
+      T_RapidFire19: -1875855610459020149
+      T_RapidFire10: 2335788167061899589
+      T_RapidFire26: 5462255228975485797
+      T_RapidFire15: -261631754382341088
+      T_RapidFire17: 1672989379504815371
+      T_RapidFire14: 9066097849884033456
+      T_RapidFire12: -6772453291163590556
+      T_RapidFire04: -2868602424319393147
+      T_RapidFire24: 5630973299027846411
+      T_RapidFire01: -934637572059752264
+      T_RapidFire05: -1106858517542785592
+      T_RapidFire28: -1331163919082710978
+      T_RapidFire13: -7409630999775503409
+      T_RapidFire03: -5768057945192346435
+      T_RapidFire18: -1212735000147992604
+      T_RapidFire23: -8805711981536193248
+      T_RapidFire08: -3418086830202778855
+      T_RapidFire11: 378827453679452568
+      T_RapidFire02: -5762124389761079853
+      T_RapidFire25: -4583256899637935038
+      T_RapidFire22: 4358876086378721429
+      T_RapidFire31: 1449686151652735038
+      T_RapidFire29: 7816698280518835236
+      T_RapidFire16: 5849899935479909957
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

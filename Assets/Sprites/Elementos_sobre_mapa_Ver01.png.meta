@@ -87,6 +87,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -628,6 +629,28 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Elementos_sobre_mapa_Ver01_14: -3931881984291749605
+      Elementos_sobre_mapa_Ver01_10: 4459861655201250235
+      Elementos_sobre_mapa_Ver01_18: -7283906079753458833
+      Elementos_sobre_mapa_Ver01_15: 7517218552101874523
+      Elementos_sobre_mapa_Ver01_5: 3894039641636625560
+      Elementos_sobre_mapa_Ver01_17: 1782445102734513522
+      Elementos_sobre_mapa_Ver01_3: 4374947301680409364
+      Elementos_sobre_mapa_Ver01_12: 2496813674550606873
+      Elementos_sobre_mapa_Ver01_8: 7676730559423200156
+      Elementos_sobre_mapa_Ver01_2: 6604025246798065379
+      Elementos_sobre_mapa_Ver01_4: -4671547597785416350
+      Elementos_sobre_mapa_Ver01_6: 531391026485128644
+      Elementos_sobre_mapa_Ver01_13: 390338915590193818
+      Elementos_sobre_mapa_Ver01_20: -2916977326820123007
+      Elementos_sobre_mapa_Ver01_1: -5800285686167523639
+      Elementos_sobre_mapa_Ver01_0: -1128271291994504227
+      Elementos_sobre_mapa_Ver01_19: -2247541356356195754
+      Elementos_sobre_mapa_Ver01_7: 3233956900699542985
+      Elementos_sobre_mapa_Ver01_16: -1870741924242117443
+      Elementos_sobre_mapa_Ver01_11: -1874798515099477146
+      Elementos_sobre_mapa_Ver01_9: 5386440090597066628
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
