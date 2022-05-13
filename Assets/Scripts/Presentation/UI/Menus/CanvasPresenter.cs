@@ -7,6 +7,8 @@ using Presentation.Managers;
 using Presentation.Structs;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utils;
 
 namespace Presentation.UI.Menus
@@ -17,7 +19,9 @@ namespace Presentation.UI.Menus
         [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
         [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
+        [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
+        [SerializeField] private Button _showRanges;
         private SceneChanger _sceneChanger;
 
         private ResourcesManager _resourcesManager;
@@ -31,10 +35,18 @@ namespace Presentation.UI.Menus
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
             UpdateResources();
-            
-
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += PlayerWantsToBuyBuilding;
         }
+
+        public PointerEventData Test { get; set; }
+
+
+
+        public void SetStatusDrawingTurretRanges(bool status)
+        {
+            setStatusDrawingTurretRangesEvent.drawingStatus = status;
+            setStatusDrawingTurretRangesEvent.Fire();
+        }        
 
         private void GoToMainLevel()
         {
@@ -58,7 +70,7 @@ namespace Presentation.UI.Menus
             var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
             var popupComponent = popUpInstance.GetComponent<TurretInfoPopup>();
             closeablePopup.OnClosePopup += OnClosePopUp;
-            
+
             popupComponent.gameObject.SetActive(true);
             popupComponent.SetData(buildingType);
             popupComponent.OnBuyTurretPressed += AllowSetPositionOfTurret;
@@ -103,12 +115,12 @@ namespace Presentation.UI.Menus
         public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
             CloseMenus();
-            
+
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasWon);
             var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
             var popupComponent = popUpInstance.GetComponent<PlayerHasWonPopup>();
             closeablePopup.OnClosePopup += OnClosePopUp;
-            
+
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.OnContinueButtonPressed += GoToNextLevel;
@@ -129,12 +141,12 @@ namespace Presentation.UI.Menus
             var popupComponent = popUpInstance.GetComponent<PlayerHasLostPopup>();
             popUpInstance.gameObject.SetActive(true);
             closeablePopup.OnClosePopup += OnClosePopUp;
-            
+
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
         }
 
-       
+
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
         {
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.NeedMoreResources);

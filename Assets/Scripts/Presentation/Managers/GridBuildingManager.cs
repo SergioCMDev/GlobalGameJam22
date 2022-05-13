@@ -23,6 +23,7 @@ namespace Presentation.Managers
         public Vector3 WorldPosition;
         public bool Locked;
         public TilePosition TilePosition; //REFACTOR
+
         public TileDataEntity()
         {
             Locked = false;
@@ -86,10 +87,20 @@ namespace Presentation.Managers
 
             ReadWorld();
 
-    
-
 
             HideTemporalTileMap();
+        }
+
+        public void StatusDrawingTurretRange(SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent)
+        {
+            if (setStatusDrawingTurretRangesEvent.drawingStatus)
+            {
+                _weaponRangeTilemap.gameObject.SetActive(true);
+                DrawMilitaryBuildings();
+                return;
+            } 
+            _weaponRangeTilemap.gameObject.SetActive(false);
+            //TODO Limpiar tiles pintadas, relacionado con TODO e evitar usar BOUNDSINT
         }
 
         public void AllowPlayerToSetBuildingInTilemap(AllowPlayerToSetBuildingInTilemapEvent tilemapEvent)
@@ -231,11 +242,10 @@ namespace Presentation.Managers
 
         private void LoadMilitaryBuildings()
         {
+            DrawMilitaryBuildings();
+
             foreach (var buildingData in _savedBuildings)
             {
-                SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red,
-                    false);
-
                 WorldTileDictionary[buildingData.position].Occupier =
                     buildingData.buildingFacadeComponent.gameObject;
                 WorldTileDictionary[buildingData.position].IsOccupied = true;
@@ -245,6 +255,17 @@ namespace Presentation.Managers
             tileDatasBuilding.Clear();
         }
 
+        private void DrawMilitaryBuildings()
+        {
+            foreach (var buildingData in _savedBuildings)
+            {
+                SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red,
+                    false);
+            }
+        }
+
+        
+        
         private void SetBuildingRelativeZone(MilitaryBuildingFacade militaryBuildingFacade,
             Vector3Int gridPosition,
             TileType buildingColour = TileType.Green, bool canBeCleaned = true)
