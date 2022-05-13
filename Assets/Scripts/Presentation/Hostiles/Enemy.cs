@@ -33,15 +33,15 @@ namespace Presentation.Hostiles
         public List<TilePosition> TilesToFollow => tilesToFollow.TilePositions;
 
 
-        public void Init(Vector3Int initialPosition, List<Building> cityBuilding, GridPathfinding pathfinding,
-            float maximumLife, float speed)
+        public void Init(Vector3Int initialPosition, List<Building> cityBuilding, GridPathfinding pathfinding, EnemyInfo enemyInfo)
         {
-            _maximumLife = maximumLife;
-            enemyMovement.Speed = speed;
-            _life = maximumLife;
-            sliderBarView.SetMaxValue(maximumLife);
+            _maximumLife = enemyInfo.life;
+            enemyMovement.Speed = enemyInfo.movementSpeed;
+            _life = _maximumLife;
+            sliderBarView.SetMaxValue(_maximumLife);
             _cityBuilding = cityBuilding;
             _currentCityToDestroyed = 0;
+            enemyAttacker.Init(enemyInfo);
             _cityTarget = cityBuilding[_currentCityToDestroyed];
             _gridPathfinding = pathfinding;
             enemyMovement.tilePosition = _gridPathfinding.InitialTile;

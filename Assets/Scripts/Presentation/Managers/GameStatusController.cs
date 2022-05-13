@@ -12,7 +12,7 @@ namespace Presentation.Managers
     public class GameStatusController : MonoBehaviour
     {
         [SerializeField] private SliderBarView _sliderBarView;
-        [SerializeField] private EnemyInstantiator enemyInstantiator;
+        [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
         
@@ -32,14 +32,14 @@ namespace Presentation.Managers
             {
                 _buildings.Add(VARIABLE.cityBuilding);
             }
-            enemyInstantiator.SetCitiesToDestroy(_buildings);
+            enemySpawner.SetCitiesToDestroy(_buildings);
         }
 
         void Start()
         {
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
-            enemyInstantiator.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
+            enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             foreach (var cityBuilding in _buildings)
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
@@ -71,7 +71,7 @@ namespace Presentation.Managers
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
-            enemyInstantiator.StopEnemies();
+            enemySpawner.StopEnemies();
         }
 
         private void CityHasBeenDestroyed(Building building)
@@ -81,7 +81,7 @@ namespace Presentation.Managers
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
-            enemyInstantiator.StopEnemies();
+            enemySpawner.StopEnemies();
         }
 
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)

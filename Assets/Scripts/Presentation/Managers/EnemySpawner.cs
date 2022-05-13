@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using App;
@@ -9,39 +8,39 @@ using UnityEngine;
 
 namespace Presentation.Managers
 {
-    public class EnemyInstantiator : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour
     {
-
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private GridMovementManager gridMovementManager;
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
         [SerializeField] private bool instantiate;
         [SerializeField] private Vector3Int positionToInstantiate;
-        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private List<EnemySpawnerInfo> enemyPrefabs;
 
         private List<Building> _citiesToDestroy;
-        private readonly List<Enemy> _activeEnemies = new List<Enemy>();
+        private readonly List<Enemy> _activeEnemies = new();
 
         private void Start()
         {
             if (!instantiate) return;
-
-            InstantiateEnemy(enemyPrefab, positionToInstantiate, 100, 0.5f);
+            EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
+            SpawnEnemy(enemySpawnerInfo.enemyPrefab, positionToInstantiate, enemySpawnerInfo.enemyInfo);
         }
 
         public void SetCitiesToDestroy(List<Building> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
         }
-        public void InstantiateEnemy(InstantiateEnemyEvent instantiateEnemyEvent)
+
+        public void SpawnEnemy(SpawnEnemyEvent spawnEnemyEvent)
         {
-            InstantiateEnemy(instantiateEnemyEvent.Prefab, instantiateEnemyEvent.PositionToInstantiate,
-                instantiateEnemyEvent.Life, instantiateEnemyEvent.Speed);
+            SpawnEnemy(spawnEnemyEvent.enemyPrefab, spawnEnemyEvent.positionToInstantiate,
+                spawnEnemyEvent.enemyInfo);
         }
 
         //TODO USE ScriptableObjects to life and speed
-        private void InstantiateEnemy(GameObject enemyPrefab, Vector3Int positionToInstantiate, float life, float speed)
+        private void SpawnEnemy(GameObject enemyPrefab, Vector3Int positionToInstantiate, EnemyInfo enemyInfo)
         {
             if (!gridBuildingManager.WorldTileDictionary.ContainsKey(positionToInstantiate))
                 return;
@@ -52,8 +51,8 @@ namespace Presentation.Managers
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
             gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemy.TilesToFollow);
-            
-            enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, life, speed);
+
+            enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemyInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
             _activeEnemies.Add(enemy);
             enemy.OnObjectMoved += OnObjectMoved;
@@ -81,7 +80,5 @@ namespace Presentation.Managers
 
             Debug.Log("enemies have been stopped");
         }
-
-
     }
 }

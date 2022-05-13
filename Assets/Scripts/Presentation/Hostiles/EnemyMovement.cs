@@ -1,29 +1,28 @@
 using App.Events;
-using Presentation.Managers;
 using UnityEngine;
 
 namespace Presentation.Hostiles
 {
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private float speed = 0;
+        private float _speed;
         private float _currentSpeed;
         public TilePosition tilePosition;
 
         public float Speed
         {
-            get => speed;
-            set => speed = value;
+            get => _speed;
+            set => _speed = value;
         }
 
         private void Start()
         {
-            _currentSpeed = speed;
+            _currentSpeed = _speed;
         }
 
         public void ResetSpeed()
         {
-            _currentSpeed = speed;
+            _currentSpeed = _speed;
         }
 
         public void ChangeSpeed(float newSpeed)

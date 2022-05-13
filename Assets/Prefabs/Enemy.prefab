@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837e4c593f0247099961fec26bd30eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 0
   tilePosition:
     GridPosition: {x: 0, y: 0, z: 0}
     WorldPosition: {x: 0, y: 0, z: 0}

@@ -180,6 +180,10 @@ PrefabInstance:
       value: GameStatusController
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 9075615966201424918}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _cityBuilding
       value: 
       objectReference: {fileID: 0}
@@ -219,7 +223,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1494359398275991657, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: m_Name
-      value: EnemyInstantiator
+      value: EnemySpawner
       objectReference: {fileID: 0}
     - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: enemyPrefab
@@ -238,6 +242,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: positionToInstantiate.x
       value: 1
       objectReference: {fileID: 0}
@@ -245,6 +253,14 @@ PrefabInstance:
       propertyPath: positionToInstantiate.y
       value: -4
       objectReference: {fileID: 0}
+    - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
+      propertyPath: enemyPrefabs.Array.data[0].enemyInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: bc46df7e84c41ba45951ea893989a4bc, type: 2}
+    - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
+      propertyPath: enemyPrefabs.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 3449160122288460457, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
     - target: {fileID: 1494359398275991659, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: m_RootOrder
       value: 0
