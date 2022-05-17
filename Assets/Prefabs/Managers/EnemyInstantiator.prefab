@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c242808e018955d4abde581cb2893913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cityBuilding: {fileID: 0}
   gridBuildingManager: {fileID: 0}
+  gridMovementManager: {fileID: 0}
   instantiate: 0
   positionToInstantiate: {x: 0, y: 0, z: 0}
-  enemyPrefab: {fileID: 0}
+  enemyPrefabs: []
 --- !u!114 &6189538332134597973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,12 +67,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1494359398275991658}
-        m_TargetAssemblyTypeName: Presentation.EnemyInstantiator, Presentation
-        m_MethodName: InstantiateEnemy
+        m_TargetAssemblyTypeName: Presentation.Managers.EnemySpawner, Presentation
+        m_MethodName: SpawnEnemy
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 40595c44231b2b74ab2d1175c697f741, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Presentation.InstantiateEnemyEvent, Presentation
+          m_ObjectArgumentAssemblyTypeName: Presentation.Events.SpawnEnemyEvent,
+            Presentation
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
