@@ -8,8 +8,7 @@ namespace Presentation.Events
         menuName = "Events/Enemy/InstantiateEnemyEvent")]
     public class SpawnEnemyEvent : GameEventScriptable
     {
-        public EnemyInfo enemyInfo;
-        public GameObject enemyPrefab;
+        public EnemySpawnerInfo enemyInfo;
         public Vector3Int positionToInstantiate;
     }
 }

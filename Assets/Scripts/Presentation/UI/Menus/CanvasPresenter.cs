@@ -41,7 +41,7 @@ namespace Presentation.UI.Menus
         public PointerEventData Test { get; set; }
 
 
-
+//USED BY PointerDataEvent
         public void SetStatusDrawingTurretRanges(bool status)
         {
             setStatusDrawingTurretRangesEvent.drawingStatus = status;

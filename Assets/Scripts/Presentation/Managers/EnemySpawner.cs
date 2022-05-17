@@ -25,7 +25,7 @@ namespace Presentation.Managers
         {
             if (!instantiate) return;
             EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
-            SpawnEnemy(enemySpawnerInfo.enemyPrefab, positionToInstantiate, enemySpawnerInfo.enemyInfo);
+            SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
         }
 
         public void SetCitiesToDestroy(List<Building> cityBuilding1)
@@ -35,24 +35,23 @@ namespace Presentation.Managers
 
         public void SpawnEnemy(SpawnEnemyEvent spawnEnemyEvent)
         {
-            SpawnEnemy(spawnEnemyEvent.enemyPrefab, spawnEnemyEvent.positionToInstantiate,
-                spawnEnemyEvent.enemyInfo);
+            SpawnEnemy(spawnEnemyEvent.enemyInfo, spawnEnemyEvent.positionToInstantiate);
         }
 
         //TODO USE ScriptableObjects to life and speed
-        private void SpawnEnemy(GameObject enemyPrefab, Vector3Int positionToInstantiate, EnemyInfo enemyInfo)
+        private void SpawnEnemy(EnemySpawnerInfo enemySpawnerInfo, Vector3Int positionToInstantiate)
         {
             if (!gridBuildingManager.WorldTileDictionary.ContainsKey(positionToInstantiate))
                 return;
 
             var positionToPutEnemy = gridBuildingManager
                 .WorldTileDictionary[positionToInstantiate].WorldPosition;
-            var enemyInstance = Instantiate(enemyPrefab, positionToPutEnemy, Quaternion.identity);
+            var enemyInstance = Instantiate(enemySpawnerInfo.enemyPrefab, positionToPutEnemy, Quaternion.identity);
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
-            gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemy.TilesToFollow);
+            gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemySpawnerInfo.TilesToFollow);
 
-            enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemyInfo);
+            enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
             _activeEnemies.Add(enemy);
             enemy.OnObjectMoved += OnObjectMoved;

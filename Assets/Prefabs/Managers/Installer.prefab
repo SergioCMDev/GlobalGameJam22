@@ -261,6 +261,10 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[0].enemyPrefab
       value: 
       objectReference: {fileID: 3449160122288460457, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
+    - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
+      propertyPath: enemyPrefabs.Array.data[0].tileToFollow
+      value: 
+      objectReference: {fileID: 11400000, guid: f7f820ce0013fae4389315216d8cb94a, type: 2}
     - target: {fileID: 1494359398275991659, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: m_RootOrder
       value: 0

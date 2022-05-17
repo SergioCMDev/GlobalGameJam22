@@ -15,7 +15,7 @@ namespace Presentation.Hostiles
         [SerializeField] private EnemyMovement enemyMovement;
         [SerializeField] private EnemyAttacker enemyAttacker;
         [SerializeField] private SliderBarView sliderBarView;
-        [SerializeField] private TilesToFollow tilesToFollow;
+        private TilesToFollow tilesToFollow;
 
         private float _life;
         private float _maximumLife;
@@ -30,18 +30,18 @@ namespace Presentation.Hostiles
 
         private EnemyMovement EnemyMovement => enemyMovement;
 
-        public List<TilePosition> TilesToFollow => tilesToFollow.TilePositions;
+        // public List<TilePosition> TilesToFollow => tilesToFollow.TilePositions;
 
 
-        public void Init(Vector3Int initialPosition, List<Building> cityBuilding, GridPathfinding pathfinding, EnemyInfo enemyInfo)
+        public void Init(Vector3Int initialPosition, List<Building> cityBuilding, GridPathfinding pathfinding, EnemySpawnerInfo enemyInfo)
         {
-            _maximumLife = enemyInfo.life;
-            enemyMovement.Speed = enemyInfo.movementSpeed;
+            _maximumLife = enemyInfo.enemyInfo.life;
+            enemyMovement.Speed = enemyInfo.enemyInfo.movementSpeed;
             _life = _maximumLife;
             sliderBarView.SetMaxValue(_maximumLife);
             _cityBuilding = cityBuilding;
             _currentCityToDestroyed = 0;
-            enemyAttacker.Init(enemyInfo);
+            enemyAttacker.Init(enemyInfo.enemyInfo);
             _cityTarget = cityBuilding[_currentCityToDestroyed];
             _gridPathfinding = pathfinding;
             enemyMovement.tilePosition = _gridPathfinding.InitialTile;
