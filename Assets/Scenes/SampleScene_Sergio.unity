@@ -2310,7 +2310,7 @@ PrefabInstance:
       objectReference: {fileID: 1539259234}
     - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: instantiate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: gridBuildingManager
