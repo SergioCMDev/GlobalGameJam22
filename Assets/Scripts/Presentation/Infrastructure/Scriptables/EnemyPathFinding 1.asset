@@ -15,9 +15,17 @@ MonoBehaviour:
   TilePositions:
   - GridPosition: {x: 1, y: -4, z: 0}
     WorldPosition: {x: 0, y: 0, z: 0}
-  - GridPosition: {x: 0, y: -4, z: 0}
+  - GridPosition: {x: -5, y: -4, z: 0}
     WorldPosition: {x: 0, y: 0, z: 0}
-  - GridPosition: {x: -1, y: -4, z: 0}
+  - GridPosition: {x: -5, y: -7, z: 0}
     WorldPosition: {x: 0, y: 0, z: 0}
-  - GridPosition: {x: -2, y: -4, z: 0}
+  - GridPosition: {x: -8, y: -7, z: 0}
+    WorldPosition: {x: 0, y: 0, z: 0}
+  - GridPosition: {x: -8, y: -5, z: 0}
+    WorldPosition: {x: 0, y: 0, z: 0}
+  - GridPosition: {x: -10, y: -5, z: 0}
+    WorldPosition: {x: 0, y: 0, z: 0}
+  - GridPosition: {x: -10, y: -7, z: 0}
+    WorldPosition: {x: 0, y: 0, z: 0}
+  - GridPosition: {x: -11, y: -7, z: 0}
     WorldPosition: {x: 0, y: 0, z: 0}
