@@ -24,6 +24,7 @@ namespace Presentation.UI
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
             _canvasInitScenePresenter.OnStartNewGame += StartNewGame;
+            _canvasInitScenePresenter.GoToSelectedScene += GoToSelectedScene;
             _playMusicEvent.soundName = _musicSoundName;
             _playMusicEvent.Fire();
 

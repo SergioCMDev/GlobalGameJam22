@@ -1,4 +1,5 @@
 ﻿using System;
+using App.SceneManagement;
 using Presentation.InputPlayer;
 using Presentation.Languages;
 using Presentation.MusicEmitter;
@@ -14,13 +15,15 @@ namespace Presentation.UI.Menus
         [SerializeField] private BackgroundSoundEmitter _backgroundSoundEmitter;
 
         [SerializeField] private OptionsMenuView _optionsMenuView;
+        [SerializeField] private LevelSelectorView _levelSelectorView;
 
         // [SerializeField] private GameDataService _gameDataService;
         private ReadInputPlayer _readInputPlayer;
 
-        // private SceneChanger _sceneChanger;
+        private SceneChanger _sceneChanger;
         private ILanguageManager _languageManager;
         public event Action OnStartNewGame;
+        public event Action<string> GoToSelectedScene;
 
         private void Awake()
         {
@@ -34,12 +37,20 @@ namespace Presentation.UI.Menus
             _initMenuView.OnShowCreditsButtonPressed += ShowCreditsMenu;
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
+            _levelSelectorView.OnStartLevelSelected += StartLevelSelected;
             // _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
 
 
             // _deleteSavedGameView.gameObject.SetActive(false);
             _optionsMenuView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
+        }
+
+        private void StartLevelSelected(string obj)
+        {
+            _backgroundSoundEmitter.StopMusic();
+           var sceneName = _sceneChanger.GetSceneDataByName(obj);
+           GoToSelectedScene?.Invoke(sceneName);
         }
 
         private void Start()
