@@ -17,7 +17,7 @@ namespace App.Managers
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
-        
+
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent;
@@ -29,12 +29,14 @@ namespace App.Managers
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
         private List<Building> _buildings = new();
+
         private void Awake()
         {
             foreach (var VARIABLE in buildingPositionTuples)
             {
                 _buildings.Add(VARIABLE.cityBuilding);
             }
+
             enemySpawner.SetCitiesToDestroy(_buildings);
         }
 
@@ -43,8 +45,8 @@ namespace App.Managers
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
-            
-            
+
+
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             foreach (var cityBuilding in _buildings)
             {
@@ -85,6 +87,11 @@ namespace App.Managers
         {
             _buildings.Remove(building);
             if (_buildings.Count != 0) return;
+            LostLogic();
+        }
+
+        private void LostLogic()
+        {
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
@@ -95,10 +102,15 @@ namespace App.Managers
         {
             _sceneChanger.RestartScene(levelEvent);
         }
-        
+
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)
         {
             EnemyHasBeenDefeated(null);
+        }
+
+        public void LostLevel(PlayerHasLostLevelEvent levelEvent)
+        {
+            LostLogic();
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1446073707}
   - component: {fileID: 1067263519}
   - component: {fileID: 3514134051319490170}
+  - component: {fileID: 3724908388807952814}
   m_Layer: 0
   m_Name: GameStatusController
   m_TagString: Untagged
@@ -123,6 +124,34 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 24a1c0cb4d8cf6b46a08c461890b905b, type: 2}
           m_ObjectArgumentAssemblyTypeName: App.Events.PlayerHasWonLevelEvent, Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3724908388807952814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: ed51cff8da7302d47bb6a16b8e0aa336, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: App.Managers.GameStatusController, Presentation
+        m_MethodName: LostLevel
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ed51cff8da7302d47bb6a16b8e0aa336, type: 2}
+          m_ObjectArgumentAssemblyTypeName: App.Events.PlayerHasLostLevelEvent, Application
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
