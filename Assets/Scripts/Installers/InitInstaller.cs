@@ -61,6 +61,7 @@ namespace Installers
             DontDestroyOnLoad(_sceneChangerInstance);
             DontDestroyOnLoad(_readInputPlayerInstance);
             DontDestroyOnLoad(_soundManagerInstance);
+            DontDestroyOnLoad(_popupManagerInstance);
             DontDestroyOnLoad(_timeManagerInstance);
             _initialized = true;
         }
