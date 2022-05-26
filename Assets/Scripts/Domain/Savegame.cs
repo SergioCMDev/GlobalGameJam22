@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain
+namespace App
 {
     [Serializable]
     public class Savegame
     {
         public List<LevelData> SavePointIdOfLevel;
         public AudioData AudioData;
-        public int CollectedCoins;
-        public float MaximumLife;
-        public float CurrentLife;
-        public int MaximumArrows;
 
         public Savegame()
         {
-            MaximumArrows = 6;
             SavePointIdOfLevel = new List<LevelData>();
             AudioData = new AudioData();
         }
@@ -26,7 +21,6 @@ namespace Domain
     {
         public int Level;
         public string LevelName;
-        public int SavePointId;
     }
     
     [Serializable]

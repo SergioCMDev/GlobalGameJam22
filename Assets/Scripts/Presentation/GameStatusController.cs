@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using App.Events;
 using App.SceneManagement;
+using App.Services;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
+using Presentation.Managers;
 using Presentation.UI.Menus;
 using UnityEngine;
 using Utils;
 
-namespace Presentation.Managers
+namespace App.Managers
 {
     public class GameStatusController : MonoBehaviour
     {
@@ -23,6 +25,7 @@ namespace Presentation.Managers
         [SerializeField] private bool _skipTimer;
         private SceneChanger _sceneChanger;
         private SoundManager _soundManager;
+        private GameDataService _gameDataService;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
         private List<Building> _buildings = new();
@@ -39,6 +42,9 @@ namespace Presentation.Managers
         {
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
+            _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            
+            
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             foreach (var cityBuilding in _buildings)
             {
@@ -68,6 +74,10 @@ namespace Presentation.Managers
 //Refactor
         private void EnemyHasBeenDefeated(Enemy enemy)
         {
+            // _gameDataService.SaveGame(new Savegame()
+            // {
+            //     
+            // });
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
