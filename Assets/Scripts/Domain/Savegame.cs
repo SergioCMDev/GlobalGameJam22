@@ -6,22 +6,16 @@ namespace App
     [Serializable]
     public class Savegame
     {
-        public List<LevelData> SavePointIdOfLevel;
+        public string LastCompletedSceneName;
         public AudioData AudioData;
 
         public Savegame()
         {
-            SavePointIdOfLevel = new List<LevelData>();
             AudioData = new AudioData();
         }
+
     }
 
-    [Serializable]
-    public class LevelData
-    {
-        public int Level;
-        public string LevelName;
-    }
     
     [Serializable]
     public class AudioData

@@ -24,7 +24,7 @@ namespace Presentation.UI
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
             _canvasInitScenePresenter.OnStartNewGame += StartNewGame;
-            _canvasInitScenePresenter.GoToSelectedScene += GoToSelectedScene;
+            _canvasInitScenePresenter.OnGoToSelectedScene += GoToSelectedScene;
             _playMusicEvent.soundName = _musicSoundName;
             _playMusicEvent.Fire();
 
@@ -34,14 +34,9 @@ namespace Presentation.UI
         private void StartNewGame()
         {
             //Temporal
-            SceneManager.LoadScene("SampleScene_Sergio");
-            
-            // _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
-            // _sceneModel.NextScene = _sceneChanger.GetSceneDataByName("Level1");
-            // _canvasFader.ActivateFader();
-            // operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
-            // operationLoadingScene.allowSceneActivation = false;
-            // operationLoadingScene.completed += SceneLoaded;        
+            // SceneManager.LoadScene("SampleScene_Sergio");
+
+            GoToSelectedScene("Level1");
         }
 
         private void GoToSelectedScene(string sceneToGo)

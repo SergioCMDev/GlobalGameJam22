@@ -21,7 +21,7 @@ namespace Presentation.Managers
         public SfxSoundName SfxSoundName;
     }
 
-
+//Separate service witch do the saving and loading and player sound to reproduce sounds
     public class SoundManager : MonoBehaviour
     {
         [SerializeField] private AudioSource _sfx;
