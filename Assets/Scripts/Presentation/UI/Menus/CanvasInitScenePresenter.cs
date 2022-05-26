@@ -29,7 +29,6 @@ namespace Presentation.UI.Menus
         {
             //TODO LOAD GAMEDATA
 
-
             _initMenuView.OnContinueButtonPressed += ContinueGame;
             _initMenuView.OnNewGameButtonPressed += NewGame;
             _initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
@@ -39,10 +38,11 @@ namespace Presentation.UI.Menus
 
             _levelSelectorView.OnStartLevelSelected += StartLevelSelected;
             // _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
-
+            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
 
             // _deleteSavedGameView.gameObject.SetActive(false);
             _optionsMenuView.gameObject.SetActive(false);
+            _levelSelectorView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
         }
 
@@ -61,7 +61,6 @@ namespace Presentation.UI.Menus
             _readInputPlayer.EnableMenusInput();
             // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
-            ShowContinueButton(false);
         }
 
 
@@ -102,19 +101,19 @@ namespace Presentation.UI.Menus
 
         private void ContinueGame()
         {
-            _backgroundSoundEmitter.StopMusic();
+            // _backgroundSoundEmitter.StopMusic();
+            //hide main menu
+            //show selector ui
+            _initMenuView.DisableInput();
+            _initMenuView.gameObject.SetActive(false);
+            _levelSelectorView.gameObject.SetActive(true);
             //TODO GET REAL SCENE
 
             // _changerSceneModel.SceneToGo = "LevelStable";
             //
             // _gameDataStatusLoader.ContinueGame();
         }
-
-
-        private void ShowContinueButton(bool show)
-        {
-            _initMenuView.SetButtons(show);
-        }
+        
 
         private void ShowOptionsMenu()
         {

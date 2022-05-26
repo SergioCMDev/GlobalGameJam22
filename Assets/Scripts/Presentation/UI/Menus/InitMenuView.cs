@@ -7,7 +7,7 @@ using Utils;
 
 namespace Presentation.UI.Menus
 {
-    public class InitMenuView : ViewWithVerticalButtonsBase
+    public class InitMenuView : MonoBehaviour
     {
         [SerializeField] private Button _buttonContinue, _buttonNewGame, _buttonOptions, _buttonCredits, _buttonQuitGame;
         // [SerializeField] private TextMeshProUGUI _buttonContinueText, _buttonNewGameText, _buttonOptionsText, _buttonCreditsText, _buttonQuitGameText;
@@ -29,8 +29,6 @@ namespace Presentation.UI.Menus
         private void Start()
         {
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
-            _readInputPlayer.OnPlayerPressVerticalAxisButtons += PlayerPressYAxisButtons;
-            _readInputPlayer.OnPlayerPressEnterButton += HandlePlayerPressEnterButtonMenus;
             // _readInputPlayer.DisableDialogInput();
         }
 
@@ -67,56 +65,15 @@ namespace Presentation.UI.Menus
         {
             OnContinueButtonPressed.Invoke();
         }
-
-
-        public void SetButtons(bool showContinueButton)
-        {
-            if (showContinueButton)
-            {
-                interactableButtons.Add(_buttonContinue);
-                InteractableButtonsViews.Add(_buttonContinue.GetComponent<ButtonView>());
-            }
-            else
-            {
-                _buttonContinue.GetComponent<ButtonView>().SetColorText(Color.gray);
-            }
-
-            // _buttonContinue.onClick.AddListener(ContinueGame);
-            _buttonNewGame.onClick.AddListener(NewGame);
-            // _buttonOptions.onClick.AddListener(ShowOptionsMenu);
-            // _buttonCredits.onClick.AddListener(ShowCreditsMenu);
-            // _buttonQuitGame.onClick.AddListener(QuitGame);
-
-            interactableButtons.Add(_buttonNewGame);
-            // interactableButtons.Add(_buttonOptions);
-            // interactableButtons.Add(_buttonCredits);
-            // interactableButtons.Add(_buttonQuitGame);
-
-            InteractableButtonsViews.Add(_buttonNewGame.GetComponent<ButtonView>());
-            // InteractableButtonsViews.Add(_buttonOptions.GetComponent<ButtonView>());
-            // InteractableButtonsViews.Add(_buttonCredits.GetComponent<ButtonView>());
-            // InteractableButtonsViews.Add(_buttonQuitGame.GetComponent<ButtonView>());
-
-
-            SetSelectedButton(0);
-
-            InitStatusButtonSelected();
-        }
-
+        
         private void OnDestroy()
         {
             DisableInput();
         }
 
-        public void SetCanMoveButtonsStatus(bool statusButtons)
-        {
-            canMoveButtons = statusButtons;
-        }
-
+   
         public void DisableInput()
         {
-            _readInputPlayer.OnPlayerPressVerticalAxisButtons -= PlayerPressYAxisButtons;
-            // _readInputPlayer.OnPlayerPressEnterButtonMenus -= HandlePlayerPressEnterButtonMenus;
             _buttonContinue.onClick.RemoveListener(ContinueGame);
             _buttonNewGame.onClick.RemoveListener(NewGame);
             _buttonOptions.onClick.RemoveListener(ShowOptionsMenu);
@@ -126,7 +83,6 @@ namespace Presentation.UI.Menus
 
         public void EnableInput()
         {
-            _readInputPlayer.OnPlayerPressVerticalAxisButtons += PlayerPressYAxisButtons;
             // _readInputPlayer.OnPlayerPressEnterButtonMenus += HandlePlayerPressEnterButtonMenus;
             _buttonContinue.onClick.AddListener(ContinueGame);
             _buttonNewGame.onClick.AddListener(NewGame);
