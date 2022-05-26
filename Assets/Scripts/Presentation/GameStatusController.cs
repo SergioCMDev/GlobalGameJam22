@@ -74,10 +74,7 @@ namespace App.Managers
 //Refactor
         private void EnemyHasBeenDefeated(Enemy enemy)
         {
-            // _gameDataService.SaveGame(new Savegame()
-            // {
-            //     
-            // });
+            _gameDataService.SaveGame(_sceneChanger.GetCurrentSceneName());
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
             stopMilitaryBuildingsEvent.Fire();
@@ -97,6 +94,11 @@ namespace App.Managers
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
         {
             _sceneChanger.RestartScene(levelEvent);
+        }
+        
+        public void WinLevel(PlayerHasWonLevelEvent levelEvent)
+        {
+            EnemyHasBeenDefeated(null);
         }
     }
 }
