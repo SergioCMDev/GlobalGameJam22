@@ -21,14 +21,11 @@ namespace Presentation.UI.Menus
         public event Action OnQuitGameButtonPressed = delegate { };
 
 
-        private void Awake()
-        {
-            _buttonContinue.interactable = false;
-        }
-
         private void Start()
         {
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
+            EnableInput();
+            
             // _readInputPlayer.DisableDialogInput();
         }
 

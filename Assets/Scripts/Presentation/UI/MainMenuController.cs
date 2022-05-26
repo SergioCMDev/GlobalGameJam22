@@ -44,10 +44,10 @@ namespace Presentation.UI
             // operationLoadingScene.completed += SceneLoaded;        
         }
 
-        private void GoToSelectedScene(string levelName)
+        private void GoToSelectedScene(string sceneToGo)
         {
             _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
-            _sceneModel.NextScene = _sceneChanger.GetSceneDataByName(levelName);
+            _sceneModel.NextScene = sceneToGo;
             _canvasFader.ActivateFader();
             operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
             operationLoadingScene.allowSceneActivation = false;

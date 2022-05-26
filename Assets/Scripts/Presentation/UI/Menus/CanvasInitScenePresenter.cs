@@ -49,6 +49,8 @@ namespace Presentation.UI.Menus
         private void StartLevelSelected(string obj)
         {
             _backgroundSoundEmitter.StopMusic();
+            _levelSelectorView.gameObject.SetActive(false);
+
            var sceneName = _sceneChanger.GetSceneDataByName(obj);
            GoToSelectedScene?.Invoke(sceneName);
         }
