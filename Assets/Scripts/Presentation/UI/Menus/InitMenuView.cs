@@ -87,5 +87,10 @@ namespace Presentation.UI.Menus
             // _buttonCredits.onClick.AddListener(ShowCreditsMenu);
             // _buttonQuitGame.onClick.AddListener(QuitGame);
         }
+
+        public void HideContinueButton()
+        {
+            _buttonContinue.gameObject.SetActive(false);
+        }
     }
 }

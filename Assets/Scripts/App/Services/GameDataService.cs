@@ -16,10 +16,10 @@ namespace App.Services
             _loader = ServiceLocator.Instance.GetService<ILoader>();
             _saver = ServiceLocator.Instance.GetService<ISaver>();
         }
-        
+
         public bool HasStartedGame()
         {
-           return _loader.HasSavedGame();
+            return _loader.HasSavedGame();
         }
 
         public void SaveGame(string lastCompletedScene)
@@ -29,15 +29,25 @@ namespace App.Services
             {
                 lastSavedGame = new Savegame();
             }
-            
-            lastSavedGame.LastCompletedSceneName = lastCompletedScene;
+
+            lastSavedGame.NameOfLastCompletedScene = lastCompletedScene;
+            var id = Utilities.GetNumberOfLevelString(lastCompletedScene);
+
+            lastSavedGame.IdOfLastCompletedScene = id;
             _saver.SaveGame(lastSavedGame);
         }
-        
-        public string GetLastLevelPlayed()
+
+        public int GetIdOfLastLevelPlayed()
         {
-           var lastPastLevel = _loader.LoadGame().LastCompletedSceneName;
-           
+            var lastPastLevel = _loader.LoadGame().IdOfLastCompletedScene;
+
+            return lastPastLevel;
+        }
+
+        public string GetNameOfLastLevelPlayed()
+        {
+            var lastPastLevel = _loader.LoadGame().NameOfLastCompletedScene;
+
             return lastPastLevel;
         }
     }

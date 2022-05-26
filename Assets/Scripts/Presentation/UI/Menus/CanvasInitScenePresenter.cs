@@ -1,5 +1,6 @@
 ﻿using System;
 using App.SceneManagement;
+using App.Services;
 using Presentation.InputPlayer;
 using Presentation.Languages;
 using Presentation.MusicEmitter;
@@ -17,13 +18,13 @@ namespace Presentation.UI.Menus
         [SerializeField] private OptionsMenuView _optionsMenuView;
         [SerializeField] private LevelSelectorView _levelSelectorView;
 
-        // [SerializeField] private GameDataService _gameDataService;
+        private GameDataService _gameDataService;
         private ReadInputPlayer _readInputPlayer;
 
         private SceneChanger _sceneChanger;
         private ILanguageManager _languageManager;
         public event Action OnStartNewGame;
-        public event Action<string> GoToSelectedScene;
+        public event Action<string> OnGoToSelectedScene;
 
         private void Awake()
         {
@@ -37,13 +38,17 @@ namespace Presentation.UI.Menus
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
             _levelSelectorView.OnStartLevelSelected += StartLevelSelected;
-            // _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
 
             // _deleteSavedGameView.gameObject.SetActive(false);
             _optionsMenuView.gameObject.SetActive(false);
             _levelSelectorView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
+            if (!_gameDataService.HasStartedGame())
+            {
+                _initMenuView.HideContinueButton();
+            }
         }
 
         private void StartLevelSelected(string obj)
@@ -52,7 +57,7 @@ namespace Presentation.UI.Menus
             _levelSelectorView.gameObject.SetActive(false);
 
            var sceneName = _sceneChanger.GetSceneDataByName(obj);
-           GoToSelectedScene?.Invoke(sceneName);
+           OnGoToSelectedScene?.Invoke(sceneName);
         }
 
         private void Start()
@@ -104,16 +109,18 @@ namespace Presentation.UI.Menus
         private void ContinueGame()
         {
             // _backgroundSoundEmitter.StopMusic();
-            //hide main menu
-            //show selector ui
+
             _initMenuView.DisableInput();
             _initMenuView.gameObject.SetActive(false);
             _levelSelectorView.gameObject.SetActive(true);
-            //TODO GET REAL SCENE
 
-            // _changerSceneModel.SceneToGo = "LevelStable";
-            //
-            // _gameDataStatusLoader.ContinueGame();
+          var lastCompletedLevel =  _gameDataService.GetIdOfLastLevelPlayed();
+          _levelSelectorView.Init(lastCompletedLevel);
+          //TODO GET REAL SCENE
+
+          // _changerSceneModel.SceneToGo = "LevelStable";
+          //
+          // _gameDataStatusLoader.ContinueGame();
         }
         
 

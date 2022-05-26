@@ -20,23 +20,23 @@ namespace Utils
         {
             position.x = Mathf.Clamp(position.x, -screen.x,
                 screen.x);
-            position.y = Mathf.Clamp(position.y, -screen.y+1,
+            position.y = Mathf.Clamp(position.y, -screen.y + 1,
                 -1);
             return position;
         }
-        
-     public static int GetRandom(int min, int max)
-    {
-        return Random.Range(min, max);
-    }
+
+        public static int GetRandom(int min, int max)
+        {
+            return Random.Range(min, max);
+        }
 
         public static float Truncate(float value, int digits)
-    {
-        double mult = Math.Pow(10.0, digits);
-        double result = Math.Truncate(mult * value) / mult;
-        return (float) result;
-    }
-        
+        {
+            double mult = Math.Pow(10.0, digits);
+            double result = Math.Truncate(mult * value) / mult;
+            return (float)result;
+        }
+
         public static bool IsOnScreen(Camera camera, Transform transform)
         {
             Vector3 screenPoint = camera.WorldToViewportPoint(transform.position);
@@ -55,9 +55,9 @@ namespace Utils
 
         public static float RoundValue(float value, int decimals)
         {
-            return (float) Decimal.Round((decimal) value, decimals);
+            return (float)Decimal.Round((decimal)value, decimals);
         }
-        
+
         public static int GetRandomValue(int min, int max)
         {
             var randomValue = Random.Range(min, max);
@@ -81,17 +81,25 @@ namespace Utils
         {
             return valuesToCheck.Prepend(Int32.MinValue).Max();
         }
-    
+
         public static int GetMinimumValueInList(List<int> valuesToCheck)
         {
             return valuesToCheck.Prepend(Int32.MaxValue).Min();
         }
-        
+
         //TODO REFRACTOR
-        public static bool HasPastTime(float currentTime,float attackSpeed)
+        public static bool HasPastTime(float currentTime, float attackSpeed)
         {
             currentTime += Time.deltaTime;
             return currentTime > attackSpeed;
+        }
+
+        public static int GetNumberOfLevelString(string lastCompletedScene)
+        {
+            var lastPositionOfL =
+                lastCompletedScene.LastIndexOf('l') + 1; //Scenes must be named LevelXX where XX is the Id of the level
+            var id = lastCompletedScene.Substring(lastPositionOfL, lastCompletedScene.Length - lastPositionOfL);
+            return Int32.Parse(id);
         }
     }
 }

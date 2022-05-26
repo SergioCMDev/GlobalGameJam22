@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace App
 {
     [Serializable]
     public class Savegame
     {
-        public string LastCompletedSceneName;
+        public string NameOfLastCompletedScene;
+        public int IdOfLastCompletedScene;
         public AudioData AudioData;
 
         public Savegame()
