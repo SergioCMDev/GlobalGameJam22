@@ -2579,6 +2579,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3287974653144982759, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: _skipTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287974653144982759, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: _timeToWin
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287974653144982759, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: _sliderBarView
       value: 
       objectReference: {fileID: 9003378679365653793}
