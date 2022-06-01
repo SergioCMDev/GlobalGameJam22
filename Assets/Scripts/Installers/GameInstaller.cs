@@ -63,8 +63,6 @@ namespace Installers
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
             _popupManagerInstance = Instantiate(_popupManagerPrefab);
 
-            _buildingManagerInstance = Instantiate(_buildingManagerPrefab);
-            _resourcesManagerInstance = Instantiate(_resourcesManagerPrefab);
             ServiceLocator.Instance.RegisterService<SoundManager>(
                 _soundManagerInstance.GetComponent<SoundManager>());
             ServiceLocator.Instance.RegisterService<ReadInputPlayer>(
