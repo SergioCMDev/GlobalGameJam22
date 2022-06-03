@@ -66,7 +66,7 @@ namespace Presentation.Hostiles
         public void ReduceSpeed(float percentageToReduce, float effectDuration)
         {
             Invoke(nameof(ResetSpeed), effectDuration);
-            EnemyMovement.ChangeSpeed(EnemyMovement.Speed *= percentageToReduce);
+            EnemyMovement.ChangeSpeed(EnemyMovement.Speed * (1-percentageToReduce));
         }
 
         public bool IsAlive()
