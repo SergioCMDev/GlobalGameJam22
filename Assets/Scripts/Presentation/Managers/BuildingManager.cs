@@ -78,5 +78,13 @@ namespace Presentation.Managers
                 building.Stop();
             }
         }
+        
+        public void ActivateMilitaryBuildings(ActivateMilitaryBuildingsEvent stopMilitaryBuildingsEvent)
+        {
+            foreach (var building in _ownMilitaryBuilding)
+            {
+                building.ActivateBuilding();
+            }
+        }
     }
 }

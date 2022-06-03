@@ -21,6 +21,7 @@ namespace App.Managers
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent;
+        [SerializeField] private ActivateMilitaryBuildingsEvent activateMilitaryBuildingsEvent;
         [SerializeField] private float _timeToWin = 20, _timeToAllowPlayerBuildsTurrets;
         [SerializeField] private bool _skipTimer;
         private SceneChanger _sceneChanger;
@@ -62,6 +63,7 @@ namespace App.Managers
         {
             _canvasPresenter.OnTimerHasEnd -= DefensiveTimerHasEnded;
             enemySpawner.ActivateEnemiesByTimer();
+            activateMilitaryBuildingsEvent.Fire();
             _canvasPresenter.DisableTurretsView();
             _canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin);
             _canvasPresenter.OnTimerHasEnd += EnemyHasBeenDefeatedByTimer;

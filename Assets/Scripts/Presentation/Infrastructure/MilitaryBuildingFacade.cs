@@ -79,10 +79,16 @@ namespace Presentation.Infrastructure
         public void Init()
         {
             _militaryBuildingAttacker.Init();
+
+        }
+
+        public void ActivateBuilding()
+        {
             _enemyIsSet = true;
             _isActive = true;
         }
 
+        
         public void Deploy()
         {
             _animator.SetTrigger(DeployTrigger);

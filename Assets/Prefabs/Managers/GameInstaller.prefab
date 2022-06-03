@@ -180,6 +180,14 @@ PrefabInstance:
       value: GameStatusController
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: _skipTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: _timeToWin
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 9075615966201424918}
@@ -195,6 +203,10 @@ PrefabInstance:
       propertyPath: enemyInstantiator
       value: 
       objectReference: {fileID: 9075615966201424918}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: activateMilitaryBuildingsEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: buildingPositionTuples.Array.size
       value: 1
@@ -264,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 1494359398275991658, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: enemyPrefabs.Array.data[0].tileToFollow
       value: 
-      objectReference: {fileID: 11400000, guid: f7f820ce0013fae4389315216d8cb94a, type: 2}
+      objectReference: {fileID: 11400000, guid: 853d012296733c34cb7338daf173e44c, type: 2}
     - target: {fileID: 1494359398275991659, guid: 3f878d53d46a7a94eae57f4eae3f3e91, type: 3}
       propertyPath: m_RootOrder
       value: 0
