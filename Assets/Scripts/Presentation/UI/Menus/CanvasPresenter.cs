@@ -8,7 +8,6 @@ using Presentation.Structs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Utils;
 
 namespace Presentation.UI.Menus
@@ -21,11 +20,15 @@ namespace Presentation.UI.Menus
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
         [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
-        [SerializeField] private Button _showRanges;
+        [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
         private SceneChanger _sceneChanger;
+        private bool _skipTimer, _timerIsRunning, _disabledBuildingView;
 
         private ResourcesManager _resourcesManager;
         private PopupManager _popupManager;
+        private float _remainingTime;
+        private SliderBarView _currentSliderBarView;
+        public event Action OnTimerHasEnd;
 
         public event Action<BuildingType> OnPlayerWantsToSetBuildingInGrid;
 
@@ -82,7 +85,7 @@ namespace Presentation.UI.Menus
         {
             HideTurretInfoView();
             SetBuildingSelectableStatus(false);
-            OnPlayerWantsToSetBuildingInGrid.Invoke(buildingType);
+            OnPlayerWantsToSetBuildingInGrid?.Invoke(buildingType);
         }
 
         private void CancelBuy()
@@ -92,7 +95,7 @@ namespace Presentation.UI.Menus
 
         public void SetBuildingSelectableStatus(bool status)
         {
-            _buildingsSelectable.gameObject.SetActive(status);
+            _buildingsSelectable.gameObject.SetActive(!_disabledBuildingView && status);
         }
 
         private void HideTurretInfoView()
@@ -114,7 +117,7 @@ namespace Presentation.UI.Menus
 
         public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
-            CloseMenus();
+            SetBuildingSelectableStatus(false);
 
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasWon);
             var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
@@ -127,15 +130,10 @@ namespace Presentation.UI.Menus
 
             popUpInstance.gameObject.SetActive(true);
         }
-
-        private void CloseMenus()
-        {
-            _buildingsSelectable.gameObject.SetActive(false);
-        }
-
+        
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
-            CloseMenus();
+            SetBuildingSelectableStatus(false);
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasLost);
             var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
             var popupComponent = popUpInstance.GetComponent<PlayerHasLostPopup>();
@@ -160,6 +158,44 @@ namespace Presentation.UI.Menus
         private void OnClosePopUp(GameObject obj)
         {
             obj.gameObject.SetActive(false);
+        }
+
+        public void SetBuilderTimerInitialValue(float time)
+        {
+            _builderTimer.SetMaxValue(time);
+
+            _remainingTime = time;
+            _currentSliderBarView = _builderTimer;
+            _currentSliderBarView.OnSliderReachZero += () => OnTimerHasEnd?.Invoke();
+
+        }
+        
+        public void SetDefensiveTimerInitialValue(float time)
+        {
+            _defensiveTimer.SetMaxValue(time);
+            
+            _remainingTime = time;
+            _currentSliderBarView = _defensiveTimer;
+            _currentSliderBarView.OnSliderReachZero += () => OnTimerHasEnd?.Invoke();
+
+        }
+
+        private void Update()
+        {
+            if (_skipTimer) return;
+            _remainingTime -= Time.deltaTime;
+            _currentSliderBarView.SetValue(_remainingTime);
+        }
+
+        public void InitTimerLogic(bool skipTimer)
+        {
+            _skipTimer = skipTimer;
+        }
+
+        public void DisableTurretsView()
+        {
+            _disabledBuildingView = true;
+            SetBuildingSelectableStatus(false);
         }
     }
 }

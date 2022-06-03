@@ -24,8 +24,7 @@ namespace Presentation.Managers
         private void Start()
         {
             if (!instantiate) return;
-            EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
-            SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
+            ActivateEnemies();
         }
 
         public void SetCitiesToDestroy(List<Building> cityBuilding1)
@@ -78,6 +77,13 @@ namespace Presentation.Managers
             }
 
             Debug.Log("enemies have been stopped");
+        }
+
+        public void ActivateEnemies()
+        {
+            if(instantiate) return;
+            EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
+            SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
         }
     }
 }

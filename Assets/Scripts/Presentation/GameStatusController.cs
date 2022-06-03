@@ -13,7 +13,7 @@ namespace App.Managers
 {
     public class GameStatusController : MonoBehaviour
     {
-        [SerializeField] private SliderBarView _sliderBarView;
+        [SerializeField] private CanvasPresenter _canvasPresenter;
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
@@ -46,32 +46,33 @@ namespace App.Managers
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
 
-
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             foreach (var cityBuilding in _buildings)
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
             }
-
-            _sliderBarView.SetMaxValue(_timeToWin);
-            _sliderBarView.OnSliderReachZero += TimeHasEnded;
-            _remainingTimeToWin = _timeToWin;
+            if(_skipTimer) return;
+            _canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets);
+            _canvasPresenter.InitTimerLogic(_skipTimer);
+            _canvasPresenter.OnTimerHasEnd += DefensiveTimerHasEnded;
             gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
-            _timerIsRunning = true;
         }
 
-        private void TimeHasEnded()
+        private void DefensiveTimerHasEnded()
         {
-            _timerIsRunning = false;
+            _canvasPresenter.OnTimerHasEnd -= DefensiveTimerHasEnded;
+            enemySpawner.ActivateEnemies();
+            _canvasPresenter.DisableTurretsView();
+            _canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin);
+            _canvasPresenter.OnTimerHasEnd += EnemyHasBeenDefeatedByTimer;
+        }
+
+        private void EnemyHasBeenDefeatedByTimer()
+        {
+            _canvasPresenter.OnTimerHasEnd -= EnemyHasBeenDefeatedByTimer;
             EnemyHasBeenDefeated(null);
         }
-
-        private void Update()
-        {
-            if (!_timerIsRunning || _skipTimer) return;
-            _remainingTimeToWin -= Time.deltaTime;
-            _sliderBarView.SetValue(_remainingTimeToWin);
-        }
+        
 
 //Refactor
         private void EnemyHasBeenDefeated(Enemy enemy)
