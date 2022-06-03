@@ -20,13 +20,7 @@ namespace Presentation.Managers
 
         private List<Building> _citiesToDestroy;
         private readonly List<Enemy> _activeEnemies = new();
-
-        private void Start()
-        {
-            if (!instantiate) return;
-            ActivateEnemies();
-        }
-
+        
         public void SetCitiesToDestroy(List<Building> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
@@ -79,9 +73,9 @@ namespace Presentation.Managers
             Debug.Log("enemies have been stopped");
         }
 
-        public void ActivateEnemies()
+        public void ActivateEnemiesByTimer()
         {
-            if(instantiate) return;
+            if(!instantiate) return;
             EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
             SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
         }

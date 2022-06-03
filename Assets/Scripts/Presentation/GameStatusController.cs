@@ -61,7 +61,7 @@ namespace App.Managers
         private void DefensiveTimerHasEnded()
         {
             _canvasPresenter.OnTimerHasEnd -= DefensiveTimerHasEnded;
-            enemySpawner.ActivateEnemies();
+            enemySpawner.ActivateEnemiesByTimer();
             _canvasPresenter.DisableTurretsView();
             _canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin);
             _canvasPresenter.OnTimerHasEnd += EnemyHasBeenDefeatedByTimer;
