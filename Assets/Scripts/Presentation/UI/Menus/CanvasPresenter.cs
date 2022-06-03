@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using App;
 using App.Events;
 using App.SceneManagement;
@@ -40,10 +41,7 @@ namespace Presentation.UI.Menus
             UpdateResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
         }
-
-        public PointerEventData Test { get; set; }
-
-
+        
 //USED BY PointerDataEvent
         public void SetStatusDrawingTurretRanges(bool status)
         {
