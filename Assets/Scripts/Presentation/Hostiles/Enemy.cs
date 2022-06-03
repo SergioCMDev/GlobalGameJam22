@@ -25,6 +25,7 @@ namespace Presentation.Hostiles
         private List<Building> _cityBuilding;
         private Building _cityTarget;
         private GridPathfinding _gridPathfinding;
+        private Timer _timer;
 
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
@@ -65,7 +66,11 @@ namespace Presentation.Hostiles
 
         public void ReduceSpeed(float percentageToReduce, float effectDuration)
         {
-            Invoke(nameof(ResetSpeed), effectDuration);
+            _timer = new Timer();
+            _timer.Init(effectDuration);
+            _timer.OnTimerEnds += ResetSpeed;
+            StartCoroutine(_timer.CountTIme());
+            
             EnemyMovement.ChangeSpeed(EnemyMovement.Speed * (1-percentageToReduce));
         }
 
@@ -76,6 +81,8 @@ namespace Presentation.Hostiles
 
         private void ResetSpeed()
         {
+            _timer.OnTimerEnds -= ResetSpeed;
+
             EnemyMovement.ResetSpeed();
         }
 
