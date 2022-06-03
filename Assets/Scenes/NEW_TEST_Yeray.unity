@@ -6197,6 +6197,10 @@ PrefabInstance:
       propertyPath: gridMovementManager
       value: 
       objectReference: {fileID: 1826735654}
+    - target: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
+      propertyPath: enemyPrefabs.Array.data[0].tileToFollow
+      value: 
+      objectReference: {fileID: 11400000, guid: 853d012296733c34cb7338daf173e44c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
 --- !u!4 &8790425707887277880
