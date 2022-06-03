@@ -14,6 +14,7 @@ namespace Presentation.Infrastructure
         private float _lastTimeAttacked;
 
         private GameObject _enemyGameObject;
+        private bool _hasAttackedBefore;
 
         public event Action OnBuildingAttacks;
 
@@ -30,12 +31,15 @@ namespace Presentation.Infrastructure
                     attackBehaviour.DoAttack(receiveDamage);
                 }
             }
+            _hasAttackedBefore = true;
+
         }
 
         public bool CanAttack()
         {
             _lastTimeAttacked += Time.deltaTime;
-            return _lastTimeAttacked > _cadence;
+            if (_hasAttackedBefore) return _lastTimeAttacked > _cadence;
+            return true;
         }
 
         private void OnDrawGizmos()
