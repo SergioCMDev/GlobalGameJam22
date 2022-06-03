@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using App.Events;
 using Presentation.Hostiles;
-using Presentation.Interfaces;
 using Presentation.Managers;
 using UnityEngine;
 using Utils;
@@ -98,8 +97,7 @@ namespace Presentation.Infrastructure
         {
             SpriteRenderer.color = originalColor;
         }
-
-
+        
         public void Stop()
         {
             _isActive = false;

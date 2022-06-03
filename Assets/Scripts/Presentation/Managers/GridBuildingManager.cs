@@ -615,7 +615,7 @@ namespace Presentation.Managers
         {
             if (tuplePosition.OldGridPosition == tuplePosition.NewGridPosition ||
                 !WorldTileDictionary.ContainsKey(tuplePosition.NewGridPosition)) return;
-            Debug.Log("NUEVA TILE");
+            Debug.Log($"NUEVA TILE {tuplePosition.NewGridPosition}");
 
             WorldTileDictionary[tuplePosition.NewGridPosition].IsOccupied = true;
             WorldTileDictionary[tuplePosition.NewGridPosition].Occupier = occupier;
