@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7924285615697014459}
   m_RootOrder: 0
@@ -154,6 +155,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7924285615697014459}
   m_RootOrder: 1
@@ -283,6 +285,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 584511068389441250}
   - {fileID: 353117700135080380}
@@ -318,6 +321,8 @@ MonoBehaviour:
     SfxSoundName: 21
   - AudioClip: {fileID: 8300000, guid: b41b1637a28574c4897cc00cadd39efc, type: 3}
     SfxSoundName: 20
+  - AudioClip: {fileID: 8300000, guid: b41b1637a28574c4897cc00cadd39efc, type: 3}
+    SfxSoundName: 16
   _musicSoundDictionary:
   - AudioClip: {fileID: 8300000, guid: 20fc084536747024381fca8334254191, type: 3}
     MusicSoundName: 0
