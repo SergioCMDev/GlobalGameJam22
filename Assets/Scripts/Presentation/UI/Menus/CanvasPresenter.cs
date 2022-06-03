@@ -38,7 +38,7 @@ namespace Presentation.UI.Menus
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
             UpdateResources();
-            _buildingsSelectable.OnPlayerWantsToBuyBuilding += PlayerWantsToBuyBuilding;
+            _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
         }
 
         public PointerEventData Test { get; set; }
@@ -66,20 +66,21 @@ namespace Presentation.UI.Menus
         {
             _changeToNextSceneEvent.Fire();
         }
-
-        private void PlayerWantsToBuyBuilding(BuildingType buildingType)
-        {
-            var popUpInstance = _popupManager.InstantiatePopup(PopupType.TurretInformation);
-            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
-            var popupComponent = popUpInstance.GetComponent<TurretInfoPopup>();
-            closeablePopup.OnClosePopup += OnClosePopUp;
-
-            popupComponent.gameObject.SetActive(true);
-            popupComponent.SetData(buildingType);
-            popupComponent.OnBuyTurretPressed += AllowSetPositionOfTurret;
-            popupComponent.OnCancelBuyPressed += CancelBuy;
-            popUpInstance.gameObject.SetActive(true);
-        }
+        //
+        // private void PlayerWantsToBuyBuilding(BuildingType buildingType)
+        // {
+        //     AllowSetPositionOfTurret(buildingType);
+        //     // var popUpInstance = _popupManager.InstantiatePopup(PopupType.TurretInformation);
+        //     // var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
+        //     // var popupComponent = popUpInstance.GetComponent<TurretInfoPopup>();
+        //     // closeablePopup.OnClosePopup += OnClosePopUp;
+        //     //
+        //     // popupComponent.gameObject.SetActive(true);
+        //     // popupComponent.SetData(buildingType);
+        //     // popupComponent.OnBuyTurretPressed += AllowSetPositionOfTurret;
+        //     // popupComponent.OnCancelBuyPressed += CancelBuy;
+        //     // popUpInstance.gameObject.SetActive(true);
+        // }
 
         private void AllowSetPositionOfTurret(BuildingType buildingType)
         {
