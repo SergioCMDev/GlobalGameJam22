@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1716ba3f37b749358b8bbd4f843e25ef, type: 3}
   m_Name: TeslaAttackBehaviourData
   m_EditorClassIdentifier: 
-  damageType: 0
-  cadence: 1
+  damageType: 1
+  cadence: 5
   damage: 1
   percentageToReduceSpeed: 0.25
   durationOfEffect: 5
