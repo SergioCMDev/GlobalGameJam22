@@ -39,7 +39,7 @@ namespace App.SceneManagement
             SceneManager.LoadScene(SceneUtils.GetCurrentScene());
         }
 
-        public void GoToFirstLevel(PlayerStartedFirstLeveEvent playerStartFirstLeveEvent)
+        public void GoToFirstLevel()
         {
             SceneManager.LoadScene(_scenesListModel.GetFirstLevelSceneName());
         }
@@ -109,6 +109,11 @@ namespace App.SceneManagement
         public string GetMainMenuSceneName()
         {
             return _scenesListModel.GetMainMenuSceneName();
+        }
+
+        public string GetFirstSceneName()
+        {
+            return _scenesListModel.GetFirstLevelSceneName();
         }
     }
 }

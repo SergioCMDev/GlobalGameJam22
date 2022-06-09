@@ -33,10 +33,8 @@ namespace Presentation.UI
 
         private void StartNewGame()
         {
-            //Temporal
-            // SceneManager.LoadScene("SampleScene_Sergio");
-
-            GoToSelectedScene("Level1");
+            var sceneName = _sceneChanger.GetFirstSceneName();
+            GoToSelectedScene(sceneName);
         }
 
         private void GoToSelectedScene(string sceneToGo)
@@ -48,8 +46,6 @@ namespace Presentation.UI
             operationLoadingScene.allowSceneActivation = false;
             operationLoadingScene.completed += SceneLoaded;        
         }
-
-        
         
         public void CompletedLevel()
         {
