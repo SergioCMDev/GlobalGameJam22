@@ -184,9 +184,9 @@ namespace Presentation.Managers
                 {
                     Vector3Int gridPosition = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
                     Vector3 worldPosition = _tilemap.CellToWorld(gridPosition);
-                    Debug.Log($"Grid POsition {gridPosition}");
+                    // Debug.Log($"Grid POsition {gridPosition}");
                     // if (!_tilemap.HasTile(gridPosition) || !_buildingTilemap.HasTile(gridPosition)) continue;
-                    Debug.Log($"Grid POsition OK {gridPosition} ");
+                    // Debug.Log($"Grid POsition OK {gridPosition} ");
 
                     var tilemapColourDictionary = new Dictionary<Tilemap, TilemapColours>();
                     if (_buildingTilemap.HasTile(gridPosition))
