@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/InitScene.unity
     guid: a3471b872b6a68d4396ef09236718f59
   - enabled: 1
+    path: Assets/Scenes/Level01.unity
+    guid: 8d474f8e496c40f4dbffd7b08f9ea5cb
+  - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 9512ef43c998f3746af545cd40f2b63d
   - enabled: 1
@@ -17,7 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NEW_TEST_Yeray.unity
     guid: fa50ad6ee2223aa4baea8bbab9e0ecae
-  - enabled: 1
-    path: Assets/Scenes/SampleScene_Yeray.unity
-    guid: c091ea3820b16a54ebcc57664ac75b01
   m_configObjects: {}
