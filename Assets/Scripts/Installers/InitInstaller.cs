@@ -30,6 +30,7 @@ namespace Installers
 
         private void Awake()
         {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
             var installersObject = FindObjectsOfType<InitInstaller>(true);
             if (installersObject.Any(x => x.Initialized)) return;
 
