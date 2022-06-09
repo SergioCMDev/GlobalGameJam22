@@ -9,18 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/InitScene.unity
     guid: a3471b872b6a68d4396ef09236718f59
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: babe64d1dc106db47a57a6193285acdf
-  - enabled: 1
-    path: Assets/Scenes/Level2.unity
-    guid: 77e9fea7afcbdda4495aec44dd62b740
-  - enabled: 1
-    path: Assets/Scenes/Level3.unity
-    guid: 8a66d1d3679317f4186ffea30dfe8b79
-  - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 9512ef43c998f3746af545cd40f2b63d
   - enabled: 1
     path: Assets/Scenes/SampleScene_Sergio.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/NEW_TEST_Yeray.unity
+    guid: fa50ad6ee2223aa4baea8bbab9e0ecae
+  - enabled: 1
+    path: Assets/Scenes/SampleScene_Yeray.unity
+    guid: c091ea3820b16a54ebcc57664ac75b01
   m_configObjects: {}
