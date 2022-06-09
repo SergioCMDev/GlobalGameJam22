@@ -38,18 +38,15 @@ namespace Presentation.UI.Menus
             _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
             _levelSelectorView.OnStartLevelSelected += StartLevelSelected;
-            _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
-
+            _levelSelectorView.OnButtonBackIsClicked += ShowInitMenu;
+            
             // _deleteSavedGameView.gameObject.SetActive(false);
             _optionsMenuView.gameObject.SetActive(false);
             _levelSelectorView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
-            if (!_gameDataService.HasStartedGame())
-            {
-                _initMenuView.HideContinueButton();
-            }
+            
         }
+        
 
         private void StartLevelSelected(string obj)
         {
@@ -63,9 +60,17 @@ namespace Presentation.UI.Menus
         private void Start()
         {
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
-
+  
+            _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            
             _readInputPlayer.DisableGameplayInput();
             _readInputPlayer.EnableMenusInput();
+            
+            if (!_gameDataService.HasStartedGame())
+            {
+                _initMenuView.HideContinueButton();
+            }
             // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
         }
@@ -94,6 +99,7 @@ namespace Presentation.UI.Menus
         private void ShowInitMenu()
         {
             _optionsMenuView.gameObject.SetActive(false);
+            _levelSelectorView.gameObject.SetActive(false);
             _initMenuView.gameObject.SetActive(true);
         }
 
