@@ -16,7 +16,7 @@ namespace Presentation.Managers
         [SerializeField] private List<BuildingCost> _buildingCost;
         [SerializeField] private List<BuildingDataTuple> buildingData;
         private IBuildingStatusModel _buildingStatusModel;
-        private List<MilitaryBuildingFacade> _ownMilitaryBuilding = new List<MilitaryBuildingFacade>();
+        private List<MilitaryBuildingFacade> _ownMilitaryBuilding = new();
 
         private GameObject _enemy;
 
@@ -71,11 +71,12 @@ namespace Presentation.Managers
             _ownMilitaryBuilding.Add(militaryBuilding);
         }
 
-        public void StopMilitaryBuildings(StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent)
+        public void DeactivateMilitaryBuildings(DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent)
         {
             foreach (var building in _ownMilitaryBuilding)
             {
-                building.Stop();
+                building.Deactivate();
+                building.CleanOccupiers();
             }
         }
         

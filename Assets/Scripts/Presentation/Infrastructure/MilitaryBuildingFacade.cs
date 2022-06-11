@@ -103,12 +103,20 @@ namespace Presentation.Infrastructure
         {
             SpriteRenderer.color = originalColor;
         }
-        
-        public void Stop()
+
+        public void Deactivate()
         {
             _isActive = false;
+ 
         }
 
+        public void CleanOccupiers()
+        {
+            foreach (var tileInRange in tilesToAttack)
+            {
+                tileInRange.CleanOccupier();
+            }
+        }
         public void SetTilesToAttack(List<TileDataEntity> tileDataEntities)
         {
             tilesToAttack = tileDataEntities;

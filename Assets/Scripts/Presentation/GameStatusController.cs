@@ -11,22 +11,29 @@ using Utils;
 
 namespace App.Managers
 {
+
+    public class RoundsLogic
+    {
+        
+    }
     public class GameStatusController : MonoBehaviour
     {
-        [SerializeField] private CanvasPresenter _canvasPresenter;
+        [SerializeField] private CanvasPresenter canvasPresenter;
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
 
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
-        [SerializeField] private StopMilitaryBuildingsEvent stopMilitaryBuildingsEvent;
+        [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
         [SerializeField] private ActivateMilitaryBuildingsEvent activateMilitaryBuildingsEvent;
         [SerializeField] private float _timeToWin = 20, _timeToAllowPlayerBuildsTurrets;
+        [SerializeField] private int _numberOfRoundsPerLevel;
         [SerializeField] private bool _skipTimer;
         private SceneChanger _sceneChanger;
         private SoundManager _soundManager;
         private GameDataService _gameDataService;
+        private int _currentRound;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
         private List<Building> _buildings = new();
@@ -52,37 +59,59 @@ namespace App.Managers
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
             }
-            if(_skipTimer) return;
-            _canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets);
-            _canvasPresenter.InitTimerLogic(_skipTimer);
-            _canvasPresenter.OnTimerHasEnd += DefensiveTimerHasEnded;
+
             gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
+
+            StartNewRound();
         }
 
-        private void DefensiveTimerHasEnded()
+        private void StartNewRound()
         {
-            _canvasPresenter.OnTimerHasEnd -= DefensiveTimerHasEnded;
+            _currentRound++;
+            enemySpawner.HideEnemies();
+            if (_skipTimer) return;
+            canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
+            canvasPresenter.InitTimerLogic(_skipTimer);
+            canvasPresenter.SetBuildingSelectableViewStatus(true);
+            //Poner enemigo en posicion inicial
+        }
+
+        private void ActivateEnemies()
+        {
             enemySpawner.ActivateEnemiesByTimer();
             activateMilitaryBuildingsEvent.Fire();
-            _canvasPresenter.DisableTurretsView();
-            _canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin);
-            _canvasPresenter.OnTimerHasEnd += EnemyHasBeenDefeatedByTimer;
+            canvasPresenter.SetBuildingSelectableViewStatus(false);
+            canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin, RoundEnded);
         }
 
-        private void EnemyHasBeenDefeatedByTimer()
+        private void RoundEnded()
         {
-            _canvasPresenter.OnTimerHasEnd -= EnemyHasBeenDefeatedByTimer;
-            EnemyHasBeenDefeated(null);
+            deactivateMilitaryBuildingsEvent.Fire();
+            if (NeedToPlayMoreRounds())
+            {
+                StartNewRound();
+            }
+            else
+            {
+                EnemyHasBeenDefeated();
+            }
         }
-        
 
-//Refactor
-        private void EnemyHasBeenDefeated(Enemy enemy)
+        private bool NeedToPlayMoreRounds()
         {
+            return _currentRound < _numberOfRoundsPerLevel;
+        }
+
+
+        //Refactor
+        private void EnemyHasBeenDefeated(Enemy enemy = null)
+        {
+            enemySpawner.OnEnemyHasBeenDefeated -= EnemyHasBeenDefeated;
+
             _gameDataService.SaveGame(_sceneChanger.GetCurrentSceneName());
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
-            stopMilitaryBuildingsEvent.Fire();
+            deactivateMilitaryBuildingsEvent.Fire();
             enemySpawner.StopEnemies();
         }
 
@@ -97,7 +126,7 @@ namespace App.Managers
         {
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
-            stopMilitaryBuildingsEvent.Fire();
+            deactivateMilitaryBuildingsEvent.Fire();
             enemySpawner.StopEnemies();
         }
 
@@ -108,7 +137,7 @@ namespace App.Managers
 
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)
         {
-            EnemyHasBeenDefeated(null);
+            EnemyHasBeenDefeated();
         }
 
         public void LostLevel(PlayerHasLostLevelEvent levelEvent)

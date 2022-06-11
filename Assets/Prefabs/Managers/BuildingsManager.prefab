@@ -103,12 +103,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5961397240373358376}
-        m_TargetAssemblyTypeName: Presentation.BuildingManager, Presentation
-        m_MethodName: StopMilitaryBuildings
+        m_TargetAssemblyTypeName: Presentation.Managers.BuildingManager, Presentation
+        m_MethodName: DeactivateMilitaryBuildings
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
-          m_ObjectArgumentAssemblyTypeName: App.Events.StopMilitaryBuildingsEvent,
+          m_ObjectArgumentAssemblyTypeName: App.Events.DeactivateMilitaryBuildingsEvent,
             Application
           m_IntArgument: 0
           m_FloatArgument: 0

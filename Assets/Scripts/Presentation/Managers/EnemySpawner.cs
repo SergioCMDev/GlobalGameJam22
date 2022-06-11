@@ -17,10 +17,11 @@ namespace Presentation.Managers
         [SerializeField] private bool instantiate;
         [SerializeField] private Vector3Int positionToInstantiate;
         [SerializeField] private List<EnemySpawnerInfo> enemyPrefabs;
+        [SerializeField] private Transform enemiesParent;
 
         private List<Building> _citiesToDestroy;
-        private readonly List<Enemy> _activeEnemies = new();
-        
+        // private readonly List<Enemy> _activeEnemies = new();
+
         public void SetCitiesToDestroy(List<Building> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
@@ -39,14 +40,14 @@ namespace Presentation.Managers
 
             var positionToPutEnemy = gridBuildingManager
                 .WorldTileDictionary[positionToInstantiate].WorldPosition;
-            var enemyInstance = Instantiate(enemySpawnerInfo.enemyPrefab, positionToPutEnemy, Quaternion.identity);
+            var enemyInstance = Instantiate(enemySpawnerInfo.enemyPrefab, positionToPutEnemy, Quaternion.identity, enemiesParent);
             var enemy = enemyInstance.GetComponent<Enemy>();
             GridPathfinding gridPathfinding = new GridPathfinding();
             gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemySpawnerInfo.TilesToFollow);
 
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
-            _activeEnemies.Add(enemy);
+            // _activeEnemies.Add(enemy);
             enemy.OnObjectMoved += OnObjectMoved;
         }
 
@@ -60,12 +61,12 @@ namespace Presentation.Managers
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
             enemy.OnObjectMoved -= OnObjectMoved;
             OnEnemyHasBeenDefeated?.Invoke(enemy);
-            _activeEnemies.Remove(enemy);
+            // _activeEnemies.Remove(enemy);
         }
 
         public void StopEnemies()
         {
-            foreach (var enemy in _activeEnemies)
+            foreach (Enemy enemy in enemiesParent.transform)
             {
                 enemy.Deactivate();
             }
@@ -78,6 +79,14 @@ namespace Presentation.Managers
             if(!instantiate) return;
             EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
             SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
+        }
+        
+        public void HideEnemies()
+        {
+            foreach (Transform enemy in enemiesParent.transform)
+            {
+                Destroy(enemy.gameObject);
+            }
         }
     }
 }
