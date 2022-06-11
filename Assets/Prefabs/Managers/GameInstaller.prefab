@@ -185,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _timeToWin
-      value: 60
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: enemySpawner
@@ -204,9 +204,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9075615966201424918}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: _numberOfRoundsPerLevel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: activateMilitaryBuildingsEvent
       value: 
       objectReference: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: _timeToAllowPlayerBuildsTurrets
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: deactivateMilitaryBuildingsEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: buildingPositionTuples.Array.size
       value: 1
