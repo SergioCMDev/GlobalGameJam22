@@ -29,7 +29,7 @@ namespace Presentation.Managers
         {
             _soundManager.PlaySfx(SfxSoundName.BuyCanceled);
 
-            _canvasPresenter.SetBuildingSelectableStatus(true);
+            _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.BuyHasBeenCanceled();
         }
 
@@ -37,7 +37,7 @@ namespace Presentation.Managers
         {
             _soundManager.PlaySfx(SfxSoundName.BuildingHasBeenSet);
 
-            _canvasPresenter.SetBuildingSelectableStatus(true);
+            _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.EndBuyCorrectly();
         }
 
@@ -52,7 +52,7 @@ namespace Presentation.Managers
 
             // _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
         
-            _canvasPresenter.SetBuildingSelectableStatus(true);
+            _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.BuyHasBeenCanceled();
         }
     

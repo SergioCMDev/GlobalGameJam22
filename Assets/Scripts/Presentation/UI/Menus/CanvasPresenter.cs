@@ -29,8 +29,6 @@ namespace Presentation.UI.Menus
         private PopupManager _popupManager;
         private float _remainingTime;
         private SliderBarView _currentSliderBarView;
-        public event Action OnTimerHasEnd;
-
         public event Action<BuildingType> OnPlayerWantsToSetBuildingInGrid;
 
         void Start()
@@ -82,27 +80,15 @@ namespace Presentation.UI.Menus
 
         private void AllowSetPositionOfTurret(BuildingType buildingType)
         {
-            HideTurretInfoView();
-            SetBuildingSelectableStatus(false);
+            SetBuildingSelectableViewStatus(false);
             OnPlayerWantsToSetBuildingInGrid?.Invoke(buildingType);
         }
-
-        private void CancelBuy()
-        {
-            HideTurretInfoView();
-        }
-
-        public void SetBuildingSelectableStatus(bool status)
+        
+        public void SetBuildingSelectableViewStatus(bool status)
         {
             _buildingsSelectable.gameObject.SetActive(!_disabledBuildingView && status);
         }
-
-        private void HideTurretInfoView()
-        {
-            // turretInfoPopup.gameObject.SetActive(false);
-            // turretInfoPopup.OnBuyTurretPressed -= AllowSetPositionOfTurret;
-            // turretInfoPopup.OnCancelBuyPressed -= CancelBuy;
-        }
+        
 
         public void UpdateResources(UpdateUIResourcesEvent resourcesEvent)
         {
@@ -116,7 +102,7 @@ namespace Presentation.UI.Menus
 
         public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
-            SetBuildingSelectableStatus(false);
+            SetBuildingSelectableViewStatus(false);
 
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasWon);
             var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
@@ -132,7 +118,7 @@ namespace Presentation.UI.Menus
         
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
-            SetBuildingSelectableStatus(false);
+            SetBuildingSelectableViewStatus(false);
             var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasLost);
             var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
             var popupComponent = popUpInstance.GetComponent<PlayerHasLostPopup>();
@@ -189,12 +175,6 @@ namespace Presentation.UI.Menus
         public void InitTimerLogic(bool skipTimer)
         {
             _skipTimer = skipTimer;
-        }
-
-        public void DisableTurretsView()
-        {
-            _disabledBuildingView = true;
-            SetBuildingSelectableStatus(false);
         }
     }
 }
