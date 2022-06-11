@@ -48,6 +48,7 @@ namespace Presentation.Managers
     {
         [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap;
         [SerializeField] private Grid _grid;
+        [SerializeField] private Transform _buildingParent;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private Tile _red, white, green, _purple;
 
@@ -107,7 +108,7 @@ namespace Presentation.Managers
         {
             ShowTemporalTileMap();
             LoadMilitaryBuildings();
-            _building = Instantiate(tilemapEvent.Prefab); //GET POOL
+            _building = Instantiate(tilemapEvent.Prefab, _buildingParent); //GET POOL
             _buildingFacadeComponent = _building.GetComponent<MilitaryBuildingFacade>();
             _buildingFacadeComponent.Initialize();
             _buildingFacadeComponent.Select();
