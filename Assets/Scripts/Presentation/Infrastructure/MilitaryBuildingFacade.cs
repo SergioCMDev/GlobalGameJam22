@@ -36,7 +36,7 @@ namespace Presentation.Infrastructure
             set => _attackRingRange = value;
         }
 
-        
+
         private void Awake()
         {
             _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
@@ -59,7 +59,7 @@ namespace Presentation.Infrastructure
         {
             _soundManager.PlaySfx(_sfxWhenAttack);
         }
-        
+
         private void Update()
         {
             if (!_isActive || !_militaryBuildingAttacker.CanAttack()) return;
@@ -88,7 +88,7 @@ namespace Presentation.Infrastructure
             _isActive = true;
         }
 
-        
+
         public void Deploy()
         {
             _animator.SetTrigger(DeployTrigger);
