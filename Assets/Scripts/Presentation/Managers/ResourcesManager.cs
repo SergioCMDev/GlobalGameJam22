@@ -1,3 +1,4 @@
+using App;
 using App.Events;
 using App.Models;
 using Presentation.Structs;
@@ -27,17 +28,20 @@ namespace Presentation.Managers
 
         public void PlayerGetResource(PlayerGetResourceEvent playerGetResourceEvent)
         {
-            Debug.Log($"Got resource {playerGetResourceEvent.Type} Q {playerGetResourceEvent.Quantity}");
-            ResourcesModel.AddResources(playerGetResourceEvent.Type, playerGetResourceEvent.Quantity);
-            //IF player Gets resource check if any building can be updated based on a scriptable object with level-resource quantities and type of upgrade
-            _updateUIResourcesEvent.Fire();
-
+            AddResources(playerGetResourceEvent.Type, playerGetResourceEvent.Quantity);
         }
 
         public void RemoveResourcesOfPlayer(ResourcesTuple resourcesNeededForCurrentBuy)
         {
             ResourcesModel.Gold -= resourcesNeededForCurrentBuy.Gold;
             ResourcesModel.Metal -= resourcesNeededForCurrentBuy.Metal;
+            _updateUIResourcesEvent.Fire();
+        }
+
+        public void AddResources(RetrievableResourceType type, float quantity)
+        {
+            Debug.Log($"Got resource {type} Q {quantity}");
+            ResourcesModel.AddResources(type, quantity);
             _updateUIResourcesEvent.Fire();
         }
     }

@@ -13,6 +13,7 @@
 
         public void AddResources(RetrievableResourceType type, float quantity)
         {
+            Gold += quantity;
             //TODO USING SOLID
         }
     }

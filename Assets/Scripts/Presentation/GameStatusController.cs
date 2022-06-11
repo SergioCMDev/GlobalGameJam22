@@ -31,6 +31,7 @@ namespace App.Managers
         [SerializeField] private int _numberOfRoundsPerLevel;
         [SerializeField] private bool _skipTimer;
         private SceneChanger _sceneChanger;
+        private ResourcesManager _resourcesManager;
         private SoundManager _soundManager;
         private GameDataService _gameDataService;
         private int _currentRound;
@@ -53,6 +54,7 @@ namespace App.Managers
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
 
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             foreach (var cityBuilding in _buildings)
@@ -89,6 +91,8 @@ namespace App.Managers
             deactivateMilitaryBuildingsEvent.Fire();
             if (NeedToPlayMoreRounds())
             {
+                //TODO CALCULATE QUANTITY TO ADD
+                _resourcesManager.AddResources(RetrievableResourceType.Gold, 200);
                 StartNewRound();
             }
             else
