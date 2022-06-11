@@ -66,9 +66,9 @@ namespace Presentation.Managers
 
         public void StopEnemies()
         {
-            foreach (Enemy enemy in enemiesParent.transform)
+            foreach (Transform enemy in enemiesParent.transform)
             {
-                enemy.Deactivate();
+                enemy.GetComponent<Enemy>().Deactivate();
             }
 
             Debug.Log("enemies have been stopped");

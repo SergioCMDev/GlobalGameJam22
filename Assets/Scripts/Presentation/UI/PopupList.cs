@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace Presentation.UI
 {
-    [CreateAssetMenu(fileName = "PopupList",
-        menuName = "Popup/PopupList")]
+    [CreateAssetMenu(fileName = "PopupList", menuName = "Popup/PopupList")]
     public class PopupList : ScriptableObject
     {
         public List<PopupGetter> PopupListEditor;

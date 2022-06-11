@@ -37,7 +37,7 @@ namespace App.Managers
         private int _currentRound;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
-        private List<Building> _buildings = new();
+        private readonly List<Building> _buildings = new();
 
         private void Awake()
         {
@@ -75,7 +75,6 @@ namespace App.Managers
             canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
             canvasPresenter.InitTimerLogic(_skipTimer);
             canvasPresenter.SetBuildingSelectableViewStatus(true);
-            //Poner enemigo en posicion inicial
         }
 
         private void ActivateEnemies()
@@ -106,17 +105,15 @@ namespace App.Managers
             return _currentRound < _numberOfRoundsPerLevel;
         }
 
-
-        //Refactor
         private void EnemyHasBeenDefeated(Enemy enemy = null)
         {
             enemySpawner.OnEnemyHasBeenDefeated -= EnemyHasBeenDefeated;
-
-            _gameDataService.SaveGame(_sceneChanger.GetCurrentSceneName());
+            enemySpawner.StopEnemies();
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
             deactivateMilitaryBuildingsEvent.Fire();
-            enemySpawner.StopEnemies();
+
+            _gameDataService.SaveGame(_sceneChanger.GetCurrentSceneName());
         }
 
         private void CityHasBeenDestroyed(Building building)

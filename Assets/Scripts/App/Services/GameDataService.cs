@@ -24,11 +24,7 @@ namespace App.Services
 
         public void SaveGame(string lastCompletedScene)
         {
-            var lastSavedGame = _loader.LoadGame();
-            if (lastSavedGame == null)
-            {
-                lastSavedGame = new Savegame();
-            }
+            var lastSavedGame = _loader.LoadGame() ?? new Savegame();
 
             lastSavedGame.NameOfLastCompletedScene = lastCompletedScene;
             var id = Utilities.GetNumberOfLevelString(lastCompletedScene);
