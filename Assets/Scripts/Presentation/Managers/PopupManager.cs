@@ -18,12 +18,12 @@ namespace Presentation.Managers
         NeedMoreResources,
         PlayerHasLost,
         PlayerHasWon,
+        RoundInformation,
         TurretInformation
     }
 
     public class PopupManager : MonoBehaviour
     {
-        // [SerializeField] private GameObject _prefab;
         [SerializeField] private PopupList _popupList;
         private GameObject _currentopenedPopup;
         private Camera _camera;
