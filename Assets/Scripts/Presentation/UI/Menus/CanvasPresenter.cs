@@ -159,23 +159,23 @@ namespace Presentation.UI.Menus
             obj.gameObject.SetActive(false);
         }
 
-        public void SetBuilderTimerInitialValue(float time)
+        public void SetBuilderTimerInitialValue(float time, Action onTimerHasEnded)
         {
             _builderTimer.SetMaxValue(time);
 
             _remainingTime = time;
             _currentSliderBarView = _builderTimer;
-            _currentSliderBarView.OnSliderReachZero += () => OnTimerHasEnd?.Invoke();
+            _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
 
         }
         
-        public void SetDefensiveTimerInitialValue(float time)
+        public void SetDefensiveTimerInitialValue(float time, Action onTimerHasEnded)
         {
             _defensiveTimer.SetMaxValue(time);
             
             _remainingTime = time;
             _currentSliderBarView = _defensiveTimer;
-            _currentSliderBarView.OnSliderReachZero += () => OnTimerHasEnd?.Invoke();
+            _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
 
         }
 
