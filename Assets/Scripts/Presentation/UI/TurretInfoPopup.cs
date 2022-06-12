@@ -16,6 +16,8 @@ namespace Presentation.UI
         public event Action OnCancelBuyPressed;
 
         private BuildingType _buildingType;
+        public Action<GameObject> HasToClosePopup { get; set; }
+        public Action PopupHasBeenClosed { get; set; }
 
         void Start()
         {
@@ -25,14 +27,14 @@ namespace Presentation.UI
 
         private void CancelBuyButtonPressed()
         {
-            OnClosePopup.Invoke(gameObject);
-            OnCancelBuyPressed.Invoke();
+            HasToClosePopup.Invoke(gameObject);
+            OnCancelBuyPressed?.Invoke();
         }
 
         private void BuyTurretButtonPressed()
         {
-            OnClosePopup.Invoke(gameObject);
-            OnBuyTurretPressed.Invoke(_buildingType);
+            HasToClosePopup.Invoke(gameObject);
+            OnBuyTurretPressed?.Invoke(_buildingType);
         }
 
         private void OnDestroy()
@@ -47,6 +49,5 @@ namespace Presentation.UI
             _buildingType = buildingType;
         }
 
-        public Action<GameObject> OnClosePopup { get; set; }
     }
 }
