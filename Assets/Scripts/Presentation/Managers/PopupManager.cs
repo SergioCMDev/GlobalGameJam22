@@ -18,7 +18,7 @@ namespace Presentation.Managers
         NeedMoreResources,
         PlayerHasLost,
         PlayerHasWon,
-        RoundInformation,
+        NewRound,
         TurretInformation
     }
 
@@ -35,16 +35,21 @@ namespace Presentation.Managers
 
         public void InstantiatePopup(InstantiatePopupEvent instantiatePopupEvent)
         {
-            GameObject instance = InstantiatePopup(instantiatePopupEvent.popupType);
-            var closeablePopup = instance.GetComponentInChildren<ICloseablePopup>();
-            closeablePopup.OnClosePopup += ClosePopup;
-            instance.gameObject.SetActive(true);
+            InstantiatePopup(instantiatePopupEvent.popupType);
         }
 
-        public GameObject InstantiatePopup(PopupType popupType)
+        public T InstantiatePopup<T>(PopupType popupType)
+        {
+            _currentopenedPopup = InstantiatePopup(popupType);
+            return _currentopenedPopup.GetComponent<T>();
+        }
+
+        private GameObject InstantiatePopup(PopupType popupType)
         {
             GameObject prefab = _popupList.GetPrefabByType(popupType);
             _currentopenedPopup = Instantiate(prefab, transform, false);
+            var closeablePopup = _currentopenedPopup.GetComponent<ICloseablePopup>();
+            closeablePopup.HasToClosePopup += ClosePopup;
             _currentopenedPopup.gameObject.SetActive(false);
             _currentopenedPopup.GetComponentInChildren<Canvas>().worldCamera = _camera;
             return _currentopenedPopup;
@@ -53,6 +58,8 @@ namespace Presentation.Managers
         private void ClosePopup(GameObject popup)
         {
             popup.SetActive(false);
+            var closeablePopup = popup.GetComponent<ICloseablePopup>();
+            closeablePopup.PopupHasBeenClosed.Invoke();
         }
     }
 }

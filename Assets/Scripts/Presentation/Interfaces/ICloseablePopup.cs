@@ -5,6 +5,9 @@ namespace Presentation.Interfaces
 {
     public interface ICloseablePopup
     {
-        public Action<GameObject> OnClosePopup { get; set; }
+        //To close Popup
+        public Action<GameObject> HasToClosePopup { get; set; }
+        //When popup has been closed
+        public Action PopupHasBeenClosed { get; set; }
     }
 }
