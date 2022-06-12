@@ -31,7 +31,6 @@ namespace Presentation.Managers
         {
             if (!_buyController.PlayerIsCurrentlyBuying) return;
             
-            _canvasPresenter.SetBuildingSelectableViewStatus(false);
             _gridBuildingManager.CancelTakingPlace();
             _buyController.BuyHasBeenCanceled();
         }

@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
 using App;
 using App.Events;
 using App.SceneManagement;
-using Presentation.Interfaces;
 using Presentation.Managers;
 using Presentation.Structs;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Utils;
 
 namespace Presentation.UI.Menus
@@ -23,7 +20,7 @@ namespace Presentation.UI.Menus
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
         private SceneChanger _sceneChanger;
-        private bool _skipTimer, _timerIsRunning, _buildingViewIsDisabled;
+        private bool _skipTimer, _timerIsRunning;
 
         private ResourcesManager _resourcesManager;
         private PopupManager _popupManager;
@@ -63,22 +60,6 @@ namespace Presentation.UI.Menus
         {
             _changeToNextSceneEvent.Fire();
         }
-        //
-        // private void PlayerWantsToBuyBuilding(BuildingType buildingType)
-        // {
-        //     AllowSetPositionOfTurret(buildingType);
-        //     // var popUpInstance = _popupManager.InstantiatePopup(PopupType.TurretInformation);
-        //     // var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
-        //     // var popupComponent = popUpInstance.GetComponent<TurretInfoPopup>();
-        //     // closeablePopup.OnClosePopup += OnClosePopUp;
-        //     //
-        //     // popupComponent.gameObject.SetActive(true);
-        //     // popupComponent.SetData(buildingType);
-        //     // popupComponent.OnBuyTurretPressed += AllowSetPositionOfTurret;
-        //     // popupComponent.OnCancelBuyPressed += CancelBuy;
-        //     // popUpInstance.gameObject.SetActive(true);
-        // }
-
         private void AllowSetPositionOfTurret(BuildingType buildingType)
         {
             SetBuildingSelectableViewStatus(false);
@@ -87,10 +68,8 @@ namespace Presentation.UI.Menus
         
         public void SetBuildingSelectableViewStatus(bool status)
         {
-            if(_buildingViewIsDisabled) return;
             _buildingsSelectable.gameObject.SetActive(status);
         }
-        
 
         public void UpdateResources(UpdateUIResourcesEvent resourcesEvent)
         {
@@ -140,7 +119,6 @@ namespace Presentation.UI.Menus
             _remainingTime = time;
             _currentSliderBarView = _builderTimer;
             _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
-
         }
         
         public void SetDefensiveTimerInitialValue(float time, Action onTimerHasEnded)
@@ -164,25 +142,14 @@ namespace Presentation.UI.Menus
             _skipTimer = skipTimer;
         }
         
-        public void ForceDisablingSelectableTurretViewStatus(bool status)
+        public void CancelPendingActivitiesOfPlayer()
         {
-            if (status)
-            {
-                OnSystemCancelsBuy?.Invoke();
-                _buildingsSelectable.gameObject.SetActive(false);
-            }
-            _buildingViewIsDisabled = status;
+            OnSystemCancelsBuy?.Invoke();
         }
         
         public void UpdateRoundInformation(int currentRound, int numberOfRoundsPerLevel)
         {
             _roundInformation.SetText($"{currentRound}/{numberOfRoundsPerLevel}");
         }
-
-        public bool PlayerWasBuying()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

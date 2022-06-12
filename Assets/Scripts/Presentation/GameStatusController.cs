@@ -75,7 +75,6 @@ namespace Presentation
             canvasPresenter.UpdateRoundInformation(_currentRound, _numberOfRoundsPerLevel);
             canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
             canvasPresenter.InitTimerLogic(_skipTimer);
-            canvasPresenter.ForceDisablingSelectableTurretViewStatus(false);
             canvasPresenter.SetBuildingSelectableViewStatus(true);
         }
 
@@ -84,7 +83,7 @@ namespace Presentation
  
             enemySpawner.ActivateEnemiesByTimer();
             activateMilitaryBuildingsEvent.Fire();
-            canvasPresenter.ForceDisablingSelectableTurretViewStatus(true);
+            canvasPresenter.CancelPendingActivitiesOfPlayer();
             canvasPresenter.SetBuildingSelectableViewStatus(false);
             canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin, RoundEnded);
         }
