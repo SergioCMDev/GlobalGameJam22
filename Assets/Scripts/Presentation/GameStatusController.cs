@@ -1,21 +1,22 @@
 using System.Collections.Generic;
+using App;
 using App.Events;
 using App.SceneManagement;
 using App.Services;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
+using Presentation.Interfaces;
 using Presentation.Managers;
 using Presentation.UI.Menus;
 using UnityEngine;
 using Utils;
 
-namespace App.Managers
+namespace Presentation
 {
-
     public class RoundsLogic
     {
-        
     }
+
     public class GameStatusController : MonoBehaviour
     {
         [SerializeField] private CanvasPresenter canvasPresenter;
@@ -33,6 +34,7 @@ namespace App.Managers
         private SceneChanger _sceneChanger;
         private ResourcesManager _resourcesManager;
         private SoundManager _soundManager;
+        private PopupManager _popupManager;
         private GameDataService _gameDataService;
         private int _currentRound;
         private float _remainingTimeToWin;
@@ -55,7 +57,7 @@ namespace App.Managers
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
-
+            _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
             foreach (var cityBuilding in _buildings)
             {
@@ -70,17 +72,19 @@ namespace App.Managers
         private void StartNewRound()
         {
             _currentRound++;
-            enemySpawner.HideEnemies();
-            if (_skipTimer) return;
+            canvasPresenter.UpdateRoundInformation(_currentRound, _numberOfRoundsPerLevel);
             canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
             canvasPresenter.InitTimerLogic(_skipTimer);
+            canvasPresenter.ForceDisablingSelectableTurretViewStatus(false);
             canvasPresenter.SetBuildingSelectableViewStatus(true);
         }
 
         private void ActivateEnemies()
         {
+ 
             enemySpawner.ActivateEnemiesByTimer();
             activateMilitaryBuildingsEvent.Fire();
+            canvasPresenter.ForceDisablingSelectableTurretViewStatus(true);
             canvasPresenter.SetBuildingSelectableViewStatus(false);
             canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin, RoundEnded);
         }
@@ -92,7 +96,12 @@ namespace App.Managers
             {
                 //TODO CALCULATE QUANTITY TO ADD
                 _resourcesManager.AddResources(RetrievableResourceType.Gold, 200);
-                StartNewRound();
+                var newRoundPopup = _popupManager.InstantiatePopup<NewRoundPopup>(PopupType.NewRound);
+                var closeablePopup = newRoundPopup.GetComponent<ICloseablePopup>();
+                enemySpawner.HideEnemies();
+                closeablePopup.PopupHasBeenClosed += StartNewRound;
+                newRoundPopup.gameObject.SetActive(true);
+                newRoundPopup.Init(5);
             }
             else
             {

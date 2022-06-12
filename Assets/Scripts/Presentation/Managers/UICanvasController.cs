@@ -21,10 +21,21 @@ namespace Presentation.Managers
         {
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _canvasPresenter.OnPlayerWantsToSetBuildingInGrid += PlayerWantsToSetBuildingInGrid;
+            _canvasPresenter.OnSystemCancelsBuy += CancelBuildingSetting;
             _gridBuildingManager.OnPlayerHasSetBuildingOnGrid += PlayerHasSetBuildingInGrid;
             _gridBuildingManager.OnPlayerHasCanceledSetBuildingOnGrid += PlayerHasCanceledSetBuildingInGrid;
         }
 
+        
+        private void CancelBuildingSetting()
+        {
+            if (!_buyController.PlayerIsCurrentlyBuying) return;
+            
+            _canvasPresenter.SetBuildingSelectableViewStatus(false);
+            _gridBuildingManager.CancelTakingPlace();
+            _buyController.BuyHasBeenCanceled();
+        }
+        
         private void PlayerHasCanceledSetBuildingInGrid()
         {
             _soundManager.PlaySfx(SfxSoundName.BuyCanceled);
@@ -43,7 +54,14 @@ namespace Presentation.Managers
 
         private void PlayerWantsToSetBuildingInGrid(BuildingType buildingType)
         {
-            _buyController.PlayerWantsToBuyBuilding(buildingType, OnPlayerNeedsMoreResources);
+            _buyController.PlayerWantsToBuyBuilding(buildingType, OnPlayerNeedsMoreResources, OnPlayerCanBuyBuilding);
+        }
+
+        private void OnPlayerCanBuyBuilding(GameObject prefab, BuildingType buildingType)
+        {
+            _canvasPresenter.SetBuildingSelectableViewStatus(false);
+
+            _buyController.AllowPlayerToBuy(prefab, buildingType);
         }
 
         private void OnPlayerNeedsMoreResources(ResourcesTuple resourcesNeeded, BuildingType buildingType)

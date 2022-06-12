@@ -17,6 +17,8 @@ namespace Presentation.Managers
         [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent _allowPlayerToSetBuildingInTilemapEvent;
         private bool _playerIsCurrentlyBuying;
 
+        public bool PlayerIsCurrentlyBuying => _playerIsCurrentlyBuying;
+
 
         void Start()
         {
@@ -25,7 +27,8 @@ namespace Presentation.Managers
             _playerIsCurrentlyBuying = false;
         }
 
-        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action<ResourcesTuple, BuildingType> OnPlayerNeedMoreResources)
+        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action<ResourcesTuple, BuildingType> OnPlayerNeedMoreResources, 
+            Action<GameObject, BuildingType> OnPlayerCanBuyBuilding)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
@@ -39,11 +42,8 @@ namespace Presentation.Managers
                 OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, buildingType);
                 return;
             }
-
             var prefab = _buildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
-            _allowPlayerToSetBuildingInTilemapEvent.Prefab = prefab;
-            _allowPlayerToSetBuildingInTilemapEvent.BuildingType = buildingType;
-            _allowPlayerToSetBuildingInTilemapEvent.Fire();
+            OnPlayerCanBuyBuilding.Invoke(prefab, buildingType);
         }
 
         public void EndBuyCorrectly()
@@ -55,6 +55,13 @@ namespace Presentation.Managers
         public void BuyHasBeenCanceled()
         {
             _playerIsCurrentlyBuying = false;
+        }
+        
+        public void AllowPlayerToBuy(GameObject prefab, BuildingType buildingType)
+        {
+            _allowPlayerToSetBuildingInTilemapEvent.Prefab = prefab;
+            _allowPlayerToSetBuildingInTilemapEvent.BuildingType = buildingType;
+            _allowPlayerToSetBuildingInTilemapEvent.Fire();
         }
     }
 }

@@ -1,45 +1,47 @@
 using System;
 using System.Collections.Generic;
-using Presentation.UI.Menus;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-[Serializable]
-public struct ButtonSelectableInfo
+namespace Presentation.Managers
 {
-    public Button button;
-    public string sceneToLoad;
-}
-
-public class LevelSelectorView : MonoBehaviour
-{
-    [SerializeField] private List<ButtonSelectableInfo> _buttons;
-    [SerializeField] private Button _buttonBack;
-    public event Action<string> OnStartLevelSelected;
-    public event Action OnButtonBackIsClicked;
-
-    private void Start()
+    [Serializable]
+    public struct ButtonSelectableInfo
     {
-        _buttonBack.onClick.AddListener(() => OnButtonBackIsClicked?.Invoke());
+        public Button button;
+        public string sceneToLoad;
     }
 
-
-    private void StartScene(string variableSceneToLoad)
+    public class LevelSelectorView : MonoBehaviour
     {
-        OnStartLevelSelected?.Invoke(variableSceneToLoad);
-    }
+        [SerializeField] private List<ButtonSelectableInfo> _buttons;
+        [SerializeField] private Button _buttonBack;
+        public event Action<string> OnStartLevelSelected;
+        public event Action OnButtonBackIsClicked;
 
-    public void Init(int lastCompletedLevel)
-    {
-        foreach (var VARIABLE in _buttons)
+        private void Start()
         {
-            VARIABLE.button.onClick.AddListener(() => StartScene(VARIABLE.sceneToLoad));
-            var id = Utilities.GetNumberOfLevelString(VARIABLE.sceneToLoad);
+            _buttonBack.onClick.AddListener(() => OnButtonBackIsClicked?.Invoke());
+        }
 
-            if (id > lastCompletedLevel)
+
+        private void StartScene(string variableSceneToLoad)
+        {
+            OnStartLevelSelected?.Invoke(variableSceneToLoad);
+        }
+
+        public void Init(int lastCompletedLevel)
+        {
+            foreach (var VARIABLE in _buttons)
             {
-                VARIABLE.button.interactable = false;
+                VARIABLE.button.onClick.AddListener(() => StartScene(VARIABLE.sceneToLoad));
+                var id = Utilities.GetNumberOfLevelString(VARIABLE.sceneToLoad);
+
+                if (id > lastCompletedLevel)
+                {
+                    VARIABLE.button.interactable = false;
+                }
             }
         }
     }

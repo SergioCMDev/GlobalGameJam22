@@ -15,7 +15,7 @@ namespace Presentation.UI.Menus
 {
     public class CanvasPresenter : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _tmpText;
+        [SerializeField] private TextMeshProUGUI _tmpText, _roundInformation;
         [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
         [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
@@ -23,13 +23,14 @@ namespace Presentation.UI.Menus
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
         private SceneChanger _sceneChanger;
-        private bool _skipTimer, _timerIsRunning, _disabledBuildingView;
+        private bool _skipTimer, _timerIsRunning, _buildingViewIsDisabled;
 
         private ResourcesManager _resourcesManager;
         private PopupManager _popupManager;
         private float _remainingTime;
         private SliderBarView _currentSliderBarView;
         public event Action<BuildingType> OnPlayerWantsToSetBuildingInGrid;
+        public event Action OnSystemCancelsBuy;
 
         void Start()
         {
@@ -86,7 +87,8 @@ namespace Presentation.UI.Menus
         
         public void SetBuildingSelectableViewStatus(bool status)
         {
-            _buildingsSelectable.gameObject.SetActive(!_disabledBuildingView && status);
+            if(_buildingViewIsDisabled) return;
+            _buildingsSelectable.gameObject.SetActive(status);
         }
         
 
@@ -104,45 +106,31 @@ namespace Presentation.UI.Menus
         {
             SetBuildingSelectableViewStatus(false);
 
-            var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasWon);
-            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
-            var popupComponent = popUpInstance.GetComponent<PlayerHasWonPopup>();
-            closeablePopup.OnClosePopup += OnClosePopUp;
+            var popupComponent = _popupManager.InstantiatePopup<PlayerHasWonPopup>(PopupType.PlayerHasWon);
 
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.OnContinueButtonPressed += GoToNextLevel;
 
-            popUpInstance.gameObject.SetActive(true);
+            popupComponent.gameObject.SetActive(true);
         }
         
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
-            var popUpInstance = _popupManager.InstantiatePopup(PopupType.PlayerHasLost);
-            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
-            var popupComponent = popUpInstance.GetComponent<PlayerHasLostPopup>();
-            popUpInstance.gameObject.SetActive(true);
-            closeablePopup.OnClosePopup += OnClosePopUp;
+            var popupComponent = _popupManager.InstantiatePopup<PlayerHasLostPopup>(PopupType.PlayerHasLost);
 
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
+            popupComponent.gameObject.SetActive(true);
         }
-
 
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
         {
-            var popUpInstance = _popupManager.InstantiatePopup(PopupType.NeedMoreResources);
-            var closeablePopup = popUpInstance.GetComponent<ICloseablePopup>();
+            var popUpInstance = _popupManager.InstantiatePopup<NeedMoreResourcesPopup>(PopupType.NeedMoreResources);
             var popupComponent = popUpInstance.GetComponent<NeedMoreResourcesPopup>();
             popUpInstance.gameObject.SetActive(true);
-            closeablePopup.OnClosePopup += OnClosePopUp;
             popupComponent.Init(resourcesNeeded, buildingType);
-        }
-
-        private void OnClosePopUp(GameObject obj)
-        {
-            obj.gameObject.SetActive(false);
         }
 
         public void SetBuilderTimerInitialValue(float time, Action onTimerHasEnded)
@@ -162,7 +150,6 @@ namespace Presentation.UI.Menus
             _remainingTime = time;
             _currentSliderBarView = _defensiveTimer;
             _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
-
         }
 
         private void Update()
@@ -176,5 +163,26 @@ namespace Presentation.UI.Menus
         {
             _skipTimer = skipTimer;
         }
+        
+        public void ForceDisablingSelectableTurretViewStatus(bool status)
+        {
+            if (status)
+            {
+                OnSystemCancelsBuy?.Invoke();
+                _buildingsSelectable.gameObject.SetActive(false);
+            }
+            _buildingViewIsDisabled = status;
+        }
+        
+        public void UpdateRoundInformation(int currentRound, int numberOfRoundsPerLevel)
+        {
+            _roundInformation.SetText($"{currentRound}/{numberOfRoundsPerLevel}");
+        }
+
+        public bool PlayerWasBuying()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
