@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1067263519}
   - component: {fileID: 3514134051319490170}
   - component: {fileID: 3724908388807952814}
+  - component: {fileID: 1320736020}
   m_Layer: 0
   m_Name: GameStatusController
   m_TagString: Untagged
@@ -48,16 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliderBarView: {fileID: 0}
   enemySpawner: {fileID: 0}
   gridBuildingManager: {fileID: 0}
-  buildingPositionTuples: []
-  showWinMenuUIEvent: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
+  buildingPositionTuples:
+  - positionInGrid: {x: -12, y: -7, z: 0}
+    cityBuilding: {fileID: 0}
   showLostMenuUIEvent: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
-  stopMilitaryBuildingsEvent: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
-  _timeToWin: 2
-  _timeToAllowPlayerBuildsTurrets: 20
-  _skipTimer: 1
+  roundsController: {fileID: 1320736020}
+  deactivateMilitaryBuildingsEvent: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
+  showWinMenuUIEvent: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
 --- !u!114 &1446073707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +157,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1320736020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb9196983544eca77497fc9b478a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasPresenter: {fileID: 0}
+  activateMilitaryBuildingsEvent: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
+  deactivateMilitaryBuildingsEvent: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
+  _timeToWin: 5
+  _timeToAllowPlayerBuildsTurrets: 1
+  _numberOfRoundsPerLevel: 4
+  _skipTimer: 0
+  enemySpawner: {fileID: 0}

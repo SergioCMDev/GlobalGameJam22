@@ -131,6 +131,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7588028081025465494}
     m_Modifications:
+    - target: {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 9075615966201424918}
     - target: {fileID: 4967238188201839980, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -180,57 +184,9 @@ PrefabInstance:
       value: GameStatusController
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _skipTimer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _timeToWin
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 9075615966201424918}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _cityBuilding
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _sliderBarView
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: enemyInstantiator
-      value: 
-      objectReference: {fileID: 9075615966201424918}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _numberOfRoundsPerLevel
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: activateMilitaryBuildingsEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _timeToAllowPlayerBuildsTurrets
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: deactivateMilitaryBuildingsEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: buildingPositionTuples.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: buildingPositionTuples.Array.data[0].positionInGrid.x
-      value: -12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: buildingPositionTuples.Array.data[0].positionInGrid.y
-      value: -7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
 --- !u!4 &3287974653144982756 stripped
