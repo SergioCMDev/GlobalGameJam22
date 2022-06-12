@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using App;
 using App.Events;
 using App.SceneManagement;
@@ -37,13 +39,13 @@ namespace Presentation.UI.Menus
             UpdateResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
         }
-        
+
 //USED BY PointerDataEvent
         public void SetStatusDrawingTurretRanges(bool status)
         {
             setStatusDrawingTurretRangesEvent.drawingStatus = status;
             setStatusDrawingTurretRangesEvent.Fire();
-        }        
+        }
 
         private void GoToMainLevel()
         {
@@ -60,12 +62,13 @@ namespace Presentation.UI.Menus
         {
             _changeToNextSceneEvent.Fire();
         }
+
         private void AllowSetPositionOfTurret(BuildingType buildingType)
         {
             SetBuildingSelectableViewStatus(false);
             OnPlayerWantsToSetBuildingInGrid?.Invoke(buildingType);
         }
-        
+
         public void SetBuildingSelectableViewStatus(bool status)
         {
             _buildingsSelectable.gameObject.SetActive(status);
@@ -93,7 +96,7 @@ namespace Presentation.UI.Menus
 
             popupComponent.gameObject.SetActive(true);
         }
-        
+
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
@@ -120,36 +123,46 @@ namespace Presentation.UI.Menus
             _currentSliderBarView = _builderTimer;
             _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
         }
-        
+
         public void SetDefensiveTimerInitialValue(float time, Action onTimerHasEnded)
         {
             _defensiveTimer.SetMaxValue(time);
-            
+
             _remainingTime = time;
             _currentSliderBarView = _defensiveTimer;
             _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
         }
-
-        private void Update()
-        {
-            if (_skipTimer) return;
-            _remainingTime -= Time.deltaTime;
-            _currentSliderBarView.SetValue(_remainingTime);
-        }
-
-        public void InitTimerLogic(bool skipTimer)
-        {
-            _skipTimer = skipTimer;
-        }
         
+        private IEnumerator StartSliderTimer()
+        {
+            do
+            {
+                _remainingTime -= Time.deltaTime;
+                _currentSliderBarView.SetValue(_remainingTime);
+                yield return null;
+            } while (_remainingTime > 0);
+        }
+
+
         public void CancelPendingActivitiesOfPlayer()
         {
             OnSystemCancelsBuy?.Invoke();
         }
-        
+
         public void UpdateRoundInformation(int currentRound, int numberOfRoundsPerLevel)
         {
             _roundInformation.SetText($"{currentRound}/{numberOfRoundsPerLevel}");
+        }
+
+        public void InitTimerLogic()
+        {
+            _currentSliderBarView.OnSliderReachZero += StopTimerLogic;
+            StartCoroutine(StartSliderTimer());
+        }
+
+        private void StopTimerLogic()
+        {
+            _currentSliderBarView.OnSliderReachZero -= StopTimerLogic;
         }
     }
 }
