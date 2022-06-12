@@ -21,7 +21,7 @@ namespace Presentation.Infrastructure
         private GameObject _enemyGameObject;
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
-        private bool _enemyIsSet, _isActive;
+        private bool _isActive;
         private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
         private static readonly int AttackTrigger = Animator.StringToHash("Shoot");
 
@@ -79,15 +79,12 @@ namespace Presentation.Infrastructure
         public void Init()
         {
             _militaryBuildingAttacker.Init();
-
         }
 
         public void ActivateBuilding()
         {
-            _enemyIsSet = true;
             _isActive = true;
         }
-
 
         public void Deploy()
         {
@@ -107,7 +104,6 @@ namespace Presentation.Infrastructure
         public void Deactivate()
         {
             _isActive = false;
- 
         }
 
         public void CleanOccupiers()
@@ -117,6 +113,7 @@ namespace Presentation.Infrastructure
                 tileInRange.CleanOccupier();
             }
         }
+        
         public void SetTilesToAttack(List<TileDataEntity> tileDataEntities)
         {
             tilesToAttack = tileDataEntities;

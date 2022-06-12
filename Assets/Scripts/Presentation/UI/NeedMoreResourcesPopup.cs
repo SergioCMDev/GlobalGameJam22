@@ -12,7 +12,8 @@ namespace Presentation.UI
     {
         [SerializeField] private Button _closeButton, _aceptButton;
         [SerializeField] private TextMeshProUGUI _title, _resourcesText;
-        public Action<GameObject> OnClosePopup { get; set; }
+        public Action<GameObject> HasToClosePopup { get; set; }
+        public Action PopupHasBeenClosed { get; set; }
 
         void Start()
         {
@@ -22,7 +23,7 @@ namespace Presentation.UI
 
         private void ClosePopup()
         {
-            OnClosePopup.Invoke(gameObject);
+            HasToClosePopup.Invoke(gameObject);
         }
 
         public void Init(ResourcesTuple resourcesNeeded, BuildingType buildingType)
@@ -37,6 +38,5 @@ namespace Presentation.UI
             _title.SetText(String.Empty);
             _resourcesText.SetText(String.Empty);
         }
-
     }
 }

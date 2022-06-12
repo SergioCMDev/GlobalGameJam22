@@ -1,6 +1,4 @@
-﻿using App;
-
-namespace Domain
+﻿namespace Domain
 {
     public interface ISaver
     {

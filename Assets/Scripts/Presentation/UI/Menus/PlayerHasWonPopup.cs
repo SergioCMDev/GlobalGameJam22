@@ -11,7 +11,8 @@ namespace Presentation.UI.Menus
         public event Action OnGoToMainMenuButtonPressed;
         public event Action OnContinueButtonPressed;
         public event Action OnRestartButtonPressed;
-
+        public Action<GameObject> HasToClosePopup { get; set; }
+        public Action PopupHasBeenClosed { get; set; }
         private void Start()
         {
             _buttonRestart.onClick.AddListener(Restart);
@@ -21,22 +22,22 @@ namespace Presentation.UI.Menus
 
         private void GoToMainMenu()
         {
-            OnClosePopup(gameObject);
-            OnGoToMainMenuButtonPressed();
+            HasToClosePopup(gameObject);
+            OnGoToMainMenuButtonPressed?.Invoke();
         }
 
         private void Continue()
         {
-            OnClosePopup(gameObject);
-            OnContinueButtonPressed();
+            HasToClosePopup(gameObject);
+            OnContinueButtonPressed?.Invoke();
         }
 
         private void Restart()
         {
-            OnClosePopup(gameObject);
-            OnRestartButtonPressed();
+            HasToClosePopup(gameObject);
+            OnRestartButtonPressed?.Invoke();
         }
 
-        public Action<GameObject> OnClosePopup { get; set; }
+
     }
 }

@@ -120,7 +120,7 @@ namespace Presentation.Managers
             _building.transform.position = _tilemap.GetCellCenterWorld(new Vector3Int());
         }
 
-        private void CancelTakingPlace()
+        public void CancelTakingPlace()
         {
             _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
@@ -130,7 +130,7 @@ namespace Presentation.Managers
             Destroy(_building);
             ClearPreviousPaintedArea();
 
-            OnPlayerHasCanceledSetBuildingOnGrid.Invoke();
+            OnPlayerHasCanceledSetBuildingOnGrid?.Invoke();
         }
 
         private void BuildingTriesToTakePlace()

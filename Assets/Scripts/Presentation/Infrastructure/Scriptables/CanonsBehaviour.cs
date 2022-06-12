@@ -1,7 +1,7 @@
 using Presentation.Hostiles;
 using UnityEngine;
 
-namespace Presentation.Infrastructure
+namespace Presentation.Infrastructure.Scriptables
 {
     [CreateAssetMenu(fileName = "CanonsBehaviourAttack", menuName = "Turrets/BehaviourAttacks/Canons")]
     public class CanonsBehaviour : AttackBehaviour

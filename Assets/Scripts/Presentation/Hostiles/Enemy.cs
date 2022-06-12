@@ -69,7 +69,7 @@ namespace Presentation.Hostiles
             _timer = new Timer();
             _timer.Init(effectDuration);
             _timer.OnTimerEnds += ResetSpeed;
-            StartCoroutine(_timer.CountTIme());
+            StartCoroutine(_timer.CountTime());
             
             EnemyMovement.ChangeSpeed(EnemyMovement.Speed * (1-percentageToReduce));
         }

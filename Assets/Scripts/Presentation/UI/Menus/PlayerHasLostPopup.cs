@@ -10,7 +10,8 @@ namespace Presentation.UI.Menus
         [SerializeField] private Button _buttonRestart, _buttonMainMenu;
         public event Action OnGoToMainMenuButtonPressed;
         public event Action OnRestartButtonPressed;
-        public Action<GameObject> OnClosePopup { get; set; }
+        public Action<GameObject> HasToClosePopup { get; set; }
+        public Action PopupHasBeenClosed { get; set; }
 
         private void Start()
         {
@@ -20,16 +21,14 @@ namespace Presentation.UI.Menus
 
         private void GoToMainMenu()
         {
-            OnClosePopup(gameObject);
-            OnGoToMainMenuButtonPressed();
+            HasToClosePopup(gameObject);
+            OnGoToMainMenuButtonPressed?.Invoke();
         }
-
 
         private void Restart()
         {
-            OnClosePopup(gameObject);
-            OnRestartButtonPressed();
+            HasToClosePopup(gameObject);
+            OnRestartButtonPressed?.Invoke();
         }
-
     }
 }

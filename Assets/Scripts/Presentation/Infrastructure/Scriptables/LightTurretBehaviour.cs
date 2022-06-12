@@ -1,8 +1,7 @@
 using Presentation.Hostiles;
-using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation.Infrastructure
+namespace Presentation.Infrastructure.Scriptables
 {
     [CreateAssetMenu(fileName = "LightTurretBehaviourAttack", menuName = "Turrets/BehaviourAttacks/LightTurret")]
     public class LightTurretBehaviour : AttackBehaviour

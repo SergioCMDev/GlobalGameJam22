@@ -1,5 +1,4 @@
-﻿using App;
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 namespace Domain

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Presentation.Hostiles;
+using Presentation.Infrastructure.Scriptables;
 using Presentation.Interfaces;
 using UnityEngine;
 
