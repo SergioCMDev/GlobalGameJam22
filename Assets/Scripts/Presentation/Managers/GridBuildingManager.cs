@@ -53,8 +53,6 @@ namespace Presentation.Managers
         [SerializeField] private Tile _red, white, green, _purple;
 
         private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
-
-        // public IDictionary<Vector3, Vector3Int> world; //REMOVE
         private GameObject _building;
         private Vector3Int _currentObjectPosition, _currentBuildingArea, _originalBuildingArea;
 

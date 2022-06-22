@@ -14,7 +14,7 @@ namespace Presentation
         [SerializeField] private CanvasPresenter canvasPresenter;
         [SerializeField] private ActivateMilitaryBuildingsEvent activateMilitaryBuildingsEvent;
         [SerializeField] private ActivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
-        [SerializeField] private float _timeToWin = 20, _timeToAllowPlayerBuildsTurrets;
+        [SerializeField] private float _timeToDefendAgainstSlimes = 20, _timeToAllowPlayerBuildsTurrets;
         [SerializeField] private int _numberOfRoundsPerLevel;
         [SerializeField] private EnemySpawner enemySpawner;
 
@@ -45,7 +45,7 @@ namespace Presentation
             enemySpawner.ActivateEnemiesByTimer();
             activateMilitaryBuildingsEvent.Fire();
             canvasPresenter.CancelPendingActivitiesOfPlayer();
-            canvasPresenter.SetDefensiveTimerInitialValue(_timeToWin, RoundEnded);
+            canvasPresenter.SetDefensiveTimerInitialValue(_timeToDefendAgainstSlimes, RoundEnded);
             canvasPresenter.InitTimerLogic();
             canvasPresenter.SetBuildingSelectableViewStatus(false);
         }
