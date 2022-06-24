@@ -50,17 +50,17 @@ namespace Presentation.Managers
         [SerializeField] private Grid _grid;
         [SerializeField] private Transform _buildingParent;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
-        [SerializeField] private Tile _red, white, green, _purple;
+        [SerializeField] private Tile _red, white, green, blue, purple;
 
-        private Dictionary<TileType, TileBase> _tileTypeBase = new Dictionary<TileType, TileBase>();
+        private Dictionary<TileType, TileBase> _tileTypeBase = new();
         private GameObject _building;
         private Vector3Int _currentObjectPosition, _currentBuildingArea, _originalBuildingArea;
 
         private MilitaryBuildingFacade _buildingFacadeComponent;
 
-        private readonly List<SetBuildingData> _savedBuildings = new List<SetBuildingData>();
-        private readonly List<TileDataEntity> tileDatasBuilding = new List<TileDataEntity>();
-        private readonly List<TileDataEntity> tileDatasAttack = new List<TileDataEntity>();
+        private readonly List<SetBuildingData> _savedBuildings = new();
+        private readonly List<TileDataEntity> tileDatasBuilding = new();
+        private readonly List<TileDataEntity> tileDatasAttack = new();
 
         private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap = new();
 
@@ -82,7 +82,8 @@ namespace Presentation.Managers
             // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
             // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
             _tileTypeBase.Add(TileType.Red, _red);
-            _tileTypeBase.Add(TileType.Blue, _purple);
+            _tileTypeBase.Add(TileType.Blue, blue);
+            _tileTypeBase.Add(TileType.Purple, purple);
 
             ReadWorld();
 
@@ -90,6 +91,7 @@ namespace Presentation.Managers
             HideTemporalTileMap();
         }
 
+        //Used by ShowRange Button
         public void StatusDrawingTurretRange(SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent)
         {
             if (setStatusDrawingTurretRangesEvent.drawingStatus)
@@ -152,7 +154,7 @@ namespace Presentation.Managers
             _buildingFacadeComponent.Deselect();
 
             var attackTiles =
-                GetAttackTilesOfBuilding(_currentObjectPosition, _buildingFacadeComponent, _buildingTilemap);
+                GetAttackTilesOfBuilding(_currentObjectPosition, _buildingFacadeComponent);
             _currentObjectPosition = Vector3Int.zero;
             _buildingFacadeComponent.SetTilesToAttack(attackTiles);
             OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingFacadeComponent);
@@ -164,7 +166,7 @@ namespace Presentation.Managers
         }
 
         private List<TileDataEntity> GetAttackTilesOfBuilding(Vector3Int buildingPosition,
-            MilitaryBuildingFacade militaryBuildingFacade, Tilemap tilemapBuilding)
+            MilitaryBuildingFacade militaryBuildingFacade)
         {
             var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
                          Vector3Int.right * militaryBuildingFacade.AttackRingRange;
@@ -177,16 +179,12 @@ namespace Presentation.Managers
  
         private void ReadWorld()
         {
-            // world = new Dictionary<Vector3, Vector3Int>();
             for (int n = _tilemap.cellBounds.xMin; n < _tilemap.cellBounds.xMax; n++)
             {
                 for (int p = _tilemap.cellBounds.yMin; p < _tilemap.cellBounds.yMax; p++)
                 {
                     Vector3Int gridPosition = (new Vector3Int(n, p, (int)_tilemap.transform.position.y));
                     Vector3 worldPosition = _tilemap.CellToWorld(gridPosition);
-                    // Debug.Log($"Grid POsition {gridPosition}");
-                    // if (!_tilemap.HasTile(gridPosition) || !_buildingTilemap.HasTile(gridPosition)) continue;
-                    // Debug.Log($"Grid POsition OK {gridPosition} ");
 
                     var tilemapColourDictionary = new Dictionary<Tilemap, TilemapColours>();
                     if (_buildingTilemap.HasTile(gridPosition))
@@ -199,15 +197,21 @@ namespace Presentation.Managers
                         });
                     }
 
-                    // if (_weaponRangeTilemap.HasTile(gridPosition))
-                    // {
+
                     tilemapColourDictionary.Add(_weaponRangeTilemap, new TilemapColours()
                     {
                         PreviousColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
                         CurrentColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
                         OriginalColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
                     });
-                    // }
+                    
+                    tilemapColourDictionary.Add(_weaponToSetRangeTilemap, new TilemapColours()
+                    {
+                        PreviousColour = GetCurrentTileType(_weaponToSetRangeTilemap.GetTile(gridPosition)),
+                        CurrentColour = GetCurrentTileType(_weaponToSetRangeTilemap.GetTile(gridPosition)),
+                        OriginalColour = GetCurrentTileType(_weaponToSetRangeTilemap.GetTile(gridPosition)),
+                    });
+                    
                     if (_tilemap.HasTile(gridPosition))
                     {
                         WorldTileDictionary.Add(gridPosition, new TileDataEntity()
@@ -221,8 +225,6 @@ namespace Presentation.Managers
                             TileBaseWorld = _tilemap.GetTile(gridPosition)
                         });
                     }
-
-                    // world.Add(worldPosition, gridPosition);
                 }
             }
         }
@@ -234,12 +236,7 @@ namespace Presentation.Managers
             return gridPosition;
         }
 
-        private void ShowTemporalTileMap()
-        {
-            _buildingTilemap.gameObject.SetActive(true);
-            _weaponRangeTilemap.gameObject.SetActive(true);
-        }
-
+ 
         private void LoadMilitaryBuildings()
         {
             DrawMilitaryBuildings();
@@ -259,21 +256,19 @@ namespace Presentation.Managers
         {
             foreach (var buildingData in _savedBuildings)
             {
-                SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, TileType.Red,
-                    false);
+                SetBuildingRelativeZone(buildingData.buildingFacadeComponent, buildingData.position, _weaponRangeTilemap,
+                    TileType.Red, false);
             }
         }
 
-        
-        
         private void SetBuildingRelativeZone(MilitaryBuildingFacade militaryBuildingFacade,
-            Vector3Int gridPosition,
+            Vector3Int gridPosition, Tilemap tilemapToPaintInto,
             TileType buildingColour = TileType.Green, bool canBeCleaned = true)
         {
             tileDatasBuilding.Clear();
             tileDatasAttack.Clear();
             //TODO Encontrar manera de hace esto sin usar BOUNDSINT
-            SetAttackZone(militaryBuildingFacade, gridPosition, canBeCleaned);
+            SetAttackZone(militaryBuildingFacade, gridPosition, canBeCleaned, tilemapToPaintInto);
             var currentTileAttackArray = CopyFromTileDataToArray(tileDatasAttack);
             var tileAttackPositions = GetTilePositionsOfTileData(tileDatasAttack);
 
@@ -281,7 +276,7 @@ namespace Presentation.Managers
             var currentTileBuildingArray = CopyFromTileDataToArray(tileDatasBuilding);
             var tileBuildingPositions = GetTilePositionsOfTileData(tileDatasBuilding);
 
-            SetTilesInTilemap(tileAttackPositions, currentTileAttackArray, _weaponRangeTilemap);
+            SetTilesInTilemap(tileAttackPositions, currentTileAttackArray, tilemapToPaintInto);
             SetTilesInTilemap(tileBuildingPositions, currentTileBuildingArray, _buildingTilemap);
         }
 
@@ -294,9 +289,18 @@ namespace Presentation.Managers
         private void HideTemporalTileMap()
         {
             _buildingTilemap.gameObject.SetActive(false);
+            _weaponToSetRangeTilemap.gameObject.SetActive(false);
             _weaponRangeTilemap.gameObject.SetActive(false);
         }
 
+        private void ShowTemporalTileMap()
+        {
+            _buildingTilemap.gameObject.SetActive(true);
+            _weaponToSetRangeTilemap.gameObject.SetActive(true);
+            _weaponRangeTilemap.gameObject.SetActive(true);
+        }
+        
+        
         private void Update()
         {
             if (!_buildingTilemap.gameObject.activeInHierarchy || !_building) return;
@@ -305,7 +309,8 @@ namespace Presentation.Managers
 
             var buildingGridPosition = GetGridPositionByMouse(Input.mousePosition);
             if (buildingGridPosition == _currentObjectPosition ||
-                !PositionIsInsideBuildingTilemapGrid(buildingGridPosition)) return;
+                !PositionIsInsideBuildingTilemapGrid(buildingGridPosition) ||
+                _worldTileDictionaryBuildingTilemap[buildingGridPosition].IsOccupied) return;
 
             ClearPreviousPaintedArea();
             _building.transform.position = _tilemap.GetCellCenterLocal(buildingGridPosition);
@@ -323,7 +328,7 @@ namespace Presentation.Managers
                 Debug.Log("Can Place");
                 _currentBuildingArea = _buildingFacadeComponent.AttackArea;
 
-                SetBuildingRelativeZone(_buildingFacadeComponent, _currentObjectPosition);
+                SetBuildingRelativeZone(_buildingFacadeComponent, _currentObjectPosition, _weaponToSetRangeTilemap);
                 return;
             }
 
@@ -355,36 +360,45 @@ namespace Presentation.Managers
         }
 
         private void SetAttackZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int buildingPosition,
-            bool canBeCleaned)
+            bool canBeCleaned, Tilemap tilemapToDraw)
         {
             tileDatasAttack.Clear();
 
             var attackArray =
-                GetAttackTilesOfBuilding(buildingPosition, militaryBuildingFacade, _weaponRangeTilemap);
+                GetAttackTilesOfBuilding(buildingPosition, militaryBuildingFacade);
             if (attackArray.Any(x => x.GridPosition == buildingPosition))
             {
                 var buildingTile = attackArray.Single(x => x.GridPosition == buildingPosition);
                 attackArray.Remove(buildingTile);
             }
 
-            SetColourOfAttackZone(attackArray, canBeCleaned);
+            SetColourOfAttackZone(attackArray, canBeCleaned, tilemapToDraw);
         }
 
-        private void SetColourOfAttackZone(List<TileDataEntity> attackArray, bool canBeCleaned)
+        private void SetColourOfAttackZone(List<TileDataEntity> attackArray, bool canBeCleaned, Tilemap tilemapToDraw)
         {
             for (int i = 0; i < attackArray.Count; i++)
             {
-                var colours = attackArray[i].TilemapColours[_weaponRangeTilemap];
+                var colours = attackArray[i].TilemapColours[_weaponToSetRangeTilemap];
                 if (attackArray[i].IsOccupied)
                 {
                     attackArray[i].TileBase = _tileTypeBase[TileType.Red];
                     colours.CurrentColour = TileType.Red;
                 }
-                else if (attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Red)
+                else if (attackArray[i].TilemapColours[_weaponToSetRangeTilemap].CurrentColour == TileType.Red)
                 {
                     attackArray[i].TileBase = _tileTypeBase[TileType.Red];
                     colours.CurrentColour = TileType.Red;
                     colours.PreviousColour = TileType.Red;
+                }
+                else if (colours.CurrentColour == TileType.Purple && attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue
+                         || colours.CurrentColour == TileType.Purple &&  attackArray[i].TileBase == null 
+                         || attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue && 
+                         attackArray[i].TilemapColours[_weaponToSetRangeTilemap].CurrentColour == TileType.Blue)
+                {
+                    attackArray[i].TileBase = _tileTypeBase[TileType.Purple];
+                    colours.CurrentColour = TileType.Purple;
+                    colours.PreviousColour = TileType.Blue;
                 }
                 else
                 {
@@ -394,7 +408,7 @@ namespace Presentation.Managers
                         colours.PreviousColour = TileType.Blue;
                 }
 
-                attackArray[i].TilemapColours[_weaponRangeTilemap] = colours;
+                attackArray[i].TilemapColours[tilemapToDraw] = colours;
                 AddTemporalTileData(attackArray[i], tileDatasAttack);
             }
         }
@@ -446,7 +460,7 @@ namespace Presentation.Managers
         private void ClearPreviousPaintedArea()
         {
             ClearPaintedTiles(tileDatasBuilding, _buildingTilemap);
-            ClearAttackPaintedTiles(tileDatasAttack, _weaponRangeTilemap);
+            ClearAttackPaintedTiles(tileDatasAttack, _weaponToSetRangeTilemap);
 
             _currentBuildingArea = _originalBuildingArea;
         }
@@ -473,6 +487,11 @@ namespace Presentation.Managers
                         tile.TileBase = _tileTypeBase[TileType.Blue];
                         tileMapColour.CurrentColour = TileType.Blue;
                         tileMapColour.PreviousColour = TileType.Blue;
+                        break;
+                    case TileType.Purple when tileMapColour.PreviousColour == TileType.Blue:
+                        tile.TileBase = _tileTypeBase[TileType.Empty];
+                        tileMapColour.CurrentColour = TileType.White;
+                        tileMapColour.PreviousColour =  tileMapColour.PreviousColour;
                         break;
                     default:
                         tile.TileBase = _tileTypeBase[TileType.Empty];

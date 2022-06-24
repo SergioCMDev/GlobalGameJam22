@@ -7,5 +7,6 @@ namespace Presentation.Structs
         Green, 
         Red,
         Blue,
+        Purple
     }
 }

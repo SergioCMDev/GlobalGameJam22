@@ -4550,7 +4550,7 @@ Tilemap:
     m_Data: {r: 4.1075e-41, g: 4.1075e-41, b: 4.1075e-41, a: 4.1075e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8509804}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -3, y: -7, z: 0}
   m_Size: {x: 3, y: 7, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -6239,9 +6239,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
+      propertyPath: blue
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
+    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _grid
       value: 
       objectReference: {fileID: 8790425709290464669}
+    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
+      propertyPath: purple
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a5a15332415a2f44afd5848f837f8ff, type: 2}
     - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _tilemap
       value: 
@@ -6345,7 +6353,7 @@ PrefabInstance:
       objectReference: {fileID: 1217962438}
     - target: {fileID: 7588028080486071452, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: _timeToAllowPlayerBuildsTurrets
-      value: 30
+      value: 999999
       objectReference: {fileID: 0}
     - target: {fileID: 7588028081025465481, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
       propertyPath: m_Name
