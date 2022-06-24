@@ -36,6 +36,8 @@ namespace Presentation.Infrastructure
             set => _attackRingRange = value;
         }
 
+        public AttackRange ArrayAttack { get; set; }
+
 
         private void Awake()
         {

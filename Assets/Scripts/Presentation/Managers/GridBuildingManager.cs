@@ -46,7 +46,7 @@ namespace Presentation.Managers
 
     public class GridBuildingManager : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap;
+        [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap, _weaponToSetRangeTilemap;
         [SerializeField] private Grid _grid;
         [SerializeField] private Transform _buildingParent;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
@@ -169,11 +169,12 @@ namespace Presentation.Managers
             var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
                          Vector3Int.right * militaryBuildingFacade.AttackRingRange;
             var temporalObjectArea = GetObjectArea(buildingPosition - offset, militaryBuildingFacade.AttackArea);
-            var attackArray = GetTilesBlock(temporalObjectArea, tilemapBuilding, WorldTileDictionary);
+            var attackArray = GetTilesBlockAttacking(temporalObjectArea, WorldTileDictionary);
             militaryBuildingFacade.SetTilesToAttack(attackArray);
             return attackArray;
         }
 
+ 
         private void ReadWorld()
         {
             // world = new Dictionary<Vector3, Vector3Int>();
@@ -311,7 +312,7 @@ namespace Presentation.Managers
 
             var temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
             var buildingArray =
-                GetTilesBlock(temporalObjectArea, _buildingTilemap, WorldTileDictionary);
+                GetTilesBlock(temporalObjectArea, WorldTileDictionary);
 
             if (buildingArray.Count <= 0) return;
             SetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
@@ -400,8 +401,7 @@ namespace Presentation.Managers
 
         private bool CanBePlacedHere(List<TileType> tileArray)
         {
-            return tileArray.Any(x => x == TileType.Green || x == TileType.Blue);
-            // return _worldTileDictionary[_currentObjectPosition].IsOccupied;
+            return tileArray.Any(x => x is TileType.Green or TileType.Blue);
         }
 
         private void SetColourOfBuildingTiles(List<TileDataEntity> baseArray, Vector3Int buildingArea)
@@ -589,8 +589,7 @@ namespace Presentation.Managers
             );
         }
 
-        private List<TileDataEntity> GetTilesBlock(BoundsInt area, Tilemap tilemap,
-            Dictionary<Vector3Int, TileDataEntity> worldDictionary)
+        private List<TileDataEntity> GetTilesBlock(BoundsInt area, Dictionary<Vector3Int, TileDataEntity> worldDictionary)
         {
             var list = new List<TileDataEntity>();
 
@@ -604,6 +603,21 @@ namespace Presentation.Managers
 
             return list;
         }
+        
+        private List<TileDataEntity> GetTilesBlockAttacking(BoundsInt area, Dictionary<Vector3Int, TileDataEntity> worldDictionary)
+        {
+            var list = new List<TileDataEntity>();
+
+            foreach (var v in area.allPositionsWithin)
+            {
+                var pos = new Vector3Int(v.x, v.y, 0);
+                if (!worldDictionary.ContainsKey(pos) || list.Contains(worldDictionary[pos])) continue;
+                list.Add(worldDictionary[pos]);
+            }
+
+            return list;
+        }
+
 
         public void ObjectHasMovedToNewTile(ObjectHasMovedToNewTileEvent tileEvent)
         {
