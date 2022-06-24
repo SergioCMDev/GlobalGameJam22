@@ -392,9 +392,8 @@ namespace Presentation.Managers
                     colours.PreviousColour = TileType.Red;
                 }
                 else if (colours.CurrentColour == TileType.Purple && attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue
-                         || colours.CurrentColour == TileType.Purple &&  attackArray[i].TileBase == null 
-                         || attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue && 
-                         attackArray[i].TilemapColours[_weaponToSetRangeTilemap].CurrentColour == TileType.Blue)
+                         || HaveBeenSetBeforeAndBugHappened(attackArray, colours, i) 
+                         || BothTilemapsHaveBlueTiles(attackArray, i))
                 {
                     attackArray[i].TileBase = _tileTypeBase[TileType.Purple];
                     colours.CurrentColour = TileType.Purple;
@@ -411,6 +410,19 @@ namespace Presentation.Managers
                 attackArray[i].TilemapColours[tilemapToDraw] = colours;
                 AddTemporalTileData(attackArray[i], tileDatasAttack);
             }
+        }
+
+        //There is a bug due to the cleaning of tiles which set empty tileBase to not show any new tile instead filled ones
+        //but then it's not updated and we have to do this weird check
+        private static bool HaveBeenSetBeforeAndBugHappened(List<TileDataEntity> attackArray, TilemapColours colours, int i)
+        {
+            return colours.CurrentColour == TileType.Purple &&  attackArray[i].TileBase == null;
+        }
+
+        private bool BothTilemapsHaveBlueTiles(List<TileDataEntity> attackArray, int tileIndex)
+        {
+            return attackArray[tileIndex].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue && 
+                   attackArray[tileIndex].TilemapColours[_weaponToSetRangeTilemap].CurrentColour == TileType.Blue;
         }
 
         private bool CanBePlacedHere(List<TileType> tileArray)
