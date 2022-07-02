@@ -24,12 +24,12 @@ namespace Presentation.Infrastructure
         //TODO FIND WHERE TO PUT THIS, A NEW UPPER MANAGER? 
         private void CancelTakingPlace()
         {
-            OnCancelTakingPlace();
+            OnCancelTakingPlace?.Invoke();
         }
 
         private void BuildingTriesToTakePlace()
         {
-            OnBuildingTriesToTakePlace();
+            OnBuildingTriesToTakePlace?.Invoke();
         }
     }
 }
