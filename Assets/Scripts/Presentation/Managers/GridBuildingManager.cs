@@ -50,7 +50,7 @@ namespace Presentation.Managers
         [SerializeField] private Grid _grid;
         [SerializeField] private Transform _buildingParent;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
-        [SerializeField] private Tile _red, white, green, blue, purple;
+        [SerializeField] private Tile _red, white, green, blue, purple, empty;
 
         private Dictionary<TileType, TileBase> _tileTypeBase = new();
         private GameObject _building;
@@ -63,8 +63,8 @@ namespace Presentation.Managers
         private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap = new();
 
         [SerializeField] private bool _showAttackZone;
-        private List<TileDataEntity> temporalRangeTilesToDraw = new();
-        private List<TileDataEntity> temporalBuildingCenterTileToDraw = new();
+        private List<TileDataEntity> _temporalRangeTilesToDraw = new();
+        private List<TileDataEntity> _temporalBuildingCenterTileToDraw = new();
 
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
@@ -75,7 +75,7 @@ namespace Presentation.Managers
         {
             // string tilePath = @"Tiles\";
             //TODO LOAD FROM RESOURCES
-            _tileTypeBase.Add(TileType.Empty, null);
+            _tileTypeBase.Add(TileType.Empty, empty);
             _tileTypeBase.Add(TileType.White, white);
             // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
             _tileTypeBase.Add(TileType.Green, green);
@@ -100,8 +100,8 @@ namespace Presentation.Managers
                 DrawRangeSavedMilitaryBuildings();
                 return;
             }
-
-            _weaponRangeTilemap.gameObject.SetActive(false);
+            ClearAttackPaintedTiles(_temporalRangeTilesToDraw, _weaponRangeTilemap);
+            // _weaponRangeTilemap.gameObject.SetActive(false);
             //TODO Limpiar tiles pintadas, relacionado con TODO e evitar usar BOUNDSINT
         }
 
@@ -128,15 +128,17 @@ namespace Presentation.Managers
 
             HideTemporalTileMap();
             _buildingFacadeComponent.Deselect();
-            Destroy(_building);
             ClearPreviousPaintedArea();
+            _buildingFacadeComponent.ClearAttackTiles();
+
+            Destroy(_building);
 
             OnPlayerHasCanceledSetBuildingOnGrid?.Invoke();
         }
 
         private void BuildingTriesToTakePlace()
         {
-            var colours = temporalBuildingCenterTileToDraw.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour)
+            var colours = _temporalBuildingCenterTileToDraw.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour)
                 .ToList();
             if (!CanBePlacedHere(colours)) return;
             SetBuildingInGrid();
@@ -149,6 +151,7 @@ namespace Presentation.Managers
             _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
+            _buildingFacadeComponent.ClearAttackTiles();
             ClearPreviousPaintedArea();
             HideTemporalTileMap();
             WorldTileDictionary[_currentObjectPosition].IsOccupied = true;
@@ -260,10 +263,10 @@ namespace Presentation.Managers
         private void DrawRangeOfMilitaryBuilding(MilitaryBuildingFacade buildingFacade, Vector3Int position,
             bool canBeCleaned, Tilemap tilemap)
         {
-            temporalRangeTilesToDraw = GetAttackZoneOfBuilding(buildingFacade, position,
+            _temporalRangeTilesToDraw = GetAttackZoneOfBuilding(buildingFacade, position,
                 canBeCleaned, tilemap);
-            var currentTileAttackArray = CopyFromTileDataToArray(temporalRangeTilesToDraw);
-            var tileAttackPositions = GetTilePositionsOfTileData(temporalRangeTilesToDraw);
+            var currentTileAttackArray = CopyFromTileDataToArray(_temporalRangeTilesToDraw);
+            var tileAttackPositions = GetTilePositionsOfTileData(_temporalRangeTilesToDraw);
             SetTilesInTilemap(tileAttackPositions, currentTileAttackArray, tilemap);
         }
 
@@ -278,9 +281,9 @@ namespace Presentation.Managers
         private void DrawPositionCenterMilitaryBuilding(Vector3Int buildingDataPosition, Tilemap tilemap,
             TileType tileType)
         {
-            temporalBuildingCenterTileToDraw = GetBuildingZone(tileType, buildingDataPosition);
-            var currentTileBuildingArray = CopyFromTileDataToArray(temporalBuildingCenterTileToDraw);
-            var tileBuildingPositions = GetTilePositionsOfTileData(temporalBuildingCenterTileToDraw);
+            _temporalBuildingCenterTileToDraw = GetBuildingZone(tileType, buildingDataPosition);
+            var currentTileBuildingArray = CopyFromTileDataToArray(_temporalBuildingCenterTileToDraw);
+            var tileBuildingPositions = GetTilePositionsOfTileData(_temporalBuildingCenterTileToDraw);
             SetTilesInTilemap(tileBuildingPositions, currentTileBuildingArray, tilemap);
         }
 
@@ -352,10 +355,6 @@ namespace Presentation.Managers
                    _worldTileDictionaryBuildingTilemap[buildingGridPosition].TilemapColours
                        .ContainsKey(_buildingTilemap);
         }
-
-        private TileDataEntity GetTileDataByGridPosition(List<TileDataEntity> tileDataEntities,
-            Vector3Int currentObjectPosition) =>
-            tileDataEntities.SingleOrDefault(x => x.GridPosition == currentObjectPosition);
 
         private List<TileDataEntity> GetBuildingZone(TileType tileTypeBuilding, Vector3Int buildingPosition)
         {
@@ -491,8 +490,8 @@ namespace Presentation.Managers
 
         private void ClearPreviousPaintedArea()
         {
-            ClearPaintedTiles(temporalBuildingCenterTileToDraw, _buildingTilemap);
-            ClearAttackPaintedTiles(temporalRangeTilesToDraw, _weaponToSetRangeTilemap);
+            ClearPaintedTiles(_temporalBuildingCenterTileToDraw, _buildingTilemap);
+            ClearAttackPaintedTiles(_temporalRangeTilesToDraw, _weaponToSetRangeTilemap);
 
             _currentBuildingArea = _originalBuildingArea;
         }
@@ -533,11 +532,11 @@ namespace Presentation.Managers
                 }
 
                 tilesToClear[index] = tile;
+                tilesToClear[index].TilemapColours[tilemap] = tileMapColour;
             }
 
             var filledTiles = CopyFromTileDataToArray(tilesToClear);
             var tilePositions = GetTilePositionsOfTileData(tilesToClear);
-            _buildingFacadeComponent.ClearAttackTiles();
 
             SetTilesInTilemap(tilePositions, filledTiles, tilemap);
             tilesToClear.Clear();
