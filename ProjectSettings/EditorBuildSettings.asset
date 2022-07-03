@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/InitScene.unity
     guid: a3471b872b6a68d4396ef09236718f59
   - enabled: 1
-    path: Assets/Scenes/Level01.unity
-    guid: 8d474f8e496c40f4dbffd7b08f9ea5cb
-  - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 9512ef43c998f3746af545cd40f2b63d
+  - enabled: 1
+    path: Assets/Scenes/Level01.unity
+    guid: 55a331dbc8e910e478c9232d5fceb9c2
   - enabled: 1
     path: Assets/Scenes/SampleScene_Sergio.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab

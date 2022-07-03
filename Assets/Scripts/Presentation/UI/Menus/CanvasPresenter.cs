@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using App;
 using App.Events;
 using App.SceneManagement;
@@ -8,6 +7,7 @@ using Presentation.Managers;
 using Presentation.Structs;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 
 namespace Presentation.UI.Menus
@@ -21,6 +21,7 @@ namespace Presentation.UI.Menus
         [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
+        [SerializeField] private Button _showRangeButton;
         private SceneChanger _sceneChanger;
         private bool _skipTimer, _timerIsRunning;
 
@@ -67,10 +68,12 @@ namespace Presentation.UI.Menus
         {
             SetBuildingSelectableViewStatus(false);
             OnPlayerWantsToSetBuildingInGrid?.Invoke(buildingType);
+            _showRangeButton.gameObject.SetActive(false);
         }
 
         public void SetBuildingSelectableViewStatus(bool status)
         {
+            SetShowRangeButtonStatus(status);
             _buildingsSelectable.gameObject.SetActive(status);
         }
 
@@ -95,6 +98,7 @@ namespace Presentation.UI.Menus
             popupComponent.OnContinueButtonPressed += GoToNextLevel;
 
             popupComponent.gameObject.SetActive(true);
+            SetShowRangeButtonStatus(false);
         }
 
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
@@ -105,6 +109,7 @@ namespace Presentation.UI.Menus
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.gameObject.SetActive(true);
+            SetShowRangeButtonStatus(false);
         }
 
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, BuildingType buildingType)
@@ -132,7 +137,7 @@ namespace Presentation.UI.Menus
             _currentSliderBarView = _defensiveTimer;
             _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
         }
-        
+
         private IEnumerator StartSliderTimer()
         {
             do
@@ -147,6 +152,7 @@ namespace Presentation.UI.Menus
         public void CancelPendingActivitiesOfPlayer()
         {
             OnSystemCancelsBuy?.Invoke();
+            SetShowRangeButtonStatus(true);
         }
 
         public void UpdateRoundInformation(int currentRound, int numberOfRoundsPerLevel)
@@ -163,6 +169,11 @@ namespace Presentation.UI.Menus
         private void StopTimerLogic()
         {
             _currentSliderBarView.OnSliderReachZero -= StopTimerLogic;
+        }
+
+        public void SetShowRangeButtonStatus(bool status)
+        {
+            _showRangeButton.gameObject.SetActive(status);
         }
     }
 }

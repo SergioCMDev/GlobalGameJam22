@@ -17,6 +17,7 @@ namespace Presentation
         [SerializeField] private float _timeToDefendAgainstSlimes = 20, _timeToAllowPlayerBuildsTurrets;
         [SerializeField] private int _numberOfRoundsPerLevel;
         [SerializeField] private EnemySpawner enemySpawner;
+        [SerializeField] private float timeToShowNewRoundPopup = 3;
 
         private int _currentRound;
         private ResourcesManager _resourcesManager;
@@ -48,6 +49,7 @@ namespace Presentation
             canvasPresenter.SetDefensiveTimerInitialValue(_timeToDefendAgainstSlimes, RoundEnded);
             canvasPresenter.InitTimerLogic();
             canvasPresenter.SetBuildingSelectableViewStatus(false);
+            canvasPresenter.SetShowRangeButtonStatus(true);
         }
 
         private void RoundEnded()
@@ -60,9 +62,10 @@ namespace Presentation
                 var newRoundPopup = _popupManager.InstantiatePopup<NewRoundPopup>(PopupType.NewRound);
                 var closeablePopup = newRoundPopup.GetComponent<ICloseablePopup>();
                 enemySpawner.HideEnemies();
+                canvasPresenter.SetShowRangeButtonStatus(false);
                 closeablePopup.PopupHasBeenClosed += StartNewRound;
                 newRoundPopup.gameObject.SetActive(true);
-                newRoundPopup.Init(5);
+                newRoundPopup.Init(timeToShowNewRoundPopup);
             }
             else
             {

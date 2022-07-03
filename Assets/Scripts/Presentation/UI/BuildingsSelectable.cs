@@ -29,7 +29,7 @@ namespace Presentation.UI
 
         private void BuildingSelected(BuildingType obj)
         {
-            OnPlayerWantsToBuyBuilding.Invoke(obj);
+            OnPlayerWantsToBuyBuilding?.Invoke(obj);
         }
     }
 }
