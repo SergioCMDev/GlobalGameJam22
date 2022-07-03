@@ -101,7 +101,7 @@ namespace Presentation.Managers
                 return;
             }
             ClearAttackPaintedTiles(_temporalRangeTilesToDraw, _weaponRangeTilemap);
-            // _weaponRangeTilemap.gameObject.SetActive(false);
+            _weaponRangeTilemap.gameObject.SetActive(false);
             //TODO Limpiar tiles pintadas, relacionado con TODO e evitar usar BOUNDSINT
         }
 
@@ -152,6 +152,15 @@ namespace Presentation.Managers
             _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
             _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
             _buildingFacadeComponent.ClearAttackTiles();
+            // _temporalRangeTilesToDraw[0].GridPosition
+            foreach (var tileDataEntity in _temporalRangeTilesToDraw)
+            {
+                var tilemapColoursToSet = tileDataEntity.TilemapColours[_weaponToSetRangeTilemap];
+                var currentColour = tilemapColoursToSet.CurrentColour;
+                tileDataEntity.TilemapColours[_weaponRangeTilemap] = new TilemapColours(currentColour);
+               
+                WorldTileDictionary[tileDataEntity.GridPosition].TilemapColours = tileDataEntity.TilemapColours;
+            }
             ClearPreviousPaintedArea();
             HideTemporalTileMap();
             WorldTileDictionary[_currentObjectPosition].IsOccupied = true;
@@ -199,19 +208,18 @@ namespace Presentation.Managers
                         });
                     }
 
-
                     tilemapColourDictionary.Add(_weaponRangeTilemap, new TilemapColours()
                     {
-                        PreviousColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
-                        CurrentColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
-                        OriginalColour = GetCurrentTileType(_weaponRangeTilemap.GetTile(gridPosition)),
+                        PreviousColour = GetCurrentTileType(_tileTypeBase[TileType.Empty]),
+                        CurrentColour = GetCurrentTileType(_tileTypeBase[TileType.Empty]),
+                        OriginalColour = GetCurrentTileType(_tileTypeBase[TileType.Empty]),
                     });
 
                     tilemapColourDictionary.Add(_weaponToSetRangeTilemap, new TilemapColours()
                     {
-                        PreviousColour = GetCurrentTileType(_weaponToSetRangeTilemap.GetTile(gridPosition)),
-                        CurrentColour = GetCurrentTileType(_weaponToSetRangeTilemap.GetTile(gridPosition)),
-                        OriginalColour = GetCurrentTileType(_weaponToSetRangeTilemap.GetTile(gridPosition)),
+                        PreviousColour =  GetCurrentTileType(_tileTypeBase[TileType.Empty]),
+                        CurrentColour =  GetCurrentTileType(_tileTypeBase[TileType.Empty]),
+                        OriginalColour =  GetCurrentTileType(_tileTypeBase[TileType.Empty]),
                     });
 
                     if (_tilemap.HasTile(gridPosition))
@@ -253,21 +261,26 @@ namespace Presentation.Managers
 
         private void DrawRangeSavedMilitaryBuildings()
         {
+            var tilesToDraw = new List<TileDataEntity>();
             foreach (var buildingData in _savedBuildings)
             {
-                DrawRangeOfMilitaryBuilding(buildingData.buildingFacadeComponent, buildingData.position,
+                var tilesOfBuilding = DrawRangeOfMilitaryBuilding(buildingData.buildingFacadeComponent, buildingData.position,
                     false, _weaponRangeTilemap);
+                tilesToDraw.AddRange(tilesOfBuilding);
             }
+
+            _temporalRangeTilesToDraw = tilesToDraw;
         }
 
-        private void DrawRangeOfMilitaryBuilding(MilitaryBuildingFacade buildingFacade, Vector3Int position,
+        private List<TileDataEntity> DrawRangeOfMilitaryBuilding(MilitaryBuildingFacade buildingFacade, Vector3Int position,
             bool canBeCleaned, Tilemap tilemap)
         {
-            _temporalRangeTilesToDraw = GetAttackZoneOfBuilding(buildingFacade, position,
+            var temporalRangeTilesToDraw = GetAttackZoneOfBuilding(buildingFacade, position,
                 canBeCleaned, tilemap);
-            var currentTileAttackArray = CopyFromTileDataToArray(_temporalRangeTilesToDraw);
-            var tileAttackPositions = GetTilePositionsOfTileData(_temporalRangeTilesToDraw);
+            var currentTileAttackArray = CopyFromTileDataToArray(temporalRangeTilesToDraw);
+            var tileAttackPositions = GetTilePositionsOfTileData(temporalRangeTilesToDraw);
             SetTilesInTilemap(tileAttackPositions, currentTileAttackArray, tilemap);
+            return temporalRangeTilesToDraw;
         }
 
         private void DrawPositionCenterSavedMilitaryBuildings()
@@ -290,7 +303,7 @@ namespace Presentation.Managers
         private void SetTemporalBuildingZone(MilitaryBuildingFacade militaryBuildingFacade, Vector3Int gridPosition)
         {
             //TODO Encontrar manera de hace esto sin usar BOUNDSINT
-            DrawRangeOfMilitaryBuilding(militaryBuildingFacade, gridPosition, true, _weaponToSetRangeTilemap);
+            _temporalRangeTilesToDraw = DrawRangeOfMilitaryBuilding(militaryBuildingFacade, gridPosition, true, _weaponToSetRangeTilemap);
             DrawPositionCenterMilitaryBuilding(gridPosition, _buildingTilemap, TileType.Green);
         }
 
@@ -403,15 +416,6 @@ namespace Presentation.Managers
                     colours.CurrentColour = TileType.Red;
                     colours.PreviousColour = TileType.Red;
                 }
-                else if (colours.CurrentColour == TileType.Purple &&
-                         attackArray[i].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue
-                         || HaveBeenSetBeforeAndBugHappened(attackArray, colours, i)
-                         || BothTilemapsHaveBlueTiles(attackArray, i))
-                {
-                    attackArray[i].TileBase = _tileTypeBase[TileType.Purple];
-                    colours.CurrentColour = TileType.Purple;
-                    colours.PreviousColour = TileType.Blue;
-                }
                 else
                 {
                     attackArray[i].TileBase = _tileTypeBase[TileType.Blue];
@@ -421,26 +425,13 @@ namespace Presentation.Managers
                 }
 
                 attackArray[i].TilemapColours[tilemapToDraw] = colours;
+
                 AddTemporalTileData(attackArray[i], tileDataToSet);
             }
 
             return tileDataToSet;
         }
-
-        //There is a bug due to the cleaning of tiles which set empty tileBase to not show any new tile instead filled ones
-        //but then it's not updated and we have to do this weird check
-        private static bool HaveBeenSetBeforeAndBugHappened(List<TileDataEntity> attackArray, TilemapColours colours,
-            int i)
-        {
-            return colours.CurrentColour == TileType.Purple && attackArray[i].TileBase == null;
-        }
-
-        private bool BothTilemapsHaveBlueTiles(List<TileDataEntity> attackArray, int tileIndex)
-        {
-            return attackArray[tileIndex].TilemapColours[_weaponRangeTilemap].CurrentColour == TileType.Blue &&
-                   attackArray[tileIndex].TilemapColours[_weaponToSetRangeTilemap].CurrentColour == TileType.Blue;
-        }
-
+        
         private bool CanBePlacedHere(List<TileType> tileArray)
         {
             return tileArray.Any(x => x is TileType.Green or TileType.Blue);
@@ -492,7 +483,8 @@ namespace Presentation.Managers
         {
             ClearPaintedTiles(_temporalBuildingCenterTileToDraw, _buildingTilemap);
             ClearAttackPaintedTiles(_temporalRangeTilesToDraw, _weaponToSetRangeTilemap);
-
+            _temporalRangeTilesToDraw.Clear();
+            _temporalBuildingCenterTileToDraw.Clear();
             _currentBuildingArea = _originalBuildingArea;
         }
 
@@ -514,20 +506,23 @@ namespace Presentation.Managers
                         tile.TileBase = _tileTypeBase[tileMapColour.PreviousColour];
                         tileMapColour.CurrentColour = tileMapColour.PreviousColour;
                         break;
-                    case TileType.Blue when tileMapColour.PreviousColour == TileType.Blue:
-                        tile.TileBase = _tileTypeBase[TileType.Blue];
-                        tileMapColour.CurrentColour = TileType.Blue;
+                    case TileType.Blue when tileMapColour.PreviousColour == TileType.Blue && 
+                                            tileMapColour.OriginalColour == TileType.Empty:
+                        tile.TileBase = _tileTypeBase[TileType.Empty];
+                        tileMapColour.CurrentColour = TileType.Empty;
                         tileMapColour.PreviousColour = TileType.Blue;
                         break;
-                    case TileType.Purple when tileMapColour.PreviousColour == TileType.Blue:
-                        tile.TileBase = _tileTypeBase[TileType.Empty];
-                        tileMapColour.CurrentColour = TileType.White;
+                    case TileType.Blue when tileMapColour.PreviousColour == TileType.Blue 
+                                            && tileMapColour.OriginalColour != TileType.Empty:
+                        tile.TileBase = _tileTypeBase[TileType.Blue];
+                        tileMapColour.CurrentColour = tileMapColour.PreviousColour;
                         tileMapColour.PreviousColour = tileMapColour.PreviousColour;
                         break;
+
                     default:
                         tile.TileBase = _tileTypeBase[TileType.Empty];
                         tileMapColour.CurrentColour = TileType.White;
-                        tileMapColour.PreviousColour = TileType.White;
+                        tileMapColour.PreviousColour = tileMapColour.PreviousColour;
                         break;
                 }
 

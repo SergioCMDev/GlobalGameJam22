@@ -6239,21 +6239,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: blue
-      value: 
-      objectReference: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
-    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _grid
       value: 
       objectReference: {fileID: 8790425709290464669}
-    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: empty
-      value: 
-      objectReference: {fileID: 11400000, guid: 1cf41d7cfb0998e4f8fdb46e6fdf2ca1, type: 2}
-    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: purple
-      value: 
-      objectReference: {fileID: 11400000, guid: 7a5a15332415a2f44afd5848f837f8ff, type: 2}
     - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _tilemap
       value: 
