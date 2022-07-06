@@ -24,13 +24,7 @@ namespace Presentation.Infrastructure
         public float Life
         {
             get => _currentLife;
-            set => _currentLife = value;
-        }
-
-        public float MaxLife
-        {
-            get => _maximumLife;
-            set => _maximumLife = value;
+            private set => _currentLife = value;
         }
 
         public Vector3Int Area => _area;
@@ -41,8 +35,7 @@ namespace Presentation.Infrastructure
         {
             var color = SpriteRenderer.color;
             originalColor = color;
-            colorWithTransparency = new Color(color.r, color.g, color.b,
-                _alphaWhenSelected);
+            colorWithTransparency = new Color(color.r, color.g, color.b, _alphaWhenSelected);
         }
 
         void Start()

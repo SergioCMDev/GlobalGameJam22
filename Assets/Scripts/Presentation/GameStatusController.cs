@@ -15,7 +15,7 @@ namespace Presentation
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private GridBuildingManager gridBuildingManager;
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
-
+        [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private RoundsController roundsController;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
@@ -25,7 +25,6 @@ namespace Presentation
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
         private readonly List<Building> _buildings = new();
-        [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
 
         private void Awake()
         {

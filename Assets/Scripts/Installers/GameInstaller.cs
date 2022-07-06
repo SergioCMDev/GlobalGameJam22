@@ -71,7 +71,7 @@ namespace Installers
                 _sceneChangerInstance.GetComponent<SceneChanger>());
             ServiceLocator.Instance.RegisterService<PopupManager>(
                 _popupManagerInstance.GetComponent<PopupManager>());
-            ServiceLocator.Instance.RegisterService<TimeManager>(_timeManagerInstance.GetComponent<TimeManager>());
+            ServiceLocator.Instance.RegisterService(_timeManagerInstance.GetComponent<TimeManager>());
 
 
             //TODO HACERLO PARA N OBJETOS NO SOLO 1
