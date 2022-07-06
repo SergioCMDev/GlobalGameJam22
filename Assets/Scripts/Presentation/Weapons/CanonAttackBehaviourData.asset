@@ -15,3 +15,4 @@ MonoBehaviour:
   damageType: 0
   cadence: 1
   damage: 1
+  moneyToReceiveAfterHitEnemy: 25

@@ -13,11 +13,11 @@ namespace Presentation.Infrastructure
         [SerializeField] private MilitaryBuildingData _militaryBuildingData;
         private float _cadence;
         private float _lastTimeAttacked;
-
         private GameObject _enemyGameObject;
         private bool _hasAttackedBefore;
 
         public event Action OnBuildingAttacks;
+        public event Action<float> OnAddMoneyToPlayer;
 
         public void Attack(List<Enemy> objectsToAttack)
         {
@@ -30,10 +30,16 @@ namespace Presentation.Infrastructure
                 foreach (var attackBehaviour in _attackBehaviour)
                 {
                     attackBehaviour.DoAttack(receiveDamage);
+                   AddMoneyToPlayer(attackBehaviour.GetMoneyOfAttack());
                 }
             }
             _hasAttackedBefore = true;
 
+        }
+
+        private void AddMoneyToPlayer(float quantity)
+        {
+            OnAddMoneyToPlayer?.Invoke(quantity);
         }
 
         public bool CanAttack()

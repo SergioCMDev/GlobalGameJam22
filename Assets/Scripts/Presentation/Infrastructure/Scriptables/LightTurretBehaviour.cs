@@ -11,8 +11,9 @@ namespace Presentation.Infrastructure.Scriptables
         public override void Init(MilitaryBuildingData militaryBuildingData)
         {
             _damageAmount = militaryBuildingData.damage;
+            MoneyToReceiveAfterHitEnemy = militaryBuildingData.moneyToReceiveAfterHitEnemy;
         }
-        
+
         public override void DoAttack(Enemy receiveDamage)
         {
             receiveDamage.ReceiveDamage(_damageAmount);

@@ -325,6 +325,7 @@ MonoBehaviour:
   _animator: {fileID: 4117641267432087056}
   _attackRingRange: 3
   tilesToAttack: []
+  _playerGetResourceEvent: {fileID: 11400000, guid: 029852a4450187c4195819683ab50bd5, type: 2}
 --- !u!1001 &5069552750814868134
 PrefabInstance:
   m_ObjectHideFlags: 0

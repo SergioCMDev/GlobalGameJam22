@@ -18,6 +18,7 @@ namespace Presentation.Infrastructure
         [SerializeField] private int _attackRingRange = 1;
         [SerializeField] protected List<TileDataEntity> tilesToAttack;
 
+        [SerializeField] private PlayerGetResourceEvent _playerGetResourceEvent;
         private GameObject _enemyGameObject;
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
@@ -44,6 +45,15 @@ namespace Presentation.Infrastructure
             _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _militaryBuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
+            _militaryBuildingAttacker.OnAddMoneyToPlayer += AddMoneyToPlayer;
+        }
+
+        private void AddMoneyToPlayer(float quantity)
+        {
+            Debug.Log($"Obtenemos {quantity} {gameObject}");
+            _playerGetResourceEvent.Quantity = quantity;
+            _playerGetResourceEvent.Type = RetrievableResourceType.Gold;
+            _playerGetResourceEvent.Fire();
         }
 
         private void OnBuildingAttacks()

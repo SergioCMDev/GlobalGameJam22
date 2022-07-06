@@ -18,6 +18,7 @@ namespace Presentation.Infrastructure.Scriptables
             _percentageToReduce = teslaMilitaryData.percentageToReduceSpeed;
             _durationOfEffect = teslaMilitaryData.durationOfEffect;
             _damageAmount = teslaMilitaryData.damage;
+            MoneyToReceiveAfterHitEnemy = militaryBuildingData.moneyToReceiveAfterHitEnemy;
         }
 
         private void ApplySpeedReduction(Enemy receiveDamage)
