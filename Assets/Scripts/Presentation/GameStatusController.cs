@@ -47,6 +47,7 @@ namespace Presentation
             foreach (var cityBuilding in _buildings)
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
+                cityBuilding.Initialize();
             }
 
             gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);

@@ -38,15 +38,17 @@ namespace Presentation.Infrastructure
             colorWithTransparency = new Color(color.r, color.g, color.b, _alphaWhenSelected);
         }
 
-        void Start()
+        private void UpdateLifeToMaximum()
         {
             _currentLife = _maximumLife;
-            _sliderBarView.SetMaxValue(Life);
+            _sliderBarView.SetMaxValue(_maximumLife);
+            UpdateLifeSliderBar();
         }
 
         public void Initialize()
         {
             Awake();
+            UpdateLifeToMaximum();
         }
 
         public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
