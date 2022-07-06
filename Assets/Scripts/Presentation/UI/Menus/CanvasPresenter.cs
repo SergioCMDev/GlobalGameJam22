@@ -23,6 +23,7 @@ namespace Presentation.UI.Menus
         [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
         [SerializeField] private Button _showRangeButton;
         private SceneChanger _sceneChanger;
+        private Constants _constants;
         private bool _skipTimer, _timerIsRunning;
 
         private ResourcesManager _resourcesManager;
@@ -38,6 +39,7 @@ namespace Presentation.UI.Menus
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
             UpdateResources();
+            _constants = ServiceLocator.Instance.GetService<ConstantsManager>().Constants;
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
         }
 
@@ -79,7 +81,15 @@ namespace Presentation.UI.Menus
 
         public void UpdateResources(UpdateUIResourcesEvent resourcesEvent)
         {
-            UpdateResources();
+            UpdateResources(resourcesEvent.previousQuantity, resourcesEvent.currentQuantity);
+        }
+
+        private void UpdateResources(int resourcesEventPreviousQuantity, int resourcesEventCurrentQuantity)
+        {
+            var value = resourcesEventPreviousQuantity;
+            DOTween.To(() => value, x => value = x, resourcesEventCurrentQuantity, _constants.durationFloatIncrementTween)
+                .OnUpdate(() => { _tmpText.SetText(value.ToString(CultureInfo.InvariantCulture)); });
+        }
         }
 
         private void UpdateResources()
