@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TeslaAttackBehaviourData
   m_EditorClassIdentifier: 
   damageType: 1
-  cadence: 5
-  damage: 1
+  cadence: 0.33
+  damage: 25
   moneyToReceiveAfterHitEnemy: 10
   percentageToReduceSpeed: 0.25
   durationOfEffect: 5
