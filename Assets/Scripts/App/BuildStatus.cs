@@ -4,7 +4,7 @@
     {
         public float CurrentLife;
         public float MaxLife;
-        public BuildingType buildingType;
+        public MiltaryBuildingType MilitaryBuildingType;
         public float level;
 
         public BuildStatus()

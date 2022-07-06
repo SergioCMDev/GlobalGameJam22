@@ -7,7 +7,7 @@ namespace Presentation.Infrastructure
     [Serializable]
     public struct BuildingDataTuple
     {
-        public BuildingType BuildingType;
+        public MiltaryBuildingType miltaryBuildingType;
         public GameObject Prefab;
     }
 }

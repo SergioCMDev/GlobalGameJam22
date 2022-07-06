@@ -10,7 +10,7 @@ namespace Presentation.Managers
     public class BuyController : MonoBehaviour
     {
         private ResourcesTuple resourcesNeededForCurrentBuy;
-        private BuildingType currentBuildingBuyType;
+        private MiltaryBuildingType _currentMiltaryBuildingBuyType;
         private ResourcesManager _resourcesManager;
         private MilitaryBuildingManager _militaryBuildingManager;
 
@@ -27,23 +27,23 @@ namespace Presentation.Managers
             _playerIsCurrentlyBuying = false;
         }
 
-        public void PlayerWantsToBuyBuilding(BuildingType buildingType, Action<ResourcesTuple, BuildingType> OnPlayerNeedMoreResources, 
-            Action<GameObject, BuildingType> OnPlayerCanBuyBuilding)
+        public void PlayerWantsToBuyBuilding(MiltaryBuildingType militaryBuildingType, Action<ResourcesTuple, MiltaryBuildingType> OnPlayerNeedMoreResources, 
+            Action<GameObject, MiltaryBuildingType> OnPlayerCanBuyBuilding)
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
-            var buildingsStatus = _militaryBuildingManager.GetBuildingStatus(buildingType);
-            currentBuildingBuyType = buildingType;
+            var buildingsStatus = _militaryBuildingManager.GetBuildingStatus(militaryBuildingType);
+            _currentMiltaryBuildingBuyType = militaryBuildingType;
             resourcesNeededForCurrentBuy =
-                _militaryBuildingManager.GetResourcesForNextLevel(buildingsStatus.buildingType);
+                _militaryBuildingManager.GetResourcesForNextLevel(buildingsStatus.MilitaryBuildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
                     resourcesNeededForCurrentBuy.Metal))
             {
-                OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, buildingType);
+                OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, militaryBuildingType);
                 return;
             }
-            var prefab = _militaryBuildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
-            OnPlayerCanBuyBuilding.Invoke(prefab, buildingType);
+            var prefab = _militaryBuildingManager.GetPrefabByBuildingType(_currentMiltaryBuildingBuyType);
+            OnPlayerCanBuyBuilding.Invoke(prefab, militaryBuildingType);
         }
 
         public void EndBuyCorrectly()
@@ -57,10 +57,10 @@ namespace Presentation.Managers
             _playerIsCurrentlyBuying = false;
         }
         
-        public void AllowPlayerToBuy(GameObject prefab, BuildingType buildingType)
+        public void AllowPlayerToBuy(GameObject prefab, MiltaryBuildingType miltaryBuildingType)
         {
             _allowPlayerToSetBuildingInTilemapEvent.Prefab = prefab;
-            _allowPlayerToSetBuildingInTilemapEvent.BuildingType = buildingType;
+            _allowPlayerToSetBuildingInTilemapEvent.miltaryBuildingType = miltaryBuildingType;
             _allowPlayerToSetBuildingInTilemapEvent.Fire();
         }
     }

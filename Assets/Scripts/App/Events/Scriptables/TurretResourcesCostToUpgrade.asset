@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GoldCostToUpgrade: 10
   MetalCostToUpgrade: 20
-  BuildingType: 2
+  miltaryBuildingType: 2

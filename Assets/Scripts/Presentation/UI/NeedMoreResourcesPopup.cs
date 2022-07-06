@@ -26,9 +26,9 @@ namespace Presentation.UI
             HasToClosePopup.Invoke(gameObject);
         }
 
-        public void Init(ResourcesTuple resourcesNeeded, BuildingType buildingType)
+        public void Init(ResourcesTuple resourcesNeeded, MiltaryBuildingType miltaryBuildingType)
         {
-            _title.SetText($"Need more resources for buying {buildingType}");
+            _title.SetText($"Need more resources for buying {miltaryBuildingType}");
             _resourcesText.SetText(
                 $"You need  {resourcesNeeded.Gold} Gold and {resourcesNeeded.Metal} metal to buy this building");
         }

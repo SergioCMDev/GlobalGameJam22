@@ -15,7 +15,7 @@ namespace App.Models
         {
             var item = new BuildStatus
             {
-                buildingType = buildStatus.buildingType,
+                MilitaryBuildingType = buildStatus.MilitaryBuildingType,
                 MaxLife = buildStatus.MaxLife,
                 level = buildStatus.level
             };

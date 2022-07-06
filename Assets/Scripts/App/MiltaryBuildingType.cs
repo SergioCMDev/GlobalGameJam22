@@ -1,6 +1,6 @@
 ﻿namespace App
 {
-    public enum BuildingType
+    public enum MiltaryBuildingType
     {
         Tesla,
         Canon,

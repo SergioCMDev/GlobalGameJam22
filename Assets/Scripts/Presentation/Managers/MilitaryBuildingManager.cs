@@ -25,21 +25,21 @@ namespace Presentation.Managers
             {
                 _buildingStatusModel.AddBuilding(new BuildStatus()
                 {
-                    buildingType = building.BuildingType,
+                    MilitaryBuildingType = building.miltaryBuildingType,
                     MaxLife = 50,
                 });
             }
             
         }
 
-        public GameObject GetPrefabByBuildingType(BuildingType type)
+        public GameObject GetPrefabByBuildingType(MiltaryBuildingType type)
         {
-            return buildingData.Single(x => x.BuildingType == type).Prefab;
+            return buildingData.Single(x => x.miltaryBuildingType == type).Prefab;
         }
         
-        public ResourcesTuple GetResourcesForNextLevel(BuildingType buildStatusBuildingType)
+        public ResourcesTuple GetResourcesForNextLevel(MiltaryBuildingType buildStatusMiltaryBuildingType)
         {
-            var upgradeCost = _buildingCost.Single(X => X.BuildingType == buildStatusBuildingType);
+            var upgradeCost = _buildingCost.Single(X => X.miltaryBuildingType == buildStatusMiltaryBuildingType);
             return new ResourcesTuple()
             {
                 Gold = upgradeCost.GoldCostToUpgrade,
@@ -47,10 +47,10 @@ namespace Presentation.Managers
             };
         }
 
-        public BuildStatus GetBuildingStatus(BuildingType type)
+        public BuildStatus GetBuildingStatus(MiltaryBuildingType type)
         {
             return _buildingStatusModel.BuildStatusList.SingleOrDefault(x =>
-                x.buildingType == type);
+                x.MilitaryBuildingType == type);
         }
 
         public void SaveBuilding(SaveBuildingEvent buildingEvent)
