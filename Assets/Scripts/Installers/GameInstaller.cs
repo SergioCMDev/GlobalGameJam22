@@ -97,8 +97,8 @@ namespace Installers
             _resourcesManagerInstance = Instantiate(_resourcesManagerPrefab);
             ServiceLocator.Instance.RegisterService<ResourcesManager>(_resourcesManagerInstance
                 .GetComponent<ResourcesManager>());
-            ServiceLocator.Instance.RegisterService<BuildingManager>(_buildingManagerInstance
-                .GetComponent<BuildingManager>());
+            ServiceLocator.Instance.RegisterService<MilitaryBuildingManager>(_buildingManagerInstance
+                .GetComponent<MilitaryBuildingManager>());
 
 
             ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());
