@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using App;
 using App.Events;
 using Presentation.Hostiles;
 using Presentation.Managers;
@@ -16,9 +17,8 @@ namespace Presentation.Infrastructure
         [SerializeField] private GameObject _particles;
         [SerializeField] private Animator _animator;
         [SerializeField] private int _attackRingRange = 1;
-        [SerializeField] protected List<TileDataEntity> tilesToAttack;
-
         [SerializeField] private PlayerGetResourceEvent _playerGetResourceEvent;
+        protected List<TileDataEntity> tilesToAttack;
         private GameObject _enemyGameObject;
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
@@ -31,14 +31,7 @@ namespace Presentation.Infrastructure
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
 
-        protected internal int AttackRingRange
-        {
-            get => _attackRingRange;
-            set => _attackRingRange = value;
-        }
-
-        public AttackRange ArrayAttack { get; set; }
-
+        protected internal int AttackRingRange => _attackRingRange;
 
         private void Awake()
         {

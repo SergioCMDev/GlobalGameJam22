@@ -57,8 +57,8 @@ namespace Presentation
             deactivateMilitaryBuildingsEvent.Fire();
             if (NeedToPlayMoreRounds())
             {
-                //TODO CALCULATE QUANTITY TO ADD
-                _resourcesManager.AddResources(RetrievableResourceType.Gold, 200);
+                // //TODO CALCULATE QUANTITY TO ADD
+                // _resourcesManager.AddResources(RetrievableResourceType.Gold, 200);
                 var newRoundPopup = _popupManager.InstantiatePopup<NewRoundPopup>(PopupType.NewRound);
                 var closeablePopup = newRoundPopup.GetComponent<ICloseablePopup>();
                 enemySpawner.HideEnemies();
