@@ -30,16 +30,32 @@ namespace Presentation.Managers
 
         public void RemoveResourcesOfPlayer(ResourcesTuple resourcesNeededForCurrentBuy)
         {
-            ResourcesModel.Gold -= resourcesNeededForCurrentBuy.Gold;
-            ResourcesModel.Metal -= resourcesNeededForCurrentBuy.Metal;
+            var previousGoldQuantity = _resourcesModel.Gold;
+
+            _resourcesModel.Gold -= resourcesNeededForCurrentBuy.Gold;
+            _resourcesModel.Metal -= resourcesNeededForCurrentBuy.Metal;
+            ThrowEventToUpdateUI(previousGoldQuantity, _resourcesModel.Gold);
+        }
+
+        private void AddResources(RetrievableResourceType type, int quantity)
+        {
+            Debug.Log($"Got resource {type} Q {quantity}");
+            
+            var previousGoldQuantity = _resourcesModel.Gold;
+            _resourcesModel.AddResources(type, quantity);
+            ThrowEventToUpdateUI(previousGoldQuantity, _resourcesModel.Gold);
+        }
+
+        private void ThrowEventToUpdateUI(int previousGoldQuantity, int currentGoldQuantity)
+        {
+            _updateUIResourcesEvent.previousQuantity = previousGoldQuantity;
+            _updateUIResourcesEvent.currentQuantity = currentGoldQuantity;
             _updateUIResourcesEvent.Fire();
         }
 
-        public void AddResources(RetrievableResourceType type, float quantity)
+        public float GetGold()
         {
-            Debug.Log($"Got resource {type} Q {quantity}");
-            ResourcesModel.AddResources(type, quantity);
-            _updateUIResourcesEvent.Fire();
+            return _resourcesModel.Gold;
         }
     }
 }

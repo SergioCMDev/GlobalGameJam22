@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Globalization;
 using App;
 using App.Events;
 using App.SceneManagement;
+using DG.Tweening;
 using Presentation.Managers;
 using Presentation.Structs;
 using TMPro;
@@ -38,12 +40,17 @@ namespace Presentation.UI.Menus
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
             _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
-            UpdateResources();
             _constants = ServiceLocator.Instance.GetService<ConstantsManager>().Constants;
+            SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
+            
+            // var value = 0;
+            // DOTween.To(() => value, x => value = x, 200, 20f)
+            //     .OnUpdate(() => { _tmpText.SetText(value.ToString(CultureInfo.InvariantCulture)); });
         }
 
-//USED BY PointerDataEvent
+
+        //USED BY PointerDataEvent
         public void SetStatusDrawingTurretRanges(bool status)
         {
             setStatusDrawingTurretRangesEvent.drawingStatus = status;
@@ -90,11 +97,14 @@ namespace Presentation.UI.Menus
             DOTween.To(() => value, x => value = x, resourcesEventCurrentQuantity, _constants.durationFloatIncrementTween)
                 .OnUpdate(() => { _tmpText.SetText(value.ToString(CultureInfo.InvariantCulture)); });
         }
+
+        private void SetInitialResources()
+        {
+            _tmpText.SetText($" {_resourcesManager.GetGold()}");
         }
 
         private void UpdateResources()
         {
-            _tmpText.SetText($"Recurso {_resourcesManager.ResourcesModel.Gold}");
         }
 
         public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
