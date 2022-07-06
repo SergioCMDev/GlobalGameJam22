@@ -66,13 +66,13 @@ namespace Installers
             _popupManagerInstance = Instantiate(_popupManagerPrefab);
             _constantsManagerInstance = Instantiate(_constantsManagerPrefab);
 
-            ServiceLocator.Instance.RegisterService<SoundManager>(
+            ServiceLocator.Instance.RegisterService(
                 _soundManagerInstance.GetComponent<SoundManager>());
-            ServiceLocator.Instance.RegisterService<ReadInputPlayer>(
+            ServiceLocator.Instance.RegisterService(
                 _readInputPlayerInstance.GetComponent<ReadInputPlayer>());
-            ServiceLocator.Instance.RegisterService<SceneChanger>(
+            ServiceLocator.Instance.RegisterService(
                 _sceneChangerInstance.GetComponent<SceneChanger>());
-            ServiceLocator.Instance.RegisterService<PopupManager>(
+            ServiceLocator.Instance.RegisterService(
                 _popupManagerInstance.GetComponent<PopupManager>());
             ServiceLocator.Instance.RegisterService(_timeManagerInstance.GetComponent<TimeManager>());
             ServiceLocator.Instance.RegisterService(_constantsManagerInstance.GetComponent<ConstantsManager>());
@@ -82,9 +82,9 @@ namespace Installers
             ServiceLocator.Instance.RegisterService<IJsonator>(new JsonUtililyTransformer());
             ServiceLocator.Instance.RegisterService<ISaver>(new SaveUsingPlayerPrefs());
             ServiceLocator.Instance.RegisterService<ILoader>(new LoadWithPlayerPrefs());
-            ServiceLocator.Instance.RegisterService<GameDataService>(new GameDataService());
-            ServiceLocator.Instance.RegisterService<SoundDataService>(new SoundDataService());
-            
+            ServiceLocator.Instance.RegisterService(new GameDataService());
+            ServiceLocator.Instance.RegisterService(new SoundDataService());
+
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
 

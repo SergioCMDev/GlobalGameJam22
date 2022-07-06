@@ -11,7 +11,6 @@ namespace Presentation.Managers
     {
         [SerializeField] private UpdateUIResourcesEvent _updateUIResourcesEvent;
         private IResourcesModel _resourcesModel;
-        public IResourcesModel ResourcesModel => _resourcesModel;
 
         void Start()
         {
@@ -19,11 +18,9 @@ namespace Presentation.Managers
         }
 
         //TODO FINISH
-        public bool PlayerHasEnoughResources(float goldToSpend, float metalToSpend)
+        public bool PlayerHasEnoughResources(float goldToSpend)
         {
-            // return goldToSpend <= _resourcesModel.Gold && metalToSpend <= _resourcesModel.Metal;
             return goldToSpend <= _resourcesModel.Gold ;
-            // return true;
         }
 
         public void PlayerGetResource(PlayerGetResourceEvent playerGetResourceEvent)

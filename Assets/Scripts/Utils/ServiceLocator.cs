@@ -5,7 +5,7 @@ namespace Utils
 {
     public class ServiceLocator
     {
-        public static ServiceLocator Instance => _instance ?? (_instance = new ServiceLocator());
+        public static ServiceLocator Instance => _instance ??= new ServiceLocator();
         private static ServiceLocator _instance;
         private readonly Dictionary<Type, object> _services;
         private readonly Dictionary<Type, object> _models;

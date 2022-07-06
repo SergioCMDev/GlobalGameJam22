@@ -36,8 +36,7 @@ namespace Presentation.Managers
             _currentMiltaryBuildingBuyType = militaryBuildingType;
             resourcesNeededForCurrentBuy =
                 _militaryBuildingManager.GetResourcesForNextLevel(buildingsStatus.MilitaryBuildingType);
-            if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
-                    resourcesNeededForCurrentBuy.Metal))
+            if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold))
             {
                 OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, militaryBuildingType);
                 return;

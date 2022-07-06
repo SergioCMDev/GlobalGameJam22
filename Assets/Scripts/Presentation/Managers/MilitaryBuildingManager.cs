@@ -37,9 +37,9 @@ namespace Presentation.Managers
             return buildingData.Single(x => x.miltaryBuildingType == type).Prefab;
         }
         
-        public ResourcesTuple GetResourcesForNextLevel(MiltaryBuildingType buildStatusMiltaryBuildingType)
+        public ResourcesTuple GetResourcesForNextLevel(MiltaryBuildingType buildStatusMilitaryBuildingType)
         {
-            var upgradeCost = _buildingCost.Single(X => X.miltaryBuildingType == buildStatusMiltaryBuildingType);
+            var upgradeCost = _buildingCost.Single(x => x.militaryBuildingType == buildStatusMilitaryBuildingType);
             return new ResourcesTuple()
             {
                 Gold = upgradeCost.GoldCostToUpgrade,
