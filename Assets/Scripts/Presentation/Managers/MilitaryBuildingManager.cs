@@ -9,19 +9,15 @@ using Presentation.Infrastructure.Scriptables;
 using Presentation.Structs;
 using UnityEngine;
 using Utils;
-
 namespace Presentation.Managers
 {
-    public class BuildingManager : MonoBehaviour
+    public class MilitaryBuildingManager : MonoBehaviour
     {
         [SerializeField] private List<BuildingCost> _buildingCost;
         [SerializeField] private List<BuildingDataTuple> buildingData;
         private IBuildingStatusModel _buildingStatusModel;
-        private List<MilitaryBuildingFacade> _ownMilitaryBuilding = new();
+        private readonly List<MilitaryBuildingFacade> _ownMilitaryBuilding = new();
 
-        private GameObject _enemy;
-
-        
         void Start()
         {
             _buildingStatusModel = ServiceLocator.Instance.GetModel<IBuildingStatusModel>();
@@ -40,15 +36,8 @@ namespace Presentation.Managers
         {
             return buildingData.Single(x => x.BuildingType == type).Prefab;
         }
-
-        public void UpgradeBoughtBuilding(BuildingType type)
-        {
-            _buildingStatusModel.BuildStatusList.SingleOrDefault(x =>
-                    x.buildingType == type)
-                ?.Upgrade();
-        }
-
-        public ResourcesTuple GetResourcesForNextLevel(float buildStatusLevel, BuildingType buildStatusBuildingType)
+        
+        public ResourcesTuple GetResourcesForNextLevel(BuildingType buildStatusBuildingType)
         {
             var upgradeCost = _buildingCost.Single(X => X.BuildingType == buildStatusBuildingType);
             return new ResourcesTuple()

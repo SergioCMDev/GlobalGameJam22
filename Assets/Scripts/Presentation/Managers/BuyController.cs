@@ -12,7 +12,7 @@ namespace Presentation.Managers
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private BuildingType currentBuildingBuyType;
         private ResourcesManager _resourcesManager;
-        private BuildingManager _buildingManager;
+        private MilitaryBuildingManager _militaryBuildingManager;
 
         [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent _allowPlayerToSetBuildingInTilemapEvent;
         private bool _playerIsCurrentlyBuying;
@@ -22,7 +22,7 @@ namespace Presentation.Managers
 
         void Start()
         {
-            _buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
+            _militaryBuildingManager = ServiceLocator.Instance.GetService<MilitaryBuildingManager>();
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
             _playerIsCurrentlyBuying = false;
         }
@@ -32,17 +32,17 @@ namespace Presentation.Managers
         {
             if (_playerIsCurrentlyBuying) return;
             _playerIsCurrentlyBuying = true;
-            var buildingsStatus = _buildingManager.GetBuildingStatus(buildingType);
+            var buildingsStatus = _militaryBuildingManager.GetBuildingStatus(buildingType);
             currentBuildingBuyType = buildingType;
             resourcesNeededForCurrentBuy =
-                _buildingManager.GetResourcesForNextLevel(buildingsStatus.level, buildingsStatus.buildingType);
+                _militaryBuildingManager.GetResourcesForNextLevel(buildingsStatus.buildingType);
             if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold,
                     resourcesNeededForCurrentBuy.Metal))
             {
                 OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, buildingType);
                 return;
             }
-            var prefab = _buildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
+            var prefab = _militaryBuildingManager.GetPrefabByBuildingType(currentBuildingBuyType);
             OnPlayerCanBuyBuilding.Invoke(prefab, buildingType);
         }
 
