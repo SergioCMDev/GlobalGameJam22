@@ -17,7 +17,7 @@ namespace Presentation.Infrastructure
         private bool _hasAttackedBefore;
 
         public event Action OnBuildingAttacks;
-        public event Action<float> OnAddMoneyToPlayer;
+        public event Action<int> OnAddMoneyToPlayer;
 
         public void Attack(List<Enemy> objectsToAttack)
         {
@@ -37,7 +37,7 @@ namespace Presentation.Infrastructure
 
         }
 
-        private void AddMoneyToPlayer(float quantity)
+        private void AddMoneyToPlayer(int quantity)
         {
             OnAddMoneyToPlayer?.Invoke(quantity);
         }

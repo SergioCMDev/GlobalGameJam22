@@ -2,7 +2,7 @@
 {
     public struct ResourcesTuple
     {
-        public float Gold;
-        public float Metal;
+        public int Gold;
+        public int Metal;
     }
 }

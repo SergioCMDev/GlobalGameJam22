@@ -2,8 +2,8 @@
 {
     public class ResourcesModel : IResourcesModel
     {
-        public float Gold { get; set; }
-        public float Metal { get; set; }
+        public int Gold { get; set; }
+        public int Metal { get; set; }
 
         public ResourcesModel()
         {
@@ -11,7 +11,7 @@
             Metal = 200;
         }
 
-        public void AddResources(RetrievableResourceType type, float quantity)
+        public void AddResources(RetrievableResourceType type, int quantity)
         {
             Gold += quantity;
             //TODO USING SOLID

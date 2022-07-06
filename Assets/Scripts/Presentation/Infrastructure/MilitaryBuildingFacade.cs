@@ -41,7 +41,7 @@ namespace Presentation.Infrastructure
             _militaryBuildingAttacker.OnAddMoneyToPlayer += AddMoneyToPlayer;
         }
 
-        private void AddMoneyToPlayer(float quantity)
+        private void AddMoneyToPlayer(int quantity)
         {
             Debug.Log($"Obtenemos {quantity} {gameObject}");
             _playerGetResourceEvent.Quantity = quantity;

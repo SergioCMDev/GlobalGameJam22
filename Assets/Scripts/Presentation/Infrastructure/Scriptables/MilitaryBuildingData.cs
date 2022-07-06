@@ -8,6 +8,6 @@ namespace Presentation.Infrastructure.Scriptables
     {
         public DamageType damageType;
         public float cadence, damage;
-        public float moneyToReceiveAfterHitEnemy;
+        public int moneyToReceiveAfterHitEnemy;
     }
 }

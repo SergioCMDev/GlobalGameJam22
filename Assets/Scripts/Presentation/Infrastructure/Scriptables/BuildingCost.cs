@@ -6,8 +6,8 @@ namespace Presentation.Infrastructure.Scriptables
     [CreateAssetMenu(fileName = "ResourcesCostToUpgrade", menuName = "Resources/ResourcesCostToUpgrade")]
     public class BuildingCost : ScriptableObject
     {
-        public float GoldCostToUpgrade;
-        public float MetalCostToUpgrade;
-        public MiltaryBuildingType miltaryBuildingType;
+        public int GoldCostToUpgrade;
+        public int MetalCostToUpgrade;
+        public MiltaryBuildingType militaryBuildingType;
     }
 }
