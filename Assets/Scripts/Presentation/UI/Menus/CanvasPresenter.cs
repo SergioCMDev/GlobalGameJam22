@@ -32,7 +32,7 @@ namespace Presentation.UI.Menus
         private PopupManager _popupManager;
         private float _remainingTime;
         private SliderBarView _currentSliderBarView;
-        public event Action<MiltaryBuildingType> OnPlayerWantsToSetBuildingInGrid;
+        public event Action<MilitaryBuildingType> OnPlayerWantsToSetBuildingInGrid;
         public event Action OnSystemCancelsBuy;
 
         void Start()
@@ -73,10 +73,10 @@ namespace Presentation.UI.Menus
             _changeToNextSceneEvent.Fire();
         }
 
-        private void AllowSetPositionOfTurret(MiltaryBuildingType miltaryBuildingType)
+        private void AllowSetPositionOfTurret(MilitaryBuildingType militaryBuildingType)
         {
             SetBuildingSelectableViewStatus(false);
-            OnPlayerWantsToSetBuildingInGrid?.Invoke(miltaryBuildingType);
+            OnPlayerWantsToSetBuildingInGrid?.Invoke(militaryBuildingType);
             _showRangeButton.gameObject.SetActive(false);
         }
 
@@ -132,12 +132,12 @@ namespace Presentation.UI.Menus
             SetShowRangeButtonStatus(false);
         }
 
-        public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, MiltaryBuildingType miltaryBuildingType)
+        public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, MilitaryBuildingType militaryBuildingType)
         {
             var popUpInstance = _popupManager.InstantiatePopup<NeedMoreResourcesPopup>(PopupType.NeedMoreResources);
             var popupComponent = popUpInstance.GetComponent<NeedMoreResourcesPopup>();
             popUpInstance.gameObject.SetActive(true);
-            popupComponent.Init(resourcesNeeded, miltaryBuildingType);
+            popupComponent.Init(resourcesNeeded, militaryBuildingType);
         }
 
         public void SetBuilderTimerInitialValue(float time, Action onTimerHasEnded)

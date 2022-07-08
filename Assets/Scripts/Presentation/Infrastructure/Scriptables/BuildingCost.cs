@@ -8,6 +8,6 @@ namespace Presentation.Infrastructure.Scriptables
     {
         public int GoldCostToUpgrade;
         public int MetalCostToUpgrade;
-        public MiltaryBuildingType militaryBuildingType;
+        public MilitaryBuildingType militaryBuildingType;
     }
 }

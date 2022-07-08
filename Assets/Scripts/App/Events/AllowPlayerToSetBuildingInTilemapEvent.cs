@@ -7,6 +7,6 @@ namespace App.Events
     public class AllowPlayerToSetBuildingInTilemapEvent : GameEventScriptable
     {
         public GameObject Prefab;
-        public MiltaryBuildingType miltaryBuildingType;
+        public MilitaryBuildingType militaryBuildingType;
     }
 }

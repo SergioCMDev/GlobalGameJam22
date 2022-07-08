@@ -112,6 +112,7 @@ namespace Presentation.Managers
             _building = Instantiate(tilemapEvent.Prefab, _buildingParent); //GET POOL
             _buildingFacadeComponent = _building.GetComponent<MilitaryBuildingFacade>();
             _buildingFacadeComponent.Initialize();
+            _buildingFacadeComponent.SetType(tilemapEvent.militaryBuildingType);
             _buildingFacadeComponent.Select();
             _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(true);
             _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace += CancelTakingPlace;

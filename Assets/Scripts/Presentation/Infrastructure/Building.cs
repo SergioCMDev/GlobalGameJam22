@@ -1,4 +1,5 @@
 using System;
+using App;
 using App.Events;
 using Presentation.Interfaces;
 using Presentation.UI.Menus;
@@ -18,6 +19,9 @@ namespace Presentation.Infrastructure
         private bool _placed;
         protected Color originalColor;
         protected Color colorWithTransparency;
+        protected MilitaryBuildingType type;
+
+
         public event Action<Building> OnBuildingDestroyed;
 
 
@@ -30,6 +34,8 @@ namespace Presentation.Infrastructure
         public Vector3Int Area => _area;
 
         protected SpriteRenderer SpriteRenderer => _spriteRenderer;
+
+        public MilitaryBuildingType Type => type;
 
         private void Awake()
         {

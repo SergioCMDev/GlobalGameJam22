@@ -8,10 +8,10 @@ namespace Presentation.UI
     public class BuildingSelector : MonoBehaviour
     {
         [SerializeField] private Button _button;
-        [SerializeField] private MiltaryBuildingType miltaryBuildingType;
-        public event Action<MiltaryBuildingType> OnBuildingSelected;
+        [SerializeField] private MilitaryBuildingType militaryBuildingType;
+        public event Action<MilitaryBuildingType> OnBuildingSelected;
 
-        public MiltaryBuildingType MiltaryBuildingType => miltaryBuildingType;
+        public MilitaryBuildingType MilitaryBuildingType => militaryBuildingType;
 
         void Start()
         {
@@ -20,7 +20,7 @@ namespace Presentation.UI
 
         private void BuildingSelected()
         {
-            OnBuildingSelected.Invoke(MiltaryBuildingType);
+            OnBuildingSelected.Invoke(MilitaryBuildingType);
         }
 
         private void OnDestroy()

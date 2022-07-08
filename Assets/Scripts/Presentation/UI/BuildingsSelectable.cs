@@ -10,7 +10,7 @@ namespace Presentation.UI
     {
         [SerializeField] private List<BuildingTypeTuple> _buildingsSelector;
 
-        public event Action<MiltaryBuildingType> OnPlayerWantsToBuyBuilding;
+        public event Action<MilitaryBuildingType> OnPlayerWantsToBuyBuilding;
         void Start()
         {
             foreach (var building in _buildingsSelector)
@@ -27,7 +27,7 @@ namespace Presentation.UI
             }
         }
 
-        private void BuildingSelected(MiltaryBuildingType obj)
+        private void BuildingSelected(MilitaryBuildingType obj)
         {
             OnPlayerWantsToBuyBuilding?.Invoke(obj);
         }

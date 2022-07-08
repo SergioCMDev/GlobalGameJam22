@@ -51,21 +51,21 @@ namespace Presentation.Managers
             _buyController.EndBuyCorrectly();
         }
 
-        private void PlayerWantsToSetBuildingInGrid(MiltaryBuildingType miltaryBuildingType)
+        private void PlayerWantsToSetBuildingInGrid(MilitaryBuildingType militaryBuildingType)
         {
-            _buyController.PlayerWantsToBuyBuilding(miltaryBuildingType, OnPlayerNeedsMoreResources, OnPlayerCanBuyBuilding);
+            _buyController.PlayerWantsToBuyBuilding(militaryBuildingType, OnPlayerNeedsMoreResources, OnPlayerCanBuyBuilding);
         }
 
-        private void OnPlayerCanBuyBuilding(GameObject prefab, MiltaryBuildingType miltaryBuildingType)
+        private void OnPlayerCanBuyBuilding(GameObject prefab, MilitaryBuildingType militaryBuildingType)
         {
             _canvasPresenter.SetBuildingSelectableViewStatus(false);
 
-            _buyController.AllowPlayerToBuy(prefab, miltaryBuildingType);
+            _buyController.AllowPlayerToBuy(prefab, militaryBuildingType);
         }
 
-        private void OnPlayerNeedsMoreResources(ResourcesTuple resourcesNeeded, MiltaryBuildingType miltaryBuildingType)
+        private void OnPlayerNeedsMoreResources(ResourcesTuple resourcesNeeded, MilitaryBuildingType militaryBuildingType)
         {
-            _canvasPresenter.ShowNeedMoreResourcesPanel(resourcesNeeded, miltaryBuildingType);
+            _canvasPresenter.ShowNeedMoreResourcesPanel(resourcesNeeded, militaryBuildingType);
 
             // _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
         

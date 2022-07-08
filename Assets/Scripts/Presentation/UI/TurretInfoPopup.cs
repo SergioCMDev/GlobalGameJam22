@@ -12,10 +12,10 @@ namespace Presentation.UI
         [SerializeField] private Button _buyButton, _cancelButton;
         [SerializeField] private TextMeshProUGUI  _buildingTypeText;
 
-        public event Action<MiltaryBuildingType> OnBuyTurretPressed;
+        public event Action<MilitaryBuildingType> OnBuyTurretPressed;
         public event Action OnCancelBuyPressed;
 
-        private MiltaryBuildingType _miltaryBuildingType;
+        private MilitaryBuildingType _militaryBuildingType;
         public Action<GameObject> HasToClosePopup { get; set; }
         public Action PopupHasBeenClosed { get; set; }
 
@@ -34,7 +34,7 @@ namespace Presentation.UI
         private void BuyTurretButtonPressed()
         {
             HasToClosePopup.Invoke(gameObject);
-            OnBuyTurretPressed?.Invoke(_miltaryBuildingType);
+            OnBuyTurretPressed?.Invoke(_militaryBuildingType);
         }
 
         private void OnDestroy()
@@ -43,10 +43,10 @@ namespace Presentation.UI
             _cancelButton.onClick.RemoveListener(CancelBuyButtonPressed);
         }
 
-        public void SetData(MiltaryBuildingType miltaryBuildingType)
+        public void SetData(MilitaryBuildingType militaryBuildingType)
         {
-            _buildingTypeText.SetText(miltaryBuildingType.ToString());
-            _miltaryBuildingType = miltaryBuildingType;
+            _buildingTypeText.SetText(militaryBuildingType.ToString());
+            _militaryBuildingType = militaryBuildingType;
         }
 
     }
