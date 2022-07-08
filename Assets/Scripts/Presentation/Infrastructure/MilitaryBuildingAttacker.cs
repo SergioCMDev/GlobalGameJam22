@@ -45,8 +45,8 @@ namespace Presentation.Infrastructure
         public bool CanAttack()
         {
             _lastTimeAttacked += Time.deltaTime;
-            if (_hasAttackedBefore) return _lastTimeAttacked > _cadence;
-            return true;
+            if (!_hasAttackedBefore) return true;
+            return _lastTimeAttacked > _cadence;
         }
 
         private void OnDrawGizmos()

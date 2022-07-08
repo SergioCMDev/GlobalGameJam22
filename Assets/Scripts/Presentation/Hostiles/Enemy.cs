@@ -68,9 +68,14 @@ namespace Presentation.Hostiles
         {
             _timer = new Timer();
             _timer.Init(effectDuration);
-            _timer.OnTimerEnds += ResetSpeed;
+            _timer.OnTimerEnds += ResetSpeedAndTimer;
             StartCoroutine(_timer.CountTime());
             
+            EnemyMovement.ChangeSpeed(EnemyMovement.Speed * (1-percentageToReduce));
+        }
+        
+        public void ReduceSpeed(float percentageToReduce)
+        {
             EnemyMovement.ChangeSpeed(EnemyMovement.Speed * (1-percentageToReduce));
         }
 
@@ -78,10 +83,13 @@ namespace Presentation.Hostiles
         {
             return _life > 0;
         }
-
-        private void ResetSpeed()
+        public void ResetSpeed()
         {
-            _timer.OnTimerEnds -= ResetSpeed;
+            EnemyMovement.ResetSpeed();
+        }
+        private void ResetSpeedAndTimer()
+        {
+            _timer.OnTimerEnds -= ResetSpeedAndTimer;
 
             EnemyMovement.ResetSpeed();
         }

@@ -692,5 +692,15 @@ namespace Presentation.Managers
                 _worldTileDictionaryBuildingTilemap[buildingPosition.positionInGrid].IsOccupied = true;
             }
         }
+
+        public void GetAnyTurretWhichHasTileInRange(TileDataEntity tileDataEntity, out MilitaryBuildingFacade buildingToReturn)
+        {
+            buildingToReturn = null;
+            foreach (var building in 
+                     _savedBuildings.Where(building => building.buildingFacadeComponent.ContainsTileToAttack(tileDataEntity)))
+            {
+                buildingToReturn = building.buildingFacadeComponent;
+            }
+        } 
     }
 }

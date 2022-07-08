@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using App;
+using Presentation.Hostiles;
+using Presentation.Infrastructure;
 using Presentation.Interfaces;
+using Presentation.Structs;
 using UnityEngine;
 
 namespace Presentation.Managers
@@ -8,6 +11,7 @@ namespace Presentation.Managers
     public class GridMovementManager : MonoBehaviour
     {
         [SerializeField] private Grid _grid;
+
         // [SerializeField] private ObjectHasMovedToNewTileEvent _eventMovement;
         [SerializeField] private GridBuildingManager _gridBuildingManager;
         [SerializeField] private TestMovement _testMovement;
@@ -15,10 +19,6 @@ namespace Presentation.Managers
         // Start is called before the first frame update
         void Start()
         {
-            // foreach (var movable in _movables)
-            // {
-            //     movable.OnObjectMoved += OnObjectMoved;
-            // }
             if (!_testMovement) return;
             _testMovement.OnObjectMoved += OnObjectMoved;
         }
@@ -26,11 +26,16 @@ namespace Presentation.Managers
         public void OnObjectMoved(GameObject occupier, WorldPositionTuple worldPosition)
         {
             var gridPositions = WorldToGridPositionsConverter(worldPosition);
-            // _eventMovement.Occupier = occupier;
-            // _eventMovement.GridPositions = gridPositions;
-            // // _eventMovement.OldPosition = gridPositions.OldGridPosition;
-            // _eventMovement.Fire();
+            //Check if was in the range of any turret
+
             _gridBuildingManager.ObjectHasMovedToNewTile(occupier, gridPositions);
+
+            if (!_gridBuildingManager.WorldTileDictionary.ContainsKey(gridPositions.OldGridPosition)) return;
+            var tile = _gridBuildingManager.WorldTileDictionary[gridPositions.OldGridPosition];
+            _gridBuildingManager.GetAnyTurretWhichHasTileInRange(tile, out var building);
+            if (building == null || building.Type != MilitaryBuildingType.Tesla) return;
+            var teslaBuilding = building.GetComponent<TeslaMilitaryBuildingFacade>();
+            teslaBuilding.CheckIfEnemyIsOutside(occupier);
         }
 
         private GridPositionTuple WorldToGridPositionsConverter(WorldPositionTuple worldPosition)

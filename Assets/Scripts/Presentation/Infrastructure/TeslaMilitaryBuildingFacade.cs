@@ -7,7 +7,7 @@ namespace Presentation.Infrastructure
 {
     public class TeslaMilitaryBuildingFacade : MilitaryBuildingFacade
     {
-        private List<Enemy> _enemies;
+        private List<Enemy> _enemies = new();
         private bool _hasAttackOnce;
 
         protected virtual void Update()
@@ -42,11 +42,11 @@ namespace Presentation.Infrastructure
             if(!_hasAttackOnce) return;
             if (tilesToAttack.Any(x => x.Occupier == occupier))
             {
-                Debug.Log("ENEMY SIGUE DENTRO");
+                // Debug.Log("TESLA ENEMY SIGUE DENTRO");
                 return;
             }
 
-            Debug.Log("ENEMY SALE");
+            // Debug.Log("TESLA ENEMY SALE");
             RemoveEnemy(occupier.GetComponent<Enemy>());
         }
     }
