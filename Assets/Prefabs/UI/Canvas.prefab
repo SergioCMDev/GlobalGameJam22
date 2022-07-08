@@ -1351,8 +1351,16 @@ PrefabInstance:
       propertyPath: miltaryBuildingType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 782231887221330502, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
+      propertyPath: militaryBuildingType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5983943774226557118, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
       propertyPath: miltaryBuildingType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5983943774226557118, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
+      propertyPath: militaryBuildingType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5983943775327453501, guid: 55b041ab4253ae5468918fce5d1be526, type: 3}
