@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 1575899185}
   - component: {fileID: 3002053780717432724}
   - component: {fileID: 4031207557591614579}
-  - component: {fileID: 3063536062190243506}
+  - component: {fileID: 645995160582385796}
   m_Layer: 0
   m_Name: TeslaTower
   m_TagString: Untagged
@@ -260,7 +260,7 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3063536062190243506}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Presentation.Building.Building, Presentation
         m_MethodName: ReceiveDamage
         m_Mode: 2
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chooserCanvas: {fileID: 2421303625745132521}
---- !u!114 &3063536062190243506
+--- !u!114 &645995160582385796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5069552752378941104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb921521ce94005b1c97c01ce9f6d1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c89ba43e4b74ef6afa6fd87dccb5f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderBarView: {fileID: 9180457173023002144}
@@ -324,7 +324,7 @@ MonoBehaviour:
   _sfxWhenAttack: 0
   _particles: {fileID: 0}
   _animator: {fileID: 7398446023382819066}
-  _attackRingRange: 5
+  _attackRingRange: 1
   _playerGetResourceEvent: {fileID: 11400000, guid: 029852a4450187c4195819683ab50bd5, type: 2}
 --- !u!1001 &1764062031498981087
 PrefabInstance:

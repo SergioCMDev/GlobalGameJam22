@@ -12,7 +12,7 @@ namespace Presentation.Infrastructure
     public class MilitaryBuildingFacade : Building
     {
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
-        [SerializeField] private MilitaryBuildingAttacker _militaryBuildingAttacker;
+        [SerializeField] protected internal MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private GameObject _particles;
         [SerializeField] private Animator _animator;
@@ -22,7 +22,7 @@ namespace Presentation.Infrastructure
         private GameObject _enemyGameObject;
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
-        private bool _isActive;
+        protected bool _isActive;
         private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
         private static readonly int AttackTrigger = Animator.StringToHash("Shoot");
 
@@ -65,18 +65,27 @@ namespace Presentation.Infrastructure
             _soundManager.PlaySfx(_sfxWhenAttack);
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (!_isActive || !_militaryBuildingAttacker.CanAttack()) return;
             var enemiesToAttack = GetReachableEnemies();
-            if (!enemiesToAttack.Any()) return;
+            if (!enemiesToAttack.Any())
+            {
+                return;
+            }
+
+            SaveEnemiesToAttack(enemiesToAttack);
             _militaryBuildingAttacker.Attack(enemiesToAttack);
         }
 
-        private List<Enemy> GetReachableEnemies()
+        protected virtual void SaveEnemiesToAttack(List<Enemy> enemiesToAttack)
+        {
+        }
+
+        protected List<Enemy> GetReachableEnemies()
         {
             var reachableEnemies = tilesToAttack.FindAll(tile =>
-                    tile.IsOccupied && tile.Occupier != gameObject  && tile.Occupier.CompareTag("Enemy"))
+                    tile.IsOccupied && tile.Occupier != gameObject && tile.Occupier.CompareTag("Enemy"))
                 .Select(tile => tile.Occupier.GetComponent<Enemy>()).ToList();
             return reachableEnemies;
         }
@@ -118,7 +127,7 @@ namespace Presentation.Infrastructure
                 tileInRange.CleanOccupier();
             }
         }
-        
+
         public void SetTilesToAttack(List<TileDataEntity> tileDataEntities)
         {
             tilesToAttack = tileDataEntities;
@@ -127,6 +136,17 @@ namespace Presentation.Infrastructure
         public void ClearAttackTiles()
         {
             tilesToAttack.Clear();
+        }
+
+        public bool ContainsTileToAttack(TileDataEntity tileDataEntity)
+        {
+            return tilesToAttack.Contains(tileDataEntity);
+        }
+
+        public void SetType(MilitaryBuildingType tilemapEventMilitaryBuildingType
+        )
+        {
+            type = tilemapEventMilitaryBuildingType;
         }
     }
 }
