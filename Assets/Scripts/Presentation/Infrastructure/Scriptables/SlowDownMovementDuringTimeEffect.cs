@@ -5,31 +5,24 @@ using UnityEngine;
 namespace Presentation.Infrastructure.Scriptables
 {
     [CreateAssetMenu(fileName = "TeslaBehaviourAttack", menuName = "Turrets/BehaviourAttacks/Tesla")]
-    public class TeslaBehaviour : AttackBehaviour
+    public class SlowDownMovementDuringTimeEffect : AttackBehaviourSO
     {
         private float _damageAmount;
         private float _percentageToReduce, _durationOfEffect;
         private IReceiveDamage _damageReceiver;
         private IStatusApplier _statusApplier;
 
-        public override void Init(MilitaryBuildingData militaryBuildingData)
+        public override void Init(EffectData effectData)
         {
-            var teslaMilitaryData = (TeslaMilitaryBuildingData)militaryBuildingData;
+            var teslaMilitaryData = (SlowDownMovementEffectData)effectData;
             _percentageToReduce = teslaMilitaryData.percentageToReduceSpeed;
             _durationOfEffect = teslaMilitaryData.durationOfEffect;
-            _damageAmount = teslaMilitaryData.damage;
-            MoneyToReceiveAfterHitEnemy = militaryBuildingData.moneyToReceiveAfterHitEnemy;
+            MoneyToReceiveAfterHitEnemy = effectData.moneyToReceiveAfterHitEnemy;
         }
-
-        private void ApplySpeedReduction(Enemy receiveDamage)
-        {
-            receiveDamage.ReduceSpeed(_percentageToReduce, _durationOfEffect);
-        }
-
+        
         public override void DoAttack(Enemy receiveDamage)
         {
-            receiveDamage.ReceiveDamage(_damageAmount);
-            ApplySpeedReduction(receiveDamage);
+            receiveDamage.ReduceSpeed(_percentageToReduce, _durationOfEffect);
         }
     }
 }

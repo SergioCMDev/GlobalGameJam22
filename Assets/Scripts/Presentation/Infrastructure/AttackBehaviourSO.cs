@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
-    public abstract class AttackBehaviour : ScriptableObject
+    public abstract class AttackBehaviourSO : ScriptableObject
     {
         protected int MoneyToReceiveAfterHitEnemy;
 
-        public abstract void Init(MilitaryBuildingData militaryBuildingData);
+        public abstract void Init(EffectData effectData);
 
         public abstract void DoAttack(Enemy receiveDamage);
 

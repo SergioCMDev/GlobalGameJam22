@@ -287,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackBehaviour:
   - {fileID: 11400000, guid: 4463d3c6b5c773543868664bd79d9aa2, type: 2}
-  _militaryBuildingData: {fileID: 11400000, guid: 3ec32a3ff7ce4cf458dbdb271896697c, type: 2}
+  effectData: {fileID: 11400000, guid: 3ec32a3ff7ce4cf458dbdb271896697c, type: 2}
 --- !u!114 &7201745983478259591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +324,6 @@ MonoBehaviour:
   _particles: {fileID: 0}
   _animator: {fileID: 923199599}
   _attackRingRange: 1
-  tilesToAttack: []
   _playerGetResourceEvent: {fileID: 11400000, guid: 029852a4450187c4195819683ab50bd5, type: 2}
 --- !u!1001 &5069552750814868134
 PrefabInstance:

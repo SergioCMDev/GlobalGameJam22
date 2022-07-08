@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63aaa5e163b34b7b912c256f48f0a501, type: 3}
-  m_Name: TurretAttackBehaviourData
+  m_Script: {fileID: 11500000, guid: e1838fe5fc4b4d19ba5a69e7bf9736b9, type: 3}
+  m_Name: ImpactDamageEffect
   m_EditorClassIdentifier: 
-  damageType: 0
-  cadence: 0.5
-  damage: 100
-  moneyToReceiveAfterHitEnemy: 50
