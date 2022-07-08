@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Presentation.Infrastructure.Scriptables
 {
     [CreateAssetMenu(fileName = "SlowDownMovementEffect", menuName = "Turrets/BehaviourAttacks/SlowDownMovementEffect")]
-    public class SlowDownMovementEffect : AttackBehaviourSO
+    public class SlowDownMovementEffectSO : AttackBehaviourSO
     {
         private float _damageAmount;
         private float _percentageToReduce;

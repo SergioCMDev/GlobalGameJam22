@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Presentation.Infrastructure.Scriptables
 {
     [CreateAssetMenu(fileName = "ImpactBehaviour", menuName = "Turrets/BehaviourAttacks/ImpactBehaviour")]
-    public class ImpactDamageEffect : AttackBehaviourSO
+    public class ImpactDamageEffectSO : AttackBehaviourSO
     {
         private float _damageAmount;
 

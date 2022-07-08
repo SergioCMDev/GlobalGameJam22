@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Presentation.Infrastructure.Scriptables
 {
-    [CreateAssetMenu(fileName = "TeslaAttackBehaviourData", menuName = "Turrets/AttackBehaviourData/TeslaAttackBehaviourData")]
+    [CreateAssetMenu(fileName = "SlowDownMovementEffectData", menuName = "Turrets/AttackBehaviourData/SlowDownMovementEffectData")]
     public class SlowDownMovementEffectData : EffectData
     {
-        public float percentageToReduceSpeed, durationOfEffect;
+        public float percentageToReduceSpeed;
     }
 }
