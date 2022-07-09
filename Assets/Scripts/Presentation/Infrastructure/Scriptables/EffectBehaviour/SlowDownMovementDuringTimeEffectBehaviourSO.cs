@@ -6,7 +6,7 @@ namespace Presentation.Infrastructure.Scriptables
 {
     [CreateAssetMenu(fileName = "SlowDownMovementEffectDuringTimeBehaviourAttack",
         menuName = "Turrets/AttacksBehaviour/SlowDownMovementEffectDuringTime")]
-    public class SlowDownMovementDuringTimeEffectSO : AttackBehaviourSO
+    public class SlowDownMovementDuringTimeEffectBehaviourSO : AttackBehaviourSO
     {
         private float _damageAmount;
         private float _percentageToReduce, _durationOfEffect;

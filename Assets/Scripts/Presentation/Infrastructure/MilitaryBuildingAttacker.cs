@@ -7,11 +7,16 @@ using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
+    [Serializable]
+    public struct AttackBehaviourData
+    {
+        public AttackBehaviourSO AttackBehaviourSo;
+        public EffectDataSO EffectDataSo;
+    }
     public class MilitaryBuildingAttacker : MonoBehaviour, IAttack
     {
-        [SerializeField] private List<AttackBehaviourSO> _attackBehaviour;
-        [SerializeField] private EffectDataSO effectDataSo;
-        private float _cadence;
+        [SerializeField] private List<AttackBehaviourData> _attackBehaviours;
+        [SerializeField] private float cadence;
         private float _lastTimeAttacked;
         private GameObject _enemyGameObject;
         private bool _hasAttackedBefore;
@@ -27,10 +32,10 @@ namespace Presentation.Infrastructure
             OnBuildingAttacks.Invoke();
             foreach (var receiveDamage in objectsToAttack)
             {
-                foreach (var attackBehaviour in _attackBehaviour)
+                foreach (var attackBehaviour in _attackBehaviours)
                 {
-                    attackBehaviour.DoAttack(receiveDamage);
-                   AddMoneyToPlayer(attackBehaviour.GetMoneyOfAttack());
+                    attackBehaviour.AttackBehaviourSo.DoAttack(receiveDamage);
+                   AddMoneyToPlayer(attackBehaviour.AttackBehaviourSo.GetMoneyOfAttack());
                 }
             }
             _hasAttackedBefore = true;
@@ -46,7 +51,7 @@ namespace Presentation.Infrastructure
         {
             _lastTimeAttacked += Time.deltaTime;
             if (!_hasAttackedBefore) return true;
-            return _lastTimeAttacked > _cadence;
+            return _lastTimeAttacked > cadence;
         }
 
         private void OnDrawGizmos()
@@ -61,10 +66,9 @@ namespace Presentation.Infrastructure
 
         public void Init()
         {
-            _cadence = effectDataSo.cadence;
-            foreach (var attackBehaviour in _attackBehaviour)
+            foreach (var attackBehaviour in _attackBehaviours)
             {
-                attackBehaviour.Init(effectDataSo);
+                attackBehaviour.AttackBehaviourSo.Init(attackBehaviour.EffectDataSo);
             }
         }
     }

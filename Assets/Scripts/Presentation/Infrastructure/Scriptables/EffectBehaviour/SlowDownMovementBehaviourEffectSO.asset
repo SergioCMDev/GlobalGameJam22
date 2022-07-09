@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6ab35158f68439baef24b57d4894089, type: 3}
-  m_Name: SlowDownMovementEffectSO
-  m_EditorClassIdentifier: 
+  m_Name: SlowDownMovementBehaviourEffectSO
+  m_EditorClassIdentifier: Presentation:Presentation.Infrastructure.Scriptables:SlowDownMovementEffectSO

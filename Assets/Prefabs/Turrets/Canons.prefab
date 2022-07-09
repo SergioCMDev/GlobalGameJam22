@@ -285,10 +285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23dc902b7ff4ce6b06691a5284a3db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackBehaviour:
-  - {fileID: 11400000, guid: b0022a3cb322cbe4e854942cff1342b2, type: 2}
-  - {fileID: 11400000, guid: 3a3af382fb1da0d42a8b3908f8c74ed5, type: 2}
-  effectDataSo: {fileID: 11400000, guid: 0ced7440b96e9294fb9724e17c5db405, type: 2}
+  _attackBehaviours:
+  - AttackBehaviourSo: {fileID: 11400000, guid: b0022a3cb322cbe4e854942cff1342b2, type: 2}
+    EffectDataSo: {fileID: 11400000, guid: 0ced7440b96e9294fb9724e17c5db405, type: 2}
+  - AttackBehaviourSo: {fileID: 11400000, guid: 57af3647de4be15459047b4ae3cbc396, type: 2}
+    EffectDataSo: {fileID: 11400000, guid: 69820576f1ab60f4fbaafb04253a7553, type: 2}
+  cadence: 0
 --- !u!114 &4306644960078031227
 MonoBehaviour:
   m_ObjectHideFlags: 0
