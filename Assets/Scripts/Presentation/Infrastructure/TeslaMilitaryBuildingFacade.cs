@@ -45,7 +45,7 @@ namespace Presentation.Infrastructure
                 // Debug.Log("TESLA ENEMY SIGUE DENTRO");
                 return;
             }
-
+            _hasAttackOnce = false;
             // Debug.Log("TESLA ENEMY SALE");
             RemoveEnemy(occupier.GetComponent<Enemy>());
         }

@@ -693,13 +693,13 @@ namespace Presentation.Managers
             }
         }
 
-        public void GetAnyTurretWhichHasTileInRange(TileDataEntity tileDataEntity, out MilitaryBuildingFacade buildingToReturn)
+        public void GetAnyTurretWhichHasTileInRange(TileDataEntity tileDataEntity, out List<MilitaryBuildingFacade> buildingsToReturn)
         {
-            buildingToReturn = null;
+            buildingsToReturn = new();
             foreach (var building in 
                      _savedBuildings.Where(building => building.buildingFacadeComponent.ContainsTileToAttack(tileDataEntity)))
             {
-                buildingToReturn = building.buildingFacadeComponent;
+                buildingsToReturn.Add(building.buildingFacadeComponent);
             }
         } 
     }

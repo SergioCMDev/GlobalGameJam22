@@ -32,10 +32,13 @@ namespace Presentation.Managers
 
             if (!_gridBuildingManager.WorldTileDictionary.ContainsKey(gridPositions.OldGridPosition)) return;
             var tile = _gridBuildingManager.WorldTileDictionary[gridPositions.OldGridPosition];
-            _gridBuildingManager.GetAnyTurretWhichHasTileInRange(tile, out var building);
-            if (building == null || building.Type != MilitaryBuildingType.Tesla) return;
-            var teslaBuilding = building.GetComponent<TeslaMilitaryBuildingFacade>();
-            teslaBuilding.CheckIfEnemyIsOutside(occupier);
+            _gridBuildingManager.GetAnyTurretWhichHasTileInRange(tile, out var buildings);
+            foreach (var building in buildings)
+            {
+                if (building.Type != MilitaryBuildingType.Tesla) continue;
+                var teslaBuilding = building.GetComponent<TeslaMilitaryBuildingFacade>();
+                teslaBuilding.CheckIfEnemyIsOutside(occupier);
+            }
         }
 
         private GridPositionTuple WorldToGridPositionsConverter(WorldPositionTuple worldPosition)
