@@ -1,7 +1,8 @@
 using Presentation.Hostiles;
+using Presentation.Infrastructure.Scriptables.EffectData;
 using UnityEngine;
 
-namespace Presentation.Infrastructure.Scriptables
+namespace Presentation.Infrastructure.Scriptables.EffectBehaviour
 {
     [CreateAssetMenu(fileName = "ImpactBehaviour1", menuName = "Turrets/AttacksBehaviour/ImpactBehaviour1")]
     public class ImpactDamageEffectBehaviourSO : AttackBehaviourSO

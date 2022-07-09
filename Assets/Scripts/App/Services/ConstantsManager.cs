@@ -1,7 +1,7 @@
 using App.Events;
 using UnityEngine;
 
-namespace Presentation.Managers
+namespace App.Services
 {
     public class ConstantsManager : MonoBehaviour
     {

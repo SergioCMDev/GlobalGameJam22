@@ -1,8 +1,9 @@
 using Presentation.Hostiles;
+using Presentation.Infrastructure.Scriptables.EffectData;
 using Presentation.Interfaces;
 using UnityEngine;
 
-namespace Presentation.Infrastructure.Scriptables
+namespace Presentation.Infrastructure.Scriptables.EffectBehaviour
 {
     [CreateAssetMenu(fileName = "SlowDownMovementEffectDuringTimeBehaviourAttack",
         menuName = "Turrets/AttacksBehaviour/SlowDownMovementEffectDuringTime")]

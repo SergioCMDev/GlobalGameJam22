@@ -1,8 +1,8 @@
 using Presentation.Hostiles;
-using Presentation.Infrastructure.Scriptables;
+using Presentation.Infrastructure.Scriptables.EffectData;
 using UnityEngine;
 
-namespace Presentation.Infrastructure
+namespace Presentation.Infrastructure.Scriptables.EffectBehaviour
 {
     public abstract class AttackBehaviourSO : ScriptableObject
     {

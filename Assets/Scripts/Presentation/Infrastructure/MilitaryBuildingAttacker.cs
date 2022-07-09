@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Presentation.Hostiles;
 using Presentation.Infrastructure.Scriptables;
+using Presentation.Infrastructure.Scriptables.EffectBehaviour;
+using Presentation.Infrastructure.Scriptables.EffectData;
 using Presentation.Interfaces;
 using UnityEngine;
 

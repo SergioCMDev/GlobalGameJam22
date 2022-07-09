@@ -1,4 +1,5 @@
 using Presentation.Infrastructure.Scriptables;
+using Presentation.Infrastructure.Scriptables.EffectData;
 using UnityEngine;
 
 namespace Presentation.Infrastructure
