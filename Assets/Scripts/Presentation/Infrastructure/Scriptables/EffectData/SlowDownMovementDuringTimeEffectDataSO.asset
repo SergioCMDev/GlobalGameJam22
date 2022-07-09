@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63aaa5e163b34b7b912c256f48f0a501, type: 3}
-  m_Name: LightTurretData
+  m_Script: {fileID: 11500000, guid: 33d53e0c0a124dd485c1f9084a33bae7, type: 3}
+  m_Name: SlowDownMovementDuringTimeEffectDataSO
   m_EditorClassIdentifier: 
   damageType: 0
-  cadence: 0.5
-  damage: 100
-  moneyToReceiveAfterHitEnemy: 50
+  cadence: 1
+  damage: 20
+  moneyToReceiveAfterHitEnemy: 30
+  percentageToReduceSpeed: 0.2
+  durationOfEffect: 10

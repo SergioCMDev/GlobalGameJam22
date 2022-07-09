@@ -10,7 +10,7 @@ namespace Presentation.Infrastructure
     public class MilitaryBuildingAttacker : MonoBehaviour, IAttack
     {
         [SerializeField] private List<AttackBehaviourSO> _attackBehaviour;
-        [SerializeField] private EffectData effectData;
+        [SerializeField] private EffectDataSO effectDataSo;
         private float _cadence;
         private float _lastTimeAttacked;
         private GameObject _enemyGameObject;
@@ -61,10 +61,10 @@ namespace Presentation.Infrastructure
 
         public void Init()
         {
-            _cadence = effectData.cadence;
+            _cadence = effectDataSo.cadence;
             foreach (var attackBehaviour in _attackBehaviour)
             {
-                attackBehaviour.Init(effectData);
+                attackBehaviour.Init(effectDataSo);
             }
         }
     }

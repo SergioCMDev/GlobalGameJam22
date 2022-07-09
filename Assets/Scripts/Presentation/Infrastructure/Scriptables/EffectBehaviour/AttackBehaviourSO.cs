@@ -8,7 +8,7 @@ namespace Presentation.Infrastructure
     {
         protected int MoneyToReceiveAfterHitEnemy;
 
-        public abstract void Init(EffectData effectData);
+        public abstract void Init(EffectDataSO effectDataSo);
 
         public abstract void DoAttack(Enemy receiveDamage);
 

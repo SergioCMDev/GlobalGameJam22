@@ -286,8 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackBehaviour:
-  - {fileID: 11400000, guid: 4463d3c6b5c773543868664bd79d9aa2, type: 2}
-  effectData: {fileID: 11400000, guid: 3ec32a3ff7ce4cf458dbdb271896697c, type: 2}
+  - {fileID: 11400000, guid: b0022a3cb322cbe4e854942cff1342b2, type: 2}
+  effectDataSo: {fileID: 11400000, guid: 0ced7440b96e9294fb9724e17c5db405, type: 2}
 --- !u!114 &7201745983478259591
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,19 +4,19 @@ using UnityEngine;
 
 namespace Presentation.Infrastructure.Scriptables
 {
-    [CreateAssetMenu(fileName = "SlowDownMovementEffect", menuName = "Turrets/BehaviourAttacks/SlowDownMovementEffect")]
-    public class SlowDownMovementEffectSO : AttackBehaviourSO
+    [CreateAssetMenu(fileName = "SlowDownMovementEffect", menuName = "Turrets/AttacksBehaviour/SlowDownMovementEffect")]
+    public class SlowDownMovementEffectBehaviourSO : AttackBehaviourSO
     {
         private float _damageAmount;
         private float _percentageToReduce;
         private IReceiveDamage _damageReceiver;
         private IStatusApplier _statusApplier;
 
-        public override void Init(EffectData effectData)
+        public override void Init(EffectDataSO effectDataSo)
         {
-            var teslaMilitaryData = (SlowDownMovementEffectData)effectData;
-            _percentageToReduce = teslaMilitaryData.percentageToReduceSpeed;
-            MoneyToReceiveAfterHitEnemy = effectData.moneyToReceiveAfterHitEnemy;
+            var convertedEffectData = (SlowDownMovementEffectDataSO)effectDataSo;
+            _percentageToReduce = convertedEffectData.percentageToReduceSpeed;
+            MoneyToReceiveAfterHitEnemy = effectDataSo.moneyToReceiveAfterHitEnemy;
         }
         
         public override void DoAttack(Enemy receiveDamage)
