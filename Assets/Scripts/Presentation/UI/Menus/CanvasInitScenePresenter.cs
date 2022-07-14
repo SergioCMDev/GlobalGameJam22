@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using App.SceneManagement;
 using App.Services;
 using Presentation.InputPlayer;
@@ -12,49 +14,92 @@ namespace Presentation.UI.Menus
 {
     public class CanvasInitScenePresenter : MonoBehaviour
     {
-        [SerializeField] private InitMenuView _initMenuView;
-
-        [SerializeField] private BackgroundSoundEmitter _backgroundSoundEmitter;
-
-        [SerializeField] private OptionsMenuView _optionsMenuView;
-        [SerializeField] private LevelSelectorView _levelSelectorView;
+        [SerializeField] private InitMenuView initMenuView;
+        [SerializeField] private List<LevelViewInfo> levelViews;
+        [SerializeField] private BackgroundSoundEmitter backgroundSoundEmitter;
+        [SerializeField] private OptionsMenuView optionsMenuView;
+        [SerializeField] private LevelSelectorView levelSelectorView;
 
         private GameDataService _gameDataService;
         private ReadInputPlayer _readInputPlayer;
-
         private SceneChanger _sceneChanger;
         private ILanguageManager _languageManager;
+        
         public event Action OnStartNewGame;
         public event Action<string> OnGoToSelectedScene;
 
+
+        private int _selectedLevelId;
         private void Awake()
         {
             //TODO LOAD GAMEDATA
 
-            _initMenuView.OnContinueButtonPressed += ContinueGame;
-            _initMenuView.OnNewGameButtonPressed += NewGame;
-            _initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
-            _initMenuView.OnQuitGameButtonPressed += QuitGame;
-            _initMenuView.OnShowCreditsButtonPressed += ShowCreditsMenu;
-            _optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
+            initMenuView.OnContinueButtonPressed += ContinueGame;
+            initMenuView.OnNewGameButtonPressed += NewGame;
+            initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
+            initMenuView.OnQuitGameButtonPressed += QuitGame;
+            initMenuView.OnShowCreditsButtonPressed += ShowCreditsMenu;
+            optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
+            
+            optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
 
-            _levelSelectorView.OnStartLevelSelected += StartLevelSelected;
-            _levelSelectorView.OnButtonBackIsClicked += ShowInitMenu;
+            levelSelectorView.OnStartLevelSelected += StartSelectedLevel;
+            levelSelectorView.OnButtonBackIsClicked += ShowInitMenu;
+            levelSelectorView.OnLeftButtonIsClicked += MoveLevelImageToLeft;
+            levelSelectorView.OnRightButtonIsClicked += MoveLevelImageToRight;
             
             // _deleteSavedGameView.gameObject.SetActive(false);
-            _optionsMenuView.gameObject.SetActive(false);
-            _levelSelectorView.gameObject.SetActive(false);
-            _initMenuView.gameObject.SetActive(true);
-            
+            optionsMenuView.gameObject.SetActive(false);
+            levelSelectorView.gameObject.SetActive(false);
+            initMenuView.gameObject.SetActive(true);
+            initMenuView.EnableInput();
+            SetLevelImage();
+
         }
         
-
-        private void StartLevelSelected(string obj)
+        private void OnDestroy()
         {
-            _backgroundSoundEmitter.StopMusic();
-            _levelSelectorView.gameObject.SetActive(false);
+            initMenuView.OnContinueButtonPressed -= ContinueGame;
+            initMenuView.OnNewGameButtonPressed -= NewGame;
+            initMenuView.OnShowOptionsMenuButtonPressed -= ShowOptionsMenu;
+            initMenuView.OnQuitGameButtonPressed -= QuitGame;
+            initMenuView.OnShowCreditsButtonPressed -= ShowCreditsMenu;
+            optionsMenuView.OnPlayerPressEscapeButton -= ShowInitMenu;
+            
+            levelSelectorView.OnStartLevelSelected -= StartSelectedLevel;
+            levelSelectorView.OnButtonBackIsClicked -= ShowInitMenu;
+            levelSelectorView.OnLeftButtonIsClicked -= MoveLevelImageToLeft;
+            levelSelectorView.OnRightButtonIsClicked -= MoveLevelImageToRight;
+        }
 
-           var sceneName = _sceneChanger.GetSceneDataByName(obj);
+        private void MoveLevelImageToRight()
+        {
+            _selectedLevelId++;
+            SetLevelImage();
+        }
+
+        private void SetLevelImage()
+        {
+            _selectedLevelId = _selectedLevelId.CircularClamp(0, levelViews.Count - 1);
+            var levelView = levelViews.Single(x => x.levelId == _selectedLevelId);
+
+            levelSelectorView.SetLevelImage(levelView.levelImage);
+        }
+
+        private void MoveLevelImageToLeft()
+        {
+            _selectedLevelId--;
+            SetLevelImage();
+        }
+
+
+        private void StartSelectedLevel()
+        {
+            backgroundSoundEmitter.StopMusic();
+            levelSelectorView.gameObject.SetActive(false);
+            var levelView = levelViews.Single(x => x.levelId == _selectedLevelId);
+            
+           var sceneName = _sceneChanger.GetSceneDataByName(levelView.sceneToLoad);
            OnGoToSelectedScene?.Invoke(sceneName);
         }
 
@@ -70,22 +115,14 @@ namespace Presentation.UI.Menus
             
             if (!_gameDataService.HasStartedGame())
             {
-                _initMenuView.HideContinueButton();
+                // initMenuView.HideContinueButton();
             }
             // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
         }
 
 
-        private void OnDestroy()
-        {
-            _initMenuView.OnContinueButtonPressed -= ContinueGame;
-            _initMenuView.OnNewGameButtonPressed -= NewGame;
-            _initMenuView.OnShowOptionsMenuButtonPressed -= ShowOptionsMenu;
-            _initMenuView.OnQuitGameButtonPressed -= QuitGame;
-            _initMenuView.OnShowCreditsButtonPressed -= ShowCreditsMenu;
-            _optionsMenuView.OnPlayerPressEscapeButton -= ShowInitMenu;
-        }
+
 
         private void ShowCreditsMenu()
         {
@@ -94,14 +131,14 @@ namespace Presentation.UI.Menus
 
         private void QuitGame()
         {
-            // ServiceLocator.Instance.GetService<IGameService>().QuitGame();
         }
 
         private void ShowInitMenu()
         {
-            _optionsMenuView.gameObject.SetActive(false);
-            _levelSelectorView.gameObject.SetActive(false);
-            _initMenuView.gameObject.SetActive(true);
+            optionsMenuView.gameObject.SetActive(false);
+            levelSelectorView.gameObject.SetActive(false);
+            initMenuView.gameObject.SetActive(true);
+            initMenuView.EnableInput();
         }
 
 
@@ -109,20 +146,17 @@ namespace Presentation.UI.Menus
         {
             if (OnStartNewGame == null) return;
 
-            _backgroundSoundEmitter.StopMusic();
+            backgroundSoundEmitter.StopMusic();
             OnStartNewGame();
         }
 
         private void ContinueGame()
         {
-            // _backgroundSoundEmitter.StopMusic();
+            initMenuView.gameObject.SetActive(false);
+            levelSelectorView.gameObject.SetActive(true);
 
-            _initMenuView.DisableInput();
-            _initMenuView.gameObject.SetActive(false);
-            _levelSelectorView.gameObject.SetActive(true);
-
-          var lastCompletedLevel =  _gameDataService.GetIdOfLastLevelPlayed();
-          _levelSelectorView.Init(lastCompletedLevel);
+          // var lastCompletedLevel =  _gameDataService.GetIdOfLastLevelPlayed();
+          // levelSelectorView.Init(lastCompletedLevel);
           //TODO GET REAL SCENE
 
           // _changerSceneModel.SceneToGo = "LevelStable";
@@ -133,9 +167,9 @@ namespace Presentation.UI.Menus
 
         private void ShowOptionsMenu()
         {
-            _initMenuView.gameObject.SetActive(false);
-            _optionsMenuView.gameObject.SetActive(true);
-            _optionsMenuView.ShowOptionsMenu();
+            initMenuView.gameObject.SetActive(false);
+            optionsMenuView.gameObject.SetActive(true);
+            optionsMenuView.ShowOptionsMenu();
         }
     }
 }

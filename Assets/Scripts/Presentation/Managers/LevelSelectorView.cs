@@ -1,48 +1,53 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 
 namespace Presentation.Managers
 {
-    [Serializable]
-    public struct ButtonSelectableInfo
-    {
-        public Button button;
-        public string sceneToLoad;
-    }
-
     public class LevelSelectorView : MonoBehaviour
     {
-        [SerializeField] private List<ButtonSelectableInfo> _buttons;
-        [SerializeField] private Button _buttonBack;
-        public event Action<string> OnStartLevelSelected;
+        [SerializeField] private Button buttonBack, leftButton, rightButton, playButton;
+        [SerializeField] private Image levelImage;
+        public event Action OnStartLevelSelected;
         public event Action OnButtonBackIsClicked;
-
+        public event Action OnLeftButtonIsClicked;
+        public event Action OnRightButtonIsClicked;
+        
         private void Start()
         {
-            _buttonBack.onClick.AddListener(() => OnButtonBackIsClicked?.Invoke());
+            buttonBack.onClick.AddListener(() => OnButtonBackIsClicked?.Invoke());
+            leftButton.onClick.AddListener(ChangeLevelToLeft);
+            rightButton.onClick.AddListener(ChangeLevelToRight);
+            playButton.onClick.AddListener(PlayLevel);
+        }
+
+        private void OnDestroy()
+        {
+            buttonBack.onClick.RemoveListener(() => OnButtonBackIsClicked?.Invoke());
+            leftButton.onClick.RemoveListener(ChangeLevelToLeft);
+            rightButton.onClick.RemoveListener(ChangeLevelToRight);
+            playButton.onClick.RemoveListener(PlayLevel);
+        }
+
+        private void ChangeLevelToLeft()
+        {
+            OnLeftButtonIsClicked?.Invoke();
+        }
+
+        private void ChangeLevelToRight()
+        {
+            OnRightButtonIsClicked?.Invoke();
         }
 
 
-        private void StartScene(string variableSceneToLoad)
+        private void PlayLevel()
         {
-            OnStartLevelSelected?.Invoke(variableSceneToLoad);
+            OnStartLevelSelected?.Invoke();
         }
-
-        public void Init(int lastCompletedLevel)
+        
+        public void SetLevelImage(Sprite levelSprite)
         {
-            foreach (var VARIABLE in _buttons)
-            {
-                VARIABLE.button.onClick.AddListener(() => StartScene(VARIABLE.sceneToLoad));
-                var id = Utilities.GetNumberOfLevelString(VARIABLE.sceneToLoad);
-
-                if (id > lastCompletedLevel)
-                {
-                    VARIABLE.button.interactable = false;
-                }
-            }
+            levelImage.sprite = levelSprite;
         }
     }
 }
