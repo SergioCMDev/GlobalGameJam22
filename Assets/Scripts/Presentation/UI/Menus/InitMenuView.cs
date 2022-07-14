@@ -20,11 +20,11 @@ namespace Presentation.UI.Menus
         public event Action OnShowCreditsButtonPressed = delegate { };
         public event Action OnQuitGameButtonPressed = delegate { };
 
+        
 
         private void Start()
         {
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
-            EnableInput();
             
             // _readInputPlayer.DisableDialogInput();
         }

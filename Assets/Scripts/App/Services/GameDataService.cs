@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Domain;
+﻿using Domain;
 using Utils;
 
 namespace App.Services
 {
     public class GameDataService
     {
-        private ILoader _loader;
-        private ISaver _saver;
+        private readonly ILoader _loader;
+        private readonly ISaver _saver;
 
         public GameDataService()
         {
