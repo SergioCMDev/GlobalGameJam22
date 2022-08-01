@@ -20,7 +20,6 @@ namespace Installers
         [SerializeField] private GameObject _timeManagerPrefab;
         [SerializeField] private GameObject _buildingManagerPrefab;
         [SerializeField] private GameObject _popupManagerPrefab;
-        [SerializeField] private GameObject _constantsManagerPrefab;
 
         [SerializeField] private GameObject _resourcesManagerPrefab;
 
@@ -30,7 +29,6 @@ namespace Installers
             _buildingManagerInstance,
             _resourcesManagerInstance,
             _popupManagerInstance,
-            _constantsManagerInstance,
             _timeManagerInstance;
 
         private bool _initialized;
@@ -65,7 +63,6 @@ namespace Installers
             _soundManagerInstance = Instantiate(_soundManagerPrefab);
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
             _popupManagerInstance = Instantiate(_popupManagerPrefab);
-            _constantsManagerInstance = Instantiate(_constantsManagerPrefab);
 
             ServiceLocator.Instance.RegisterService(
                 _soundManagerInstance.GetComponent<SoundManager>());
@@ -76,7 +73,6 @@ namespace Installers
             ServiceLocator.Instance.RegisterService(
                 _popupManagerInstance.GetComponent<PopupManager>());
             ServiceLocator.Instance.RegisterService(_timeManagerInstance.GetComponent<TimeManager>());
-            ServiceLocator.Instance.RegisterService(_constantsManagerInstance.GetComponent<ConstantsManager>());
 
 
             //TODO HACERLO PARA N OBJETOS NO SOLO 1
