@@ -20,7 +20,7 @@ namespace Installers
         [SerializeField] private GameObject _timeManagerPrefab;
         [SerializeField] private GameObject _buildingManagerPrefab;
         [SerializeField] private GameObject _popupManagerPrefab;
-
+        [SerializeField] private GameObject _constantsManagerPrefab;
         [SerializeField] private GameObject _resourcesManagerPrefab;
 
         private GameObject _readInputPlayerInstance,
@@ -29,6 +29,7 @@ namespace Installers
             _buildingManagerInstance,
             _resourcesManagerInstance,
             _popupManagerInstance,
+            _constantsManagerInstance,
             _timeManagerInstance;
 
         private bool _initialized;
@@ -96,12 +97,14 @@ namespace Installers
         {
             _buildingManagerInstance = Instantiate(_buildingManagerPrefab);
             _resourcesManagerInstance = Instantiate(_resourcesManagerPrefab);
+            _constantsManagerInstance = Instantiate(_constantsManagerPrefab);
+
             ServiceLocator.Instance.RegisterService<ResourcesManager>(_resourcesManagerInstance
                 .GetComponent<ResourcesManager>());
             ServiceLocator.Instance.RegisterService<MilitaryBuildingManager>(_buildingManagerInstance
                 .GetComponent<MilitaryBuildingManager>());
 
-
+            ServiceLocator.Instance.RegisterService(_constantsManagerInstance.GetComponent<ConstantsManager>());
             ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());
             ServiceLocator.Instance.RegisterModel<IBuildingStatusModel>(new BuildingStatusModel());
 

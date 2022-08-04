@@ -17,13 +17,11 @@ namespace Installers
         [SerializeField] private GameObject _soundManagerPrefab;
         [SerializeField] private GameObject _timeManagerPrefab;
         [SerializeField] private GameObject _popupManagerPrefab;
-        [SerializeField] private GameObject _constantsManagerPrefab;
 
         private GameObject _readInputPlayerInstance,
             _sceneChangerInstance,
             _soundManagerInstance,
             _popupManagerInstance,
-            _constantsManagerInstance,
             _timeManagerInstance;
 
         private bool _initialized;
@@ -41,7 +39,6 @@ namespace Installers
             _soundManagerInstance = Instantiate(_soundManagerPrefab);
             _timeManagerInstance = Instantiate(_timeManagerPrefab);
             _popupManagerInstance = Instantiate(_popupManagerPrefab);
-            _constantsManagerInstance = Instantiate(_constantsManagerPrefab);
 
             //TODO HACERLO PARA N OBJETOS NO SOLO 1
             ServiceLocator.Instance.RegisterService<IJsonator>(new JsonUtililyTransformer());
@@ -56,7 +53,7 @@ namespace Installers
             ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
             ServiceLocator.Instance.RegisterService<PopupManager>(_popupManagerInstance.GetComponent<PopupManager>());
             ServiceLocator.Instance.RegisterService<TimeManager>(_timeManagerInstance.GetComponent<TimeManager>());
-            ServiceLocator.Instance.RegisterService(_constantsManagerInstance.GetComponent<ConstantsManager>());
+            
 
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
