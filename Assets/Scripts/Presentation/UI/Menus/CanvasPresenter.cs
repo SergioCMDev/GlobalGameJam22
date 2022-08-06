@@ -33,6 +33,7 @@ namespace Presentation.UI.Menus
         private PopupManager _popupManager;
         private float _remainingTime;
         private SliderBarView _currentSliderBarView;
+        private bool _stopSlider;
         public event Action<MilitaryBuildingType> OnPlayerWantsToSetBuildingInGrid;
         public event Action OnSystemCancelsBuy;
 
@@ -44,10 +45,8 @@ namespace Presentation.UI.Menus
             _constants = ServiceLocator.Instance.GetService<ConstantsManager>().Constants;
             SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
-            
-            // var value = 0;
-            // DOTween.To(() => value, x => value = x, 200, 20f)
-            //     .OnUpdate(() => { _tmpText.SetText(value.ToString(CultureInfo.InvariantCulture)); });
+
+            _stopSlider = false;
         }
 
 
@@ -103,12 +102,7 @@ namespace Presentation.UI.Menus
         {
             _tmpText.SetText($" {_resourcesManager.GetGold()}");
         }
-
-        private void UpdateResources()
-        {
-        }
-
-        public void PlayerHasWon(ShowWinMenuUIEvent showWinMenuUIEvent)
+        public void ShowWinMenu(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
 
@@ -117,7 +111,7 @@ namespace Presentation.UI.Menus
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.OnContinueButtonPressed += GoToNextLevel;
-
+            StopsTimerLogic();
             popupComponent.gameObject.SetActive(true);
             SetShowRangeButtonStatus(false);
         }
@@ -166,7 +160,7 @@ namespace Presentation.UI.Menus
                 _remainingTime -= Time.deltaTime;
                 _currentSliderBarView.SetValue(_remainingTime);
                 yield return null;
-            } while (_remainingTime > 0);
+            } while (_remainingTime > 0 & !_stopSlider);
         }
 
 
@@ -185,6 +179,14 @@ namespace Presentation.UI.Menus
         {
             _currentSliderBarView.OnSliderReachZero += StopTimerLogic;
             StartCoroutine(StartSliderTimer());
+        }
+        
+        public void StopsTimerLogic()
+        {
+            _currentSliderBarView.OnSliderReachZero -= StopTimerLogic;
+            _currentSliderBarView.enabled = false;
+            _stopSlider = true;
+            StopCoroutine(StartSliderTimer());
         }
 
         private void StopTimerLogic()

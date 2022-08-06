@@ -19,6 +19,7 @@ namespace Presentation
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private RoundsController roundsController;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
+        [SerializeField] private DeactivateUISlidersEvent deactivateUISlidersEvent;
         private SceneChanger _sceneChanger;
         private GameDataService _gameDataService;
         private SoundManager _soundManager;
@@ -67,8 +68,9 @@ namespace Presentation
         {
             _soundManager.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
-            deactivateMilitaryBuildingsEvent.Fire();
-            enemySpawner.StopEnemies();
+            
+            StopGameCommonLogic();
+
         }
 
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
@@ -89,12 +91,19 @@ namespace Presentation
         private void EnemyHasBeenDefeated(Enemy enemy = null)
         {
             enemySpawner.OnEnemyHasBeenDefeated -= EnemyHasBeenDefeated;
-            enemySpawner.StopEnemies();
-            _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             showWinMenuUIEvent.Fire();
-            deactivateMilitaryBuildingsEvent.Fire();
+            
+            StopGameCommonLogic();
 
+            _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
             _gameDataService.SaveGame(_sceneChanger.GetCurrentSceneName());
+        }
+
+        private void StopGameCommonLogic()
+        {
+            enemySpawner.StopEnemies();
+            deactivateMilitaryBuildingsEvent.Fire();
+            deactivateUISlidersEvent.Fire();
         }
     }
 }

@@ -54,10 +54,11 @@ MonoBehaviour:
   buildingPositionTuples:
   - positionInGrid: {x: -12, y: -7, z: 0}
     cityBuilding: {fileID: 0}
+  showWinMenuUIEvent: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
   showLostMenuUIEvent: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
   roundsController: {fileID: 1320736020}
   deactivateMilitaryBuildingsEvent: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
-  showWinMenuUIEvent: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
+  deactivateUISlidersEvent: {fileID: 11400000, guid: ed2eee7cfd03c6645ad51d6005e51f84, type: 2}
 --- !u!114 &1446073707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +173,8 @@ MonoBehaviour:
   canvasPresenter: {fileID: 0}
   activateMilitaryBuildingsEvent: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
   deactivateMilitaryBuildingsEvent: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
-  _timeToWin: 5
+  _timeToDefendAgainstSlimes: 20
   _timeToAllowPlayerBuildsTurrets: 1
   _numberOfRoundsPerLevel: 4
-  _skipTimer: 0
   enemySpawner: {fileID: 0}
+  timeToShowNewRoundPopup: 3

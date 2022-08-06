@@ -933,7 +933,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1354093165}
         m_TargetAssemblyTypeName: Presentation.Menus.CanvasPresenter, Presentation
-        m_MethodName: PlayerHasWon
+        m_MethodName: ShowWinMenu
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 54cf0dc79c6bc534da35b2aade0288c6, type: 2}
