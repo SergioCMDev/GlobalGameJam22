@@ -59,7 +59,7 @@ namespace Presentation.Managers
         {
             popup.SetActive(false);
             var closeablePopup = popup.GetComponent<ICloseablePopup>();
-            closeablePopup.PopupHasBeenClosed.Invoke();
+            closeablePopup.PopupHasBeenClosed?.Invoke();
         }
         public void CloseCurrentOpenedPopup()
         {
