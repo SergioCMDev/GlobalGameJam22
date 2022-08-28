@@ -35,7 +35,9 @@ namespace Presentation
             }
 
             enemySpawner.SetCitiesToDestroy(_buildings);
-            roundsController.OnEnemyHasBeenDefeated += () => EnemyHasBeenDefeated();
+            roundsController.OnPlayerHasBeenDefeated += LostLogic;
+        }
+
         private void OnDestroy()
         {
             roundsController.OnPlayerHasBeenDefeated -= LostLogic;

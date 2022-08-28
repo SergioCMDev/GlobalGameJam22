@@ -23,7 +23,7 @@ namespace Presentation
         private ResourcesManager _resourcesManager;
         private PopupManager _popupManager;
 
-        public event Action OnEnemyHasBeenDefeated;
+        public event Action OnPlayerHasBeenDefeated;
 
         private void Start()
         {
@@ -69,7 +69,7 @@ namespace Presentation
             }
             else
             {
-                OnEnemyHasBeenDefeated?.Invoke();
+                OnPlayerHasBeenDefeated?.Invoke();
             }
         }
 
