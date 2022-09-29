@@ -16,10 +16,8 @@ namespace Presentation.UI.Menus
         public event Action OnContinueButtonPressed = delegate { };
         public event Action OnNewGameButtonPressed = delegate { };
         public event Action OnShowOptionsMenuButtonPressed = delegate { };
-
         public event Action OnShowCreditsButtonPressed = delegate { };
         public event Action OnQuitGameButtonPressed = delegate { };
-
         
 
         private void Start()
@@ -74,8 +72,8 @@ namespace Presentation.UI.Menus
             _buttonContinue.onClick.RemoveListener(ContinueGame);
             _buttonNewGame.onClick.RemoveListener(NewGame);
             _buttonOptions.onClick.RemoveListener(ShowOptionsMenu);
-            // _buttonCredits.onClick.RemoveListener(ShowCreditsMenu);
-            // _buttonQuitGame.onClick.RemoveListener(QuitGame);
+            _buttonCredits.onClick.RemoveListener(ShowCreditsMenu);
+            _buttonQuitGame.onClick.RemoveListener(QuitGame);
         }
 
         public void EnableInput()
@@ -84,8 +82,8 @@ namespace Presentation.UI.Menus
             _buttonContinue.onClick.AddListener(ContinueGame);
             _buttonNewGame.onClick.AddListener(NewGame);
             _buttonOptions.onClick.AddListener(ShowOptionsMenu);
-            // _buttonCredits.onClick.AddListener(ShowCreditsMenu);
-            // _buttonQuitGame.onClick.AddListener(QuitGame);
+            _buttonCredits.onClick.AddListener(ShowCreditsMenu);
+            _buttonQuitGame.onClick.AddListener(QuitGame);
         }
 
         public void HideContinueButton()

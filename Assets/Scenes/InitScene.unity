@@ -235,6 +235,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1142770415012441147, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 48.476562
+      objectReference: {fileID: 0}
     - target: {fileID: 3305094091844305740, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
       propertyPath: m_Name
       value: InitSceneCanvas
@@ -327,6 +331,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3305094092703293705, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305094092703293705, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305094092703293705, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3696170243875578930, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -340,6 +356,38 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3696170243875578930, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277301521741958885, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277301521741958885, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277301521741958885, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277301521741958885, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755870802576185069, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755870802576185069, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755870802576185069, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755870802576185069, guid: 9111cb2c6b0e01b498c44c211a233798, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -418,6 +466,7 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!114 &1447106444
 MonoBehaviour:
   m_ObjectHideFlags: 0
