@@ -9,21 +9,17 @@ namespace Presentation.UI.Menus
 {
     public class InitMenuView : MonoBehaviour
     {
-        [SerializeField] private Button _buttonContinue, _buttonNewGame, _buttonOptions, _buttonCredits, _buttonQuitGame;
+        [SerializeField] private Button _buttonContinue, _buttonNewGame, _buttonOptions, _buttonQuitGame;
         // [SerializeField] private TextMeshProUGUI _buttonContinueText, _buttonNewGameText, _buttonOptionsText, _buttonCreditsText, _buttonQuitGameText;
-        private ReadInputPlayer _readInputPlayer;
 
         public event Action OnContinueButtonPressed = delegate { };
         public event Action OnNewGameButtonPressed = delegate { };
         public event Action OnShowOptionsMenuButtonPressed = delegate { };
-        public event Action OnShowCreditsButtonPressed = delegate { };
         public event Action OnQuitGameButtonPressed = delegate { };
         
 
         private void Start()
         {
-            _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
-            
             // _readInputPlayer.DisableDialogInput();
         }
 
@@ -40,12 +36,7 @@ namespace Presentation.UI.Menus
         {
             OnQuitGameButtonPressed.Invoke();
         }
-
-        private void ShowCreditsMenu()
-        {
-            OnShowCreditsButtonPressed.Invoke();
-        }
-
+        
         private void ShowOptionsMenu()
         {
             OnShowOptionsMenuButtonPressed.Invoke();
@@ -72,7 +63,6 @@ namespace Presentation.UI.Menus
             _buttonContinue.onClick.RemoveListener(ContinueGame);
             _buttonNewGame.onClick.RemoveListener(NewGame);
             _buttonOptions.onClick.RemoveListener(ShowOptionsMenu);
-            _buttonCredits.onClick.RemoveListener(ShowCreditsMenu);
             _buttonQuitGame.onClick.RemoveListener(QuitGame);
         }
 
@@ -82,7 +72,6 @@ namespace Presentation.UI.Menus
             _buttonContinue.onClick.AddListener(ContinueGame);
             _buttonNewGame.onClick.AddListener(NewGame);
             _buttonOptions.onClick.AddListener(ShowOptionsMenu);
-            _buttonCredits.onClick.AddListener(ShowCreditsMenu);
             _buttonQuitGame.onClick.AddListener(QuitGame);
         }
 

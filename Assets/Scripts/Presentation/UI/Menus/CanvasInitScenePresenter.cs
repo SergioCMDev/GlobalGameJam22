@@ -17,7 +17,6 @@ namespace Presentation.UI.Menus
         [SerializeField] private InitMenuView initMenuView;
         [SerializeField] private List<LevelViewInfo> levelViews;
         [SerializeField] private BackgroundSoundEmitter backgroundSoundEmitter;
-        [SerializeField] private OptionsMenuView optionsMenuView;
         [SerializeField] private LevelSelectorView levelSelectorView;
 
         private GameDataService _gameDataService;
@@ -36,20 +35,14 @@ namespace Presentation.UI.Menus
 
             initMenuView.OnContinueButtonPressed += ContinueGame;
             initMenuView.OnNewGameButtonPressed += NewGame;
-            initMenuView.OnShowOptionsMenuButtonPressed += ShowOptionsMenu;
             initMenuView.OnQuitGameButtonPressed += QuitGame;
-            initMenuView.OnShowCreditsButtonPressed += ShowCreditsMenu;
-            optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
             
-            optionsMenuView.OnPlayerPressEscapeButton += ShowInitMenu;
-
             levelSelectorView.OnStartLevelSelected += StartSelectedLevel;
             levelSelectorView.OnButtonBackIsClicked += ShowInitMenu;
             levelSelectorView.OnLeftButtonIsClicked += MoveLevelImageToLeft;
             levelSelectorView.OnRightButtonIsClicked += MoveLevelImageToRight;
             
             // _deleteSavedGameView.gameObject.SetActive(false);
-            optionsMenuView.gameObject.SetActive(false);
             levelSelectorView.gameObject.SetActive(false);
             initMenuView.gameObject.SetActive(true);
             initMenuView.EnableInput();
@@ -61,10 +54,7 @@ namespace Presentation.UI.Menus
         {
             initMenuView.OnContinueButtonPressed -= ContinueGame;
             initMenuView.OnNewGameButtonPressed -= NewGame;
-            initMenuView.OnShowOptionsMenuButtonPressed -= ShowOptionsMenu;
             initMenuView.OnQuitGameButtonPressed -= QuitGame;
-            initMenuView.OnShowCreditsButtonPressed -= ShowCreditsMenu;
-            optionsMenuView.OnPlayerPressEscapeButton -= ShowInitMenu;
             
             levelSelectorView.OnStartLevelSelected -= StartSelectedLevel;
             levelSelectorView.OnButtonBackIsClicked -= ShowInitMenu;
@@ -135,7 +125,6 @@ namespace Presentation.UI.Menus
 
         private void ShowInitMenu()
         {
-            optionsMenuView.gameObject.SetActive(false);
             levelSelectorView.gameObject.SetActive(false);
             initMenuView.gameObject.SetActive(true);
             initMenuView.EnableInput();
@@ -162,14 +151,6 @@ namespace Presentation.UI.Menus
           // _changerSceneModel.SceneToGo = "LevelStable";
           //
           // _gameDataStatusLoader.ContinueGame();
-        }
-        
-
-        private void ShowOptionsMenu()
-        {
-            initMenuView.gameObject.SetActive(false);
-            optionsMenuView.gameObject.SetActive(true);
-            optionsMenuView.ShowOptionsMenu();
         }
     }
 }
