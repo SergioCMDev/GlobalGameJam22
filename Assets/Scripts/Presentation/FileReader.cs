@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Presentation
 {
@@ -24,7 +25,7 @@ namespace Presentation
         void Start()
         {
             var path = "Assets/Test.txt";
-            string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+            var lines = File.ReadAllLines(path, Encoding.UTF8);
             if (lines.Length < 2) return;
             var rows = int.Parse(lines[0]);
             var columns = int.Parse(lines[1]);
