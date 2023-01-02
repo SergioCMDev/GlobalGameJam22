@@ -25,8 +25,10 @@ namespace Presentation.Infrastructure
         protected bool _isActive;
         private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
         private static readonly int AttackTrigger = Animator.StringToHash("Shoot");
+        [SerializeField] private string _areaFile;
 
-        public Vector3Int AttackArea => _attackArea;
+        public AttackRangeData AttackRangeData => _attackRange;
+        private AttackRangeData _attackRange;
 
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
@@ -35,10 +37,12 @@ namespace Presentation.Infrastructure
 
         private void Awake()
         {
-            _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
+            // _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _militaryBuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
             _militaryBuildingAttacker.OnAddMoneyToPlayer += AddMoneyToPlayer;
+            _attackRange = FileReader.ReadFile($"Assets/{_areaFile}.txt");
+
         }
 
         private void AddMoneyToPlayer(int quantity)

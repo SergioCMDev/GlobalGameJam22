@@ -63,7 +63,7 @@ namespace Presentation
 
             gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
 
-            roundsController.StartNewRound();
+            // roundsController.StartNewRound();
         }
 
 

@@ -13,14 +13,13 @@ namespace Presentation.Infrastructure
         [SerializeField] protected SpriteRenderer _spriteRenderer;
 
         [SerializeField] protected float _maximumLife, _alphaWhenSelected = 0.475f;
-        [SerializeField] private Vector3Int _area;
         private int _id, _level;
         protected float _currentLife;
         private bool _placed;
         protected Color originalColor;
         protected Color colorWithTransparency;
         protected MilitaryBuildingType type;
-
+        private Vector3Int _area;
 
         public event Action<Building> OnBuildingDestroyed;
 
@@ -33,6 +32,7 @@ namespace Presentation.Infrastructure
 
         public Vector3Int Area => _area;
 
+
         protected SpriteRenderer SpriteRenderer => _spriteRenderer;
 
         public MilitaryBuildingType Type => type;
@@ -40,8 +40,10 @@ namespace Presentation.Infrastructure
         private void Awake()
         {
             var color = SpriteRenderer.color;
+            
             originalColor = color;
             colorWithTransparency = new Color(color.r, color.g, color.b, _alphaWhenSelected);
+            _area = new Vector3Int(1, 1, 1);
         }
 
         private void UpdateLifeToMaximum()

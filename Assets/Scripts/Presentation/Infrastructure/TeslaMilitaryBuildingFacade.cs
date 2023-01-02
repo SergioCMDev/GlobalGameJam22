@@ -7,7 +7,7 @@ namespace Presentation.Infrastructure
 {
     public class TeslaMilitaryBuildingFacade : MilitaryBuildingFacade
     {
-        private List<Enemy> _enemies = new();
+        private readonly List<Enemy> _enemies = new();
         private bool _hasAttackOnce;
 
         protected virtual void Update()

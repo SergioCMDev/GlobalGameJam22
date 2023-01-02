@@ -318,7 +318,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 5069552752093065831}
   _maximumLife: 100
   _alphaWhenSelected: 0.475
-  _area: {x: 1, y: 1, z: 1}
+  _areaFile: test3x3
   _militaryBuildingPlacementSetter: {fileID: 7201745983478259591}
   _militaryBuildingAttacker: {fileID: 8426418225386911925}
   _sfxWhenAttack: 5
