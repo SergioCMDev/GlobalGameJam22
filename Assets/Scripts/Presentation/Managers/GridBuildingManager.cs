@@ -21,12 +21,9 @@ namespace Presentation.Managers
         public bool IsOccupied;
         public GameObject Occupier;
         public Vector3 WorldPosition;
-        public bool Locked;
-        public TilePosition TilePosition; //REFACTOR
 
         public TileDataEntity()
         {
-            Locked = false;
             TilemapColours = new Dictionary<Tilemap, TilemapColours>();
         }
 
@@ -51,7 +48,6 @@ namespace Presentation.Managers
 
         [SerializeField] private Transform _buildingParent;
 
-        // [SerializeField] private FileReader fileReader;
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private Tile _red, white, green, blue, purple, empty;
 
@@ -68,6 +64,7 @@ namespace Presentation.Managers
         [SerializeField] private bool _showAttackZone;
         private List<TileDataEntity> _temporalRangeTilesToDraw = new();
         private List<TileDataEntity> _temporalBuildingCenterTileToDraw = new();
+        private Camera _camera;
 
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
@@ -76,6 +73,7 @@ namespace Presentation.Managers
 
         private void Awake()
         {
+            _camera = Camera.main;
             // string tilePath = @"Tiles\";
             //TODO LOAD FROM RESOURCES
             _tileTypeBase.Add(TileType.Empty, empty);
@@ -187,8 +185,6 @@ namespace Presentation.Managers
         private List<TileDataEntity> GetAttackTilesOfBuilding(Vector3Int buildingPosition,
             MilitaryBuildingFacade militaryBuildingFacade)
         {
-            // var offset = Vector3Int.up * militaryBuildingFacade.AttackRingRange +
-            //              Vector3Int.right * militaryBuildingFacade.AttackRingRange;
             var temporalObjectArea = GetObjectArea(buildingPosition, militaryBuildingFacade.AttackRangeData.Area);
             var attackArray = GetTilesBlockAttacking(temporalObjectArea, militaryBuildingFacade.AttackRangeData);
             militaryBuildingFacade.SetTilesToAttack(attackArray);
@@ -248,7 +244,7 @@ namespace Presentation.Managers
 
         private Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputMousePosition);
+            Vector2 mousePosition = _camera.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
             return gridPosition;
         }
@@ -390,7 +386,6 @@ namespace Presentation.Managers
             buildingTileDataEntities.Add(tileData);
             return buildingTileDataEntities;
         }
-
 
         private List<TileDataEntity> GetAttackZoneOfBuilding(MilitaryBuildingFacade militaryBuildingFacade,
             Vector3Int buildingPosition, bool canBeCleaned, Tilemap tilemapToDraw)
@@ -595,20 +590,6 @@ namespace Presentation.Managers
 
             return filledTiles;
         }
-
-
-        private BoundsInt GetObjectArea2(Vector3Int gridPosition, AttackRangeData attackRangeData)
-        {
-            var valueToSubtract = (attackRangeData.Area.x - 1) / 2;
-            foreach (var VARIABLE in attackRangeData.array)
-            {
-            }
-
-            BoundsInt objectArea1 = new BoundsInt(gridPosition.x - valueToSubtract, gridPosition.y - valueToSubtract, 0,
-                attackRangeData.Area.x, attackRangeData.Area.y, 1); // if size == 5x5
-            return objectArea1;
-        }
-
         private BoundsInt GetObjectArea(Vector3Int gridPosition, Vector3Int sizeArea)
         {
             var valueToSubtract = (sizeArea.x - 1) / 2;
