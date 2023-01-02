@@ -216,8 +216,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5069552752378941103}
   - component: {fileID: 1575899185}
-  - component: {fileID: 8426418225386911925}
-  - component: {fileID: 7201745983478259591}
   - component: {fileID: 296025931651673092}
   m_Layer: 0
   m_Name: BasicTurret
@@ -273,35 +271,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8426418225386911925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5069552752378941104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23dc902b7ff4ce6b06691a5284a3db7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackBehaviours:
-  - AttackBehaviourSo: {fileID: 11400000, guid: b0022a3cb322cbe4e854942cff1342b2, type: 2}
-    EffectDataSo: {fileID: 11400000, guid: 0ced7440b96e9294fb9724e17c5db405, type: 2}
-  cadence: 0
---- !u!114 &7201745983478259591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5069552752378941104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 419d390503d444baa115d1d55244a97b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _chooserCanvas: {fileID: 4851429865776267670}
 --- !u!114 &296025931651673092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,14 +287,16 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 5069552752093065831}
   _maximumLife: 100
   _alphaWhenSelected: 0.475
-  _militaryBuildingPlacementSetter: {fileID: 7201745983478259591}
-  _militaryBuildingAttacker: {fileID: 8426418225386911925}
   _sfxWhenAttack: 5
   basicAttackRangeFile: {fileID: 4900000, guid: f9647e52c1924ec4db06838936d31536, type: 3}
   _particles: {fileID: 0}
   _animator: {fileID: 923199599}
-  _attackRingRange: 1
   _playerGetResourceEvent: {fileID: 11400000, guid: 029852a4450187c4195819683ab50bd5, type: 2}
+  _chooserCanvas: {fileID: 4851429865776267670}
+  _attackBehaviours:
+  - AttackBehaviourSo: {fileID: 11400000, guid: b0022a3cb322cbe4e854942cff1342b2, type: 2}
+    EffectDataSo: {fileID: 11400000, guid: 0ced7440b96e9294fb9724e17c5db405, type: 2}
+  cadence: 2
 --- !u!1001 &5069552750814868134
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,38 +7,44 @@ using Presentation.Managers;
 using UnityEngine;
 using Utils;
 
-
 namespace Presentation.Infrastructure
 {
     public class MilitaryBuildingFacade : Building
     {
-        [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
-        [SerializeField] protected internal MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private TextAsset basicAttackRangeFile;
         [SerializeField] private GameObject _particles;
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerGetResourceEvent _playerGetResourceEvent;
+        [SerializeField] private PlacerBuildingView _chooserCanvas;
+        [SerializeField] private List<AttackBehaviourData> _attackBehaviours;
+        [SerializeField] private float cadence;
+        
+        private MilitaryBuildingAttacker _militaryBuildingAttacker;
+        private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         protected List<TileDataEntity> tilesToAttack;
         private GameObject _enemyGameObject;
         private SoundManager _soundManager;
         private Vector3Int _attackArea;
-        protected bool _isActive;
+        private bool _isActive;
         private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
         private static readonly int AttackTrigger = Animator.StringToHash("Shoot");
         public AttackRangeData AttackRangeData => _attackRange;
         private AttackRangeData _attackRange;
-
+        protected bool hasAttackOnce;
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
         
         private void Awake()
         {
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
+            _militaryBuildingPlacementSetter = new MilitaryBuildingPlacementSetter();
+            _militaryBuildingPlacementSetter.Init(_chooserCanvas);
+            _militaryBuildingAttacker = new MilitaryBuildingAttacker();
+            
             _militaryBuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
             _militaryBuildingAttacker.OnAddMoneyToPlayer += AddMoneyToPlayer;
             _attackRange = FileReader.ReadFile(basicAttackRangeFile.text);
-
         }
 
         private void AddMoneyToPlayer(int quantity)
@@ -69,10 +75,9 @@ namespace Presentation.Infrastructure
         {
             if (!_isActive || !_militaryBuildingAttacker.CanAttack()) return;
             var enemiesToAttack = GetReachableEnemies();
-            if (!enemiesToAttack.Any())
-            {
-                return;
-            }
+            if (!enemiesToAttack.Any()) return;
+
+            hasAttackOnce = true;
 
             SaveEnemiesToAttack(enemiesToAttack);
             _militaryBuildingAttacker.Attack(enemiesToAttack);
@@ -82,7 +87,7 @@ namespace Presentation.Infrastructure
         {
         }
 
-        protected List<Enemy> GetReachableEnemies()
+        private List<Enemy> GetReachableEnemies()
         {
             var reachableEnemies = tilesToAttack.FindAll(tile =>
                     tile.IsOccupied && tile.Occupier != gameObject && tile.Occupier.CompareTag("Enemy"))
@@ -92,7 +97,8 @@ namespace Presentation.Infrastructure
 
         public void Init()
         {
-            _militaryBuildingAttacker.Init();
+            _militaryBuildingAttacker.Init(_attackBehaviours,cadence);
+            _militaryBuildingPlacementSetter.Init(_chooserCanvas);
         }
 
         public void ActivateBuilding()
@@ -143,8 +149,7 @@ namespace Presentation.Infrastructure
             return tilesToAttack.Contains(tileDataEntity);
         }
 
-        public void SetType(MilitaryBuildingType tilemapEventMilitaryBuildingType
-        )
+        public void SetType(MilitaryBuildingType tilemapEventMilitaryBuildingType) 
         {
             type = tilemapEventMilitaryBuildingType;
         }

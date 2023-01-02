@@ -1,18 +1,20 @@
 using System;
-using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
-    //TODO REMOVE MONOBEHAVIOUR
-    public class MilitaryBuildingPlacementSetter : MonoBehaviour
+    public class MilitaryBuildingPlacementSetter
     {
-        [SerializeField] private PlacerBuildingView _chooserCanvas;
-
+        private PlacerBuildingView _chooserCanvas;
         public event Action OnBuildingTriesToTakePlace, OnCancelTakingPlace;
 
-        private void Awake()
+        public void Init(PlacerBuildingView chooserCanvas)
         {
+            _chooserCanvas = chooserCanvas;
             _chooserCanvas.gameObject.SetActive(false);
+        }
+
+        public void AddListeners()
+        {
             _chooserCanvas.OnCancelTakingPlace += CancelTakingPlace;
             _chooserCanvas.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
         }

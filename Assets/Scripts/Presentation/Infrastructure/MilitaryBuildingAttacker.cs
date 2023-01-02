@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Presentation.Hostiles;
-using Presentation.Infrastructure.Scriptables;
 using Presentation.Infrastructure.Scriptables.EffectBehaviour;
 using Presentation.Infrastructure.Scriptables.EffectData;
 using Presentation.Interfaces;
@@ -15,10 +14,10 @@ namespace Presentation.Infrastructure
         public AttackBehaviourSO AttackBehaviourSo;
         public EffectDataSO EffectDataSo;
     }
-    public class MilitaryBuildingAttacker : MonoBehaviour, IAttack
+    public class MilitaryBuildingAttacker :  IAttack
     {
-        [SerializeField] private List<AttackBehaviourData> _attackBehaviours;
-        [SerializeField] private float cadence;
+        private List<AttackBehaviourData> _attackBehaviours;
+        private float _cadence;
         private float _lastTimeAttacked;
         private GameObject _enemyGameObject;
         private bool _hasAttackedBefore;
@@ -41,7 +40,6 @@ namespace Presentation.Infrastructure
                 }
             }
             _hasAttackedBefore = true;
-
         }
 
         private void AddMoneyToPlayer(int quantity)
@@ -53,7 +51,7 @@ namespace Presentation.Infrastructure
         {
             _lastTimeAttacked += Time.deltaTime;
             if (!_hasAttackedBefore) return true;
-            return _lastTimeAttacked > cadence;
+            return _lastTimeAttacked > _cadence;
         }
 
         private void OnDrawGizmos()
@@ -65,9 +63,11 @@ namespace Presentation.Infrastructure
             // Gizmos.color = Color.blue;
             // Gizmos.DrawRay(transform.position, transform.TransformDirection(directionToEnemy));
         }
-
-        public void Init()
+        
+        public void Init(List<AttackBehaviourData> attackBehaviours, float cadence)
         {
+            _attackBehaviours = attackBehaviours;
+            _cadence = cadence;
             foreach (var attackBehaviour in _attackBehaviours)
             {
                 attackBehaviour.AttackBehaviourSo.Init(attackBehaviour.EffectDataSo);

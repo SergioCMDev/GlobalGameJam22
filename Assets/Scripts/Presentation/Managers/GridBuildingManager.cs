@@ -116,6 +116,7 @@ namespace Presentation.Managers
             _buildingFacadeComponent.Initialize();
             _buildingFacadeComponent.SetType(tilemapEvent.militaryBuildingType);
             _buildingFacadeComponent.Select();
+            _buildingFacadeComponent.BuildingPlacementSetter.AddListeners();
             _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(true);
             _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace += CancelTakingPlace;
             _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace += BuildingTriesToTakePlace;
@@ -154,7 +155,7 @@ namespace Presentation.Managers
             //TODO REMOVE THE ATTACK ZONE TO LEAVE WHITE ZONE SURROUNDING THE BUILDING
             _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
-            _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
+            // _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
             _buildingFacadeComponent.ClearAttackTiles();
             // _temporalRangeTilesToDraw[0].GridPosition
             foreach (var tileDataEntity in _temporalRangeTilesToDraw)
