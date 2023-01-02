@@ -18,7 +18,6 @@ namespace Presentation.Infrastructure
         [SerializeField] private TextAsset basicAttackRangeFile;
         [SerializeField] private GameObject _particles;
         [SerializeField] private Animator _animator;
-        [SerializeField] private int _attackRingRange = 1;
         [SerializeField] private PlayerGetResourceEvent _playerGetResourceEvent;
         protected List<TileDataEntity> tilesToAttack;
         private GameObject _enemyGameObject;
