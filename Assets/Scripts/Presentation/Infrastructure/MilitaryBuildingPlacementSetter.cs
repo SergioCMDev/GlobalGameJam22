@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
+    //TODO REMOVE MONOBEHAVIOUR
     public class MilitaryBuildingPlacementSetter : MonoBehaviour
     {
         [SerializeField] private PlacerBuildingView _chooserCanvas;

@@ -22,7 +22,7 @@ namespace Presentation
     {
         public static AttackRangeData ReadFile(string path)
         {
-            var lines = File.ReadAllLines(path, Encoding.UTF8);
+            var lines = path.Split("\r\n");
             if (lines.Length < 2) return null;
             var rows = int.Parse(lines[0]);
             var columns = int.Parse(lines[1]);

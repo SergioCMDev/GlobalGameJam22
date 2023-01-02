@@ -7,6 +7,7 @@ using Presentation.Managers;
 using UnityEngine;
 using Utils;
 
+
 namespace Presentation.Infrastructure
 {
     public class MilitaryBuildingFacade : Building
@@ -14,6 +15,7 @@ namespace Presentation.Infrastructure
         [SerializeField] private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         [SerializeField] protected internal MilitaryBuildingAttacker _militaryBuildingAttacker;
         [SerializeField] private SfxSoundName _sfxWhenAttack;
+        [SerializeField] private TextAsset basicAttackRangeFile;
         [SerializeField] private GameObject _particles;
         [SerializeField] private Animator _animator;
         [SerializeField] private int _attackRingRange = 1;
@@ -25,23 +27,18 @@ namespace Presentation.Infrastructure
         protected bool _isActive;
         private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
         private static readonly int AttackTrigger = Animator.StringToHash("Shoot");
-        [SerializeField] private string _areaFile;
-
         public AttackRangeData AttackRangeData => _attackRange;
         private AttackRangeData _attackRange;
 
 
         public MilitaryBuildingPlacementSetter BuildingPlacementSetter => _militaryBuildingPlacementSetter;
-
-        protected internal int AttackRingRange => _attackRingRange;
-
+        
         private void Awake()
         {
-            // _attackArea = new Vector3Int(2 * AttackRingRange + 1, 2 * AttackRingRange + 1, 1);
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _militaryBuildingAttacker.OnBuildingAttacks += OnBuildingAttacks;
             _militaryBuildingAttacker.OnAddMoneyToPlayer += AddMoneyToPlayer;
-            _attackRange = FileReader.ReadFile($"Assets/{_areaFile}.txt");
+            _attackRange = FileReader.ReadFile(basicAttackRangeFile.text);
 
         }
 
