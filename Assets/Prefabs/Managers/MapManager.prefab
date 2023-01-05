@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7439441737509163147}
   - component: {fileID: 1539259234}
   - component: {fileID: 1419162534}
-  - component: {fileID: 1560579011}
   - component: {fileID: 1826735658}
   m_Layer: 0
   m_Name: MapManager
@@ -84,12 +83,6 @@ MonoBehaviour:
   _grid: {fileID: 0}
   _buildingParent: {fileID: 0}
   saveBuildingEvent: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
-  _red: {fileID: 11400000, guid: 989821a4204883b4094f48460c7dbc88, type: 2}
-  white: {fileID: 11400000, guid: 4491f5959acf30f49b423b627d0fa035, type: 2}
-  green: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
-  blue: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
-  purple: {fileID: 11400000, guid: 7a5a15332415a2f44afd5848f837f8ff, type: 2}
-  empty: {fileID: 11400000, guid: 1cf41d7cfb0998e4f8fdb46e6fdf2ca1, type: 2}
   _showAttackZone: 1
 --- !u!114 &1419162534
 MonoBehaviour:
@@ -120,21 +113,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1560579011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7439441737509163148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baa972ed4170b5b46a87b1cf1611d247, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grid: {fileID: 0}
-  _gridBuildingManager: {fileID: 1539259234}
-  _testMovement: {fileID: 0}
 --- !u!114 &1826735658
 MonoBehaviour:
   m_ObjectHideFlags: 0

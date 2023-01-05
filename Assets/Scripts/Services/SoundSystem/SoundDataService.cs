@@ -1,8 +1,11 @@
 ﻿using Domain;
+using UnityEngine;
 using Utils;
 
 namespace Services.SoundSystem
 {
+    [CreateAssetMenu(fileName = "SoundDataService",
+        menuName = "Loadable/Services/SoundDataService")]
     public class SoundDataService : LoadableComponent
     {
         private ILoader _loader;
@@ -20,7 +23,7 @@ namespace Services.SoundSystem
 
             var savegame = _loader.LoadGame();
             var audioData = savegame.AudioData;
-          var audioDataInfo = TransformToAudioDataInfo(audioData);
+            var audioDataInfo = TransformToAudioDataInfo(audioData);
             return audioDataInfo;
         }
 
@@ -37,22 +40,26 @@ namespace Services.SoundSystem
         public void SaveAudioData(AudioDataInfo audioData)
         {
             var savegame = new Savegame();
-        
+
             if (_loader.HasSavedGame())
             {
                 savegame = _loader.LoadGame();
             }
 
-            savegame.AudioData.Muted = audioData.Muted != savegame.AudioData.Muted ? audioData.Muted : savegame.AudioData.Muted;
-            savegame.AudioData.SFXVolume = audioData.SFXVolume != savegame.AudioData.SFXVolume ? audioData.SFXVolume : savegame.AudioData.SFXVolume;
-            savegame.AudioData.MusicVolume = audioData.MusicVolume != savegame.AudioData.MusicVolume ? audioData.MusicVolume : savegame.AudioData.MusicVolume;
-        
+            savegame.AudioData.Muted =
+                audioData.Muted != savegame.AudioData.Muted ? audioData.Muted : savegame.AudioData.Muted;
+            savegame.AudioData.SFXVolume = audioData.SFXVolume != savegame.AudioData.SFXVolume
+                ? audioData.SFXVolume
+                : savegame.AudioData.SFXVolume;
+            savegame.AudioData.MusicVolume = audioData.MusicVolume != savegame.AudioData.MusicVolume
+                ? audioData.MusicVolume
+                : savegame.AudioData.MusicVolume;
+
             _saver.SaveGame(savegame);
         }
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

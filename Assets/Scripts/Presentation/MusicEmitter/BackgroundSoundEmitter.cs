@@ -7,21 +7,21 @@ namespace Presentation.MusicEmitter
 {
     public class BackgroundSoundEmitter : MonoBehaviour
     {
-        private SoundManager _soundManager;
+        private SoundPlayer _soundPlayer;
         [SerializeField] private MusicSoundName _backgroundSoundName;
         [SerializeField] private bool _active;
 
         void Start()
         {
-            _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
+            _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
 
             if (!_active) return;
-            _soundManager.PlayMusic(_backgroundSoundName);
+            _soundPlayer.PlayMusic(_backgroundSoundName);
         }
 
         public void StopMusic()
         {
-            _soundManager.StopMusic();
+            _soundPlayer.StopMusic();
         }
     }
 }

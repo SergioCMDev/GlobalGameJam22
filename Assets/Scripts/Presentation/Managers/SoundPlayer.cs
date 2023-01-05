@@ -5,6 +5,7 @@ using App.Events;
 using Services;
 using Services.SoundSystem;
 using UnityEngine;
+using Utils;
 
 namespace Presentation.Managers
 {
@@ -22,18 +23,19 @@ namespace Presentation.Managers
         public SfxSoundName SfxSoundName;
     }
 
-//Separate service witch do the saving and loading and player sound to reproduce sounds
-    public class SoundManager : MonoBehaviour
+    public class SoundPlayer : MonoBehaviour
     {
         [SerializeField] private AudioSource _sfx;
         [SerializeField] private AudioSource _music;
         [SerializeField] private List<SfxAudioClipLogic> _sfxSoundDictionary;
         [SerializeField] private List<MusicAudioClipLogic> _musicSoundDictionary;
         private bool _mutedByPlayer = false;
+        private SoundDataService _soundDataService;
 
-        private void Awake()
+        private void Start()
         {
             _music.enabled = !_mutedByPlayer;
+            _soundDataService = ServiceLocator.Instance.GetService<SoundDataService>();
         }
 
         //From Event
@@ -41,7 +43,7 @@ namespace Presentation.Managers
         {
             PlaySfx(playSfxEvent.soundName);
         }
-        
+
         public void PlaySfx(SfxSoundName sfxSoundName)
         {
             Debug.Log($"SFX {sfxSoundName}");
@@ -54,18 +56,16 @@ namespace Presentation.Managers
         {
             PlayMusic(playMusicEvent.soundName);
         }
-        
+
         public void PlayMusic(MusicSoundName musicSoundName)
         {
             PlayMusic(_musicSoundDictionary.Single(x => x.MusicSoundName == musicSoundName).AudioClip);
         }
-
         
         public void StopMusic()
         {
             _music.Stop();
         }
-        
 
         private void PlaySfx(AudioClip audioClip)
         {

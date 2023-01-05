@@ -55,7 +55,7 @@ namespace Installers
             // _timeManagerInstance = Instantiate(_timeManagerPrefab);
 
             ServiceLocator.Instance.RegisterService(
-                _soundManagerInstance.GetComponent<SoundManager>());
+                _soundManagerInstance.GetComponent<SoundPlayer>());
             ServiceLocator.Instance.RegisterService(
                 _readInputPlayerInstance.GetComponent<ReadInputPlayer>());
             // ServiceLocator.Instance.RegisterService(

@@ -28,7 +28,7 @@ namespace Presentation.Infrastructure
         private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         protected List<TileDataEntity> tilesToAttack;
         private GameObject _enemyGameObject;
-        private SoundManager _soundManager;
+        private SoundPlayer _soundPlayer;
         private Vector3Int _attackArea;
         private bool _isActive;
         private static readonly int DeployTrigger = Animator.StringToHash("Deploy");
@@ -41,7 +41,7 @@ namespace Presentation.Infrastructure
         
         private void Awake()
         {
-            _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
+            _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _militaryBuildingPlacementSetter = new MilitaryBuildingPlacementSetter();
             _militaryBuildingPlacementSetter.Init(_chooserCanvas);
             _militaryBuildingAttacker = new MilitaryBuildingAttacker();
@@ -72,7 +72,7 @@ namespace Presentation.Infrastructure
 
         private void PlaySoundWhenAttacks()
         {
-            _soundManager.PlaySfx(_sfxWhenAttack);
+            _soundPlayer.PlaySfx(_sfxWhenAttack);
         }
 
         protected virtual void Update()
