@@ -1,4 +1,6 @@
-﻿namespace App.Models
+﻿using App.Resources;
+
+namespace App.Models
 {
     public class ResourcesModel : IResourcesModel
     {

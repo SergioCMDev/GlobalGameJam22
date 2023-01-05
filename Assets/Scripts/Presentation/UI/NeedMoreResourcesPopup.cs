@@ -1,5 +1,7 @@
 using System;
 using App;
+using App.Buildings;
+using App.Resources;
 using Services.Popups.Interfaces;
 using TMPro;
 using UnityEngine;

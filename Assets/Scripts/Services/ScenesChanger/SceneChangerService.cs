@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using App.Events;
 using App.SceneManagement;
-using Services.SceneChanger.Models;
+using Services.ScenesChanger.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -130,18 +130,18 @@ namespace Services.ScenesChanger
             return _scenesListModel.GetFirstLevelSceneName();
         }
     }
-}
 
-public enum ConstantSceneName
-{
-    CreditSceneName,
-    FirstLevelSceneName,
-    TutorialSceneName,
-    MainMenuSceneName
-}
-[Serializable]
-public struct ConstantScenes
-{
-    public ConstantSceneName constantSceneName;
-    public string sceneName;
+    public enum ConstantSceneName
+    {
+        CreditSceneName,
+        FirstLevelSceneName,
+        TutorialSceneName,
+        MainMenuSceneName
+    }
+    [Serializable]
+    public struct ConstantScenes
+    {
+        public ConstantSceneName constantSceneName;
+        public string sceneName;
+    }
 }

@@ -1,7 +1,10 @@
 using System;
 using App;
+using App.Buildings;
 using App.Events;
+using App.Resources;
 using Presentation.Structs;
+using Services.MilitaryBuilding;
 using Services.ResourcesManager;
 using UnityEngine;
 using Utils;
@@ -13,7 +16,7 @@ namespace Presentation.Managers
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private MilitaryBuildingType _currentMilitaryBuildingBuyType;
         private ResourcesManagerService _resourcesManagerService;
-        private MilitaryBuildingManager _militaryBuildingManager;
+        private MilitaryBuildingService _militaryBuildingManager;
 
         [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent _allowPlayerToSetBuildingInTilemapEvent;
         private bool _playerIsCurrentlyBuying;
@@ -23,7 +26,7 @@ namespace Presentation.Managers
 
         void Start()
         {
-            _militaryBuildingManager = ServiceLocator.Instance.GetService<MilitaryBuildingManager>();
+            _militaryBuildingManager = ServiceLocator.Instance.GetService<MilitaryBuildingService>();
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _playerIsCurrentlyBuying = false;
         }

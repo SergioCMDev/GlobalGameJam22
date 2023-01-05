@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using App.SceneManagement;
-using UnityEngine;
 
-namespace Services.SceneChanger.Models
+namespace Services.ScenesChanger.Models
 {
     public class ScenesListModel 
     {

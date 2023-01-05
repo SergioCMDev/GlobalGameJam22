@@ -1,48 +1,64 @@
 using System;
 using System.Collections.Generic;
 using App;
-using Presentation.Events;
+using App.Tuples;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
+using Services.EnemySpawner;
 using UnityEngine;
+using Utils;
 
 namespace Presentation.Managers
 {
-    public class EnemySpawner : MonoBehaviour
+    public struct EnemySpawnerInitData
     {
-        [SerializeField] private GridBuildingManager gridBuildingManager;
-        [SerializeField] private GridMovementManager gridMovementManager;
+        public GridBuildingManager GridBuildingManager;
+        public GridMovementManager GridMovementManager;
+        public bool Instantiate;
+        public Vector3Int PositionToInstantiate;
+        public Transform EnemiesParent;
+    }
+
+    public class EnemySpawner
+    {
+        private GridBuildingManager gridBuildingManager;
+        private GridMovementManager gridMovementManager;
+        private bool instantiate;
+        private Vector3Int positionToInstantiate;
+        private Transform enemiesParent;
         public event Action<Enemy> OnEnemyHasBeenDefeated;
 
-        [SerializeField] private bool instantiate;
-        [SerializeField] private Vector3Int positionToInstantiate;
-        [SerializeField] private List<EnemySpawnerInfo> enemyPrefabs;
-        [SerializeField] private Transform enemiesParent;
 
         private List<Building> _citiesToDestroy;
-        // private readonly List<Enemy> _activeEnemies = new();
+        private EnemySpawnerService _enemySpawnerService;
+
+        public void Init(EnemySpawnerInitData enemySpawnerInitData)
+        {
+            _enemySpawnerService = ServiceLocator.Instance.GetService<EnemySpawnerService>();
+            gridBuildingManager = enemySpawnerInitData.GridBuildingManager;
+            instantiate = enemySpawnerInitData.Instantiate;
+            positionToInstantiate = enemySpawnerInitData.PositionToInstantiate;
+            enemiesParent = enemySpawnerInitData.EnemiesParent;
+            gridMovementManager = enemySpawnerInitData.GridMovementManager;
+        }
 
         public void SetCitiesToDestroy(List<Building> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
         }
-
-        public void SpawnEnemy(SpawnEnemyEvent spawnEnemyEvent)
-        {
-            SpawnEnemy(spawnEnemyEvent.enemyInfo, spawnEnemyEvent.positionToInstantiate);
-        }
-
+        
         //TODO USE ScriptableObjects to life and speed
-        private void SpawnEnemy(EnemySpawnerInfo enemySpawnerInfo, Vector3Int positionToInstantiate)
+        public void SpawnEnemy(EnemySpawnerInfo enemySpawnerInfo, Vector3Int positionToInstantiate)
         {
             if (!gridBuildingManager.WorldTileDictionary.ContainsKey(positionToInstantiate))
                 return;
 
             var positionToPutEnemy = gridBuildingManager
                 .WorldTileDictionary[positionToInstantiate].WorldPosition;
-            var enemyInstance = Instantiate(enemySpawnerInfo.enemyPrefab, positionToPutEnemy, Quaternion.identity, enemiesParent);
+            var enemyInstance = GameObject.Instantiate(enemySpawnerInfo.enemyPrefab, positionToPutEnemy,
+                Quaternion.identity, enemiesParent);
             var enemy = enemyInstance.GetComponent<Enemy>();
-            GridPathfinding gridPathfinding = new GridPathfinding();
+            var gridPathfinding = new GridPathfinding();
             gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemySpawnerInfo.TilesToFollow);
 
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
@@ -76,16 +92,16 @@ namespace Presentation.Managers
 
         public void ActivateEnemiesByTimer()
         {
-            if(!instantiate) return;
-            EnemySpawnerInfo enemySpawnerInfo = enemyPrefabs[0];
+            if (!instantiate) return;
+            var enemySpawnerInfo = _enemySpawnerService.GetEnemyPrefabByType(EnemyType.Normal);
             SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
         }
-        
+
         public void HideEnemies()
         {
             foreach (Transform enemy in enemiesParent.transform)
             {
-                Destroy(enemy.gameObject);
+                GameObject.Destroy(enemy.gameObject);
             }
         }
     }

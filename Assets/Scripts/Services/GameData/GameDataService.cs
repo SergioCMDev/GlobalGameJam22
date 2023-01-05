@@ -3,7 +3,7 @@ using Utils;
 
 namespace Services.GameData
 {
-    public class GameDataService:LoadableComponent
+    public class GameDataService : LoadableComponent
 
     {
     private readonly ILoader _loader;

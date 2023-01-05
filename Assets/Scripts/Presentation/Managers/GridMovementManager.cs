@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using App;
+using App.Buildings;
+using App.Tuples;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Presentation.Interfaces;
@@ -8,17 +10,19 @@ using UnityEngine;
 
 namespace Presentation.Managers
 {
-    public class GridMovementManager : MonoBehaviour
+    public class GridMovementManager
     {
-        [SerializeField] private Grid _grid;
+        private Grid _grid;
 
-        // [SerializeField] private ObjectHasMovedToNewTileEvent _eventMovement;
-        [SerializeField] private GridBuildingManager _gridBuildingManager;
-        [SerializeField] private TestMovement _testMovement;
+        private GridBuildingManager _gridBuildingManager;
+        private TestMovement _testMovement;
 
-        // Start is called before the first frame update
-        void Start()
+        public void Init(GridMovementManagerInitData gridMovementManagerInitData)
         {
+            _grid = gridMovementManagerInitData.grid;
+            _gridBuildingManager = gridMovementManagerInitData.gridBuildingManager;
+            _testMovement = gridMovementManagerInitData.testMovement;
+
             if (!_testMovement) return;
             _testMovement.OnObjectMoved += OnObjectMoved;
         }
@@ -50,5 +54,13 @@ namespace Presentation.Managers
             };
             return gridPositionTuple;
         }
+    }
+
+    public struct GridMovementManagerInitData
+    {
+        public Grid grid;
+
+        public GridBuildingManager gridBuildingManager;
+        public TestMovement testMovement;
     }
 }

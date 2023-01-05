@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using App;
 using App.Events;
+using App.Tuples;
 using Presentation.Infrastructure;
 using Presentation.Structs;
+using Presentation.Utils;
+using Services.EnemySpawner;
+using Services.TileReader;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using Utils;
 
 namespace Presentation.Managers
 {
@@ -49,7 +54,9 @@ namespace Presentation.Managers
         [SerializeField] private Transform _buildingParent;
 
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
-        [SerializeField] private Tile _red, white, green, blue, purple, empty;
+        [SerializeField] private bool _showAttackZone;
+
+        private Tile _red, white, green, blue, purple, empty;
 
         private Dictionary<TileType, TileBase> _tileTypeBase = new();
         private GameObject _building;
@@ -61,10 +68,10 @@ namespace Presentation.Managers
 
         private Dictionary<Vector3Int, TileDataEntity> _worldTileDictionaryBuildingTilemap = new();
 
-        [SerializeField] private bool _showAttackZone;
         private List<TileDataEntity> _temporalRangeTilesToDraw = new();
         private List<TileDataEntity> _temporalBuildingCenterTileToDraw = new();
         private Camera _camera;
+        private TileReaderService _tileReaderService;
 
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
@@ -74,17 +81,18 @@ namespace Presentation.Managers
         private void Awake()
         {
             _camera = Camera.main;
+            _tileReaderService = ServiceLocator.Instance.GetService<TileReaderService>();
             // string tilePath = @"Tiles\";
             //TODO LOAD FROM RESOURCES
-            _tileTypeBase.Add(TileType.Empty, empty);
-            _tileTypeBase.Add(TileType.White, white);
+            _tileTypeBase.Add(TileType.Empty, _tileReaderService.GetTileByColor(TileColor.Empty));
+            _tileTypeBase.Add(TileType.White, _tileReaderService.GetTileByColor(TileColor.White));
             // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
-            _tileTypeBase.Add(TileType.Green, green);
+            _tileTypeBase.Add(TileType.Green, _tileReaderService.GetTileByColor(TileColor.Green));
             // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
             // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
-            _tileTypeBase.Add(TileType.Red, _red);
-            _tileTypeBase.Add(TileType.Blue, blue);
-            _tileTypeBase.Add(TileType.Purple, purple);
+            _tileTypeBase.Add(TileType.Red, _tileReaderService.GetTileByColor(TileColor.Red));
+            _tileTypeBase.Add(TileType.Blue, _tileReaderService.GetTileByColor(TileColor.Blue));
+            _tileTypeBase.Add(TileType.Purple, _tileReaderService.GetTileByColor(TileColor.Purple));
 
             ReadWorld();
 
@@ -591,6 +599,7 @@ namespace Presentation.Managers
 
             return filledTiles;
         }
+
         private BoundsInt GetObjectArea(Vector3Int gridPosition, Vector3Int sizeArea)
         {
             var valueToSubtract = (sizeArea.x - 1) / 2;

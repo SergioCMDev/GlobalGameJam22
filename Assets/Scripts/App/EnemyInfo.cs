@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Presentation.Managers
+namespace App
 {
     [CreateAssetMenu(fileName = "EnemyInfo", menuName = "Enemy/Info")]
     public class EnemyInfo : ScriptableObject

@@ -1,74 +1,88 @@
 using System;
-using App;
-using App.Events;
+using App.Resources;
 using Presentation.Managers;
 using Presentation.UI;
 using Presentation.UI.Menus;
 using Services.Popups;
 using Services.Popups.Interfaces;
 using Services.ResourcesManager;
-using UnityEngine;
 using Utils;
 
 namespace Presentation
 {
-    public class RoundsController : MonoBehaviour
+    public class RoundsController
     {
-        [SerializeField] private CanvasPresenter canvasPresenter;
-        [SerializeField] private ActivateMilitaryBuildingsEvent activateMilitaryBuildingsEvent;
-        [SerializeField] private ActivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
-        [SerializeField] private float _timeToDefendAgainstSlimes = 20, _timeToAllowPlayerBuildsTurrets;
-        [SerializeField] private int _numberOfRoundsPerLevel;
-        [SerializeField] private EnemySpawner enemySpawner;
-        [SerializeField] private float timeToShowNewRoundPopup = 3;
+        public struct RoundsControllerInitData
+        {
+            public CanvasPresenter CanvasPresenter;
+            public float TimeToDefendAgainstSlimes;
+            public float TimeToAllowPlayerBuildsTurrets;
+            public float TimeToShowNewRoundPopup;
+            public int NumberOfRoundsPerLevel;
+            public EnemySpawner EnemySpawner;
+        }
+
+        private CanvasPresenter _canvasPresenter;
+        private float _timeToDefendAgainstSlimes = 20, _timeToAllowPlayerBuildsTurrets, _timeToShowNewRoundPopup = 3;
+        private int _numberOfRoundsPerLevel;
+        private EnemySpawner _enemySpawner;
+
 
         private int _currentRound;
         private ResourcesManagerService _resourcesManagerService;
         private PopupGenerator _popupManager;
 
-        public event Action OnPlayerHasBeenDefeated;
+        public Action OnPlayerHasBeenDefeated, OnActivateMilitaryBuildings, OnDeactivateMilitaryBuildings;
 
-        private void Start()
+        public void Init(RoundsControllerInitData roundsControllerInitData)
         {
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _popupManager = ServiceLocator.Instance.GetService<PopupGenerator>();
+
+            _canvasPresenter = roundsControllerInitData.CanvasPresenter;
+            _timeToDefendAgainstSlimes = roundsControllerInitData.TimeToDefendAgainstSlimes;
+            _timeToAllowPlayerBuildsTurrets = roundsControllerInitData.TimeToAllowPlayerBuildsTurrets;
+            _timeToShowNewRoundPopup = roundsControllerInitData.TimeToShowNewRoundPopup;
+            _numberOfRoundsPerLevel = roundsControllerInitData.NumberOfRoundsPerLevel;
+            _enemySpawner = roundsControllerInitData.EnemySpawner;
         }
 
         public void StartNewRound()
         {
             _currentRound++;
-            canvasPresenter.UpdateRoundInformation(_currentRound, _numberOfRoundsPerLevel);
-            canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
-            
-            canvasPresenter.InitTimerLogic();
-            canvasPresenter.SetBuildingSelectableViewStatus(true);
+            _canvasPresenter.UpdateRoundInformation(_currentRound, _numberOfRoundsPerLevel);
+            _canvasPresenter.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
+
+            _canvasPresenter.InitTimerLogic();
+            _canvasPresenter.SetBuildingSelectableViewStatus(true);
         }
 
         private void ActivateEnemies()
         {
-            enemySpawner.ActivateEnemiesByTimer();
-            activateMilitaryBuildingsEvent.Fire();
-            canvasPresenter.CancelPendingActivitiesOfPlayer();
-            canvasPresenter.SetDefensiveTimerInitialValue(_timeToDefendAgainstSlimes, RoundEnded);
-            canvasPresenter.InitTimerLogic();
-            canvasPresenter.SetBuildingSelectableViewStatus(false);
-            canvasPresenter.SetShowRangeButtonStatus(true);
+            _enemySpawner.ActivateEnemiesByTimer();
+
+            OnActivateMilitaryBuildings?.Invoke();
+            _canvasPresenter.CancelPendingActivitiesOfPlayer();
+            _canvasPresenter.SetDefensiveTimerInitialValue(_timeToDefendAgainstSlimes, RoundEnded);
+            _canvasPresenter.InitTimerLogic();
+            _canvasPresenter.SetBuildingSelectableViewStatus(false);
+            _canvasPresenter.SetShowRangeButtonStatus(true);
         }
 
         private void RoundEnded()
         {
-            deactivateMilitaryBuildingsEvent.Fire();
+            OnDeactivateMilitaryBuildings?.Invoke();
             if (NeedToPlayMoreRounds())
             {
                 // //TODO CALCULATE QUANTITY TO ADD
                 _resourcesManagerService.AddResources(RetrievableResourceType.Gold, 200);
                 var newRoundPopup = _popupManager.InstantiatePopup<NewRoundPopup>(PopupGenerator.PopupType.NewRound);
                 var closeablePopup = newRoundPopup.GetComponent<ICloseablePopup>();
-                enemySpawner.HideEnemies();
-                canvasPresenter.SetShowRangeButtonStatus(false);
+                _enemySpawner.HideEnemies();
+                _canvasPresenter.SetShowRangeButtonStatus(false);
                 closeablePopup.PopupHasBeenClosed += StartNewRound;
                 newRoundPopup.gameObject.SetActive(true);
-                newRoundPopup.Init(timeToShowNewRoundPopup);
+                newRoundPopup.Init(_timeToShowNewRoundPopup);
             }
             else
             {

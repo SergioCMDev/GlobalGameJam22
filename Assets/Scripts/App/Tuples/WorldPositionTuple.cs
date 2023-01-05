@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace App
+namespace App.Tuples
 {
     public class WorldPositionTuple
     {

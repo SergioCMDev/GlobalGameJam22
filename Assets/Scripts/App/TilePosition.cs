@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Presentation
+namespace App
 {
     [Serializable]
     public class TilePosition

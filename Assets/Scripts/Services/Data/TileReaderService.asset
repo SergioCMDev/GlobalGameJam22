@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa46eae6b9b443759b7ec67eb70a19e4, type: 3}
+  m_Name: TileReaderService
+  m_EditorClassIdentifier: 
+  _orderToExecute: 0
+  _dependencies: []
+  tileTupleData:
+  - TileColor: 0
+    tile: {fileID: 11400000, guid: 989821a4204883b4094f48460c7dbc88, type: 2}
+  - TileColor: 1
+    tile: {fileID: 11400000, guid: 4491f5959acf30f49b423b627d0fa035, type: 2}
+  - TileColor: 2
+    tile: {fileID: 11400000, guid: 51ebb9cd5eb3c1a46bbb0086ed37edf8, type: 2}
+  - TileColor: 3
+    tile: {fileID: 11400000, guid: 7e9c92fa7b237be4f9ac1e8e136c1ccd, type: 2}
+  - TileColor: 4
+    tile: {fileID: 11400000, guid: 7a5a15332415a2f44afd5848f837f8ff, type: 2}
+  - TileColor: 5
+    tile: {fileID: 11400000, guid: 1cf41d7cfb0998e4f8fdb46e6fdf2ca1, type: 2}

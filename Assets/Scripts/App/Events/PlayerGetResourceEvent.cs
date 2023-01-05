@@ -1,3 +1,4 @@
+using App.Resources;
 using UnityEngine;
 
 namespace App.Events

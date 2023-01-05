@@ -1,10 +1,9 @@
 using Presentation.InputPlayer;
-using Presentation.Utils;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Utils
 {
     public class MouseInput_OLD : MonoBehaviour
     {

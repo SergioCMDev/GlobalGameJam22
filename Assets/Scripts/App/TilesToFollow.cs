@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Presentation.Managers
+namespace App
 {
     [CreateAssetMenu(fileName = "EnemyPathFinding", menuName = "Enemy/Pathfinding")]
     public class TilesToFollow : ScriptableObject

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Utils
 {
     public class AttackRangeData
     {

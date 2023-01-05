@@ -304,8 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63e654cb07a03344bc92b3d136d61ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sfx: {fileID: 1913732334964119860}
-  _music: {fileID: 344542354279263474}
   _sfxSoundDictionary:
   - AudioClip: {fileID: 8300000, guid: 121df4ff91858d9498a8f60b32028fb2, type: 3}
     SfxSoundName: 5
@@ -330,6 +328,10 @@ MonoBehaviour:
     MusicSoundName: 0
   - AudioClip: {fileID: 8300000, guid: a9484742f28053c4cb00edf59000ec8f, type: 3}
     MusicSoundName: 1
+  _sfx: {fileID: 344542354279263474}
+  _music: {fileID: 1913732334964119860}
+  _sfxSoundDictionary: []
+  _musicSoundDictionary: []
 --- !u!114 &6833388391450777694
 MonoBehaviour:
   m_ObjectHideFlags: 0

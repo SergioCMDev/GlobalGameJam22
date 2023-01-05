@@ -1,5 +1,7 @@
 using App;
+using App.Buildings;
 using App.Events;
+using App.Resources;
 using Presentation.Infrastructure;
 using Presentation.Structs;
 using Presentation.UI.Menus;
@@ -67,7 +69,7 @@ namespace Presentation.Managers
         {
             _canvasPresenter.ShowNeedMoreResourcesPanel(resourcesNeeded, militaryBuildingType);
 
-            // _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
+            _soundManager.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
         
             _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.BuyHasBeenCanceled();

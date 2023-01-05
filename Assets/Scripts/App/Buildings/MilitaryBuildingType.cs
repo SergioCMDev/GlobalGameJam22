@@ -1,4 +1,4 @@
-﻿namespace App
+﻿namespace App.Buildings
 {
     public enum MilitaryBuildingType
     {
