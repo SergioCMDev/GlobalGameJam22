@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace App
+namespace App.Info.Tiles
 {
     [Serializable]
     public class TilePosition

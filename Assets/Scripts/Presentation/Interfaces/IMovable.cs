@@ -1,6 +1,6 @@
 ﻿using System;
 using App;
-using App.Tuples;
+using App.Info.Tuples;
 using UnityEngine;
 
 namespace Presentation.Interfaces

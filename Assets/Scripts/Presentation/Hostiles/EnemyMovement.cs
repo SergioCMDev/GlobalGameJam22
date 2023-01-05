@@ -1,5 +1,6 @@
 using App;
 using App.Events;
+using App.Info.Tiles;
 using UnityEngine;
 
 namespace Presentation.Hostiles

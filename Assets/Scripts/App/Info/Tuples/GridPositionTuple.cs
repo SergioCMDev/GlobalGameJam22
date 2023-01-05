@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace App.Tuples
+namespace App.Info.Tuples
 {
     public class GridPositionTuple
     {

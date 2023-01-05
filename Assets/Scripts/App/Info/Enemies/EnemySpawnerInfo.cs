@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using App.Info.Tiles;
 using UnityEngine;
 
-namespace App
+namespace App.Info.Enemies
 {
     [Serializable]
     public class EnemySpawnerInfo

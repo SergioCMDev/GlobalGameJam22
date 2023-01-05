@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using App;
-using App.Tuples;
+using App.Info.Enemies;
+using App.Info.Tuples;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Services.EnemySpawner;

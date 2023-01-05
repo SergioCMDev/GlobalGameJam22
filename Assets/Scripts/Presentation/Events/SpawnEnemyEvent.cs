@@ -1,5 +1,6 @@
 using App;
 using App.Events;
+using App.Info.Enemies;
 using Presentation.Managers;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
 using System;
 using App;
 using App.Events;
-using App.Tuples;
+using App.Info.Tuples;
 using Presentation.Interfaces;
 using UnityEngine;
 

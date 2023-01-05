@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App
+namespace App.Info.Enemies
 {
     [CreateAssetMenu(fileName = "EnemyInfo", menuName = "Enemy/Info")]
     public class EnemyInfo : ScriptableObject

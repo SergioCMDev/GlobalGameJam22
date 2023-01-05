@@ -1,4 +1,4 @@
-using App.Tuples;
+using App.Info.Tuples;
 using UnityEngine;
 
 namespace App.Events

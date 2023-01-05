@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using App;
+using App.Info.Enemies;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using App;
 using App.Buildings;
-using App.Tuples;
+using App.Info.Tuples;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Presentation.Interfaces;
