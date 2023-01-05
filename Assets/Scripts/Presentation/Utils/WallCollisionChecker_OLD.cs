@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Presentation.Utils
 {
-    public class WallCollisionChecker : MonoBehaviour
+    public class WallCollisionChecker_OLD : MonoBehaviour
     {
         [SerializeField] private float _rayLenght;
         [SerializeField] private string _tagToCheck = "Wall";

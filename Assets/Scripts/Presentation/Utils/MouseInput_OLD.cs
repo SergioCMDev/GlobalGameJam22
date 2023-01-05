@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Presentation
 {
-    public class MouseInput : MonoBehaviour
+    public class MouseInput_OLD : MonoBehaviour
     {
         private ReadInputPlayer _readInputPlayer;
         private bool _pressed;

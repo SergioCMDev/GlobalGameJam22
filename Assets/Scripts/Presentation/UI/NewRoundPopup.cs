@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using Plugins.DOTween.Modules;
 using Presentation.UI.Menus;
 using Services.Popups.Interfaces;
 using TMPro;
@@ -10,7 +9,6 @@ namespace Presentation.UI
 {
     public class NewRoundPopup : MonoBehaviour, ICloseablePopup
     {
-        [SerializeField] private TextMeshProUGUI incomingAttackText;
         [SerializeField] private CanvasGroup canvasPanel;
         [SerializeField] private float fadeDuration = 0.4f;
         private Sequence sequence;
