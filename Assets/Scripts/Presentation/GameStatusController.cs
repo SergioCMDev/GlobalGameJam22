@@ -57,37 +57,16 @@ namespace Presentation
         private void Awake()
         {
             gridMovementManager = new GridMovementManager();
-            gridMovementManager.Init(new GridMovementManagerInitData()
-            {
-                gridBuildingManager = gridBuildingManager,
-                grid = grid
-            });
+
             foreach (var VARIABLE in buildingPositionTuples)
             {
                 _buildings.Add(VARIABLE.cityBuilding);
             }
 
             enemySpawner = new EnemySpawner();
-            enemySpawner.Init(new EnemySpawnerInitData()
-            {
-                Instantiate = instantiate,
-                GridBuildingManager = gridBuildingManager,
-                GridMovementManager = gridMovementManager,
-                EnemiesParent = enemiesParent,
-                PositionToInstantiate = positionToInstantiate
-            });
 
             roundsController = new RoundsController();
-            roundsController.Init(new RoundsController.RoundsControllerInitData()
-            {
-                CanvasPresenter = canvasPresenter,
-                EnemySpawner = enemySpawner,
-                NumberOfRoundsPerLevel = numberOfRoundsPerLevel,
-                TimeToDefendAgainstSlimes = timeToDefendAgainstSlimes,
-                TimeToShowNewRoundPopup = timeToShowNewRoundPopup,
-                TimeToAllowPlayerBuildsTurrets = timeToAllowPlayerBuildsTurrets
-            });
-
+            
             enemySpawner.SetCitiesToDestroy(_buildings);
             roundsController.OnPlayerHasBeenDefeated += LostLogic;
             roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
@@ -111,12 +90,39 @@ namespace Presentation
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
 
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
+            
             foreach (var cityBuilding in _buildings)
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
                 cityBuilding.Initialize();
             }
+            
+            gridMovementManager.Init(new GridMovementManagerInitData()
+            {
+                gridBuildingManager = gridBuildingManager,
+                grid = grid
+            });
 
+            enemySpawner.Init(new EnemySpawnerInitData()
+            {
+                Instantiate = instantiate,
+                GridBuildingManager = gridBuildingManager,
+                GridMovementManager = gridMovementManager,
+                EnemiesParent = enemiesParent,
+                PositionToInstantiate = positionToInstantiate
+            });
+            
+            
+            roundsController.Init(new RoundsController.RoundsControllerInitData()
+            {
+                CanvasPresenter = canvasPresenter,
+                EnemySpawner = enemySpawner,
+                NumberOfRoundsPerLevel = numberOfRoundsPerLevel,
+                TimeToDefendAgainstSlimes = timeToDefendAgainstSlimes,
+                TimeToShowNewRoundPopup = timeToShowNewRoundPopup,
+                TimeToAllowPlayerBuildsTurrets = timeToAllowPlayerBuildsTurrets
+            });
+            
             gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
             if (!startGame) return;
             roundsController.StartNewRound();

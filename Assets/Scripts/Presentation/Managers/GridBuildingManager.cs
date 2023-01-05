@@ -78,7 +78,7 @@ namespace Presentation.Managers
 
         public Dictionary<Vector3Int, TileDataEntity> WorldTileDictionary => _worldTileDictionaryBuildingTilemap;
 
-        private void Awake()
+        private void Start()
         {
             _camera = Camera.main;
             _tileReaderService = ServiceLocator.Instance.GetService<TileReaderService>();

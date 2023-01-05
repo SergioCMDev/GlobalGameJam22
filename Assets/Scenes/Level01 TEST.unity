@@ -6161,7 +6161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5393802177988759440, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 188.75972
+      value: 188.7597
       objectReference: {fileID: 0}
     - target: {fileID: 7327626637991171898, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6242,20 +6242,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1862459512, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: loadablesSO.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1862459512, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
-      propertyPath: loadablesSO.Array.data[5]
+      propertyPath: loadablesSO.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: a0cb54ebad3adfb4e8808c979c3c3686, type: 2}
+      objectReference: {fileID: 11400000, guid: 6997808f98773424695702ea63fc9b90, type: 2}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: grid
       value: 
       objectReference: {fileID: 8790425709290464669}
-    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
-      propertyPath: testMovement
-      value: 
-      objectReference: {fileID: 1392597230}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: enemiesParent
       value: 
@@ -6419,10 +6415,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8790425707887277886}
     - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: fileReader
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1539259234, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: _buildingParent
       value: 
       objectReference: {fileID: 43752229}
@@ -6438,14 +6430,6 @@ PrefabInstance:
       propertyPath: _weaponToSetRangeTilemap
       value: 
       objectReference: {fileID: 423781332}
-    - target: {fileID: 1560579011, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: _grid
-      value: 
-      objectReference: {fileID: 8790425709290464669}
-    - target: {fileID: 1560579011, guid: 53f86975df848a6498226713f0708f58, type: 3}
-      propertyPath: _testMovement
-      value: 
-      objectReference: {fileID: 1392597230}
     - target: {fileID: 7439441737509163146, guid: 53f86975df848a6498226713f0708f58, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -6494,8 +6478,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapManager
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1560579011, guid: 53f86975df848a6498226713f0708f58, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f86975df848a6498226713f0708f58, type: 3}
 --- !u!4 &8790425707887277880
 Transform:

@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _orderToExecute: 0
   _dependencies: []
-  enemyPrefabs: []
+  enemyPrefabs:
+  - enemyInfo: {fileID: 11400000, guid: d340f290610dd6d4e9e3e2feeb9f2efe, type: 2}
+    enemyType: 0
+    enemyPrefab: {fileID: 3449160122288460457, guid: 34b794e2b0487e247945cbec723fdf1a, type: 3}
+    tileToFollow: {fileID: 11400000, guid: 853d012296733c34cb7338daf173e44c, type: 2}

@@ -31,7 +31,7 @@ namespace Presentation.Managers
 
         private List<Building> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
-
+        
         public void Init(EnemySpawnerInitData enemySpawnerInitData)
         {
             _enemySpawnerService = ServiceLocator.Instance.GetService<EnemySpawnerService>();
