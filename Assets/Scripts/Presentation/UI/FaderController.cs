@@ -2,6 +2,8 @@ using App.Events;
 using App.Models;
 using App.SceneManagement;
 using Presentation.LoadingScene;
+using Services.Popups;
+using Services.ScenesChanger;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -12,14 +14,14 @@ namespace Presentation.UI
     {
     
         [SerializeField] private CanvasFader _canvasFader;
-        private SceneChanger _sceneChanger;
+        private SceneChangerService _sceneChangerService;
         private AsyncOperation operationLoadingScene;
         private ISceneModel _sceneModel;
 
     
         void Start()
         {
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
             _canvasFader.OnFadeCompleted += InitializeLoadingScene;
 
@@ -37,8 +39,8 @@ namespace Presentation.UI
     
         private void ChangeToNextScene()
         {
-            _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
-            _sceneModel.NextScene = _sceneChanger.GetNextSceneFromCurrent();
+            _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
+            _sceneModel.NextScene = _sceneChangerService.GetNextSceneFromCurrent();
             StartTransition();
         }
 
@@ -52,8 +54,8 @@ namespace Presentation.UI
 
         private void ChangeToScene(string scene)
         {
-            _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
-            _sceneModel.NextScene = _sceneChanger.GetSceneDataByName(scene);
+            _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
+            _sceneModel.NextScene = _sceneChangerService.GetSceneDataByName(scene);
             StartTransition();
         }
     

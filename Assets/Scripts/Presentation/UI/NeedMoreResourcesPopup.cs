@@ -1,7 +1,6 @@
 using System;
 using App;
-using Presentation.Interfaces;
-using Presentation.Structs;
+using Services.Popups.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

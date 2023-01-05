@@ -6,7 +6,6 @@ using App.Models;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Presentation.Infrastructure.Scriptables;
-using Presentation.Structs;
 using UnityEngine;
 using Utils;
 namespace Presentation.Managers

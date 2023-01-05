@@ -1,9 +1,12 @@
 using System;
 using App;
 using App.Events;
-using Presentation.Interfaces;
 using Presentation.Managers;
+using Presentation.UI;
 using Presentation.UI.Menus;
+using Services.Popups;
+using Services.Popups.Interfaces;
+using Services.ResourcesManager;
 using UnityEngine;
 using Utils;
 
@@ -20,15 +23,15 @@ namespace Presentation
         [SerializeField] private float timeToShowNewRoundPopup = 3;
 
         private int _currentRound;
-        private ResourcesManager _resourcesManager;
-        private PopupManager _popupManager;
+        private ResourcesManagerService _resourcesManagerService;
+        private PopupGenerator _popupManager;
 
         public event Action OnPlayerHasBeenDefeated;
 
         private void Start()
         {
-            _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
-            _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
+            _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
+            _popupManager = ServiceLocator.Instance.GetService<PopupGenerator>();
         }
 
         public void StartNewRound()
@@ -58,8 +61,8 @@ namespace Presentation
             if (NeedToPlayMoreRounds())
             {
                 // //TODO CALCULATE QUANTITY TO ADD
-                // _resourcesManager.AddResources(RetrievableResourceType.Gold, 200);
-                var newRoundPopup = _popupManager.InstantiatePopup<NewRoundPopup>(PopupType.NewRound);
+                _resourcesManagerService.AddResources(RetrievableResourceType.Gold, 200);
+                var newRoundPopup = _popupManager.InstantiatePopup<NewRoundPopup>(PopupGenerator.PopupType.NewRound);
                 var closeablePopup = newRoundPopup.GetComponent<ICloseablePopup>();
                 enemySpawner.HideEnemies();
                 canvasPresenter.SetShowRangeButtonStatus(false);

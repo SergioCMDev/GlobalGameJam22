@@ -3,11 +3,11 @@ using System.Collections;
 using System.Globalization;
 using App;
 using App.Events;
-using App.SceneManagement;
-using App.Services;
 using DG.Tweening;
-using Presentation.Managers;
-using Presentation.Structs;
+using Services.ConstantsManager;
+using Services.Popups;
+using Services.ResourcesManager;
+using Services.ScenesChanger;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,12 +25,12 @@ namespace Presentation.UI.Menus
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
         [SerializeField] private Button _showRangeButton;
-        private SceneChanger _sceneChanger;
+        private SceneChangerService _sceneChangerService;
         private Constants _constants;
         private bool _skipTimer, _timerIsRunning;
 
-        private ResourcesManager _resourcesManager;
-        private PopupManager _popupManager;
+        private ResourcesManagerService _resourcesManagerOld;
+        private PopupGenerator _popupManager;
         private float _remainingTime;
         private SliderBarView _currentSliderBarView;
         private bool _stopSlider;
@@ -39,10 +39,10 @@ namespace Presentation.UI.Menus
 
         void Start()
         {
-            _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
-            _popupManager = ServiceLocator.Instance.GetService<PopupManager>();
-            _constants = ServiceLocator.Instance.GetService<ConstantsManager>().Constants;
+            _resourcesManagerOld = ServiceLocator.Instance.GetService<ResourcesManagerService>();
+            _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
+            _popupManager = ServiceLocator.Instance.GetService<PopupGenerator>();
+            _constants = ServiceLocator.Instance.GetService<ConstantsManagerService>().Constants;
             SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
 
@@ -59,7 +59,7 @@ namespace Presentation.UI.Menus
 
         private void GoToMainLevel()
         {
-            _changeToSpecificSceneEvent.SceneName = _sceneChanger.GetMainMenuSceneName();
+            _changeToSpecificSceneEvent.SceneName = _sceneChangerService.GetMainMenuSceneName();
             _changeToSpecificSceneEvent.Fire();
         }
 
@@ -100,14 +100,14 @@ namespace Presentation.UI.Menus
 
         private void SetInitialResources()
         {
-            _tmpText.SetText($" {_resourcesManager.GetGold()}");
+            _tmpText.SetText($" {_resourcesManagerOld.GetGold()}");
         }
         public void ShowWinMenu(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
 
-            var popupComponent = _popupManager.InstantiatePopup<PlayerHasWonPopup>(PopupType.PlayerHasWon);
-
+            var popupComponent = _popupManager.InstantiatePopup<PlayerHasWonPopup>(PopupGenerator.PopupType.PlayerHasWon);
+            
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.OnContinueButtonPressed += GoToNextLevel;
@@ -119,8 +119,8 @@ namespace Presentation.UI.Menus
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
-            var popupComponent = _popupManager.InstantiatePopup<PlayerHasLostPopup>(PopupType.PlayerHasLost);
-
+            var popupComponent = _popupManager.InstantiatePopup<PlayerHasLostPopup>(PopupGenerator.PopupType.PlayerHasLost);
+            
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.gameObject.SetActive(true);
@@ -129,7 +129,7 @@ namespace Presentation.UI.Menus
 
         public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, MilitaryBuildingType militaryBuildingType)
         {
-            var popUpInstance = _popupManager.InstantiatePopup<NeedMoreResourcesPopup>(PopupType.NeedMoreResources);
+            var popUpInstance = _popupManager.InstantiatePopup<NeedMoreResourcesPopup>(PopupGenerator.PopupType.NeedMoreResources);
             var popupComponent = popUpInstance.GetComponent<NeedMoreResourcesPopup>();
             popUpInstance.gameObject.SetActive(true);
             popupComponent.Init(resourcesNeeded, militaryBuildingType);

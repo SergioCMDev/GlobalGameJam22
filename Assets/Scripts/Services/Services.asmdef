@@ -1,0 +1,18 @@
+{
+    "name": "Services",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cdf8ed1d22cbee54d8c88eb6472ac74b",
+        "GUID:d87744c2f545875418e54c1ab1860da9",
+        "GUID:7c6578246a239434f99186a9f17fcf64"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

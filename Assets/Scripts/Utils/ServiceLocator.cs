@@ -15,6 +15,18 @@ namespace Utils
             _models = new Dictionary<Type, object>();
         }
     
+        //For GameLoader instantiation, we need to get the concrete type of each Service
+        public void RegisterService<T>(Type objectType, T service)
+        {
+            // Assert.IsFalse(_services.ContainsKey(type), 
+            //     $"Service {type} already registered");
+            if (_services.ContainsKey(objectType))
+            {
+                return;
+            }
+            _services.Add(objectType, service);
+        }
+        
         public void RegisterService<T>(T service)
         {
             var type = typeof(T);

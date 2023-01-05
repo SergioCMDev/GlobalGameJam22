@@ -4,12 +4,13 @@ using App;
 using App.Events;
 using Presentation.Hostiles;
 using Presentation.Managers;
+using Services.MilitaryBuilding;
 using UnityEngine;
 using Utils;
 
 namespace Presentation.Infrastructure
 {
-    public class MilitaryBuildingFacade : Building
+    public class MilitaryBuildingFacade : Building, IMilitaryBuilding
     {
         [SerializeField] private SfxSoundName _sfxWhenAttack;
         [SerializeField] private TextAsset basicAttackRangeFile;

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using App.SceneManagement;
-using App.Services;
 using Presentation.InputPlayer;
 using Presentation.Languages;
 using Presentation.Managers;
 using Presentation.MusicEmitter;
+using Services;
+using Services.GameData;
+using Services.Popups;
+using Services.ScenesChanger;
 using UnityEngine;
 using Utils;
 
@@ -21,7 +23,7 @@ namespace Presentation.UI.Menus
 
         private GameDataService _gameDataService;
         private ReadInputPlayer _readInputPlayer;
-        private SceneChanger _sceneChanger;
+        private SceneChangerService _sceneChangerOld;
         private ILanguageManager _languageManager;
         
         public event Action OnStartNewGame;
@@ -89,7 +91,7 @@ namespace Presentation.UI.Menus
             levelSelectorView.gameObject.SetActive(false);
             var levelView = levelViews.Single(x => x.levelId == _selectedLevelId);
             
-           var sceneName = _sceneChanger.GetSceneDataByName(levelView.sceneToLoad);
+           var sceneName = _sceneChangerOld.GetSceneDataByName(levelView.sceneToLoad);
            OnGoToSelectedScene?.Invoke(sceneName);
         }
 
@@ -98,7 +100,7 @@ namespace Presentation.UI.Menus
             _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
   
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            _sceneChangerOld = ServiceLocator.Instance.GetService<SceneChangerService>();
             
             _readInputPlayer.DisableGameplayInput();
             _readInputPlayer.EnableMenusInput();

@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Plugins.DOTween.Modules;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,4 +1,6 @@
 using App.SceneManagement;
+using Services.Popups;
+using Services.ScenesChanger;
 using UnityEngine;
 using Utils;
 
@@ -13,7 +15,7 @@ namespace Installers
         private void Awake()
         {
             _sceneChangerInstance = Instantiate(_sceneChangerPrefab);
-            ServiceLocator.Instance.RegisterService<SceneChanger>(_sceneChangerInstance.GetComponent<SceneChanger>());
+            ServiceLocator.Instance.RegisterService<SceneChangerService>(_sceneChangerInstance.GetComponent<SceneChangerService>());
         }
     }
 }

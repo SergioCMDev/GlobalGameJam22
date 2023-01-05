@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using App.Events;
-using App.SceneManagement;
-using App.Services;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Presentation.Managers;
+using Services;
+using Services.GameData;
+using Services.Popups;
+using Services.ScenesChanger;
 using UnityEngine;
 using Utils;
 
@@ -20,7 +22,7 @@ namespace Presentation
         [SerializeField] private RoundsController roundsController;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
         [SerializeField] private DeactivateUISlidersEvent deactivateUISlidersEvent;
-        private SceneChanger _sceneChanger;
+        private SceneChangerService _sceneChangerService;
         private GameDataService _gameDataService;
         private SoundManager _soundManager;
         private float _remainingTimeToWin;
@@ -50,7 +52,7 @@ namespace Presentation
 
         void Start()
         {
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             _soundManager = ServiceLocator.Instance.GetService<SoundManager>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
 
@@ -85,7 +87,7 @@ namespace Presentation
 
         public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
         {
-            _sceneChanger.RestartScene(levelEvent);
+            _sceneChangerService.RestartScene(levelEvent);
         }
 
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)
@@ -106,7 +108,7 @@ namespace Presentation
             StopGameCommonLogic();
 
             _soundManager.PlaySfx(SfxSoundName.PlayerWinLevel);
-            _gameDataService.SaveGame(_sceneChanger.GetCurrentSceneName());
+            _gameDataService.SaveGame(_sceneChangerService.GetCurrentSceneName());
         }
 
         private void StopGameCommonLogic()

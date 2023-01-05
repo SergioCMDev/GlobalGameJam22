@@ -3,6 +3,8 @@ using App.Models;
 using App.SceneManagement;
 using Presentation.LoadingScene;
 using Presentation.UI.Menus;
+using Services.Popups;
+using Services.ScenesChanger;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utils;
@@ -15,13 +17,13 @@ namespace Presentation.UI
         [SerializeField] private MusicSoundName _musicSoundName;
         [SerializeField] private CanvasFader _canvasFader;
         [SerializeField] private CanvasInitScenePresenter _canvasInitScenePresenter;
-        private SceneChanger _sceneChanger;
+        private SceneChangerService _sceneChangerService;
         private ISceneModel _sceneModel;
         private AsyncOperation operationLoadingScene;
 
         void Start()
         {
-            _sceneChanger = ServiceLocator.Instance.GetService<SceneChanger>();
+            _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
             _canvasInitScenePresenter.OnStartNewGame += StartNewGame;
             _canvasInitScenePresenter.OnGoToSelectedScene += GoToSelectedScene;
@@ -33,13 +35,13 @@ namespace Presentation.UI
 
         private void StartNewGame()
         {
-            var sceneName = _sceneChanger.GetFirstSceneName();
+            var sceneName = _sceneChangerService.GetFirstSceneName();
             GoToSelectedScene(sceneName);
         }
 
         private void GoToSelectedScene(string sceneToGo)
         {
-            _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
+            _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
             _sceneModel.NextScene = sceneToGo;
             _canvasFader.ActivateFader();
             operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
@@ -49,8 +51,8 @@ namespace Presentation.UI
         
         public void CompletedLevel()
         {
-            _sceneModel.PreviousScene = _sceneChanger.GetCurrentSceneName();
-            _sceneModel.NextScene = _sceneChanger.GetNextSceneFromCurrent();
+            _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
+            _sceneModel.NextScene = _sceneChangerService.GetNextSceneFromCurrent();
             _canvasFader.ActivateFader();
             operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
             operationLoadingScene.allowSceneActivation = false;

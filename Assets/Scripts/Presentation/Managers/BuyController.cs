@@ -2,6 +2,7 @@ using System;
 using App;
 using App.Events;
 using Presentation.Structs;
+using Services.ResourcesManager;
 using UnityEngine;
 using Utils;
 
@@ -11,7 +12,7 @@ namespace Presentation.Managers
     {
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private MilitaryBuildingType _currentMilitaryBuildingBuyType;
-        private ResourcesManager _resourcesManager;
+        private ResourcesManagerService _resourcesManagerService;
         private MilitaryBuildingManager _militaryBuildingManager;
 
         [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent _allowPlayerToSetBuildingInTilemapEvent;
@@ -23,7 +24,7 @@ namespace Presentation.Managers
         void Start()
         {
             _militaryBuildingManager = ServiceLocator.Instance.GetService<MilitaryBuildingManager>();
-            _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManager>();
+            _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _playerIsCurrentlyBuying = false;
         }
 
@@ -36,7 +37,7 @@ namespace Presentation.Managers
             _currentMilitaryBuildingBuyType = militaryBuildingType;
             resourcesNeededForCurrentBuy =
                 _militaryBuildingManager.GetResourcesForNextLevel(buildingsStatus.MilitaryBuildingType);
-            if (!_resourcesManager.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold))
+            if (!_resourcesManagerService.PlayerHasEnoughResources(resourcesNeededForCurrentBuy.Gold))
             {
                 OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, militaryBuildingType);
                 return;
@@ -47,7 +48,7 @@ namespace Presentation.Managers
 
         public void EndBuyCorrectly()
         {
-            _resourcesManager.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
+            _resourcesManagerService.RemoveResourcesOfPlayer(resourcesNeededForCurrentBuy);
             _playerIsCurrentlyBuying = false;
         }
 
