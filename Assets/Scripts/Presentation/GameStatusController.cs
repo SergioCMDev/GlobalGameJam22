@@ -49,7 +49,7 @@ namespace Presentation
         private EnemySpawner enemySpawner;
         private SceneChangerService _sceneChangerService;
         private GameDataService _gameDataService;
-        private SoundPlayer _soundPlayer;
+        // private SoundPlayer _soundPlayer;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
         private readonly List<Building> _buildings = new();
@@ -86,7 +86,7 @@ namespace Presentation
         void Start()
         {
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
-            _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
+            // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
 
             enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
@@ -138,7 +138,7 @@ namespace Presentation
 
         private void LostLogic()
         {
-            _soundPlayer.PlaySfx(SfxSoundName.PlayerLoseLevel);
+            // _soundPlayer.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
 
             StopGameCommonLogic();
@@ -166,7 +166,7 @@ namespace Presentation
 
             StopGameCommonLogic();
 
-            _soundPlayer.PlaySfx(SfxSoundName.PlayerWinLevel);
+            // _soundPlayer.PlaySfx(SfxSoundName.PlayerWinLevel);
             _gameDataService.SaveGame(_sceneChangerService.GetCurrentSceneName());
         }
 

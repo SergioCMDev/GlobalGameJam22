@@ -17,11 +17,11 @@ namespace Presentation.Managers
         [SerializeField] private BuyController _buyController;
         [SerializeField] private GridBuildingManager _gridBuildingManager;
 
-        private SoundPlayer _soundPlayer;
+        // private SoundPlayer _soundPlayer;
 
         void Start()
         {
-            _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
+            // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _canvasPresenter.OnPlayerWantsToSetBuildingInGrid += PlayerWantsToSetBuildingInGrid;
             _canvasPresenter.OnSystemCancelsBuy += CancelBuildingSetting;
             _gridBuildingManager.OnPlayerHasSetBuildingOnGrid += PlayerHasSetBuildingInGrid;
@@ -39,7 +39,7 @@ namespace Presentation.Managers
         
         private void PlayerHasCanceledSetBuildingInGrid()
         {
-            _soundPlayer.PlaySfx(SfxSoundName.BuyCanceled);
+            // _soundPlayer.PlaySfx(SfxSoundName.BuyCanceled);
 
             _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.BuyHasBeenCanceled();
@@ -47,7 +47,7 @@ namespace Presentation.Managers
 
         private void PlayerHasSetBuildingInGrid(MilitaryBuildingFacade militaryBuildingFacade)
         {
-            _soundPlayer.PlaySfx(SfxSoundName.BuildingHasBeenSet);
+            // _soundPlayer.PlaySfx(SfxSoundName.BuildingHasBeenSet);
 
             _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.EndBuyCorrectly();
@@ -69,7 +69,7 @@ namespace Presentation.Managers
         {
             _canvasPresenter.ShowNeedMoreResourcesPanel(resourcesNeeded, militaryBuildingType);
 
-            _soundPlayer.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
+            // _soundPlayer.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
         
             _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.BuyHasBeenCanceled();

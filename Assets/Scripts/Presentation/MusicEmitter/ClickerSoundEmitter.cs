@@ -8,7 +8,7 @@ namespace Presentation.MusicEmitter
 {
     public class ClickerSoundEmitter : MonoBehaviour
     {
-        private SoundPlayer _soundPlayer;
+        // private SoundPlayer _soundPlayer;
         private Button _button;
 
         private void Awake()
@@ -19,7 +19,7 @@ namespace Presentation.MusicEmitter
 
         private void PlayClickSound()
         {
-            _soundPlayer.PlaySfx(SfxSoundName.Press_Button);
+            // _soundPlayer.PlaySfx(SfxSoundName.Press_Button);
         }
 
         private void OnDestroy()
@@ -29,7 +29,7 @@ namespace Presentation.MusicEmitter
 
         void Start()
         {
-            _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
+            // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
         }
     }
 }

@@ -6242,12 +6242,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1862459512, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: loadablesSO.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1862459512, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
-      propertyPath: loadablesSO.Array.data[6]
+      propertyPath: loadablesSO.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: 6997808f98773424695702ea63fc9b90, type: 2}
+      objectReference: {fileID: 11400000, guid: 085d4dd6714010945ba4a1f9d8332c39, type: 2}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: grid
       value: 

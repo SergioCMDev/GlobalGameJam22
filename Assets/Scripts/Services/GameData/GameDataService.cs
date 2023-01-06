@@ -1,53 +1,56 @@
 ﻿using Domain;
+using UnityEngine;
 using Utils;
 
 namespace Services.GameData
 {
+    [CreateAssetMenu(fileName = "GameDataService",
+        menuName = "Loadable/Services/GameDataService")]
     public class GameDataService : LoadableComponent
-
     {
-    private readonly ILoader _loader;
-    private readonly ISaver _saver;
+        private ILoader _loader;
+        private ISaver _saver;
 
-    public GameDataService()
-    {
-        _loader = ServiceLocator.Instance.GetService<ILoader>();
-        _saver = ServiceLocator.Instance.GetService<ISaver>();
-    }
+        public GameDataService()
+        {
 
-    public bool HasStartedGame()
-    {
-        return _loader.HasSavedGame();
-    }
+        }
 
-    public void SaveGame(string lastCompletedScene)
-    {
-        var lastSavedGame = _loader.LoadGame() ?? new Savegame();
+        public bool HasStartedGame()
+        {
+            return _loader.HasSavedGame();
+        }
 
-        lastSavedGame.NameOfLastCompletedScene = lastCompletedScene;
-        var id = Utilities.GetNumberOfLevelString(lastCompletedScene);
+        public void SaveGame(string lastCompletedScene)
+        {
+            var lastSavedGame = _loader.LoadGame() ?? new Savegame();
 
-        lastSavedGame.IdOfLastCompletedScene = id;
-        _saver.SaveGame(lastSavedGame);
-    }
+            lastSavedGame.NameOfLastCompletedScene = lastCompletedScene;
+            var id = Utilities.GetNumberOfLevelString(lastCompletedScene);
 
-    public int GetIdOfLastLevelPlayed()
-    {
-        var lastPastLevel = _loader.LoadGame().IdOfLastCompletedScene;
+            lastSavedGame.IdOfLastCompletedScene = id;
+            _saver.SaveGame(lastSavedGame);
+        }
 
-        return lastPastLevel;
-    }
+        public int GetIdOfLastLevelPlayed()
+        {
+            var lastPastLevel = _loader.LoadGame().IdOfLastCompletedScene;
 
-    public string GetNameOfLastLevelPlayed()
-    {
-        var lastPastLevel = _loader.LoadGame().NameOfLastCompletedScene;
+            return lastPastLevel;
+        }
 
-        return lastPastLevel;
-    }
+        public string GetNameOfLastLevelPlayed()
+        {
+            var lastPastLevel = _loader.LoadGame().NameOfLastCompletedScene;
 
-    public override void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
+            return lastPastLevel;
+        }
+
+        public override void Execute()
+        {
+            _loader = ServiceLocator.Instance.GetService<ILoader>();
+            _saver = ServiceLocator.Instance.GetService<ISaver>();
+            // throw new System.NotImplementedException();
+        }
     }
 }

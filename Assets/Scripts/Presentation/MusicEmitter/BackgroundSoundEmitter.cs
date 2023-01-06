@@ -13,10 +13,10 @@ namespace Presentation.MusicEmitter
 
         void Start()
         {
-            _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
-
-            if (!_active) return;
-            _soundPlayer.PlayMusic(_backgroundSoundName);
+            // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
+            //
+            // if (!_active) return;
+            // _soundPlayer.PlayMusic(_backgroundSoundName);
         }
 
         public void StopMusic()
