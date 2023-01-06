@@ -1,26 +1,29 @@
-using App;
 using App.Buildings;
 using App.Events;
 using App.Resources;
 using Presentation.Infrastructure;
-using Presentation.Structs;
 using Presentation.UI.Menus;
 using UnityEngine;
-using Utils;
 
 namespace Presentation.Managers
 {
     public class UICanvasController : MonoBehaviour
     {
         [SerializeField] private CanvasPresenter _canvasPresenter;
+        [SerializeField] private GameStatusController gameStatusController;
+        [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent allowPlayerToSetBuildingInTilemapEvent;
 
-        [SerializeField] private BuyController _buyController;
-        [SerializeField] private GridBuildingManager _gridBuildingManager;
+        private BuyController _buyController;
+        private GridBuildingManager _gridBuildingManager;
 
         // private SoundPlayer _soundPlayer;
 
         void Start()
         {
+            _buyController = new BuyController();
+            _buyController.Init();
+            _buyController.OnAllowPlayerToSetBuildingInTilemap = AllowPlayerToSetBuildingInTilemap;
+            _gridBuildingManager = gameStatusController.GridBuildingManager;
             // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _canvasPresenter.OnPlayerWantsToSetBuildingInGrid += PlayerWantsToSetBuildingInGrid;
             _canvasPresenter.OnSystemCancelsBuy += CancelBuildingSetting;
@@ -28,15 +31,21 @@ namespace Presentation.Managers
             _gridBuildingManager.OnPlayerHasCanceledSetBuildingOnGrid += PlayerHasCanceledSetBuildingInGrid;
         }
 
-        
+        private void AllowPlayerToSetBuildingInTilemap(AllowPlayerToSetBuildingInTilemapData obj)
+        {
+            allowPlayerToSetBuildingInTilemapEvent.militaryBuildingType = obj.MilitaryBuildingType;
+            allowPlayerToSetBuildingInTilemapEvent.Prefab = obj.Prefab;
+            allowPlayerToSetBuildingInTilemapEvent.Fire();
+        }
+
         private void CancelBuildingSetting()
         {
             if (!_buyController.PlayerIsCurrentlyBuying) return;
-            
+
             _gridBuildingManager.CancelTakingPlace();
             _buyController.BuyHasBeenCanceled();
         }
-        
+
         private void PlayerHasCanceledSetBuildingInGrid()
         {
             // _soundPlayer.PlaySfx(SfxSoundName.BuyCanceled);
@@ -55,7 +64,8 @@ namespace Presentation.Managers
 
         private void PlayerWantsToSetBuildingInGrid(MilitaryBuildingType militaryBuildingType)
         {
-            _buyController.PlayerWantsToBuyBuilding(militaryBuildingType, OnPlayerNeedsMoreResources, OnPlayerCanBuyBuilding);
+            _buyController.PlayerWantsToBuyBuilding(militaryBuildingType, OnPlayerNeedsMoreResources,
+                OnPlayerCanBuyBuilding);
         }
 
         private void OnPlayerCanBuyBuilding(GameObject prefab, MilitaryBuildingType militaryBuildingType)
@@ -65,15 +75,15 @@ namespace Presentation.Managers
             _buyController.AllowPlayerToBuy(prefab, militaryBuildingType);
         }
 
-        private void OnPlayerNeedsMoreResources(ResourcesTuple resourcesNeeded, MilitaryBuildingType militaryBuildingType)
+        private void OnPlayerNeedsMoreResources(ResourcesTuple resourcesNeeded,
+            MilitaryBuildingType militaryBuildingType)
         {
             _canvasPresenter.ShowNeedMoreResourcesPanel(resourcesNeeded, militaryBuildingType);
 
             // _soundPlayer.PlaySfx(SfxSoundName.PlayerNeedsMoreResources);
-        
+
             _canvasPresenter.SetBuildingSelectableViewStatus(true);
             _buyController.BuyHasBeenCanceled();
         }
-    
     }
 }

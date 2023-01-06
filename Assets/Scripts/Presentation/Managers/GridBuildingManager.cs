@@ -1,8 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using App;
-using App.Events;
+using App.Buildings;
 using App.Info.Tuples;
 using Presentation.Infrastructure;
 using Presentation.Structs;
@@ -46,6 +46,7 @@ namespace Presentation.Managers
         public Building cityBuilding;
     }
 
+
     public class GridBuildingManager : MonoBehaviour
     {
         [SerializeField] private Tilemap _tilemap, _buildingTilemap, _weaponRangeTilemap, _weaponToSetRangeTilemap;
@@ -53,7 +54,6 @@ namespace Presentation.Managers
 
         [SerializeField] private Transform _buildingParent;
 
-        [SerializeField] private SaveBuildingEvent saveBuildingEvent;
         [SerializeField] private bool _showAttackZone;
 
         private Tile _red, white, green, blue, purple, empty;
@@ -72,38 +72,18 @@ namespace Presentation.Managers
         private List<TileDataEntity> _temporalBuildingCenterTileToDraw = new();
         private Camera _camera;
         private TileReaderService _tileReaderService;
-
+        private CoroutineExecutioner _coroutineExecutioner;
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
+        public event Action<GameObject> OnSaveBuilding;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
 
         public Dictionary<Vector3Int, TileDataEntity> WorldTileDictionary => _worldTileDictionaryBuildingTilemap;
 
-        private void Start()
-        {
-            _camera = Camera.main;
-            _tileReaderService = ServiceLocator.Instance.GetService<TileReaderService>();
-            // string tilePath = @"Tiles\";
-            //TODO LOAD FROM RESOURCES
-            _tileTypeBase.Add(TileType.Empty, _tileReaderService.GetTileByColor(TileColor.Empty));
-            _tileTypeBase.Add(TileType.White, _tileReaderService.GetTileByColor(TileColor.White));
-            // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
-            _tileTypeBase.Add(TileType.Green, _tileReaderService.GetTileByColor(TileColor.Green));
-            // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
-            // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
-            _tileTypeBase.Add(TileType.Red, _tileReaderService.GetTileByColor(TileColor.Red));
-            _tileTypeBase.Add(TileType.Blue, _tileReaderService.GetTileByColor(TileColor.Blue));
-            _tileTypeBase.Add(TileType.Purple, _tileReaderService.GetTileByColor(TileColor.Purple));
-
-            ReadWorld();
-
-
-            HideTemporalTileMap();
-        }
 
         //Used by ShowRange Button
-        public void StatusDrawingTurretRange(SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent)
+        public void StatusDrawingTurretRange(bool drawingStatus)
         {
-            if (setStatusDrawingTurretRangesEvent.drawingStatus)
+            if (drawingStatus)
             {
                 _weaponRangeTilemap.gameObject.SetActive(true);
                 DrawRangeSavedMilitaryBuildings();
@@ -115,14 +95,14 @@ namespace Presentation.Managers
             //TODO Limpiar tiles pintadas, relacionado con TODO e evitar usar BOUNDSINT
         }
 
-        public void AllowPlayerToSetBuildingInTilemap(AllowPlayerToSetBuildingInTilemapEvent tilemapEvent)
+        public void AllowPlayerToSetBuildingInTilemap(GameObject prefab, MilitaryBuildingType militaryBuildingType)
         {
             ShowTemporalTileMap();
             LoadMilitaryBuildings();
-            _building = Instantiate(tilemapEvent.Prefab, _buildingParent); //GET POOL
+            _building = GameObject.Instantiate(prefab, _buildingParent); //GET POOL
             _buildingFacadeComponent = _building.GetComponent<MilitaryBuildingFacade>();
             _buildingFacadeComponent.Initialize();
-            _buildingFacadeComponent.SetType(tilemapEvent.militaryBuildingType);
+            _buildingFacadeComponent.SetType(militaryBuildingType);
             _buildingFacadeComponent.Select();
             _buildingFacadeComponent.BuildingPlacementSetter.AddListeners();
             _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(true);
@@ -144,7 +124,6 @@ namespace Presentation.Managers
             _buildingFacadeComponent.ClearAttackTiles();
 
             Destroy(_building);
-
             OnPlayerHasCanceledSetBuildingOnGrid?.Invoke();
         }
 
@@ -160,10 +139,11 @@ namespace Presentation.Managers
         private void SetBuildingInGrid()
         {
             SaveBuilding();
+
             //TODO REMOVE THE ATTACK ZONE TO LEAVE WHITE ZONE SURROUNDING THE BUILDING
             _buildingFacadeComponent.BuildingPlacementSetter.OnCancelTakingPlace -= CancelTakingPlace;
             _buildingFacadeComponent.BuildingPlacementSetter.OnBuildingTriesToTakePlace -= BuildingTriesToTakePlace;
-            // _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
+            _buildingFacadeComponent.BuildingPlacementSetter.SetStatusChooserCanvas(false);
             _buildingFacadeComponent.ClearAttackTiles();
             // _temporalRangeTilesToDraw[0].GridPosition
             foreach (var tileDataEntity in _temporalRangeTilesToDraw)
@@ -187,8 +167,7 @@ namespace Presentation.Managers
             _buildingFacadeComponent.SetTilesToAttack(attackTiles);
             OnPlayerHasSetBuildingOnGrid?.Invoke(_buildingFacadeComponent);
             _buildingFacadeComponent = null;
-            saveBuildingEvent.Instance = _building;
-            saveBuildingEvent.Fire();
+            OnSaveBuilding?.Invoke(_building);
         }
 
         private List<TileDataEntity> GetAttackTilesOfBuilding(Vector3Int buildingPosition,
@@ -358,11 +337,11 @@ namespace Presentation.Managers
             var temporalObjectArea = GetObjectArea(buildingGridPosition, _currentBuildingArea);
             var buildingArray =
                 GetTilesBlock(temporalObjectArea, WorldTileDictionary);
-
             if (buildingArray.Count <= 0) return;
             var buildingCurrentTile = GetColourOfBuildingTiles(buildingArray, _currentBuildingArea);
             _currentObjectPosition = buildingGridPosition;
-            var colours = buildingCurrentTile.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour).ToList();
+            var colours = buildingCurrentTile.Select(x => x.TilemapColours[_buildingTilemap].CurrentColour)
+                .ToList();
             if (CanBePlacedHere(colours) && _showAttackZone)
             {
                 Debug.Log("Can Place");
@@ -681,12 +660,6 @@ namespace Presentation.Managers
             return list;
         }
 
-
-        public void ObjectHasMovedToNewTile(ObjectHasMovedToNewTileEvent tileEvent)
-        {
-            ObjectHasMovedToNewTile(tileEvent.Occupier, tileEvent.GridPositions);
-        }
-
         public void ObjectHasMovedToNewTile(GameObject occupier, GridPositionTuple tuplePosition)
         {
             if (tuplePosition.OldGridPosition == tuplePosition.NewGridPosition ||
@@ -719,6 +692,27 @@ namespace Presentation.Managers
             {
                 buildingsToReturn.Add(building.buildingFacadeComponent);
             }
+        }
+
+        public void Init()
+        {
+            _camera = Camera.main;
+            _tileReaderService = ServiceLocator.Instance.GetService<TileReaderService>();
+            // string tilePath = @"Tiles\";
+            //TODO LOAD FROM RESOURCES
+            _tileTypeBase.Add(TileType.Empty, _tileReaderService.GetTileByColor(TileColor.Empty));
+            _tileTypeBase.Add(TileType.White, _tileReaderService.GetTileByColor(TileColor.White));
+            // tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
+            _tileTypeBase.Add(TileType.Green, _tileReaderService.GetTileByColor(TileColor.Green));
+            // tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
+            // tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
+            _tileTypeBase.Add(TileType.Red, _tileReaderService.GetTileByColor(TileColor.Red));
+            _tileTypeBase.Add(TileType.Blue, _tileReaderService.GetTileByColor(TileColor.Blue));
+            _tileTypeBase.Add(TileType.Purple, _tileReaderService.GetTileByColor(TileColor.Purple));
+
+            ReadWorld();
+
+            HideTemporalTileMap();
         }
     }
 }

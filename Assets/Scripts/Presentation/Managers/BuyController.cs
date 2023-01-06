@@ -1,9 +1,6 @@
 using System;
-using App;
 using App.Buildings;
-using App.Events;
 using App.Resources;
-using Presentation.Structs;
 using Services.MilitaryBuilding;
 using Services.ResourcesManager;
 using UnityEngine;
@@ -11,27 +8,28 @@ using Utils;
 
 namespace Presentation.Managers
 {
-    public class BuyController : MonoBehaviour
+    public class BuyController
     {
         private ResourcesTuple resourcesNeededForCurrentBuy;
         private MilitaryBuildingType _currentMilitaryBuildingBuyType;
         private ResourcesManagerService _resourcesManagerService;
         private MilitaryBuildingService _militaryBuildingManager;
 
-        [SerializeField] private AllowPlayerToSetBuildingInTilemapEvent _allowPlayerToSetBuildingInTilemapEvent;
         private bool _playerIsCurrentlyBuying;
 
         public bool PlayerIsCurrentlyBuying => _playerIsCurrentlyBuying;
 
+        public Action<AllowPlayerToSetBuildingInTilemapData> OnAllowPlayerToSetBuildingInTilemap;
 
-        void Start()
+        public void Init()
         {
             _militaryBuildingManager = ServiceLocator.Instance.GetService<MilitaryBuildingService>();
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _playerIsCurrentlyBuying = false;
         }
 
-        public void PlayerWantsToBuyBuilding(MilitaryBuildingType militaryBuildingType, Action<ResourcesTuple, MilitaryBuildingType> OnPlayerNeedMoreResources, 
+        public void PlayerWantsToBuyBuilding(MilitaryBuildingType militaryBuildingType,
+            Action<ResourcesTuple, MilitaryBuildingType> OnPlayerNeedMoreResources,
             Action<GameObject, MilitaryBuildingType> OnPlayerCanBuyBuilding)
         {
             if (_playerIsCurrentlyBuying) return;
@@ -45,6 +43,7 @@ namespace Presentation.Managers
                 OnPlayerNeedMoreResources(resourcesNeededForCurrentBuy, militaryBuildingType);
                 return;
             }
+
             var prefab = _militaryBuildingManager.GetPrefabByBuildingType(_currentMilitaryBuildingBuyType);
             OnPlayerCanBuyBuilding.Invoke(prefab, militaryBuildingType);
         }
@@ -59,12 +58,20 @@ namespace Presentation.Managers
         {
             _playerIsCurrentlyBuying = false;
         }
-        
+
         public void AllowPlayerToBuy(GameObject prefab, MilitaryBuildingType militaryBuildingType)
         {
-            _allowPlayerToSetBuildingInTilemapEvent.Prefab = prefab;
-            _allowPlayerToSetBuildingInTilemapEvent.militaryBuildingType = militaryBuildingType;
-            _allowPlayerToSetBuildingInTilemapEvent.Fire();
+            OnAllowPlayerToSetBuildingInTilemap?.Invoke(new AllowPlayerToSetBuildingInTilemapData
+            {
+                Prefab = prefab,
+                MilitaryBuildingType = militaryBuildingType,
+            });
         }
     }
+}
+
+public struct AllowPlayerToSetBuildingInTilemapData
+{
+    public GameObject Prefab;
+    public MilitaryBuildingType MilitaryBuildingType;
 }

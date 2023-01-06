@@ -11,6 +11,8 @@ namespace Services
     public class GameLoader : MonoBehaviour
     {
         [SerializeField] private List<ScriptableObject> loadablesSO;
+        [SerializeField] private CoroutineExecutioner coroutineExecutioner;
+        private CoroutineExecutioner coroutineExecutionerInstance;
         private Dictionary<ILoadable, bool> loadableStatus;
 
         private void Start()
@@ -19,6 +21,8 @@ namespace Services
             InstantiateModels();
             RegisterDomainServices();
             ExecuteComponents(loadablesSO);
+            coroutineExecutionerInstance = Instantiate(coroutineExecutioner);
+            ServiceLocator.Instance.RegisterService<CoroutineExecutioner>(coroutineExecutionerInstance);
         }
 
         private void RegisterDomainServices()
@@ -32,7 +36,7 @@ namespace Services
         {
             ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
-            
+
             ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());
             ServiceLocator.Instance.RegisterModel<IBuildingStatusModel>(new BuildingStatusModel());
         }
@@ -69,6 +73,7 @@ namespace Services
                     ServiceLocator.Instance.RegisterService(interfaz, loadable);
                     continue;
                 }
+
                 ServiceLocator.Instance.RegisterService(objectType, loadable);
             }
         }
