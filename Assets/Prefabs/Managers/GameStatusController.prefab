@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: 1067263519}
   - component: {fileID: 3514134051319490170}
   - component: {fileID: 3724908388807952814}
+  - component: {fileID: 1251098893}
+  - component: {fileID: 1251098894}
+  - component: {fileID: 1251098895}
+  - component: {fileID: 5114082774825027227}
   m_Layer: 0
   m_Name: GameStatusController
   m_TagString: Untagged
@@ -55,18 +59,19 @@ MonoBehaviour:
   showLostMenuUIEvent: {fileID: 11400000, guid: b917dcef69f809e40991a20317458971, type: 2}
   deactivateMilitaryBuildingsEvent: {fileID: 11400000, guid: fa6a39982f6b29143b435d647d3cb86b, type: 2}
   deactivateUISlidersEvent: {fileID: 11400000, guid: ed2eee7cfd03c6645ad51d6005e51f84, type: 2}
-  activateMilitaryBuildingsEvent: {fileID: 0}
+  activateMilitaryBuildingsEvent: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
   startGame: 0
-  gridBuildingManager: {fileID: 0}
   positionToInstantiate: {x: 1, y: -4, z: 0}
   enemiesParent: {fileID: 0}
   instantiate: 0
   canvasPresenter: {fileID: 0}
-  numberOfRoundsPerLevel: 0
+  numberOfRoundsPerLevel: 4
   timeToDefendAgainstSlimes: 20
-  timeToAllowPlayerBuildsTurrets: 0
+  timeToAllowPlayerBuildsTurrets: 20
   timeToShowNewRoundPopup: 3
-  grid: {fileID: 0}
+  _grid: {fileID: 0}
+  saveBuildingEvent: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
+  _gridBuildingManager: {fileID: 0}
 --- !u!114 &1446073707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +166,122 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: ed51cff8da7302d47bb6a16b8e0aa336, type: 2}
           m_ObjectArgumentAssemblyTypeName: App.Events.PlayerHasLostLevelEvent, Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1251098893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
+        m_MethodName: AllowPlayerToSetBuildingInTilemap
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
+          m_ObjectArgumentAssemblyTypeName: App.Events.AllowPlayerToSetBuildingInTilemapEvent,
+            Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1251098894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 897e10854ebe2ba4189ec6b7ae733a7b, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
+        m_MethodName: ObjectHasMovedToNewTile
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 897e10854ebe2ba4189ec6b7ae733a7b, type: 2}
+          m_ObjectArgumentAssemblyTypeName: App.Events.ObjectHasMovedToNewTileEvent,
+            Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1251098895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: abc95d48bb0913f45ad2f71012b9af3a, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
+        m_MethodName: StatusDrawingTurretRange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: abc95d48bb0913f45ad2f71012b9af3a, type: 2}
+          m_ObjectArgumentAssemblyTypeName: App.Events.SetStatusDrawingTurretRangesEvent,
+            Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5114082774825027227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967238188201839982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 40595c44231b2b74ab2d1175c697f741, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4967238188201839983}
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
+        m_MethodName: SpawnEnemy
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 40595c44231b2b74ab2d1175c697f741, type: 2}
+          m_ObjectArgumentAssemblyTypeName: Presentation.Events.SpawnEnemyEvent,
+            Presentation
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

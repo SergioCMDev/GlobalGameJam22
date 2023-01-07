@@ -51,6 +51,7 @@ MonoBehaviour:
   _grid: {fileID: 0}
   _buildingParent: {fileID: 0}
   _showAttackZone: 1
+  cameraToUse: {fileID: 0}
 --- !u!1 &1801795195
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +407,6 @@ Transform:
   - {fileID: 1801795199}
   - {fileID: 4607602275525949917}
   - {fileID: 1718580900}
-  - {fileID: 5114082776250713144}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -431,26 +431,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5114082775752320199}
     m_Modifications:
-    - target: {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: enemySpawner
-      value: 
-      objectReference: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
-    - target: {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: canvasPresenter
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _numberOfRoundsPerLevel
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _timeToDefendAgainstSlimes
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _timeToAllowPlayerBuildsTurrets
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839980, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -500,63 +480,10 @@ PrefabInstance:
       value: GameStatusController
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: enemySpawner
-      value: 
-      objectReference: {fileID: 9075615966201424918, guid: 632c30ab6f3039a4fa4aefcbc6fd016d, type: 3}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: enemiesParent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: _showAttackZone
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: canvasPresenter
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: saveBuildingEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 2f603d4f67c6c9840b094ca5f0d48ed9, type: 2}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: gridBuildingManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: gridMovementManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _gridBuildingManager
       value: 
       objectReference: {fileID: 1718580901}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: numberOfRoundsPerLevel
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: positionToInstantiate.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: positionToInstantiate.y
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: activateMilitaryBuildingsEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 5484682ce698ac0448555025d81d6d5f, type: 2}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: timeToAllowPlayerBuildsTurrets
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-      propertyPath: buildingPositionTuples.Array.data[0].cityBuilding
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1320736020, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
 --- !u!4 &150857258164485301 stripped
 Transform:
@@ -568,192 +495,9 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
   m_PrefabInstance: {fileID: 5114082774368154073}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150857258164485303}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &150857258164485303 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4967238188201839982, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
-  m_PrefabInstance: {fileID: 5114082774368154073}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1251098893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150857258164485303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEventScriptable: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 150857258164485302}
-        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
-        m_MethodName: AllowPlayerToSetBuildingInTilemap
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 3b1bba97f999b264ab955dc325310b1e, type: 2}
-          m_ObjectArgumentAssemblyTypeName: App.Events.AllowPlayerToSetBuildingInTilemapEvent,
-            Application
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1251098894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150857258164485303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEventScriptable: {fileID: 11400000, guid: 897e10854ebe2ba4189ec6b7ae733a7b, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 150857258164485302}
-        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
-        m_MethodName: ObjectHasMovedToNewTile
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 897e10854ebe2ba4189ec6b7ae733a7b, type: 2}
-          m_ObjectArgumentAssemblyTypeName: App.Events.ObjectHasMovedToNewTileEvent,
-            Application
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1251098895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150857258164485303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEventScriptable: {fileID: 11400000, guid: abc95d48bb0913f45ad2f71012b9af3a, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 150857258164485302}
-        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
-        m_MethodName: StatusDrawingTurretRange
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: abc95d48bb0913f45ad2f71012b9af3a, type: 2}
-          m_ObjectArgumentAssemblyTypeName: App.Events.SetStatusDrawingTurretRangesEvent,
-            Application
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5114082774825027227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150857258164485303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEventScriptable: {fileID: 11400000, guid: 40595c44231b2b74ab2d1175c697f741, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 150857258164485302}
-        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
-        m_MethodName: SpawnEnemy
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 40595c44231b2b74ab2d1175c697f741, type: 2}
-          m_ObjectArgumentAssemblyTypeName: Presentation.Events.SpawnEnemyEvent,
-            Presentation
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!1001 &7244240490321468715
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5114082775752320199}
-    m_Modifications:
-    - target: {fileID: 2481599291609766161, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_Name
-      value: CoroutineExecutioner
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
---- !u!4 &5114082776250713144 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2481599291609766163, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
-  m_PrefabInstance: {fileID: 7244240490321468715}
-  m_PrefabAsset: {fileID: 0}

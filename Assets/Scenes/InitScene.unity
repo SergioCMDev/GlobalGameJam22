@@ -1574,14 +1574,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9120254812250125743, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
-      propertyPath: loadablesSO.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9120254812250125743, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
-      propertyPath: loadablesSO.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 085d4dd6714010945ba4a1f9d8332c39, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
 --- !u!114 &733043324071900758
@@ -2685,7 +2677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5755870801813575059
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2702,9 +2694,9 @@ RectTransform:
   m_Father: {fileID: 3305094091404927607}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 178.40547, y: -335.80002}
   m_SizeDelta: {x: 350, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5755870801813575070
