@@ -17,12 +17,13 @@ namespace Services
 
         private void Start()
         {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
             loadableStatus = new Dictionary<ILoadable, bool>();
             InstantiateModels();
             RegisterDomainServices();
             ExecuteComponents(loadablesSO);
             coroutineExecutionerInstance = Instantiate(coroutineExecutioner);
-            ServiceLocator.Instance.RegisterService<CoroutineExecutioner>(coroutineExecutionerInstance);
+            ServiceLocator.Instance.RegisterService(coroutineExecutionerInstance);
         }
 
         private void RegisterDomainServices()
