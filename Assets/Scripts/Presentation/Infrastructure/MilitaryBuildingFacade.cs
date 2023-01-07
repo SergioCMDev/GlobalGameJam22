@@ -145,7 +145,7 @@ namespace Presentation.Infrastructure
 
         public void ClearAttackTiles()
         {
-            tilesToAttack.Clear();
+            tilesToAttack?.Clear();
         }
 
         public bool ContainsTileToAttack(TileDataEntity tileDataEntity)

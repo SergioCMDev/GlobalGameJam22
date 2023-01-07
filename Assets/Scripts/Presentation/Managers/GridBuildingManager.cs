@@ -70,7 +70,7 @@ namespace Presentation.Managers
 
         private List<TileDataEntity> _temporalRangeTilesToDraw = new();
         private List<TileDataEntity> _temporalBuildingCenterTileToDraw = new();
-        private Camera _camera;
+        [SerializeField] private Camera cameraToUse;
         private TileReaderService _tileReaderService;
         private CoroutineExecutioner _coroutineExecutioner;
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
@@ -232,7 +232,7 @@ namespace Presentation.Managers
 
         private Vector3Int GetGridPositionByMouse(Vector3 inputMousePosition)
         {
-            Vector2 mousePosition = _camera.ScreenToWorldPoint(inputMousePosition);
+            Vector2 mousePosition = cameraToUse.ScreenToWorldPoint(inputMousePosition);
             Vector3Int gridPosition = _grid.LocalToCell(mousePosition);
             return gridPosition;
         }
@@ -696,7 +696,6 @@ namespace Presentation.Managers
 
         public void Init()
         {
-            _camera = Camera.main;
             _tileReaderService = ServiceLocator.Instance.GetService<TileReaderService>();
             // string tilePath = @"Tiles\";
             //TODO LOAD FROM RESOURCES

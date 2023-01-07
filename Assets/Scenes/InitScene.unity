@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1519,6 +1519,71 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &204714382069882524
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4064912484717097231, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_Name
+      value: InstallerMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064912484717097232, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120254812250125743, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: loadablesSO.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120254812250125743, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
+      propertyPath: loadablesSO.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 085d4dd6714010945ba4a1f9d8332c39, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41665b4383c133c4998b8fd990ffecdf, type: 3}
 --- !u!114 &733043324071900758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2107,7 +2172,6 @@ MonoBehaviour:
   - levelImage: {fileID: 21300000, guid: 23ca0bec6cda33c4299e10b542a6ebc8, type: 3}
     sceneToLoad: InitScene
     levelId: 1
-  backgroundSoundEmitter: {fileID: 5472085051940095049}
   levelSelectorView: {fileID: 1528948127}
 --- !u!222 &3696170242289743552
 CanvasRenderer:
@@ -2859,9 +2923,9 @@ RectTransform:
   m_Father: {fileID: 3305094091404927607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 178.40547, y: -105.73334}
   m_SizeDelta: {x: 350, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6515886294203889043
@@ -2884,7 +2948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &6515886294203889055
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Presentation.InputPlayer;
 using Presentation.Languages;
 using Presentation.Managers;
 using Presentation.MusicEmitter;
-using Services;
 using Services.GameData;
-using Services.Popups;
 using Services.ScenesChanger;
 using UnityEngine;
 using Utils;
@@ -18,11 +15,10 @@ namespace Presentation.UI.Menus
     {
         [SerializeField] private InitMenuView initMenuView;
         [SerializeField] private List<LevelViewInfo> levelViews;
-        [SerializeField] private BackgroundSoundEmitter backgroundSoundEmitter;
+        // [SerializeField] private BackgroundSoundEmitter backgroundSoundEmitter;
         [SerializeField] private LevelSelectorView levelSelectorView;
 
         private GameDataService _gameDataService;
-        private ReadInputPlayer _readInputPlayer;
         private SceneChangerService _sceneChangerOld;
         private ILanguageManager _languageManager;
         
@@ -87,7 +83,7 @@ namespace Presentation.UI.Menus
 
         private void StartSelectedLevel()
         {
-            backgroundSoundEmitter.StopMusic();
+            // backgroundSoundEmitter.StopMusic();
             levelSelectorView.gameObject.SetActive(false);
             var levelView = levelViews.Single(x => x.levelId == _selectedLevelId);
             
@@ -97,13 +93,9 @@ namespace Presentation.UI.Menus
 
         private void Start()
         {
-            _readInputPlayer = ServiceLocator.Instance.GetService<ReadInputPlayer>();
-  
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _sceneChangerOld = ServiceLocator.Instance.GetService<SceneChangerService>();
             
-            _readInputPlayer.DisableGameplayInput();
-            _readInputPlayer.EnableMenusInput();
             
             if (!_gameDataService.HasStartedGame())
             {
@@ -112,10 +104,7 @@ namespace Presentation.UI.Menus
             // _languageManager = ServiceLocator.Instance.GetService<ILanguageManager>();
             // _initMenuView.SetLanguage(_languageManager);
         }
-
-
-
-
+        
         private void ShowCreditsMenu()
         {
             Debug.Log("SHOT CREDITS");
@@ -132,13 +121,11 @@ namespace Presentation.UI.Menus
             initMenuView.EnableInput();
         }
 
-
         private void NewGame()
         {
-            if (OnStartNewGame == null) return;
-
-            backgroundSoundEmitter.StopMusic();
-            OnStartNewGame();
+            
+            // backgroundSoundEmitter.StopMusic();
+            OnStartNewGame?.Invoke();
         }
 
         private void ContinueGame()

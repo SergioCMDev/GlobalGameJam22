@@ -8,7 +8,6 @@ using Presentation.UI.Menus;
 using Services.GameData;
 using Services.ScenesChanger;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using Utils;
 
 namespace Presentation
