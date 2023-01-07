@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 5114082775752320199}
   - component: {fileID: 5114082775752320198}
   m_Layer: 0
-  m_Name: InstallerNEW
+  m_Name: InstallerGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

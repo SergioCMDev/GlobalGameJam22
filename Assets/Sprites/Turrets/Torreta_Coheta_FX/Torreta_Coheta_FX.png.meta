@@ -1,0 +1,1961 @@
+fileFormatVersion: 2
+guid: 55d830523ab436b4bade5c6a4566709b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX00
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 595600a8dc5eb2800800000000000000
+      internalID: 588816847248319893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX01
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5090fb0d2ea3b3b20800000000000000
+      internalID: 3115148313096030469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX02
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9069ea58138c5ecb0800000000000000
+      internalID: -4835238509890595319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX03
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 957039b4fd313cb40800000000000000
+      internalID: 5459229023069734745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX04
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b892a49b0e3fe10800000000000000
+      internalID: 2230373326896335624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX05
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34062ae292ea01bc0800000000000000
+      internalID: -3814357392483524541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX06
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47a351657e2758e90800000000000000
+      internalID: -7024081705907176844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX07
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 906d22faf05ca8e30800000000000000
+      internalID: 4506631048291079689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX08
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fc32c3479a391cf0800000000000000
+      internalID: -281129080382669576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX09
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 529
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf282563a9ca0d40800000000000000
+      internalID: 5551471194301542330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fda9121cdec10be0800000000000000
+      internalID: -1512700555227976200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX11
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1143eaba7132b9ed0800000000000000
+      internalID: -2406290991327857647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX12
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920c83d6dcbb4d6c0800000000000000
+      internalID: -4119461268162035671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX13
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3bdb5b41743eb5e0800000000000000
+      internalID: -1892017132248769729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX14
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 589748ce18d8de010800000000000000
+      internalID: 1219786663245674885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX15
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34ac0df8553c09590800000000000000
+      internalID: -7669415393159493053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX16
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d7bb4cf05602550800000000000000
+      internalID: 6134013810878152074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX17
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60f8d1f3ef56caae0800000000000000
+      internalID: -1536741230185181434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX18
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6134d969acb53a10800000000000000
+      internalID: 1888623054562799978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX19
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 463
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0e56f862c17f7e0800000000000000
+      internalID: -1731884579760512853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8625419c5da0a520800000000000000
+      internalID: 2711357588762863243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX21
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75da315a55094d770800000000000000
+      internalID: 8634685083092233559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX22
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1273c3df5172a6d0800000000000000
+      internalID: -2980695346977213924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX23
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c8a21bf1baaa9e60800000000000000
+      internalID: 7969870171983751361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX24
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba6f5af3e9da39b20800000000000000
+      internalID: 3140044260391646891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX25
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1130d26c9c71a0f60800000000000000
+      internalID: 8001233843357811473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX26
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 700b2070b95409280800000000000000
+      internalID: -9038647919992721401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX27
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70ea4882eccc29a60800000000000000
+      internalID: 7679425500435230215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX28
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0ac88b8568ff2020800000000000000
+      internalID: 2319345448135477772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX29
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 397
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d7bdf5f8dcf84b0800000000000000
+      internalID: -5435900209540661991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX30
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f00a76af61a574810800000000000000
+      internalID: 1749466034993602575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX31
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6583b98490be6dcb0800000000000000
+      internalID: -4839422324457654186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX32
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51f6bd01295cbbcf0800000000000000
+      internalID: -235377324368105707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX33
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebcc66454dc684e40800000000000000
+      internalID: 5640878192486436030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX34
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c4c43c2938b6f3f0800000000000000
+      internalID: -867303322527939385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX35
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21727387545dab3a0800000000000000
+      internalID: -6648767405512775918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX36
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 902a45da8cdb30fa0800000000000000
+      internalID: -5835612022542917111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX37
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3f090febbb28ea70800000000000000
+      internalID: 8856376753393307451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX38
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c4c6e499ca29ce70800000000000000
+      internalID: 9135880364372706503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX39
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 331
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79605e5dc04c59b00800000000000000
+      internalID: 834788865354303127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX40
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a66472aa95a78d910800000000000000
+      internalID: 1862372971443078762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX41
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09579f09a7fcf0760800000000000000
+      internalID: 7426382435882464656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX42
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f2a1af10856e2d0800000000000000
+      internalID: -3249813315587002570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX43
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d13913b60e4148db0800000000000000
+      internalID: -4790681149511724259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX44
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 319b6b1c1db694520800000000000000
+      internalID: 2686797201345526035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX45
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cf7a76af6a8cc530800000000000000
+      internalID: 3876625591398203336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX46
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a7d8aa68ff0278b0800000000000000
+      internalID: -5156041063770040414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX47
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa84980c6b320b520800000000000000
+      internalID: 2715709843125651626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX48
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fe8af55264575850800000000000000
+      internalID: 6365649379637497591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX49
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 265
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da7b4e688dd3fbf50800000000000000
+      internalID: 6899301154340255661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX50
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f6f066fc77098c50800000000000000
+      internalID: 6667868956589618929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX51
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f201d89d023178dd0800000000000000
+      internalID: -2483995637661757393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX52
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ca129e6da670ac0800000000000000
+      internalID: -3889022281944290263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX53
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c052ed8fd6a5b760800000000000000
+      internalID: 7473062635779543233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX54
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15509e6db8419e5b0800000000000000
+      internalID: -5338713292432407215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX55
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26502b60541029c70800000000000000
+      internalID: 8976238403279521122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX56
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f12a001f5ead30860800000000000000
+      internalID: 7495074886000353823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX57
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 589015fab199f2550800000000000000
+      internalID: 6138293161313765765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX58
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7649b6e1839f7dd0800000000000000
+      internalID: -2486106283154258308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX59
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 199
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0faf368c02c610380800000000000000
+      internalID: -9006798891707532560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX60
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df5713f6d929c31e0800000000000000
+      internalID: -2216735711700093443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX61
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11aca5dd844a10440800000000000000
+      internalID: 4900378502414125585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX62
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9954e312a1080e1d0800000000000000
+      internalID: -3323515675284191847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX63
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4039ecd9dac3ea690800000000000000
+      internalID: -7589061605698137340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX64
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4aca070a460e8d5f0800000000000000
+      internalID: -731588216654615388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX65
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d6d13f8ce31d3de0800000000000000
+      internalID: -1351902406405663019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX66
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562aae74be28c9210800000000000000
+      internalID: 1341090736085049957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX67
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba8c7b4faf4adb180800000000000000
+      internalID: -9097934274464069461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX68
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a47de003b3642e320800000000000000
+      internalID: 2585706356087379786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX69
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 133
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78835bdaa8e886af0800000000000000
+      internalID: -402915440378693497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX70
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dea11b4892b87c90800000000000000
+      internalID: -7171786039423291690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX71
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 958f11e2ba0e07e90800000000000000
+      internalID: -7029871992508385191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX72
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d5560cb7b474c40800000000000000
+      internalID: 5496444865109908820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX73
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74ba797d7dd272c70800000000000000
+      internalID: 8946169589853039431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX74
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14225f4145d21b070800000000000000
+      internalID: 8120321442277827137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX75
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38cfbc45d195bd840800000000000000
+      internalID: 5249887773142023299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX76
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d4059b06a32ed0f0800000000000000
+      internalID: -1090394863711222569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX77
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d9adf9389b20d710800000000000000
+      internalID: 1715919390836107735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX78
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c504f83af779d20800000000000000
+      internalID: 3285234793649822838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX79
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 67
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 396499a11e78d6b20800000000000000
+      internalID: 3129306716976006803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX80
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dbb4590f79dda850800000000000000
+      internalID: 6390002585949223892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX81
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ef326fa3d14a600800000000000000
+      internalID: 478539599482977845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torreta_Coheta_FX82
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 1
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8e8cd38df5c72240800000000000000
+      internalID: 4766996423224626826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Torreta_Coheta_FX61: 4900378502414125585
+      Torreta_Coheta_FX31: -4839422324457654186
+      Torreta_Coheta_FX56: 7495074886000353823
+      Torreta_Coheta_FX04: 2230373326896335624
+      Torreta_Coheta_FX55: 8976238403279521122
+      Torreta_Coheta_FX43: -4790681149511724259
+      Torreta_Coheta_FX58: -2486106283154258308
+      Torreta_Coheta_FX75: 5249887773142023299
+      Torreta_Coheta_FX27: 7679425500435230215
+      Torreta_Coheta_FX37: 8856376753393307451
+      Torreta_Coheta_FX19: -1731884579760512853
+      Torreta_Coheta_FX35: -6648767405512775918
+      Torreta_Coheta_FX14: 1219786663245674885
+      Torreta_Coheta_FX28: 2319345448135477772
+      Torreta_Coheta_FX41: 7426382435882464656
+      Torreta_Coheta_FX13: -1892017132248769729
+      Torreta_Coheta_FX80: 6390002585949223892
+      Torreta_Coheta_FX65: -1351902406405663019
+      Torreta_Coheta_FX09: 5551471194301542330
+      Torreta_Coheta_FX20: 2711357588762863243
+      Torreta_Coheta_FX38: 9135880364372706503
+      Torreta_Coheta_FX32: -235377324368105707
+      Torreta_Coheta_FX00: 588816847248319893
+      Torreta_Coheta_FX01: 3115148313096030469
+      Torreta_Coheta_FX10: -1512700555227976200
+      Torreta_Coheta_FX03: 5459229023069734745
+      Torreta_Coheta_FX26: -9038647919992721401
+      Torreta_Coheta_FX23: 7969870171983751361
+      Torreta_Coheta_FX29: -5435900209540661991
+      Torreta_Coheta_FX25: 8001233843357811473
+      Torreta_Coheta_FX49: 6899301154340255661
+      Torreta_Coheta_FX40: 1862372971443078762
+      Torreta_Coheta_FX77: 1715919390836107735
+      Torreta_Coheta_FX42: -3249813315587002570
+      Torreta_Coheta_FX53: 7473062635779543233
+      Torreta_Coheta_FX44: 2686797201345526035
+      Torreta_Coheta_FX78: 3285234793649822838
+      Torreta_Coheta_FX39: 834788865354303127
+      Torreta_Coheta_FX70: -7171786039423291690
+      Torreta_Coheta_FX22: -2980695346977213924
+      Torreta_Coheta_FX62: -3323515675284191847
+      Torreta_Coheta_FX59: -9006798891707532560
+      Torreta_Coheta_FX07: 4506631048291079689
+      Torreta_Coheta_FX21: 8634685083092233559
+      Torreta_Coheta_FX73: 8946169589853039431
+      Torreta_Coheta_FX64: -731588216654615388
+      Torreta_Coheta_FX24: 3140044260391646891
+      Torreta_Coheta_FX11: -2406290991327857647
+      Torreta_Coheta_FX71: -7029871992508385191
+      Torreta_Coheta_FX66: 1341090736085049957
+      Torreta_Coheta_FX16: 6134013810878152074
+      Torreta_Coheta_FX51: -2483995637661757393
+      Torreta_Coheta_FX69: -402915440378693497
+      Torreta_Coheta_FX74: 8120321442277827137
+      Torreta_Coheta_FX17: -1536741230185181434
+      Torreta_Coheta_FX15: -7669415393159493053
+      Torreta_Coheta_FX45: 3876625591398203336
+      Torreta_Coheta_FX76: -1090394863711222569
+      Torreta_Coheta_FX06: -7024081705907176844
+      Torreta_Coheta_FX82: 4766996423224626826
+      Torreta_Coheta_FX50: 6667868956589618929
+      Torreta_Coheta_FX46: -5156041063770040414
+      Torreta_Coheta_FX52: -3889022281944290263
+      Torreta_Coheta_FX05: -3814357392483524541
+      Torreta_Coheta_FX81: 478539599482977845
+      Torreta_Coheta_FX68: 2585706356087379786
+      Torreta_Coheta_FX57: 6138293161313765765
+      Torreta_Coheta_FX79: 3129306716976006803
+      Torreta_Coheta_FX47: 2715709843125651626
+      Torreta_Coheta_FX18: 1888623054562799978
+      Torreta_Coheta_FX72: 5496444865109908820
+      Torreta_Coheta_FX34: -867303322527939385
+      Torreta_Coheta_FX60: -2216735711700093443
+      Torreta_Coheta_FX02: -4835238509890595319
+      Torreta_Coheta_FX08: -281129080382669576
+      Torreta_Coheta_FX12: -4119461268162035671
+      Torreta_Coheta_FX33: 5640878192486436030
+      Torreta_Coheta_FX30: 1749466034993602575
+      Torreta_Coheta_FX36: -5835612022542917111
+      Torreta_Coheta_FX48: 6365649379637497591
+      Torreta_Coheta_FX54: -5338713292432407215
+      Torreta_Coheta_FX67: -9097934274464069461
+      Torreta_Coheta_FX63: -7589061605698137340
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
