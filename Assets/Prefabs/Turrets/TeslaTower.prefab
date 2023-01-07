@@ -295,7 +295,7 @@ MonoBehaviour:
   _chooserCanvas: {fileID: 2421303625745132521}
   _attackBehaviours:
   - AttackBehaviourSo: {fileID: 11400000, guid: b0022a3cb322cbe4e854942cff1342b2, type: 2}
-    EffectDataSo: {fileID: 11400000, guid: 69820576f1ab60f4fbaafb04253a7553, type: 2}
+    EffectDataSo: {fileID: 11400000, guid: d0708433be0813346aa3e308e359d598, type: 2}
   cadence: 5
 --- !u!1001 &1764062031498981087
 PrefabInstance:

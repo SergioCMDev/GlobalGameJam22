@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Globalization;
-using App;
 using App.Buildings;
 using App.Events;
 using App.Resources;
@@ -17,7 +16,7 @@ using Utils;
 
 namespace Presentation.UI.Menus
 {
-    public class CanvasPresenter : MonoBehaviour
+    public class CanvasFixedPresenter : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _tmpText, _roundInformation;
         [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
@@ -26,7 +25,7 @@ namespace Presentation.UI.Menus
         [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
-        [SerializeField] private Button showRangeButton, pauseButton;
+        [SerializeField] private Button _showRangeButton;
         private SceneChangerService _sceneChangerService;
         private Constants _constants;
         private bool _skipTimer, _timerIsRunning;
@@ -47,12 +46,8 @@ namespace Presentation.UI.Menus
             _constants = ServiceLocator.Instance.GetService<ConstantsManagerService>().Constants;
             SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
-            pauseButton.onClick.AddListener(ShowPauseMenu);
-            _stopSlider = false;
-        }
 
-        private void ShowPauseMenu()
-        {
+            _stopSlider = false;
         }
 
 
@@ -83,7 +78,7 @@ namespace Presentation.UI.Menus
         {
             SetBuildingSelectableViewStatus(false);
             OnPlayerWantsToSetBuildingInGrid?.Invoke(militaryBuildingType);
-            showRangeButton.gameObject.SetActive(false);
+            _showRangeButton.gameObject.SetActive(false);
         }
 
         public void SetBuildingSelectableViewStatus(bool status)
@@ -202,7 +197,7 @@ namespace Presentation.UI.Menus
 
         public void SetShowRangeButtonStatus(bool status)
         {
-            showRangeButton.gameObject.SetActive(status);
+            _showRangeButton.gameObject.SetActive(status);
         }
     }
 }

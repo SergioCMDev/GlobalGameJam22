@@ -17,7 +17,7 @@ namespace Presentation.Infrastructure.Scriptables.EffectBehaviour
         public override void Init(EffectDataSO effectDataSo)
         {
             MoneyToReceiveAfterHitEnemy = effectDataSo.moneyToReceiveAfterHitEnemy;
-            var convertedEffectData = effectDataSo as SlowDownMovementDuringTimeEffectDataSO;
+            var convertedEffectData = effectDataSo as SlowDownMovementDuringTimeEffectDataSo;
             
             if (convertedEffectData == null) return;
             _percentageToReduce = convertedEffectData.percentageToReduceSpeed;
