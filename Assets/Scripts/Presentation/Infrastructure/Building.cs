@@ -10,7 +10,6 @@ namespace Presentation.Infrastructure
 {
     public class Building : MonoBehaviour, IReceiveDamage, ILife
     {
-        [SerializeField] private SliderBarView _sliderBarView;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
 
         [SerializeField] protected float _maximumLife, _alphaWhenSelected = 0.475f;
@@ -50,8 +49,6 @@ namespace Presentation.Infrastructure
         private void UpdateLifeToMaximum()
         {
             _currentLife = _maximumLife;
-            _sliderBarView.SetMaxValue(_maximumLife);
-            UpdateLifeSliderBar();
         }
 
         public void Initialize()
@@ -76,15 +73,9 @@ namespace Presentation.Infrastructure
             AddLife(receiveLifeEvent.Life);
         }
 
-        private void UpdateLifeSliderBar()
-        {
-            _sliderBarView.SetValue(Life);
-        }
-
         public void ReceiveDamage(float receivedDamage)
         {
             Life -= receivedDamage;
-            UpdateLifeSliderBar();
             if (Life <= 0)
             {
                 DestroyBuilding();
@@ -103,8 +94,6 @@ namespace Presentation.Infrastructure
             {
                 Life = _maximumLife;
             }
-
-            UpdateLifeSliderBar();
         }
     }
 }
