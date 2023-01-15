@@ -35,7 +35,6 @@ namespace Services
 
         private void InstantiateModels()
         {
-            ServiceLocator.Instance.RegisterModel<IPlayerModel>(new PlayerModel());
             ServiceLocator.Instance.RegisterModel<ISceneModel>(new SceneModel());
 
             ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());

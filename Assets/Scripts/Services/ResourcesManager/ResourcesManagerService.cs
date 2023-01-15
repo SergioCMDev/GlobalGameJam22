@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using App;
 using App.Events;
 using App.Models;
 using App.Resources;
