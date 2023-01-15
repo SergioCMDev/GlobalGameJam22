@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using App.Events;
+using App.Resources;
 using Presentation.Events;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Presentation.Managers;
+using Presentation.UI;
 using Presentation.UI.Menus;
 using Services.GameData;
+using Services.ResourcesManager;
 using Services.ScenesChanger;
 using UnityEngine;
 using Utils;
@@ -30,7 +33,7 @@ namespace Presentation
 
         [Space] [Header("RoundsController")] [SerializeField]
         private CanvasPresenter canvasPresenter;
-        [SerializeField] private SlidersLogic slidersLogic;
+        [SerializeField] private SliderLogic sliderLogic;
         [SerializeField] private int numberOfRoundsPerLevel;
         [SerializeField] private float timeToDefendAgainstSlimes = 20, timeToAllowPlayerBuildsTurrets;
         [SerializeField] private float timeToShowNewRoundPopup = 3;
@@ -45,6 +48,7 @@ namespace Presentation
         private RoundsController _roundsController;
         private EnemySpawner _enemySpawner;
         private SceneChangerService _sceneChangerService;
+        private ResourcesManagerService _resourcesManagerService;
 
         private GameDataService _gameDataService;
 
@@ -97,6 +101,7 @@ namespace Presentation
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
+            _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
 
             _enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
 
@@ -126,7 +131,7 @@ namespace Presentation
             _roundsController.Init(new RoundsController.RoundsControllerInitData()
             {
                 CanvasPresenter = canvasPresenter,
-                SlidersLogic = slidersLogic,
+                SliderLogic = sliderLogic,
                 EnemySpawner = _enemySpawner,
                 NumberOfRoundsPerLevel = numberOfRoundsPerLevel,
                 TimeToDefendAgainstSlimes = timeToDefendAgainstSlimes,
@@ -136,6 +141,7 @@ namespace Presentation
 
             _gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
             if (!startGame) return;
+            _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
             _roundsController.StartNewRound();
         }
 
@@ -161,6 +167,7 @@ namespace Presentation
         {
             Time.timeScale = 1;
             _sceneChangerService.RestartScene();
+            _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
         }
         
         public void ExitedLevel(PlayerHasExitedLevelEvent _)

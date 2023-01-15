@@ -24,7 +24,6 @@ namespace Presentation.UI.Menus
             if (_slider.value <= 0)
             {
                 OnSliderReachZero?.Invoke();
-                OnSliderReachZero = null;
             }
 
             _fill.color = _gradient.Evaluate(_slider.normalizedValue);

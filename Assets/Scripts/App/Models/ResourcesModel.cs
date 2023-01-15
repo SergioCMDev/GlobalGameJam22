@@ -18,5 +18,10 @@ namespace App.Models
             Gold += quantity;
             //TODO USING SOLID
         }
+
+        public void OverrideResources(RetrievableResourceType type, int quantity)
+        {
+            Gold = quantity;
+        }
     }
 }

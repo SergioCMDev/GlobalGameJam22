@@ -20,11 +20,11 @@ namespace Presentation
             public float TimeToShowNewRoundPopup;
             public int NumberOfRoundsPerLevel;
             public EnemySpawner EnemySpawner;
-            public SlidersLogic SlidersLogic;
+            public SliderLogic SliderLogic;
         }
 
         private CanvasPresenter _canvasPresenter;
-        private SlidersLogic slidersLogic;
+        private SliderLogic sliderLogic;
         private float _timeToDefendAgainstSlimes = 20, _timeToAllowPlayerBuildsTurrets, _timeToShowNewRoundPopup = 3;
         private int _numberOfRoundsPerLevel;
         private EnemySpawner _enemySpawner;
@@ -42,7 +42,7 @@ namespace Presentation
             _popupManager = ServiceLocator.Instance.GetService<PopupGenerator>();
 
             _canvasPresenter = roundsControllerInitData.CanvasPresenter;
-            slidersLogic = roundsControllerInitData.SlidersLogic;
+            sliderLogic = roundsControllerInitData.SliderLogic;
             _timeToDefendAgainstSlimes = roundsControllerInitData.TimeToDefendAgainstSlimes;
             _timeToAllowPlayerBuildsTurrets = roundsControllerInitData.TimeToAllowPlayerBuildsTurrets;
             _timeToShowNewRoundPopup = roundsControllerInitData.TimeToShowNewRoundPopup;
@@ -54,9 +54,9 @@ namespace Presentation
         {
             _currentRound++;
             _canvasPresenter.UpdateRoundInformation(_currentRound, _numberOfRoundsPerLevel);
-            slidersLogic.SetBuilderTimerInitialValue(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
+            sliderLogic.SetSliderTimerInitialValues(_timeToAllowPlayerBuildsTurrets, ActivateEnemies);
 
-            slidersLogic.InitTimerLogic();
+            sliderLogic.InitTimerLogic();
             _canvasPresenter.SetBuildingSelectableViewStatus(true);
         }
 
@@ -66,8 +66,8 @@ namespace Presentation
 
             OnActivateMilitaryBuildings?.Invoke();
             _canvasPresenter.CancelPendingActivitiesOfPlayer();
-            slidersLogic.SetDefensiveTimerInitialValue(_timeToDefendAgainstSlimes, RoundEnded);
-            slidersLogic.InitTimerLogic();
+            sliderLogic.SetSliderTimerInitialValues(_timeToDefendAgainstSlimes, RoundEnded);
+            sliderLogic.InitTimerLogic();
             _canvasPresenter.SetBuildingSelectableViewStatus(false);
             _canvasPresenter.SetShowRangeButtonStatus(true);
         }

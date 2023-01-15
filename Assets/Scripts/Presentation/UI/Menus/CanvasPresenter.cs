@@ -22,7 +22,7 @@ namespace Presentation.UI.Menus
         [SerializeField] private PlayerHasExitedLevelEvent _playerHasExitedLevelEvent;
         [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
-        [SerializeField] private SlidersLogic slidersLogic;
+        [SerializeField] private SliderLogic sliderLogic;
         [SerializeField] private Button showRangeButton, pauseButton;
         private Constants _constants;
         private bool _skipTimer, _timerIsRunning;
@@ -56,6 +56,7 @@ namespace Presentation.UI.Menus
         private void ResumeLevel(GameObject popup)
         {
             Time.timeScale = 1;
+            sliderLogic.InitTimerLogic();
             popup.SetActive(false);
         }
 
@@ -167,7 +168,7 @@ namespace Presentation.UI.Menus
 
         private void StopGame()
         {
-            slidersLogic.StopTimerLogic();
+            sliderLogic.StopTimerLogic();
         }
 
         public void SetShowRangeButtonStatus(bool status)

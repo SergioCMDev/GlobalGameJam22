@@ -558,6 +558,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1354093165, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+      propertyPath: sliderLogic
+      value: 
+      objectReference: {fileID: 86697918}
     - target: {fileID: 1157913158378823252, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -692,7 +696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2570367743032666626, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -66.1
+      value: -66.100006
       objectReference: {fileID: 0}
     - target: {fileID: 2570367743656039921, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_IsActive
@@ -742,6 +746,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8015047309241183364, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 1405573572}
     - target: {fileID: 8319423877913932775, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -855,6 +863,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8790425709290464669}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: sliderLogic
+      value: 
+      objectReference: {fileID: 86697918}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: slidersLogic
       value: 
       objectReference: {fileID: 86697918}
@@ -866,6 +878,14 @@ PrefabInstance:
       propertyPath: canvasPresenter
       value: 
       objectReference: {fileID: 86697917}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: timeToDefendAgainstSlimes
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: timeToAllowPlayerBuildsTurrets
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: buildingPositionTuples.Array.data[0].cityBuilding
       value: 
@@ -3041,6 +3061,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1405573572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2966915129457814809, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+  m_PrefabInstance: {fileID: 86697916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f2e37ddb106644aa9aa511d78c7424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1518892970
 GameObject:
   m_ObjectHideFlags: 0
