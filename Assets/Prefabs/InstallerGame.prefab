@@ -480,6 +480,14 @@ PrefabInstance:
       value: GameStatusController
       objectReference: {fileID: 0}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: startGame
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: instantiate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _gridBuildingManager
       value: 
       objectReference: {fileID: 1718580901}
@@ -495,9 +503,43 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
   m_PrefabInstance: {fileID: 5114082774368154073}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 150857258164485303}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &150857258164485303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4967238188201839982, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+  m_PrefabInstance: {fileID: 5114082774368154073}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1287891809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150857258164485303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: 86ddca27b0a4dc248ad823430f7d4fb3, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 150857258164485302}
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
+        m_MethodName: ExitedLevel
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 86ddca27b0a4dc248ad823430f7d4fb3, type: 2}
+          m_ObjectArgumentAssemblyTypeName: App.Events.PlayerHasExitedLevelEvent,
+            Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

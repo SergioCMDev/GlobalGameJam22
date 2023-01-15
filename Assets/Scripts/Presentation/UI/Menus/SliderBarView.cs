@@ -8,7 +8,7 @@ namespace Presentation.UI.Menus
     {
         [SerializeField] private Slider _slider;
         [SerializeField] private Gradient _gradient;
-        [SerializeField] private Image _fill, _border;
+        [SerializeField] private Image _fill;
         public event Action OnSliderReachZero;
 
         public void SetMaxValue(float maxValue)
@@ -29,6 +29,5 @@ namespace Presentation.UI.Menus
 
             _fill.color = _gradient.Evaluate(_slider.normalizedValue);
         }
-        
     }
 }

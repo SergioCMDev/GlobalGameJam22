@@ -22,6 +22,7 @@ namespace Services.Popups
             PlayerHasLost,
             PlayerHasWon,
             NewRound,
+            Pause,
             TurretInformation,
             Empty
         }

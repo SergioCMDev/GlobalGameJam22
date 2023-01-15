@@ -9,11 +9,15 @@ namespace App.Models
         public BuildingStatusModel()
         {
             BuildStatusList = new List<BuildStatus>();
-           
         }
 
         public void AddBuilding(BuildStatus buildStatus)
         {
+            foreach (var buildStatusItem in BuildStatusList)
+            {
+                if(buildStatusItem.MilitaryBuildingType == buildStatus.MilitaryBuildingType)
+                    return;
+            }
             var item = new BuildStatus
             {
                 MilitaryBuildingType = buildStatus.MilitaryBuildingType,

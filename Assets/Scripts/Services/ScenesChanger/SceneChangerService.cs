@@ -13,6 +13,8 @@ namespace Services.ScenesChanger
         menuName = "Loadable/Services/SceneChangerService")]
     public class SceneChangerService : LoadableComponent
     {
+        [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
+
         [SerializeField] private List<SceneInfo> _levelsSceneInfoList;
         [SerializeField] private List<ConstantScenes> constantScenesList;
         
@@ -47,7 +49,7 @@ namespace Services.ScenesChanger
             SceneManager.LoadScene(nextSceneInfo.SceneName);
         }
 
-        public void RestartScene(PlayerHasRestartedLevelEvent restartedLevelEvent)
+        public void RestartScene()
         {
             SceneManager.LoadScene(SceneUtils.GetCurrentScene());
         }

@@ -30,7 +30,7 @@ namespace Presentation
 
         [Space] [Header("RoundsController")] [SerializeField]
         private CanvasPresenter canvasPresenter;
-
+        [SerializeField] private SlidersLogic slidersLogic;
         [SerializeField] private int numberOfRoundsPerLevel;
         [SerializeField] private float timeToDefendAgainstSlimes = 20, timeToAllowPlayerBuildsTurrets;
         [SerializeField] private float timeToShowNewRoundPopup = 3;
@@ -126,6 +126,7 @@ namespace Presentation
             _roundsController.Init(new RoundsController.RoundsControllerInitData()
             {
                 CanvasPresenter = canvasPresenter,
+                SlidersLogic = slidersLogic,
                 EnemySpawner = _enemySpawner,
                 NumberOfRoundsPerLevel = numberOfRoundsPerLevel,
                 TimeToDefendAgainstSlimes = timeToDefendAgainstSlimes,
@@ -156,9 +157,16 @@ namespace Presentation
             StopGameCommonLogic();
         }
 
-        public void RestartLevel(PlayerHasRestartedLevelEvent levelEvent)
+        public void RestartLevel(PlayerHasRestartedLevelEvent _)
         {
-            _sceneChangerService.RestartScene(levelEvent);
+            Time.timeScale = 1;
+            _sceneChangerService.RestartScene();
+        }
+        
+        public void ExitedLevel(PlayerHasExitedLevelEvent _)
+        {
+            Time.timeScale = 1;
+            _sceneChangerService.GoToMenu();
         }
 
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)

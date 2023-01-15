@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Globalization;
-using App;
 using App.Buildings;
 using App.Events;
 using App.Resources;
@@ -9,7 +7,6 @@ using DG.Tweening;
 using Services.ConstantsManager;
 using Services.Popups;
 using Services.ResourcesManager;
-using Services.ScenesChanger;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,41 +18,52 @@ namespace Presentation.UI.Menus
     {
         [SerializeField] private TextMeshProUGUI _tmpText, _roundInformation;
         [SerializeField] private ChangeToNextSceneEvent _changeToNextSceneEvent;
-        [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
         [SerializeField] private PlayerHasRestartedLevelEvent _playerHasRestartedLevelEvent;
+        [SerializeField] private PlayerHasExitedLevelEvent _playerHasExitedLevelEvent;
         [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
-        [SerializeField] private SliderBarView _builderTimer, _defensiveTimer;
+        [SerializeField] private SlidersLogic slidersLogic;
         [SerializeField] private Button showRangeButton, pauseButton;
-        private SceneChangerService _sceneChangerService;
         private Constants _constants;
         private bool _skipTimer, _timerIsRunning;
 
-        private ResourcesManagerService _resourcesManagerOld;
+        private ResourcesManagerService _resourcesManager;
         private PopupGenerator _popupManager;
-        private float _remainingTime;
-        private SliderBarView _currentSliderBarView;
-        private bool _stopSlider;
         public event Action<MilitaryBuildingType> OnPlayerWantsToSetBuildingInGrid;
         public event Action OnSystemCancelsBuy;
 
         void Start()
         {
-            _resourcesManagerOld = ServiceLocator.Instance.GetService<ResourcesManagerService>();
-            _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
+            _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _popupManager = ServiceLocator.Instance.GetService<PopupGenerator>();
             _constants = ServiceLocator.Instance.GetService<ConstantsManagerService>().Constants;
             SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
             pauseButton.onClick.AddListener(ShowPauseMenu);
-            _stopSlider = false;
         }
 
         private void ShowPauseMenu()
         {
+            StopGame();
+            Time.timeScale = 0;
+            var pausePopup = _popupManager.InstantiatePopup<PausePopup>(PopupGenerator.PopupType.Pause);
+            pausePopup.gameObject.SetActive(true);
+            pausePopup.OnQuitLevelClicked += GoToMainLevel;
+            pausePopup.OnRestartLevelClicked += RestartLevel;
+            pausePopup.OnResumeLevelClicked += ResumeLevel;
         }
 
+        private void ResumeLevel(GameObject popup)
+        {
+            Time.timeScale = 1;
+            popup.SetActive(false);
+        }
 
+        private void RestartLevel()
+        {
+            _playerHasRestartedLevelEvent.Fire();
+        }
+        
         //USED BY PointerDataEvent
         public void SetStatusDrawingTurretRanges(bool status)
         {
@@ -65,8 +73,7 @@ namespace Presentation.UI.Menus
 
         private void GoToMainLevel()
         {
-            _changeToSpecificSceneEvent.SceneName = _sceneChangerService.GetMainMenuSceneName();
-            _changeToSpecificSceneEvent.Fire();
+            _playerHasExitedLevelEvent.Fire();
         }
 
         private void RestartButtonPressedLevel()
@@ -100,24 +107,27 @@ namespace Presentation.UI.Menus
         private void UpdateResources(int resourcesEventPreviousQuantity, int resourcesEventCurrentQuantity)
         {
             var value = resourcesEventPreviousQuantity;
-            DOTween.To(() => value, x => value = x, resourcesEventCurrentQuantity, _constants.durationFloatIncrementTween)
+            DOTween.To(() => value, x => value = x, resourcesEventCurrentQuantity,
+                    _constants.durationFloatIncrementTween)
                 .OnUpdate(() => { _tmpText.SetText(value.ToString(CultureInfo.InvariantCulture)); });
         }
 
         private void SetInitialResources()
         {
-            _tmpText.SetText($" {_resourcesManagerOld.GetGold()}");
+            _tmpText.SetText($" {_resourcesManager.GetGold()}");
         }
+
         public void ShowWinMenu(ShowWinMenuUIEvent showWinMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
 
-            var popupComponent = _popupManager.InstantiatePopup<PlayerHasWonPopup>(PopupGenerator.PopupType.PlayerHasWon);
-            
+            var popupComponent =
+                _popupManager.InstantiatePopup<PlayerHasWonPopup>(PopupGenerator.PopupType.PlayerHasWon);
+
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.OnContinueButtonPressed += GoToNextLevel;
-            StopsTimerLogic();
+            StopGame();
             popupComponent.gameObject.SetActive(true);
             SetShowRangeButtonStatus(false);
         }
@@ -125,50 +135,24 @@ namespace Presentation.UI.Menus
         public void PlayerHasLost(ShowLostMenuUIEvent showLostMenuUIEvent)
         {
             SetBuildingSelectableViewStatus(false);
-            var popupComponent = _popupManager.InstantiatePopup<PlayerHasLostPopup>(PopupGenerator.PopupType.PlayerHasLost);
-            
+            var popupComponent =
+                _popupManager.InstantiatePopup<PlayerHasLostPopup>(PopupGenerator.PopupType.PlayerHasLost);
+
             popupComponent.OnRestartButtonPressed += RestartButtonPressedLevel;
             popupComponent.OnGoToMainMenuButtonPressed += GoToMainLevel;
             popupComponent.gameObject.SetActive(true);
             SetShowRangeButtonStatus(false);
         }
 
-        public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded, MilitaryBuildingType militaryBuildingType)
+        public void ShowNeedMoreResourcesPanel(ResourcesTuple resourcesNeeded,
+            MilitaryBuildingType militaryBuildingType)
         {
-            var popUpInstance = _popupManager.InstantiatePopup<NeedMoreResourcesPopup>(PopupGenerator.PopupType.NeedMoreResources);
+            var popUpInstance =
+                _popupManager.InstantiatePopup<NeedMoreResourcesPopup>(PopupGenerator.PopupType.NeedMoreResources);
             var popupComponent = popUpInstance.GetComponent<NeedMoreResourcesPopup>();
             popUpInstance.gameObject.SetActive(true);
             popupComponent.Init(resourcesNeeded, militaryBuildingType);
         }
-
-        public void SetBuilderTimerInitialValue(float time, Action onTimerHasEnded)
-        {
-            _builderTimer.SetMaxValue(time);
-
-            _remainingTime = time;
-            _currentSliderBarView = _builderTimer;
-            _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
-        }
-
-        public void SetDefensiveTimerInitialValue(float time, Action onTimerHasEnded)
-        {
-            _defensiveTimer.SetMaxValue(time);
-
-            _remainingTime = time;
-            _currentSliderBarView = _defensiveTimer;
-            _currentSliderBarView.OnSliderReachZero += () => onTimerHasEnded?.Invoke();
-        }
-
-        private IEnumerator StartSliderTimer()
-        {
-            do
-            {
-                _remainingTime -= Time.deltaTime;
-                _currentSliderBarView.SetValue(_remainingTime);
-                yield return null;
-            } while (_remainingTime > 0 & !_stopSlider);
-        }
-
 
         public void CancelPendingActivitiesOfPlayer()
         {
@@ -181,23 +165,9 @@ namespace Presentation.UI.Menus
             _roundInformation.SetText($"{currentRound}/{numberOfRoundsPerLevel}");
         }
 
-        public void InitTimerLogic()
+        private void StopGame()
         {
-            _currentSliderBarView.OnSliderReachZero += StopTimerLogic;
-            StartCoroutine(StartSliderTimer());
-        }
-        
-        public void StopsTimerLogic()
-        {
-            _currentSliderBarView.OnSliderReachZero -= StopTimerLogic;
-            _currentSliderBarView.enabled = false;
-            _stopSlider = true;
-            StopCoroutine(StartSliderTimer());
-        }
-
-        private void StopTimerLogic()
-        {
-            _currentSliderBarView.OnSliderReachZero -= StopTimerLogic;
+            slidersLogic.StopTimerLogic();
         }
 
         public void SetShowRangeButtonStatus(bool status)

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b926690741e4b7cb4ae946d31b40c69, type: 3}
   m_Name: SceneChangerService
   m_EditorClassIdentifier: 
-  _isService: 0
   _orderToExecute: 0
   _dependencies: []
+  _changeToSpecificSceneEvent: {fileID: 11400000, guid: 88a4b964054bc084db687831a41b25f9, type: 2}
   _levelsSceneInfoList:
   - SceneName: Level01
     SceneId: 1
