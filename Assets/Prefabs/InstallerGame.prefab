@@ -491,6 +491,14 @@ PrefabInstance:
       propertyPath: _gridBuildingManager
       value: 
       objectReference: {fileID: 1718580901}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: timeToDefendAgainstSlimes
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: timeToAllowPlayerBuildsTurrets
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
 --- !u!4 &150857258164485301 stripped
