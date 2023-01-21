@@ -4,6 +4,7 @@ using App.Resources;
 using Presentation.Events;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
+using Presentation.LoadingScene;
 using Presentation.Managers;
 using Presentation.UI;
 using Presentation.UI.Menus;
@@ -19,6 +20,7 @@ namespace Presentation
     {
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
+        [SerializeField] private SceneInitialFaderController sceneInitialFaderController;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
         [SerializeField] private DeactivateUISlidersEvent deactivateUISlidersEvent;
@@ -76,6 +78,7 @@ namespace Presentation
             _roundsController.OnPlayerHasBeenDefeated += LostLogic;
             _roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings += deactivateMilitaryBuildingsEvent.Fire;
+            sceneInitialFaderController.OnRemovingFadeEnds += InitGame;
         }
 
         private void ThrowSaveBuilding(GameObject obj)
@@ -140,8 +143,14 @@ namespace Presentation
             });
 
             _gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
-            if (!startGame) return;
             _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
+        }
+        
+        private void InitGame()
+        {
+            sceneInitialFaderController.OnRemovingFadeEnds -= InitGame;
+
+            if (!startGame) return;
             _roundsController.StartNewRound();
         }
 
@@ -173,6 +182,7 @@ namespace Presentation
         public void ExitedLevel(PlayerHasExitedLevelEvent _)
         {
             Time.timeScale = 1;
+            
             _sceneChangerService.GoToMenu();
         }
 

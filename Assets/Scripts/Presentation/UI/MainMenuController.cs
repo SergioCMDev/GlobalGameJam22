@@ -48,28 +48,21 @@ namespace Presentation.UI
             _canvasFader.ActivateFader();
             operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.NextScene, LoadSceneMode.Additive);
             operationLoadingScene.allowSceneActivation = false;
-            operationLoadingScene.completed += SceneLoaded1;   //ONCE THE SCENE IS ALLOWED TO ACTIVATE
+            operationLoadingScene.completed += SceneLoaded;   //ONCE THE SCENE IS ALLOWED TO ACTIVATE
         }
 
-        private void SceneLoaded1(AsyncOperation obj)
+        private void SceneLoaded(AsyncOperation obj)
         {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneModel.NextScene));
+            SceneManager.UnloadSceneAsync(_sceneModel.PreviousScene);
         }
 
-        private void SceneLoaded()
+        private void SceneLoadedProgressDone()
         {
             sceneLoaded = true;
             InitializeNewScene();
         }
         
-        // private void SceneLoaded(AsyncOperation obj)
-        // {
-        //     operationLoadingScene.completed -= SceneLoaded;
-        //
-        //     sceneLoaded = true;
-        //     InitializeNewScene();
-        // }
-
-
         private void FadeCompleted()
         {
             _canvasFader.OnFadeCompleted -= FadeCompleted;
@@ -91,7 +84,7 @@ namespace Presentation.UI
             Debug.Log($"Progress {progress}");
             if (progress == 100)
             {
-                SceneLoaded();
+                SceneLoadedProgressDone();
             }
             Debug.Log("F333");
         }
