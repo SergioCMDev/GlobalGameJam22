@@ -1,3 +1,4 @@
+using System;
 using App.Events;
 using App.Models;
 using App.SceneManagement;
@@ -20,6 +21,8 @@ namespace Presentation.UI
         private SceneChangerService _sceneChangerService;
         private ISceneModel _sceneModel;
         private AsyncOperation operationLoadingScene;
+        private bool sceneLoaded;
+        private bool fadedCompleted;
 
         void Start()
         {
@@ -29,8 +32,6 @@ namespace Presentation.UI
             _canvasInitScenePresenter.OnGoToSelectedScene += GoToSelectedScene;
             _playMusicEvent.soundName = _musicSoundName;
             _playMusicEvent.Fire();
-
-            _canvasFader.OnFadeCompleted += InitializeLoadingScene;
         }
 
         private void StartNewGame()
@@ -43,31 +44,56 @@ namespace Presentation.UI
         {
             _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
             _sceneModel.NextScene = sceneToGo;
+            _canvasFader.OnFadeCompleted += FadeCompleted;
             _canvasFader.ActivateFader();
-            operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
+            operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.NextScene, LoadSceneMode.Additive);
             operationLoadingScene.allowSceneActivation = false;
-            operationLoadingScene.completed += SceneLoaded;        
-        }
-        
-        public void CompletedLevel()
-        {
-            _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
-            _sceneModel.NextScene = _sceneChangerService.GetNextSceneFromCurrent();
-            _canvasFader.ActivateFader();
-            operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
-            operationLoadingScene.allowSceneActivation = false;
-            operationLoadingScene.completed += SceneLoaded;
-        }
-        
-        private void SceneLoaded(AsyncOperation obj)
-        {
-            operationLoadingScene.completed -= SceneLoaded;
-            Debug.Log("Completed LoadingScene");
+            operationLoadingScene.completed += SceneLoaded1;   //ONCE THE SCENE IS ALLOWED TO ACTIVATE
         }
 
-        private void InitializeLoadingScene()
+        private void SceneLoaded1(AsyncOperation obj)
         {
-            operationLoadingScene.allowSceneActivation = true;
+        }
+
+        private void SceneLoaded()
+        {
+            sceneLoaded = true;
+            InitializeNewScene();
+        }
+        
+        // private void SceneLoaded(AsyncOperation obj)
+        // {
+        //     operationLoadingScene.completed -= SceneLoaded;
+        //
+        //     sceneLoaded = true;
+        //     InitializeNewScene();
+        // }
+
+
+        private void FadeCompleted()
+        {
+            _canvasFader.OnFadeCompleted -= FadeCompleted;
+
+            fadedCompleted = true;
+            InitializeNewScene();
+        }
+
+        private void InitializeNewScene()
+        {
+            if (sceneLoaded && fadedCompleted)
+                operationLoadingScene.allowSceneActivation = true;
+        }
+
+        public void Update()
+        {
+            if (sceneLoaded || operationLoadingScene == null) return;
+            var progress = Mathf.Clamp01(operationLoadingScene.progress / 0.9f) * 100f;
+            Debug.Log($"Progress {progress}");
+            if (progress == 100)
+            {
+                SceneLoaded();
+            }
+            Debug.Log("F333");
         }
     }
 }

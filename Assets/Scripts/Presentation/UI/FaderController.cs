@@ -2,7 +2,6 @@ using App.Events;
 using App.Models;
 using App.SceneManagement;
 using Presentation.LoadingScene;
-using Services.Popups;
 using Services.ScenesChanger;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +11,6 @@ namespace Presentation.UI
 {
     public class FaderController : MonoBehaviour
     {
-    
         [SerializeField] private CanvasFader _canvasFader;
         private SceneChangerService _sceneChangerService;
         private AsyncOperation operationLoadingScene;
@@ -23,8 +21,6 @@ namespace Presentation.UI
         {
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
-            _canvasFader.OnFadeCompleted += InitializeLoadingScene;
-
         }
     
         public void ChangeToNextScene(ChangeToNextSceneEvent sceneEvent)
@@ -47,9 +43,17 @@ namespace Presentation.UI
         private void StartTransition()
         {
             _canvasFader.ActivateFader();
-            operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
+            operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.NextScene, LoadSceneMode.Additive);
+
+            // operationLoadingScene = SceneManager.LoadSceneAsync(_sceneModel.LoadingScene, LoadSceneMode.Single);
             operationLoadingScene.allowSceneActivation = false;
-            operationLoadingScene.completed += LoadingSceneLoaded;
+            operationLoadingScene.completed += NextSceneLoaded;
+        }
+        
+        private void NextSceneLoaded(AsyncOperation obj)
+        {
+            operationLoadingScene.completed -= NextSceneLoaded;
+            Debug.Log("Completed LoadingScene");
         }
 
         private void ChangeToScene(string scene)
@@ -59,22 +63,31 @@ namespace Presentation.UI
             StartTransition();
         }
     
-        private void InitializeLoadingScene()
+        private void InitializeNextScene()
         {
-            _canvasFader.OnFadeCompleted -= InitializeLoadingScene;
-
+            _canvasFader.OnFadeCompleted -= InitializeNextScene;
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneModel.NextScene));
+            SceneManager.UnloadSceneAsync(_sceneModel.PreviousScene);
             operationLoadingScene.allowSceneActivation = true;
+
+            _canvasFader.OnUnfadeCompleted += ChangeToNewScene;
+            _canvasFader.DeactivateFader();
         }
     
+        private void ChangeToNewScene()
+        {
+            _canvasFader.OnUnfadeCompleted -= ChangeToNewScene;
+            
+            // operationNextScene.allowSceneActivation = true;
+            // SceneManager.UnloadSceneAsync(_sceneModel.LoadingScene);
+            // _canvasFader.DeactivateUI();
+        }
+        
         private void OnDestroy()
         {
-            _canvasFader.OnFadeCompleted -= InitializeLoadingScene;
+            _canvasFader.OnFadeCompleted -= InitializeNextScene;
         }
     
-        private void LoadingSceneLoaded(AsyncOperation obj)
-        {
-            operationLoadingScene.completed -= LoadingSceneLoaded;
-            Debug.Log("Completed LoadingScene");
-        }
+
     }
 }
