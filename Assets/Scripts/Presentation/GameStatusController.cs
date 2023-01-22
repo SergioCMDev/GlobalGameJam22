@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using App.Events;
 using App.Resources;
@@ -26,7 +27,7 @@ namespace Presentation
         [SerializeField] private DeactivateUISlidersEvent deactivateUISlidersEvent;
         [SerializeField] private ActivateMilitaryBuildingsEvent activateMilitaryBuildingsEvent;
         [SerializeField] private ChangeToSpecificSceneEvent changeToSpecificSceneEvent;
-        
+
         [SerializeField] private bool startGame = false;
 
 
@@ -36,16 +37,17 @@ namespace Presentation
 
         [Space] [Header("RoundsController")] [SerializeField]
         private CanvasPresenter canvasPresenter;
+
         [SerializeField] private SliderLogic sliderLogic;
         [SerializeField] private int numberOfRoundsPerLevel;
         [SerializeField] private float timeToDefendAgainstSlimes = 20, timeToAllowPlayerBuildsTurrets;
         [SerializeField] private float timeToShowNewRoundPopup = 3;
-        
-        [Space] [Header("GridBuildingManager")]
-        [SerializeField] private Grid _grid;
-        
+
+        [Space] [Header("GridBuildingManager")] [SerializeField]
+        private Grid _grid;
+
         [SerializeField] private SaveBuildingEvent saveBuildingEvent;
-        
+
         [SerializeField] private GridBuildingManager _gridBuildingManager;
         private GridMovementManager _gridMovementManager;
         private RoundsController _roundsController;
@@ -146,16 +148,32 @@ namespace Presentation
             });
 
             _gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
-            _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
+            _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold,
+                _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
             _popupGenerator.UpdateCamera();
-            if (_gameStatusModel.GameStatus != GameStatus.RESTARTING) return;
-            InitGame();
-            AddFaderScene();
+            CheckGameStatus();
+        }
+
+        private void CheckGameStatus()
+        {
+            switch (_gameStatusModel.GameStatus)
+            {
+                case GameStatus.STARTING_FROM_SAME_SCENE:
+                case GameStatus.RESTARTING:
+                    InitGame();
+                    AddFaderScene();
+                    break;
+                case GameStatus.STARTING_FROM_MENU:
+                    InitGame();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void AddFaderScene()
         {
-            if (Utilities.SceneIsLoaded(_sceneChangerService.GetFaderSceneName())) return;
+            // if (Utilities.SceneIsLoaded(_sceneChangerService.GetFaderSceneName())) return;
             SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
         }
 
@@ -164,7 +182,6 @@ namespace Presentation
             if (!startGame) return;
             _roundsController.StartNewRound();
         }
-
 
         private void CityHasBeenDestroyed(Building building)
         {
@@ -188,15 +205,22 @@ namespace Presentation
             Time.timeScale = 1;
             _gameStatusModel.GameStatus = GameStatus.RESTARTING;
             _sceneChangerService.RestartScene();
-            _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
+            _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold,
+                _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
         }
-        
+
+        public void ChangeToNextScene(ChangeToNextSceneEvent _)
+        {
+            var sceneName = _sceneChangerService.GetNextSceneFromCurrent();
+            changeToSpecificSceneEvent.SceneName = sceneName;
+            changeToSpecificSceneEvent.Fire();
+        }
+
         public void FadeDisappearedEvent(FadeDisappearedEvent _)
         {
             InitGame();
-            
         }
-        
+
         public void ExitedLevel(PlayerHasExitedLevelEvent _)
         {
             Time.timeScale = 1;

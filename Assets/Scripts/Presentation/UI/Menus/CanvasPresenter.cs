@@ -7,6 +7,7 @@ using DG.Tweening;
 using Services.ConstantsManager;
 using Services.Popups;
 using Services.ResourcesManager;
+using Services.ScenesChanger;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +37,7 @@ namespace Presentation.UI.Menus
         {
             _resourcesManager = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _popupManager = ServiceLocator.Instance.GetService<PopupGenerator>();
+            
             _constants = ServiceLocator.Instance.GetService<ConstantsManagerService>().Constants;
             SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
@@ -85,6 +87,7 @@ namespace Presentation.UI.Menus
 
         private void GoToNextLevel()
         {
+            
             _changeToNextSceneEvent.Fire();
         }
 

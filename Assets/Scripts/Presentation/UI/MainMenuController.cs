@@ -14,10 +14,12 @@ namespace Presentation.UI
         [SerializeField] private CanvasInitScenePresenter canvasInitScenePresenter;
         [SerializeField] private ChangeToSpecificSceneEvent changeToSpecificSceneEvent;
         private SceneChangerService _sceneChangerService;
+        private IGameStatusModel _gameStatusModel;
 
         void Start()
         {
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
+            _gameStatusModel = ServiceLocator.Instance.GetModel<IGameStatusModel>();
             if (!Utilities.SceneIsLoaded(_sceneChangerService.GetFaderSceneName()))
             {
                 SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
@@ -29,16 +31,16 @@ namespace Presentation.UI
             // playMusicEvent.Fire();
         }
 
- 
-
         private void GoToSelectedScene(string sceneName)
         {
             changeToSpecificSceneEvent.SceneName = sceneName;
             changeToSpecificSceneEvent.Fire();
+            _gameStatusModel.GameStatus = GameStatus.STARTING_FROM_MENU;
         }
 
         private void StartNewGame()
         {
+            _gameStatusModel.GameStatus = GameStatus.STARTING_FROM_MENU;
             var sceneName = _sceneChangerService.GetFirstSceneName();
             changeToSpecificSceneEvent.SceneName = sceneName;
             changeToSpecificSceneEvent.Fire();

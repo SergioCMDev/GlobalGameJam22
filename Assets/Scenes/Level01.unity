@@ -876,6 +876,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+--- !u!114 &177713542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+  m_PrefabInstance: {fileID: 177713541}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177713543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &177713543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 150857258164485303, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+  m_PrefabInstance: {fileID: 177713541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &177713544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177713543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f881b66f1cd6e841a9fdbda0230521c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventScriptable: {fileID: 11400000, guid: e594dafef8cbee84d8fcc74aad088604, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 177713542}
+        m_TargetAssemblyTypeName: Presentation.GameStatusController, Presentation
+        m_MethodName: ChangeToNextScene
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: e594dafef8cbee84d8fcc74aad088604, type: 2}
+          m_ObjectArgumentAssemblyTypeName: App.Events.ChangeToNextSceneEvent, Application
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &180264987
 GameObject:
   m_ObjectHideFlags: 0
