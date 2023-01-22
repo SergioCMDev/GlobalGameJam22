@@ -91,15 +91,8 @@ namespace Services.Popups
             return _currentOpenedPopup != null && _currentlyOpenedType == popupType;
         }
 
-        public void UpdateCamera()
-        {
-            var cameraToSelect = Camera.main;
-            _camera = cameraToSelect;
-        }
-
         public override void Execute()
         {
-            UpdateCamera();
             _positionWhereSpawn = new GameObject().transform;
             _positionWhereSpawn.name = "PopupsContainer";
         }

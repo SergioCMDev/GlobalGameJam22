@@ -52,7 +52,6 @@ namespace Presentation
         private RoundsController _roundsController;
         private EnemySpawner _enemySpawner;
         private SceneChangerService _sceneChangerService;
-        private PopupGenerator _popupGenerator;
         private ResourcesManagerService _resourcesManagerService;
 
         private GameDataService _gameDataService;
@@ -107,7 +106,6 @@ namespace Presentation
             // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
-            _popupGenerator = ServiceLocator.Instance.GetService<PopupGenerator>();
             _gameStatusModel = ServiceLocator.Instance.GetModel<IGameStatusModel>();
 
             foreach (var cityBuilding in _buildings)
@@ -147,7 +145,6 @@ namespace Presentation
             _gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
             _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold,
                 _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
-            _popupGenerator.UpdateCamera();
             CheckGameStatus();
         }
 
