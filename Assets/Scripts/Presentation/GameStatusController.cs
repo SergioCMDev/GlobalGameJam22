@@ -20,7 +20,7 @@ namespace Presentation
     {
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
-        [SerializeField] private SceneInitialFaderController sceneInitialFaderController;
+        [SerializeField] private SceneFaderController sceneFaderController;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
         [SerializeField] private DeactivateUISlidersEvent deactivateUISlidersEvent;
@@ -58,7 +58,7 @@ namespace Presentation
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
         private readonly List<Building> _buildings = new();
-
+        private IGameStatusModel _gameStatusModel;
         public GridBuildingManager GridBuildingManager => _gridBuildingManager;
 
         private void Awake()
@@ -78,7 +78,7 @@ namespace Presentation
             _roundsController.OnPlayerHasBeenDefeated += LostLogic;
             _roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings += deactivateMilitaryBuildingsEvent.Fire;
-            sceneInitialFaderController.OnRemovingFadeEnds += InitGame;
+            sceneFaderController.OnRemovingFadeEnds += InitGame;
         }
 
         private void ThrowSaveBuilding(GameObject obj)
@@ -105,6 +105,7 @@ namespace Presentation
             // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
+            _gameStatusModel = ServiceLocator.Instance.GetModel<IGameStatusModel>();
 
             _enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
 
@@ -144,11 +145,19 @@ namespace Presentation
 
             _gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
             _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
+
+            if (_gameStatusModel.GameStatus == GameStatus.RESTARTING)
+            {
+                sceneFaderController.HideImages();
+                InitGame();
+                return;
+            }
+            sceneFaderController.RemoveFade();
         }
         
         private void InitGame()
         {
-            sceneInitialFaderController.OnRemovingFadeEnds -= InitGame;
+            sceneFaderController.OnRemovingFadeEnds -= InitGame;
 
             if (!startGame) return;
             _roundsController.StartNewRound();
@@ -175,6 +184,7 @@ namespace Presentation
         public void RestartLevel(PlayerHasRestartedLevelEvent _)
         {
             Time.timeScale = 1;
+            _gameStatusModel.GameStatus = GameStatus.RESTARTING;
             _sceneChangerService.RestartScene();
             _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
         }

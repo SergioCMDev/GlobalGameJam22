@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using App.Models;
 using Domain;
+using Presentation;
 using Services.Utils;
 using UnityEngine;
 using Utils;
@@ -39,6 +40,7 @@ namespace Services
 
             ServiceLocator.Instance.RegisterModel<IResourcesModel>(new ResourcesModel());
             ServiceLocator.Instance.RegisterModel<IBuildingStatusModel>(new BuildingStatusModel());
+            ServiceLocator.Instance.RegisterModel<IGameStatusModel>(new GameStatusModel());
         }
 
         private void ExecuteComponents(List<ScriptableObject> list)

@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Presentation.LoadingScene
 {
@@ -11,7 +10,7 @@ namespace Presentation.LoadingScene
         [SerializeField] private float upImageMovementToDown, downImageMovementToUp;
         public event Action OnFadeCompleted;
         public event Action OnUnfadeCompleted;
-        [SerializeField] private float _fadeDuration, _unfadeDuration = 2f;
+        [SerializeField] private float _fadeDuration, _unfadeDuration;
 
         // [SerializeField] private Image _fader;
         private Sequence sequence;
@@ -74,6 +73,12 @@ namespace Presentation.LoadingScene
         {
             sequence.onComplete -= InvokeUnFadeCompleted; 
             OnUnfadeCompleted.Invoke();
+        }
+
+        public void StatusImages(bool status)
+        {
+            upImage.gameObject.SetActive(status);
+            downImage.gameObject.SetActive(status);
         }
     }
 }

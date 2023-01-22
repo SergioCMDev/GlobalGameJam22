@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9323292de8e21bb498d71b79bfd8b773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playMusicEvent: {fileID: 11400000, guid: 4ec0d10ab46fbb640ba658333e5fced7, type: 2}
-  _musicSoundName: 0
-  _canvasFader: {fileID: 0}
-  _canvasInitScenePresenter: {fileID: 0}
+  playMusicEvent: {fileID: 11400000, guid: 4ec0d10ab46fbb640ba658333e5fced7, type: 2}
+  musicSoundName: 0
+  canvasInitScenePresenter: {fileID: 0}
+  sceneFaderController: {fileID: 0}

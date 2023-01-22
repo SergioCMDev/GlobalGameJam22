@@ -17,12 +17,9 @@ namespace Installers
 
         private GameObject _readInputPlayerInstance,
             _soundManagerInstance
-
             ;
 
         private bool _initialized;
-
-        private bool Initialized => _initialized;
 
 
 
