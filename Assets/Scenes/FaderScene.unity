@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasFader: {fileID: 5062933703574930016}
+  removedFadeEvent: {fileID: 11400000, guid: 930c9a8861735634482c5a5a144a952f, type: 2}
 --- !u!4 &306721457
 Transform:
   m_ObjectHideFlags: 0
@@ -388,7 +389,7 @@ GameObject:
   - component: {fileID: 2003939041}
   m_Layer: 0
   m_Name: Main CameraFader
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,8 +550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upImage: {fileID: 5062933703075665746}
   downImage: {fileID: 946041475}
-  upImageMovementToDown: 1
-  downImageMovementToUp: 1
+  upImageMovementToDown: 500
+  downImageMovementToUp: 500
   _fadeDuration: 2
   _unfadeDuration: 2
 --- !u!1 &5062933703574930017

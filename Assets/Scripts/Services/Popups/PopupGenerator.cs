@@ -1,7 +1,9 @@
 using System;
 using Services.Popups.Events;
 using Services.Popups.Interfaces;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Services.Popups
 {
@@ -60,7 +62,7 @@ namespace Services.Popups
                 canvas.sortingOrder = _currentSortingOrder + 1;
             }
 
-            canvas.worldCamera = _camera;
+            canvas.worldCamera = Camera.main;
             _currentSortingOrder = canvas.sortingOrder;
             _currentlyOpenedType = popupType;
             return _currentOpenedPopup;
@@ -89,9 +91,27 @@ namespace Services.Popups
             return _currentOpenedPopup != null && _currentlyOpenedType == popupType;
         }
 
+        public void UpdateCamera()
+        {
+            var cameraToSelect = Camera.main;
+            _camera = cameraToSelect;
+
+        }
+
         public override void Execute()
         {
-            _camera = UnityEngine.Camera.main;
+            // foreach (var camera in Camera.allCameras)
+            // {
+            //     SceneManager.GetActiveScene().
+            //     if (camera.scene.name.Contains("Fader"))
+            //     {
+            //         continue;
+            //     }
+            //
+            //     cameraToSelect = camera;
+            // }
+
+            UpdateCamera();
             _positionWhereSpawn = new GameObject().transform;
             _positionWhereSpawn.name = "PopupsContainer";
         }

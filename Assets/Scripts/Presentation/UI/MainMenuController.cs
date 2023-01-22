@@ -12,19 +12,24 @@ namespace Presentation.UI
         [SerializeField] private PlayMusicEvent playMusicEvent;
         [SerializeField] private MusicSoundName musicSoundName;
         [SerializeField] private CanvasInitScenePresenter canvasInitScenePresenter;
-        private SceneChangerService _sceneChangerService;
         [SerializeField] private ChangeToSpecificSceneEvent changeToSpecificSceneEvent;
+        private SceneChangerService _sceneChangerService;
 
         void Start()
         {
-
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
-            var operationLoadingScene = SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
+            if (!Utilities.SceneIsLoaded(_sceneChangerService.GetFaderSceneName()))
+            {
+                SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
+            }
+            
             canvasInitScenePresenter.OnStartNewGame += StartNewGame;
             canvasInitScenePresenter.OnGoToSelectedScene += GoToSelectedScene;
-            playMusicEvent.soundName = musicSoundName;
-            playMusicEvent.Fire();
+            // playMusicEvent.soundName = musicSoundName;
+            // playMusicEvent.Fire();
         }
+
+ 
 
         private void GoToSelectedScene(string sceneName)
         {

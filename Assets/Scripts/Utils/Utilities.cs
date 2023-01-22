@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace Utils
@@ -100,6 +101,20 @@ namespace Utils
                 lastCompletedScene.LastIndexOf('l') + 1; //Scenes must be named LevelXX where XX is the Id of the level
             var id = lastCompletedScene.Substring(lastPositionOfL, lastCompletedScene.Length - lastPositionOfL);
             return Int32.Parse(id);
+        }
+
+        public static bool SceneIsLoaded(string sceneName)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (scene.name == sceneName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

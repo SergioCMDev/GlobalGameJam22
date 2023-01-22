@@ -17,7 +17,7 @@ namespace Presentation.UI
         private ISceneModel _sceneModel;
         private SceneChangerService _sceneChangerService;
         private AsyncOperation operationLoadingScene;
-        public event Action OnRemovingFadeEnds;
+        public FadeDisappearedEvent removedFadeEvent;
 
         void Start()
         {
@@ -30,7 +30,7 @@ namespace Presentation.UI
             GoToSelectedScene(specificSceneEvent.SceneName);
         }
 
-        public void GoToSelectedScene(string sceneToGo)
+        private void GoToSelectedScene(string sceneToGo)
         {
             _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
             _sceneModel.NextScene = sceneToGo;
@@ -90,9 +90,7 @@ namespace Presentation.UI
         private void RemoveFadeEnds()
         {
             _canvasFader.OnUnfadeCompleted -= RemoveFadeEnds;
-            SceneManager.UnloadSceneAsync(_sceneChangerService.GetFaderSceneName());
-
-            // OnRemovingFadeEnds?.Invoke();
+            removedFadeEvent.Fire();
         }
 
         public void HideImages()

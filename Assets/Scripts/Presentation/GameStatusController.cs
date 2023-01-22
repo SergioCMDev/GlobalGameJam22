@@ -4,14 +4,15 @@ using App.Resources;
 using Presentation.Events;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
-using Presentation.LoadingScene;
 using Presentation.Managers;
 using Presentation.UI;
 using Presentation.UI.Menus;
 using Services.GameData;
+using Services.Popups;
 using Services.ResourcesManager;
 using Services.ScenesChanger;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Presentation
@@ -20,12 +21,12 @@ namespace Presentation
     {
         [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
-        [SerializeField] private SceneFaderController sceneFaderController;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
         [SerializeField] private DeactivateUISlidersEvent deactivateUISlidersEvent;
         [SerializeField] private ActivateMilitaryBuildingsEvent activateMilitaryBuildingsEvent;
-
+        [SerializeField] private ChangeToSpecificSceneEvent changeToSpecificSceneEvent;
+        
         [SerializeField] private bool startGame = false;
 
 
@@ -50,6 +51,7 @@ namespace Presentation
         private RoundsController _roundsController;
         private EnemySpawner _enemySpawner;
         private SceneChangerService _sceneChangerService;
+        private PopupGenerator _popupGenerator;
         private ResourcesManagerService _resourcesManagerService;
 
         private GameDataService _gameDataService;
@@ -78,7 +80,6 @@ namespace Presentation
             _roundsController.OnPlayerHasBeenDefeated += LostLogic;
             _roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings += deactivateMilitaryBuildingsEvent.Fire;
-            sceneFaderController.OnRemovingFadeEnds += InitGame;
         }
 
         private void ThrowSaveBuilding(GameObject obj)
@@ -105,6 +106,7 @@ namespace Presentation
             // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
+            _popupGenerator = ServiceLocator.Instance.GetService<PopupGenerator>();
             _gameStatusModel = ServiceLocator.Instance.GetModel<IGameStatusModel>();
 
             _enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
@@ -145,20 +147,20 @@ namespace Presentation
 
             _gridBuildingManager.SetCitiesInGrid(buildingPositionTuples);
             _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
-
-            if (_gameStatusModel.GameStatus == GameStatus.RESTARTING)
-            {
-                sceneFaderController.HideImages();
-                InitGame();
-                return;
-            }
-            sceneFaderController.RemoveFade();
+            _popupGenerator.UpdateCamera();
+            if (_gameStatusModel.GameStatus != GameStatus.RESTARTING) return;
+            InitGame();
+            AddFaderScene();
         }
-        
+
+        private void AddFaderScene()
+        {
+            if (Utilities.SceneIsLoaded(_sceneChangerService.GetFaderSceneName())) return;
+            SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
+        }
+
         private void InitGame()
         {
-            sceneFaderController.OnRemovingFadeEnds -= InitGame;
-
             if (!startGame) return;
             _roundsController.StartNewRound();
         }
@@ -189,10 +191,17 @@ namespace Presentation
             _resourcesManagerService.OverrideResources(RetrievableResourceType.Gold, _resourcesManagerService.GetInitialGoldByLevel(_sceneChangerService.GetCurrentSceneName()));
         }
         
+        public void FadeDisappearedEvent(FadeDisappearedEvent _)
+        {
+            InitGame();
+            
+        }
+        
         public void ExitedLevel(PlayerHasExitedLevelEvent _)
         {
             Time.timeScale = 1;
-            sceneFaderController.GoToSelectedScene(_sceneChangerService.GetMainMenuSceneName());
+            changeToSpecificSceneEvent.SceneName = _sceneChangerService.GetMainMenuSceneName();
+            changeToSpecificSceneEvent.Fire();
         }
 
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)
