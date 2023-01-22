@@ -76,7 +76,7 @@ namespace Presentation.UI.Menus
 
         private void GoToMainLevel()
         {
-            _popupManager.CloseCurrentOpenedPopup();
+            _popupManager.ForceCloseCurrentOpenedPopup();
             _playerHasExitedLevelEvent.Fire();
         }
 

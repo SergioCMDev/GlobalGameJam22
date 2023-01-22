@@ -81,8 +81,10 @@ namespace Services.Popups
         }
 
 
-        public void CloseCurrentOpenedPopup()
+        public void ForceCloseCurrentOpenedPopup()
         {
+            var closeablePopup = _currentOpenedPopup.GetComponent<ICloseablePopup>();
+            closeablePopup.PopupHasBeenClosed = null;
             ClosePopup(_currentOpenedPopup);
         }
 

@@ -164,7 +164,7 @@ namespace Presentation
                     AddFaderScene();
                     break;
                 case GameStatus.STARTING_FROM_MENU:
-                    InitGame();
+                    // InitGame();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

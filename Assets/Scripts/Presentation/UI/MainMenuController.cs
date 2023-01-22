@@ -33,6 +33,8 @@ namespace Presentation.UI
 
         private void GoToSelectedScene(string sceneName)
         {
+            canvasInitScenePresenter.OnGoToSelectedScene -= GoToSelectedScene;
+
             changeToSpecificSceneEvent.SceneName = sceneName;
             changeToSpecificSceneEvent.Fire();
             _gameStatusModel.GameStatus = GameStatus.STARTING_FROM_MENU;
@@ -40,6 +42,8 @@ namespace Presentation.UI
 
         private void StartNewGame()
         {
+            canvasInitScenePresenter.OnStartNewGame -= StartNewGame;
+
             _gameStatusModel.GameStatus = GameStatus.STARTING_FROM_MENU;
             var sceneName = _sceneChangerService.GetFirstSceneName();
             changeToSpecificSceneEvent.SceneName = sceneName;
