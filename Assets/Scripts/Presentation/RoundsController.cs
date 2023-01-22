@@ -34,7 +34,7 @@ namespace Presentation
         private ResourcesManagerService _resourcesManagerService;
         private PopupGenerator _popupManager;
 
-        public Action OnPlayerHasBeenDefeated, OnActivateMilitaryBuildings, OnDeactivateMilitaryBuildings;
+        public Action OnPlayerHasWon, OnActivateMilitaryBuildings, OnDeactivateMilitaryBuildings;
 
         public void Init(RoundsControllerInitData roundsControllerInitData)
         {
@@ -63,10 +63,9 @@ namespace Presentation
         private void ActivateEnemies()
         {
             _enemySpawner.ActivateEnemiesByTimer();
-
+            _enemySpawner.OnEnemiesHaveBeenDefeated += RoundEnded;
             OnActivateMilitaryBuildings?.Invoke();
             _canvasPresenter.CancelPendingActivitiesOfPlayer();
-            sliderLogic.SetSliderTimerInitialValues(_timeToDefendAgainstSlimes, RoundEnded);
             sliderLogic.InitTimerLogic();
             _canvasPresenter.SetBuildingSelectableViewStatus(false);
             _canvasPresenter.SetShowRangeButtonStatus(true);
@@ -74,6 +73,7 @@ namespace Presentation
 
         private void RoundEnded()
         {
+            _enemySpawner.OnEnemiesHaveBeenDefeated -= RoundEnded;
             OnDeactivateMilitaryBuildings?.Invoke();
             if (NeedToPlayMoreRounds())
             {
@@ -89,7 +89,7 @@ namespace Presentation
             }
             else
             {
-                OnPlayerHasBeenDefeated?.Invoke();
+                OnPlayerHasWon?.Invoke();
             }
         }
 

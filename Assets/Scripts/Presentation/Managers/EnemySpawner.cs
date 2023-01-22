@@ -27,12 +27,13 @@ namespace Presentation.Managers
         private bool instantiate;
         private Vector3Int positionToInstantiate;
         private Transform enemiesParent;
-        public event Action<Enemy> OnEnemyHasBeenDefeated;
+        public event Action OnEnemiesHaveBeenDefeated;
 
 
         private List<Building> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
-        
+        private List<Enemy> _activeEnemies;
+
         public void Init(EnemySpawnerInitData enemySpawnerInitData)
         {
             _enemySpawnerService = ServiceLocator.Instance.GetService<EnemySpawnerService>();
@@ -64,7 +65,7 @@ namespace Presentation.Managers
 
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
-            // _activeEnemies.Add(enemy);
+            _activeEnemies.Add(enemy);
             enemy.OnObjectMoved += OnObjectMoved;
         }
 
@@ -77,8 +78,12 @@ namespace Presentation.Managers
         {
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
             enemy.OnObjectMoved -= OnObjectMoved;
-            OnEnemyHasBeenDefeated?.Invoke(enemy);
-            // _activeEnemies.Remove(enemy);
+            _activeEnemies.Remove(enemy);
+
+            if (_activeEnemies.Count == 0)
+            {
+                OnEnemiesHaveBeenDefeated?.Invoke();
+            }
         }
 
         public void StopEnemies()

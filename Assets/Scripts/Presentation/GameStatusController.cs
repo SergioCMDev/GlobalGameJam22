@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using App.Events;
 using App.Resources;
 using Presentation.Events;
-using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Presentation.Managers;
 using Presentation.UI;
@@ -77,9 +76,7 @@ namespace Presentation
             _enemySpawner = new EnemySpawner();
 
             _roundsController = new RoundsController();
-
             _enemySpawner.SetCitiesToDestroy(_buildings);
-            _roundsController.OnPlayerHasBeenDefeated += LostLogic;
             _roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings += deactivateMilitaryBuildingsEvent.Fire;
         }
@@ -94,8 +91,10 @@ namespace Presentation
 
         private void OnDestroy()
         {
-            _roundsController.OnPlayerHasBeenDefeated -= LostLogic;
-            _enemySpawner.OnEnemyHasBeenDefeated -= EnemyHasBeenDefeated;
+            _roundsController.OnPlayerHasWon -= PlayerHasDefeatedEnemies;
+            _roundsController.OnActivateMilitaryBuildings -= activateMilitaryBuildingsEvent.Fire;
+            _roundsController.OnDeactivateMilitaryBuildings -= deactivateMilitaryBuildingsEvent.Fire;
+
             foreach (var cityBuilding in _buildings)
             {
                 cityBuilding.OnBuildingDestroyed -= CityHasBeenDestroyed;
@@ -110,8 +109,6 @@ namespace Presentation
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _popupGenerator = ServiceLocator.Instance.GetService<PopupGenerator>();
             _gameStatusModel = ServiceLocator.Instance.GetModel<IGameStatusModel>();
-
-            _enemySpawner.OnEnemyHasBeenDefeated += EnemyHasBeenDefeated;
 
             foreach (var cityBuilding in _buildings)
             {
@@ -164,7 +161,6 @@ namespace Presentation
                     AddFaderScene();
                     break;
                 case GameStatus.STARTING_FROM_MENU:
-                    // InitGame();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -184,6 +180,8 @@ namespace Presentation
 
         private void CityHasBeenDestroyed(Building building)
         {
+            building.OnBuildingDestroyed -= CityHasBeenDestroyed;
+
             _buildings.Remove(building);
             if (_buildings.Count != 0) return;
             LostLogic();
@@ -191,8 +189,6 @@ namespace Presentation
 
         private void LostLogic()
         {
-            _roundsController.OnPlayerHasBeenDefeated -= LostLogic;
-
             // _soundPlayer.PlaySfx(SfxSoundName.PlayerLoseLevel);
             showLostMenuUIEvent.Fire();
 
@@ -229,7 +225,7 @@ namespace Presentation
 
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)
         {
-            EnemyHasBeenDefeated();
+            PlayerHasDefeatedEnemies();
         }
 
         public void LostLevel(PlayerHasLostLevelEvent levelEvent)
@@ -237,13 +233,13 @@ namespace Presentation
             LostLogic();
         }
 
-        private void EnemyHasBeenDefeated(Enemy enemy = null)
+        private void PlayerHasDefeatedEnemies()
         {
-            _enemySpawner.OnEnemyHasBeenDefeated -= EnemyHasBeenDefeated;
+            _roundsController.OnPlayerHasWon -= PlayerHasDefeatedEnemies;
             showWinMenuUIEvent.Fire();
-
+            
             StopGameCommonLogic();
-
+            
             // _soundPlayer.PlaySfx(SfxSoundName.PlayerWinLevel);
             _gameDataService.SaveGame(_sceneChangerService.GetCurrentSceneName());
         }
