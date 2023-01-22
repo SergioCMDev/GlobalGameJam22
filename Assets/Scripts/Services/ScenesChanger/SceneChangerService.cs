@@ -13,7 +13,7 @@ namespace Services.ScenesChanger
         menuName = "Loadable/Services/SceneChangerService")]
     public class SceneChangerService : LoadableComponent
     {
-        [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
+        // [SerializeField] private ChangeToSpecificSceneEvent _changeToSpecificSceneEvent;
 
         [SerializeField] private List<SceneInfo> _levelsSceneInfoList;
         [SerializeField] private List<ConstantScenes> constantScenesList;
@@ -131,6 +131,11 @@ namespace Services.ScenesChanger
         {
             return _scenesListModel.GetFirstLevelSceneName();
         }
+
+        public string GetFaderSceneName()
+        {
+            return _scenesListModel.GetFaderMenuSceneName();
+        }
     }
 
     public enum ConstantSceneName
@@ -138,7 +143,8 @@ namespace Services.ScenesChanger
         CreditSceneName,
         FirstLevelSceneName,
         TutorialSceneName,
-        MainMenuSceneName
+        MainMenuSceneName,
+        FaderSceneName
     }
     [Serializable]
     public struct ConstantScenes

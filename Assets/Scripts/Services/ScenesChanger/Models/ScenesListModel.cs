@@ -97,5 +97,10 @@ namespace Services.ScenesChanger.Models
         {
             return GetSceneNameByConstantSceneName(ConstantSceneName.MainMenuSceneName);
         }
+
+        public string GetFaderMenuSceneName()
+        {
+            return GetSceneNameByConstantSceneName(ConstantSceneName.FaderSceneName);
+        }
     }
 }

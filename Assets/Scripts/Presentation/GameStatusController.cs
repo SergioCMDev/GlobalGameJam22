@@ -192,8 +192,7 @@ namespace Presentation
         public void ExitedLevel(PlayerHasExitedLevelEvent _)
         {
             Time.timeScale = 1;
-            
-            _sceneChangerService.GoToMenu();
+            sceneFaderController.GoToSelectedScene(_sceneChangerService.GetMainMenuSceneName());
         }
 
         public void WinLevel(PlayerHasWonLevelEvent levelEvent)

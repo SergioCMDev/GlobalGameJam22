@@ -18,7 +18,7 @@ namespace Services
 
         private void Start()
         {
-            Screen.orientation = ScreenOrientation.LandscapeLeft;
+            // if(ServiceLocator.Instance.ExistsModel<IGameStatusModel>()) return;
             loadableStatus = new Dictionary<ILoadable, bool>();
             InstantiateModels();
             RegisterDomainServices();

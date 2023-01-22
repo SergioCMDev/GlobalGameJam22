@@ -64,6 +64,12 @@ namespace Utils
             return (T) model;
         }
 
+        
+        public bool ExistsModel<T>()
+        {
+            var type = typeof(T);
+            return _models.TryGetValue(type, out var model);
+        }
         /// <summary>
         /// Saves the script object inserted as parameter
         /// </summary>

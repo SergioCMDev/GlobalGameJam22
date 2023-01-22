@@ -31,3 +31,5 @@ MonoBehaviour:
     sceneName: Tutorial
   - constantSceneName: 3
     sceneName: InitScene
+  - constantSceneName: 4
+    sceneName: FaderScene

@@ -1,4 +1,5 @@
 ﻿using System;
+using App.Events;
 using App.Models;
 using Presentation.LoadingScene;
 using Services.ScenesChanger;
@@ -24,6 +25,11 @@ namespace Presentation.UI
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
         }
 
+        public void GoToSelectedScene(ChangeToSpecificSceneEvent specificSceneEvent)
+        {
+            GoToSelectedScene(specificSceneEvent.SceneName);
+        }
+
         public void GoToSelectedScene(string sceneToGo)
         {
             _sceneModel.PreviousScene = _sceneChangerService.GetCurrentSceneName();
@@ -39,6 +45,7 @@ namespace Presentation.UI
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneModel.NextScene));
             SceneManager.UnloadSceneAsync(_sceneModel.PreviousScene);
+            RemoveFade();
         }
 
         private void SceneLoadedProgressDone()
@@ -83,7 +90,9 @@ namespace Presentation.UI
         private void RemoveFadeEnds()
         {
             _canvasFader.OnUnfadeCompleted -= RemoveFadeEnds;
-            OnRemovingFadeEnds?.Invoke();
+            SceneManager.UnloadSceneAsync(_sceneChangerService.GetFaderSceneName());
+
+            // OnRemovingFadeEnds?.Invoke();
         }
 
         public void HideImages()

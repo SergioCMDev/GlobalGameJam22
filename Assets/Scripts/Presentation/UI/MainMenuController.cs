@@ -1,10 +1,8 @@
-using System;
 using App.Events;
-using App.SceneManagement;
 using Presentation.UI.Menus;
-using Services.Popups;
 using Services.ScenesChanger;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Presentation.UI
@@ -15,12 +13,13 @@ namespace Presentation.UI
         [SerializeField] private MusicSoundName musicSoundName;
         [SerializeField] private CanvasInitScenePresenter canvasInitScenePresenter;
         private SceneChangerService _sceneChangerService;
-        [SerializeField] private SceneFaderController sceneFaderController;
-
+        [SerializeField] private ChangeToSpecificSceneEvent changeToSpecificSceneEvent;
 
         void Start()
         {
+
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
+            var operationLoadingScene = SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
             canvasInitScenePresenter.OnStartNewGame += StartNewGame;
             canvasInitScenePresenter.OnGoToSelectedScene += GoToSelectedScene;
             playMusicEvent.soundName = musicSoundName;
@@ -29,13 +28,15 @@ namespace Presentation.UI
 
         private void GoToSelectedScene(string sceneName)
         {
-            sceneFaderController.GoToSelectedScene(sceneName);
+            changeToSpecificSceneEvent.SceneName = sceneName;
+            changeToSpecificSceneEvent.Fire();
         }
 
         private void StartNewGame()
         {
             var sceneName = _sceneChangerService.GetFirstSceneName();
-            sceneFaderController.GoToSelectedScene(sceneName);
+            changeToSpecificSceneEvent.SceneName = sceneName;
+            changeToSpecificSceneEvent.Fire();
         }
     }
 }

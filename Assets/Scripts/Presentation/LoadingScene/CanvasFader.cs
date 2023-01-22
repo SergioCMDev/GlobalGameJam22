@@ -18,8 +18,8 @@ namespace Presentation.LoadingScene
 
         public void ActivateFader()
         {
-            var destinationUpImage = transform.position + Vector3.down * upImageMovementToDown;
-            var destinationDownImage = transform.position - Vector3.down * downImageMovementToUp;
+            var destinationUpImage = upImage.position + Vector3.down * upImageMovementToDown;
+            var destinationDownImage = downImage.position - Vector3.down * downImageMovementToUp;
             var upTween = upImage.DOMoveY(destinationUpImage.y, _fadeDuration);
             var downTween = downImage.DOMoveY(destinationDownImage.y, _fadeDuration);
             sequence = DOTween.Sequence();
@@ -49,8 +49,8 @@ namespace Presentation.LoadingScene
         public void DeactivateFader()
         {
             Debug.Log("Desactivamos Fade");
-            var destinationUpImage = transform.position - Vector3.down * upImageMovementToDown;
-            var destinationDownImage = transform.position + Vector3.down * downImageMovementToUp;
+            var destinationUpImage = upImage.position - Vector3.down * upImageMovementToDown;
+            var destinationDownImage = downImage.position + Vector3.down * downImageMovementToUp;
             var upTween = upImage.DOMoveY(destinationUpImage.y, _unfadeDuration);
             var downTween = downImage.DOMoveY(destinationDownImage.y, _unfadeDuration);
             sequence = DOTween.Sequence();

@@ -9,7 +9,7 @@ using Utils;
 
 namespace Presentation.UI
 {
-    public class FaderController : MonoBehaviour
+    public class FaderController_OLD : MonoBehaviour
     {
         [SerializeField] private CanvasFader _canvasFader;
         private SceneChangerService _sceneChangerService;
