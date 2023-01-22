@@ -19,7 +19,7 @@ public class SplashController : MonoBehaviour
         operationLoadingScene.allowSceneActivation = true;
         
        operationLoadingScene2 = SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
-       operationLoadingScene2.allowSceneActivation = false;
+       operationLoadingScene2.allowSceneActivation = true;
     }
     
     
