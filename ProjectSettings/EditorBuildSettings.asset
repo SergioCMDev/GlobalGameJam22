@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level01.unity
     guid: 55a331dbc8e910e478c9232d5fceb9c2
   - enabled: 1
-    path: Assets/Scenes/SampleScene_Sergio.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Scenes/NEW_TEST_Yeray.unity
     guid: fa50ad6ee2223aa4baea8bbab9e0ecae
   - enabled: 1

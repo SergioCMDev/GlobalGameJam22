@@ -68,7 +68,6 @@ namespace Services.Popups
             return _currentOpenedPopup;
         }
 
-
         private void ClosePopup(GameObject popup)
         {
             popup.SetActive(false);
@@ -79,8 +78,7 @@ namespace Services.Popups
 
             Destroy(popup);
         }
-
-
+        
         public void ForceCloseCurrentOpenedPopup()
         {
             var closeablePopup = _currentOpenedPopup.GetComponent<ICloseablePopup>();
@@ -97,22 +95,10 @@ namespace Services.Popups
         {
             var cameraToSelect = Camera.main;
             _camera = cameraToSelect;
-
         }
 
         public override void Execute()
         {
-            // foreach (var camera in Camera.allCameras)
-            // {
-            //     SceneManager.GetActiveScene().
-            //     if (camera.scene.name.Contains("Fader"))
-            //     {
-            //         continue;
-            //     }
-            //
-            //     cameraToSelect = camera;
-            // }
-
             UpdateCamera();
             _positionWhereSpawn = new GameObject().transform;
             _positionWhereSpawn.name = "PopupsContainer";

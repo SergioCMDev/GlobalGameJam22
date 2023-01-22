@@ -173,7 +173,6 @@ namespace Presentation
 
         private void AddFaderScene()
         {
-            // if (Utilities.SceneIsLoaded(_sceneChangerService.GetFaderSceneName())) return;
             SceneManager.LoadSceneAsync(_sceneChangerService.GetFaderSceneName(), LoadSceneMode.Additive);
         }
 
