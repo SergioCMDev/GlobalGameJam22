@@ -28,7 +28,7 @@ namespace Presentation
         [SerializeField] private ChangeToSpecificSceneEvent changeToSpecificSceneEvent;
 
         [SerializeField] private bool startGame = false;
-
+        [SerializeField] private EnemyListForLevelData enemyListForLevels;
 
         [SerializeField] private Vector3Int positionToInstantiate = new(1, -4, 0);
         [SerializeField] private Transform enemiesParent;
@@ -128,7 +128,8 @@ namespace Presentation
                 GridBuildingManager = _gridBuildingManager,
                 GridMovementManager = _gridMovementManager,
                 EnemiesParent = enemiesParent,
-                PositionToInstantiate = positionToInstantiate
+                PositionToInstantiate = positionToInstantiate,
+                EnemyListForLevel = enemyListForLevels.EnemyListForLevels
             });
 
             _roundsController.Init(new RoundsController.RoundsControllerInitData()

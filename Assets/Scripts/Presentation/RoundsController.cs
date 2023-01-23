@@ -60,7 +60,7 @@ namespace Presentation
 
         private void ActivateEnemies()
         {
-            _enemySpawner.ActivateEnemiesByTimer();
+            _enemySpawner.ActivateEnemiesByTimer(_currentRound);
             _enemySpawner.OnEnemiesHaveBeenDefeated += RoundEnded;
             OnActivateMilitaryBuildings?.Invoke();
             _canvasPresenter.CancelPendingActivitiesOfPlayer();

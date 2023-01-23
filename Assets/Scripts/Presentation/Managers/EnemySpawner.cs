@@ -18,6 +18,14 @@ namespace Presentation.Managers
         public bool Instantiate;
         public Vector3Int PositionToInstantiate;
         public Transform EnemiesParent;
+        public List<EnemyListForLevel> EnemyListForLevel;
+    }
+
+    [Serializable]
+    public struct EnemyListForLevel
+    {
+        public int roundToAppear;
+        public EnemyType enemyType;
     }
 
     public class EnemySpawner
@@ -33,6 +41,7 @@ namespace Presentation.Managers
         private List<City> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
         private List<Enemy> _activeEnemies;
+        private Dictionary<int, EnemyType> _enemyListForLevel;
 
         public void Init(EnemySpawnerInitData enemySpawnerInitData)
         {
@@ -43,13 +52,18 @@ namespace Presentation.Managers
             enemiesParent = enemySpawnerInitData.EnemiesParent;
             gridMovementManager = enemySpawnerInitData.GridMovementManager;
             _activeEnemies = new List<Enemy>();
+            _enemyListForLevel = new Dictionary<int, EnemyType>();
+            foreach (var VARIABLE in enemySpawnerInitData.EnemyListForLevel)
+            {
+                _enemyListForLevel.Add(VARIABLE.roundToAppear, VARIABLE.enemyType);
+            }
         }
 
         public void SetCitiesToDestroy(List<City> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
         }
-        
+
         //TODO USE ScriptableObjects to life and speed
         public void SpawnEnemy(EnemySpawnerInfo enemySpawnerInfo, Vector3Int positionToInstantiate)
         {
@@ -97,10 +111,16 @@ namespace Presentation.Managers
             Debug.Log("enemies have been stopped");
         }
 
-        public void ActivateEnemiesByTimer()
+        public void ActivateEnemiesByTimer(int round)
         {
             if (!instantiate) return;
-            var enemySpawnerInfo = _enemySpawnerService.GetEnemyPrefabByType(EnemyType.Normal);
+            var enemyType = EnemyType.Normal;
+            if (round < _enemyListForLevel.Count)
+            {
+                enemyType = _enemyListForLevel[round];
+            }
+
+            var enemySpawnerInfo = _enemySpawnerService.GetEnemyPrefabByType(enemyType);
             SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
         }
 
