@@ -40,10 +40,10 @@ namespace Presentation.Managers
     }
 
     [Serializable]
-    public class BuildingPositionTuple
+    public class CitiesPositionTuple
     {
         public Vector3Int positionInGrid;
-        public Building cityBuilding;
+        public City cityBuilding;
     }
 
 
@@ -672,7 +672,7 @@ namespace Presentation.Managers
             WorldTileDictionary[tuplePosition.OldGridPosition].CleanOccupier();
         }
 
-        public void SetCitiesInGrid(List<BuildingPositionTuple> buildingPositionTuples)
+        public void SetCitiesInGrid(List<CitiesPositionTuple> buildingPositionTuples)
         {
             foreach (var buildingPosition in buildingPositionTuples)
             {

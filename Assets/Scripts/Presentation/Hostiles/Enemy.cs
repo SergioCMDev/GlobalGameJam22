@@ -25,8 +25,8 @@ namespace Presentation.Hostiles
         private int _currentCityToDestroyed;
         private bool _isAlive;
         private TilePosition _nextDestination;
-        private List<Building> _cityBuilding;
-        private Building _cityTarget;
+        private List<City> _cityBuilding;
+        private City _cityTarget;
         private GridPathfinding _gridPathfinding;
         private Timer _timer;
 
@@ -37,7 +37,7 @@ namespace Presentation.Hostiles
         // public List<TilePosition> TilesToFollow => tilesToFollow.TilePositions;
 
 
-        public void Init(Vector3Int initialPosition, List<Building> cityBuilding, GridPathfinding pathfinding, EnemySpawnerInfo enemyInfo)
+        public void Init(Vector3Int initialPosition, List<City> cityBuilding, GridPathfinding pathfinding, EnemySpawnerInfo enemyInfo)
         {
             _maximumLife = enemyInfo.enemyInfo.life;
             enemyMovement.Speed = enemyInfo.enemyInfo.movementSpeed;
@@ -65,6 +65,12 @@ namespace Presentation.Hostiles
             if (IsAlive()) return;
             Deactivate();
             OnEnemyHasBeenDefeated.Invoke(this);
+        }
+
+        public void UpdateLifeToMaximum(float maxLife)
+        {
+            _life = maxLife;
+            UpdateLifeBar();
         }
 
         public void ReduceSpeed(float percentageToReduce, float effectDuration)

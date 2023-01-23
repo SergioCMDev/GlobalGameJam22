@@ -15,4 +15,4 @@ MonoBehaviour:
   movementSpeed: 1
   attackSpeed: 0.5
   life: 500
-  damage: 1
+  damage: 10

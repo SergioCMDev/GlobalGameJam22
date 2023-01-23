@@ -30,7 +30,7 @@ namespace Presentation.Managers
         public event Action OnEnemiesHaveBeenDefeated;
 
 
-        private List<Building> _citiesToDestroy;
+        private List<City> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
         private List<Enemy> _activeEnemies;
 
@@ -45,7 +45,7 @@ namespace Presentation.Managers
             _activeEnemies = new List<Enemy>();
         }
 
-        public void SetCitiesToDestroy(List<Building> cityBuilding1)
+        public void SetCitiesToDestroy(List<City> cityBuilding1)
         {
             _citiesToDestroy = cityBuilding1;
         }

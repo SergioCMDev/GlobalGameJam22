@@ -194,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6757109771876727626}
-  - component: {fileID: 3397442624518469161}
+  - component: {fileID: 836141361}
   m_Layer: 0
   m_Name: City
   m_TagString: Untagged
@@ -219,7 +219,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3397442624518469161
+--- !u!114 &836141361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,14 +228,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6757109771876727624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e89ffbfd18eaf4bb1184da0622f864, type: 3}
+  m_Script: {fileID: 11500000, guid: c90772cffb2948328aa9b34f4a647adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliderBarView: {fileID: 7390902109116520053}
   _spriteRenderer: {fileID: 908184614}
-  _maximumLife: 100
   _alphaWhenSelected: 0.475
-  _area: {x: 1, y: 1, z: 1}
+  _maximumLife: 100
+  sliderBarView: {fileID: 7390902109116520053}
 --- !u!1001 &6894131667637037811
 PrefabInstance:
   m_ObjectHideFlags: 0

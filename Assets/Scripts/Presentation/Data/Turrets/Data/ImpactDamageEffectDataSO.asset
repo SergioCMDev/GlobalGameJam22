@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207afb0ba9584fd095b611413c5ba3f0, type: 3}
   m_Name: ImpactDamageEffectDataSO
   m_EditorClassIdentifier: 
-  cadence: 0.5
-  damage: 100
+  damage: 50
   moneyToReceiveAfterHitEnemy: 50

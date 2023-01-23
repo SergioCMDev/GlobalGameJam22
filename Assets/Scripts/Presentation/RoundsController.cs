@@ -15,7 +15,6 @@ namespace Presentation
         public struct RoundsControllerInitData
         {
             public CanvasPresenter CanvasPresenter;
-            public float TimeToDefendAgainstSlimes;
             public float TimeToAllowPlayerBuildsTurrets;
             public float TimeToShowNewRoundPopup;
             public int NumberOfRoundsPerLevel;
@@ -25,7 +24,7 @@ namespace Presentation
 
         private CanvasPresenter _canvasPresenter;
         private SliderLogic sliderLogic;
-        private float _timeToDefendAgainstSlimes = 20, _timeToAllowPlayerBuildsTurrets, _timeToShowNewRoundPopup = 3;
+        private float _timeToAllowPlayerBuildsTurrets, _timeToShowNewRoundPopup = 3;
         private int _numberOfRoundsPerLevel;
         private EnemySpawner _enemySpawner;
 
@@ -43,7 +42,6 @@ namespace Presentation
 
             _canvasPresenter = roundsControllerInitData.CanvasPresenter;
             sliderLogic = roundsControllerInitData.SliderLogic;
-            _timeToDefendAgainstSlimes = roundsControllerInitData.TimeToDefendAgainstSlimes;
             _timeToAllowPlayerBuildsTurrets = roundsControllerInitData.TimeToAllowPlayerBuildsTurrets;
             _timeToShowNewRoundPopup = roundsControllerInitData.TimeToShowNewRoundPopup;
             _numberOfRoundsPerLevel = roundsControllerInitData.NumberOfRoundsPerLevel;

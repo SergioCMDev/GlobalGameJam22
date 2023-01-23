@@ -23,7 +23,9 @@ namespace Presentation.Infrastructure
         [SerializeField] private PlacerBuildingView _chooserCanvas;
         [SerializeField] private List<AttackBehaviourData> _attackBehaviours;
         [SerializeField] private float cadence;
-        
+        private MilitaryBuildingType type;
+        public MilitaryBuildingType Type => type;
+
         private MilitaryBuildingAttacker _militaryBuildingAttacker;
         private MilitaryBuildingPlacementSetter _militaryBuildingPlacementSetter;
         protected List<TileDataEntity> tilesToAttack;

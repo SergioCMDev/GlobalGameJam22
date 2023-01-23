@@ -19,7 +19,7 @@ namespace Presentation
 {
     public class GameStatusController : MonoBehaviour
     {
-        [SerializeField] private List<BuildingPositionTuple> buildingPositionTuples;
+        [SerializeField] private List<CitiesPositionTuple> buildingPositionTuples;
         [SerializeField] private ShowWinMenuUIEvent showWinMenuUIEvent;
         [SerializeField] private ShowLostMenuUIEvent showLostMenuUIEvent;
         [SerializeField] private DeactivateMilitaryBuildingsEvent deactivateMilitaryBuildingsEvent;
@@ -39,7 +39,7 @@ namespace Presentation
 
         [SerializeField] private SliderLogic sliderLogic;
         [SerializeField] private int numberOfRoundsPerLevel;
-        [SerializeField] private float timeToDefendAgainstSlimes = 20, timeToAllowPlayerBuildsTurrets;
+        [SerializeField] private float timeToAllowPlayerBuildsTurrets;
         [SerializeField] private float timeToShowNewRoundPopup = 3;
 
         [Space] [Header("GridBuildingManager")] [SerializeField]
@@ -59,7 +59,7 @@ namespace Presentation
         // private SoundPlayer _soundPlayer;
         private float _remainingTimeToWin;
         private bool _timerIsRunning;
-        private readonly List<Building> _buildings = new();
+        private readonly List<City> _cities = new();
         private IGameStatusModel _gameStatusModel;
         public GridBuildingManager GridBuildingManager => _gridBuildingManager;
 
@@ -69,13 +69,13 @@ namespace Presentation
 
             foreach (var VARIABLE in buildingPositionTuples)
             {
-                _buildings.Add(VARIABLE.cityBuilding);
+                _cities.Add(VARIABLE.cityBuilding);
             }
 
             _enemySpawner = new EnemySpawner();
 
             _roundsController = new RoundsController();
-            _enemySpawner.SetCitiesToDestroy(_buildings);
+            _enemySpawner.SetCitiesToDestroy(_cities);
             _roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings += deactivateMilitaryBuildingsEvent.Fire;
         }
@@ -94,7 +94,7 @@ namespace Presentation
             _roundsController.OnActivateMilitaryBuildings -= activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings -= deactivateMilitaryBuildingsEvent.Fire;
 
-            foreach (var cityBuilding in _buildings)
+            foreach (var cityBuilding in _cities)
             {
                 cityBuilding.OnBuildingDestroyed -= CityHasBeenDestroyed;
             }
@@ -108,7 +108,7 @@ namespace Presentation
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
             _gameStatusModel = ServiceLocator.Instance.GetModel<IGameStatusModel>();
 
-            foreach (var cityBuilding in _buildings)
+            foreach (var cityBuilding in _cities)
             {
                 cityBuilding.OnBuildingDestroyed += CityHasBeenDestroyed;
                 cityBuilding.Initialize();
@@ -137,7 +137,6 @@ namespace Presentation
                 SliderLogic = sliderLogic,
                 EnemySpawner = _enemySpawner,
                 NumberOfRoundsPerLevel = numberOfRoundsPerLevel,
-                TimeToDefendAgainstSlimes = timeToDefendAgainstSlimes,
                 TimeToShowNewRoundPopup = timeToShowNewRoundPopup,
                 TimeToAllowPlayerBuildsTurrets = timeToAllowPlayerBuildsTurrets
             });
@@ -175,12 +174,12 @@ namespace Presentation
             _roundsController.StartNewRound();
         }
 
-        private void CityHasBeenDestroyed(Building building)
+        private void CityHasBeenDestroyed(City building)
         {
             building.OnBuildingDestroyed -= CityHasBeenDestroyed;
 
-            _buildings.Remove(building);
-            if (_buildings.Count != 0) return;
+            _cities.Remove(building);
+            if (_cities.Count != 0) return;
             LostLogic();
         }
 

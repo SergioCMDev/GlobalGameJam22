@@ -1,42 +1,21 @@
-using System;
-using App;
-using App.Buildings;
-using App.Events;
-using Presentation.Interfaces;
-using Presentation.UI.Menus;
 using UnityEngine;
 
 namespace Presentation.Infrastructure
 {
-    public class Building : MonoBehaviour, IReceiveDamage, ILife
+    public class Building : MonoBehaviour
     {
         [SerializeField] protected SpriteRenderer _spriteRenderer;
 
-        [SerializeField] protected float _maximumLife, _alphaWhenSelected = 0.475f;
+        [SerializeField] protected float _alphaWhenSelected = 0.475f;
         private int _id, _level;
-        protected float _currentLife;
         private bool _placed;
         protected Color originalColor;
         protected Color colorWithTransparency;
-        protected MilitaryBuildingType type;
         private Vector3Int _area;
-
-        public event Action<Building> OnBuildingDestroyed;
-
-
-        public float Life
-        {
-            get => _currentLife;
-            private set => _currentLife = value;
-        }
-
         public Vector3Int Area => _area;
 
-
         protected SpriteRenderer SpriteRenderer => _spriteRenderer;
-
-        public MilitaryBuildingType Type => type;
-
+        
         private void Awake()
         {
             var color = SpriteRenderer.color;
@@ -46,54 +25,9 @@ namespace Presentation.Infrastructure
             _area = new Vector3Int(1, 1, 1);
         }
 
-        private void UpdateLifeToMaximum()
-        {
-            _currentLife = _maximumLife;
-        }
-
-        public void Initialize()
+        protected internal virtual void Initialize()
         {
             Awake();
-            UpdateLifeToMaximum();
-        }
-
-        public void ReceiveDamage(BuildingReceiveDamageEvent damageEvent)
-        {
-            ReceiveDamage(damageEvent.Damage);
-        }
-        
-        private void DestroyBuilding()
-        {
-            OnBuildingDestroyed?.Invoke(this);
-        }
-        
-        public void AddLife(BuildingReceiveLifeEvent receiveLifeEvent)
-        {
-            if (_id != receiveLifeEvent.Id) return;
-            AddLife(receiveLifeEvent.Life);
-        }
-
-        public void ReceiveDamage(float receivedDamage)
-        {
-            Life -= receivedDamage;
-            if (Life <= 0)
-            {
-                DestroyBuilding();
-            }
-        }
-
-        public bool IsAlive()
-        {
-            return Life > 0;
-        }
-
-        public void AddLife(float lifeToAdd)
-        {
-            Life += lifeToAdd;
-            if (Life > _maximumLife)
-            {
-                Life = _maximumLife;
-            }
         }
     }
 }
