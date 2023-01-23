@@ -807,6 +807,30 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 86697917}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: enemyListForLevels
+      value: 
+      objectReference: {fileID: 11400000, guid: 969f6ee01982bd5459bd84ad60b280d0, type: 2}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: enemyListForLevels.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: enemyListForLevels.Array.data[0].roundToAppear
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: enemyListForLevels.Array.data[1].roundToAppear
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: enemyListForLevels.Array.data[2].roundToAppear
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: enemyListForLevels.Array.data[3].roundToAppear
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: buildingPositionTuples.Array.data[0].cityBuilding
       value: 
       objectReference: {fileID: 836141361}
