@@ -21,12 +21,17 @@ namespace Presentation.UI
 
         void Start()
         {
+            Debug.Log("Start SceneFaderController ");
+
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             _sceneModel = ServiceLocator.Instance.GetModel<ISceneModel>();
+            Debug.Log("Start SceneFaderController 1");
         }
 
         public void GoToSelectedScene(ChangeToSpecificSceneEvent specificSceneEvent)
         {
+            Debug.Log("GoToSelectedScene SceneFaderController 1");
+
             GoToSelectedScene(specificSceneEvent.SceneName);
         }
 
@@ -50,6 +55,8 @@ namespace Presentation.UI
 
         private void SceneLoadedProgressDone()
         {
+            Debug.Log("SceneLoadedProgressDone 1");
+
             sceneLoaded = true;
             InitializeNewScene();
         }
@@ -57,6 +64,7 @@ namespace Presentation.UI
         private void FadeCompleted()
         {
             _canvasFader.OnFadeCompleted -= FadeCompleted;
+            Debug.Log("FadeCompleted 1");
 
             fadedCompleted = true;
             InitializeNewScene();
@@ -83,13 +91,13 @@ namespace Presentation.UI
 
         public void RemoveFade()
         {
-            _canvasFader.OnUnfadeCompleted += RemoveFadeEnds;
+            _canvasFader.OnReverseFadeCompleted += RemoveFadeEnds;
             _canvasFader.DeactivateFader();
             
         }
         private void RemoveFadeEnds()
         {
-            _canvasFader.OnUnfadeCompleted -= RemoveFadeEnds;
+            _canvasFader.OnReverseFadeCompleted -= RemoveFadeEnds;
             removedFadeEvent.Fire();
         }
 

@@ -22,6 +22,7 @@ namespace Services.ScenesChanger
 
         public override void Execute()
         {
+            Debug.Log($"Execute SceneChangerService");
             _scenesListModel = new ScenesListModel();
             _scenesListModel.Init(_levelsSceneInfoList, constantScenesList);
         }

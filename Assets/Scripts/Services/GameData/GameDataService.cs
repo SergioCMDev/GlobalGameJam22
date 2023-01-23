@@ -48,9 +48,10 @@ namespace Services.GameData
 
         public override void Execute()
         {
+            Debug.Log($"Execute GameDataService");
+
             _loader = ServiceLocator.Instance.GetService<ILoader>();
             _saver = ServiceLocator.Instance.GetService<ISaver>();
-            // throw new System.NotImplementedException();
         }
     }
 }

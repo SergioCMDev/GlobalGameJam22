@@ -93,6 +93,8 @@ namespace Services.Popups
 
         public override void Execute()
         {
+            Debug.Log($"Execute PopupGeneratorService");
+
             _positionWhereSpawn = new GameObject().transform;
             _positionWhereSpawn.name = "PopupsContainer";
         }

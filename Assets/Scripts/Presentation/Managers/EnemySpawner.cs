@@ -42,6 +42,7 @@ namespace Presentation.Managers
             positionToInstantiate = enemySpawnerInitData.PositionToInstantiate;
             enemiesParent = enemySpawnerInitData.EnemiesParent;
             gridMovementManager = enemySpawnerInitData.GridMovementManager;
+            _activeEnemies = new List<Enemy>();
         }
 
         public void SetCitiesToDestroy(List<Building> cityBuilding1)

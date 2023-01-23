@@ -12,6 +12,8 @@ namespace Services.ConstantsManager
         public Constants Constants => constants;
         public override void Execute()
         {
+            Debug.Log($"Execute ConstantsManagerService");
+
         }
     }
 }

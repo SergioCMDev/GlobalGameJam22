@@ -18,6 +18,7 @@ namespace Services
 
         private void Start()
         {
+            Debug.Log("Start GameLoader");
             // if(ServiceLocator.Instance.ExistsModel<IGameStatusModel>()) return;
             loadableStatus = new Dictionary<ILoadable, bool>();
             InstantiateModels();
@@ -25,6 +26,8 @@ namespace Services
             ExecuteComponents(loadablesSO);
             coroutineExecutionerInstance = Instantiate(coroutineExecutioner);
             ServiceLocator.Instance.RegisterService(coroutineExecutionerInstance);
+            Debug.Log("Start GameLoader 1");
+
         }
 
         private void RegisterDomainServices()

@@ -7,21 +7,28 @@ namespace Presentation.LoadingScene
     public class CanvasFader : MonoBehaviour
     {
         [SerializeField] private Transform upImage, downImage;
-        [SerializeField] private float upImageMovementToDown, downImageMovementToUp;
-        public event Action OnFadeCompleted;
-        public event Action OnUnfadeCompleted;
         [SerializeField] private float _fadeDuration, _unfadeDuration;
 
-        // [SerializeField] private Image _fader;
+        private RectTransform upImageRectTransform, downImageRectTransform;
+
+        public event Action OnFadeCompleted;
+        public event Action OnReverseFadeCompleted;
+
         private Sequence sequence;
-        
+        private Vector2 originalPositionUpperImage, originalPositionDownImage;
+
+        private void Start()
+        {
+            upImageRectTransform = upImage.GetComponent<RectTransform>();
+            downImageRectTransform = downImage.GetComponent<RectTransform>();
+            originalPositionDownImage = downImageRectTransform.anchoredPosition;
+            originalPositionUpperImage = upImageRectTransform.anchoredPosition;
+        }
 
         public void ActivateFader()
         {
-            var destinationUpImage = upImage.position + Vector3.down * upImageMovementToDown;
-            var destinationDownImage = downImage.position - Vector3.down * downImageMovementToUp;
-            var upTween = upImage.DOMoveY(destinationUpImage.y, _fadeDuration);
-            var downTween = downImage.DOMoveY(destinationDownImage.y, _fadeDuration);
+            var upTween = upImage.DOLocalMoveY(0, _fadeDuration);
+            var downTween = downImage.DOMoveY(0, _fadeDuration);
             sequence = DOTween.Sequence();
 
             if (sequence != null)
@@ -31,17 +38,14 @@ namespace Presentation.LoadingScene
             }
 
             Debug.Log("Activamos Fade");
-            // var fader = _fader.DOFade(1, _fadeDuration);
             sequence.onComplete += InvokeFadeCompleted;
-            sequence.onUpdate +=  ()=>{
-               Debug.Log("F"); 
-            }; 
+            sequence.onUpdate += () => { Debug.Log("F"); };
             sequence.Play();
         }
 
         private void InvokeFadeCompleted()
         {
-            sequence.onComplete -= InvokeFadeCompleted; 
+            sequence.onComplete -= InvokeFadeCompleted;
             OnFadeCompleted.Invoke();
         }
 
@@ -49,11 +53,12 @@ namespace Presentation.LoadingScene
         public void DeactivateFader()
         {
             Debug.Log("Desactivamos Fade");
-            var destinationUpImage = upImage.position - Vector3.down * upImageMovementToDown;
-            var destinationDownImage = downImage.position + Vector3.down * downImageMovementToUp;
-            var upTween = upImage.DOMoveY(destinationUpImage.y, _unfadeDuration);
-            var downTween = downImage.DOMoveY(destinationDownImage.y, _unfadeDuration);
+            var valueOfDestinationImages = upImageRectTransform.anchoredPosition - Vector2.up * originalPositionUpperImage;
+
+            var upTween = upImage.DOLocalMoveY(-valueOfDestinationImages.y, _unfadeDuration);
+            var downTween = downImage.DOLocalMoveY(valueOfDestinationImages.y, _unfadeDuration);
             sequence = DOTween.Sequence();
+
             if (sequence != null)
             {
                 sequence.Join(upTween);
@@ -61,18 +66,16 @@ namespace Presentation.LoadingScene
             }
 
             Debug.Log("Desactivamos Fade");
-            // var fader = _fader.DOFade(1, _fadeDuration);
+
             sequence.onComplete += InvokeUnFadeCompleted;
-            sequence.onUpdate +=  ()=>{
-                Debug.Log("F1"); 
-            }; 
+            sequence.onUpdate += () => { Debug.Log("F1"); };
             sequence.Play();
         }
-        
+
         private void InvokeUnFadeCompleted()
         {
-            sequence.onComplete -= InvokeUnFadeCompleted; 
-            OnUnfadeCompleted.Invoke();
+            sequence.onComplete -= InvokeUnFadeCompleted;
+            OnReverseFadeCompleted.Invoke();
         }
 
         public void StatusImages(bool status)

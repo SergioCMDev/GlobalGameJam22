@@ -47,4 +47,4 @@ MonoBehaviour:
   playMusicEvent: {fileID: 11400000, guid: 4ec0d10ab46fbb640ba658333e5fced7, type: 2}
   musicSoundName: 0
   canvasInitScenePresenter: {fileID: 0}
-  sceneFaderController: {fileID: 0}
+  changeToSpecificSceneEvent: {fileID: 11400000, guid: 88a4b964054bc084db687831a41b25f9, type: 2}
