@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using App;
 using App.Buildings;
 using App.Events;
 using App.Resources;
@@ -9,7 +8,6 @@ using Presentation.Managers;
 using Presentation.Utils;
 using Services.MilitaryBuilding;
 using UnityEngine;
-using Utils;
 
 namespace Presentation.Infrastructure
 {
@@ -105,6 +103,7 @@ namespace Presentation.Infrastructure
         {
             _militaryBuildingAttacker.Init(_attackBehaviours,cadence);
             _militaryBuildingPlacementSetter.Init(_chooserCanvas);
+            CleanOccupiers();
         }
 
         public void ActivateBuilding()

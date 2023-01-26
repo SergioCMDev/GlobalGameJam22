@@ -45,7 +45,7 @@ namespace Presentation.Managers
         private List<City> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
         private PathRetrieverService _pathRetrieverService;
-        private List<Enemy> _activeEnemies;
+        private List<GameObject> _activeEnemies;
         private Dictionary<int, EnemyType> _enemyListForLevel;
         private SceneChangerService _sceneChangerService;
 
@@ -59,7 +59,7 @@ namespace Presentation.Managers
             positionToInstantiate = enemySpawnerInitData.PositionToInstantiate;
             enemiesParent = enemySpawnerInitData.EnemiesParent;
             gridMovementManager = enemySpawnerInitData.GridMovementManager;
-            _activeEnemies = new List<Enemy>();
+            _activeEnemies = new List<GameObject>();
             _enemyListForLevel = new Dictionary<int, EnemyType>();
             foreach (var VARIABLE in enemySpawnerInitData.EnemyListForLevel)
             {
@@ -88,7 +88,7 @@ namespace Presentation.Managers
 
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
-            _activeEnemies.Add(enemy);
+            _activeEnemies.Add(enemy.gameObject);
             enemy.OnObjectMoved += OnObjectMoved;
         }
 
@@ -101,8 +101,8 @@ namespace Presentation.Managers
         {
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
             enemy.OnObjectMoved -= OnObjectMoved;
-            _activeEnemies.Remove(enemy);
-
+            _activeEnemies.Remove(enemy.gameObject);
+            HideEnemy(enemy.gameObject);
             if (_activeEnemies.Count == 0)
             {
                 OnEnemiesHaveBeenDefeated?.Invoke();
@@ -138,8 +138,15 @@ namespace Presentation.Managers
         {
             foreach (Transform enemy in enemiesParent.transform)
             {
-                GameObject.Destroy(enemy.gameObject);
+                _activeEnemies.Remove(enemy.gameObject);
+
+                HideEnemy(enemy.gameObject);
             }
+        }
+
+        private void HideEnemy(GameObject enemyGameObject)
+        {
+            GameObject.Destroy(enemyGameObject);
         }
     }
 }
