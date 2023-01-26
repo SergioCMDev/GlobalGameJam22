@@ -81,7 +81,6 @@ namespace Services.ScenesChanger
             return SceneManager.GetActiveScene().name;
         }
 
-
         public void LoadCurrentLevelFromInitScene(int gameDataLastLevelCompleted)
         {
             if (gameDataLastLevelCompleted + 1 >= _scenesListModel.GetSceneCount())

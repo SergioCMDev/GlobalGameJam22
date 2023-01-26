@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using App;
 using App.Info.Enemies;
+using App.Info.Tiles;
 using App.Info.Tuples;
 using Presentation.Hostiles;
 using Presentation.Infrastructure;
 using Services.EnemySpawner;
+using Services.PathRetriever;
+using Services.ScenesChanger;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Presentation.Managers
@@ -40,12 +44,16 @@ namespace Presentation.Managers
 
         private List<City> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
+        private PathRetrieverService _pathRetrieverService;
         private List<Enemy> _activeEnemies;
         private Dictionary<int, EnemyType> _enemyListForLevel;
+        private SceneChangerService _sceneChangerService;
 
         public void Init(EnemySpawnerInitData enemySpawnerInitData)
         {
             _enemySpawnerService = ServiceLocator.Instance.GetService<EnemySpawnerService>();
+            _pathRetrieverService = ServiceLocator.Instance.GetService<PathRetrieverService>();
+            _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
             gridBuildingManager = enemySpawnerInitData.GridBuildingManager;
             instantiate = enemySpawnerInitData.Instantiate;
             positionToInstantiate = enemySpawnerInitData.PositionToInstantiate;
@@ -65,7 +73,7 @@ namespace Presentation.Managers
         }
 
         //TODO USE ScriptableObjects to life and speed
-        public void SpawnEnemy(EnemySpawnerInfo enemySpawnerInfo, Vector3Int positionToInstantiate)
+        public void SpawnEnemy(EnemySpawnerInfo enemySpawnerInfo, Vector3Int positionToInstantiate, List<TilePosition> tilesToFollows)
         {
             if (!gridBuildingManager.WorldTileDictionary.ContainsKey(positionToInstantiate))
                 return;
@@ -76,7 +84,7 @@ namespace Presentation.Managers
                 Quaternion.identity, enemiesParent);
             var enemy = enemyInstance.GetComponent<Enemy>();
             var gridPathfinding = new GridPathfinding();
-            gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, enemySpawnerInfo.TilesToFollow);
+            gridPathfinding.Init(gridBuildingManager.WorldTileDictionary, tilesToFollows);
 
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
@@ -121,7 +129,9 @@ namespace Presentation.Managers
             }
 
             var enemySpawnerInfo = _enemySpawnerService.GetEnemyPrefabByType(enemyType);
-            SpawnEnemy(enemySpawnerInfo, positionToInstantiate);
+            var currentSceneName = _sceneChangerService.GetCurrentSceneName();
+            var tilesToFollow = _pathRetrieverService.GetTilesToFollowByEnemyAndLevel(enemyType, currentSceneName);
+            SpawnEnemy(enemySpawnerInfo, positionToInstantiate, tilesToFollow);
         }
 
         public void HideEnemies()

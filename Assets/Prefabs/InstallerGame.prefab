@@ -325,6 +325,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a0cb54ebad3adfb4e8808c979c3c3686, type: 2}
   - {fileID: 11400000, guid: 6997808f98773424695702ea63fc9b90, type: 2}
   - {fileID: 11400000, guid: 085d4dd6714010945ba4a1f9d8332c39, type: 2}
+  - {fileID: 11400000, guid: 7524c8be641b9e148b4be1823be30425, type: 2}
   coroutineExecutioner: {fileID: 2481599291609766162, guid: 892396e3090de5d4d9cbca0ca52ee7df, type: 3}
 --- !u!1 &1941247817302061191
 GameObject:
@@ -472,6 +473,10 @@ PrefabInstance:
       propertyPath: instantiate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
+      propertyPath: enemyListForLevels
+      value: 
+      objectReference: {fileID: 11400000, guid: 969f6ee01982bd5459bd84ad60b280d0, type: 2}
     - target: {fileID: 4967238188201839983, guid: efb365e4f793bce4bbace434bdcc8aa9, type: 3}
       propertyPath: _gridBuildingManager
       value: 

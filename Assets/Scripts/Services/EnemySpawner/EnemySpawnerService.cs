@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using App;
 using App.Info.Enemies;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -27,6 +26,7 @@ namespace Services.EnemySpawner
         }
         public override void Execute()
         {
+            Debug.Log("Execute EnemySpawnerService");
         }
     }
 

@@ -8,6 +8,7 @@ using Presentation.Managers;
 using Presentation.UI;
 using Presentation.UI.Menus;
 using Services.GameData;
+using Services.PathRetriever;
 using Services.Popups;
 using Services.ResourcesManager;
 using Services.ScenesChanger;
@@ -53,6 +54,7 @@ namespace Presentation
         private EnemySpawner _enemySpawner;
         private SceneChangerService _sceneChangerService;
         private ResourcesManagerService _resourcesManagerService;
+        private PathRetrieverService _pathRetrieverService;
 
         private GameDataService _gameDataService;
 
@@ -103,6 +105,8 @@ namespace Presentation
         void Start()
         {
             _sceneChangerService = ServiceLocator.Instance.GetService<SceneChangerService>();
+            _pathRetrieverService = ServiceLocator.Instance.GetService<PathRetrieverService>();
+
             // _soundPlayer = ServiceLocator.Instance.GetService<SoundPlayer>();
             _gameDataService = ServiceLocator.Instance.GetService<GameDataService>();
             _resourcesManagerService = ServiceLocator.Instance.GetService<ResourcesManagerService>();
@@ -234,9 +238,9 @@ namespace Presentation
         {
             _roundsController.OnPlayerHasWon -= PlayerHasDefeatedEnemies;
             showWinMenuUIEvent.Fire();
-            
+
             StopGameCommonLogic();
-            
+
             // _soundPlayer.PlaySfx(SfxSoundName.PlayerWinLevel);
             _gameDataService.SaveGame(_sceneChangerService.GetCurrentSceneName());
         }
@@ -250,7 +254,10 @@ namespace Presentation
 
         public void SpawnEnemy(SpawnEnemyEvent spawnEnemyEvent)
         {
-            _enemySpawner.SpawnEnemy(spawnEnemyEvent.enemyInfo, spawnEnemyEvent.positionToInstantiate);
+            var tilesToFollow = _pathRetrieverService.GetTilesToFollowByEnemyAndLevel(
+                spawnEnemyEvent.enemyInfo.enemyType,
+                _sceneChangerService.GetCurrentSceneName());
+            _enemySpawner.SpawnEnemy(spawnEnemyEvent.enemyInfo, spawnEnemyEvent.positionToInstantiate, tilesToFollow);
         }
 
         //Used by ShowRange Button
