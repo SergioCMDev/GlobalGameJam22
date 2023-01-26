@@ -80,6 +80,7 @@ namespace Presentation
             _enemySpawner.SetCitiesToDestroy(_cities);
             _roundsController.OnActivateMilitaryBuildings += activateMilitaryBuildingsEvent.Fire;
             _roundsController.OnDeactivateMilitaryBuildings += deactivateMilitaryBuildingsEvent.Fire;
+            _roundsController.OnPlayerHasWon += PlayerHasDefeatedEnemies;
         }
 
         private void ThrowSaveBuilding(GameObject obj)
