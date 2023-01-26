@@ -45,7 +45,7 @@ namespace Presentation.Managers
         private List<City> _citiesToDestroy;
         private EnemySpawnerService _enemySpawnerService;
         private PathRetrieverService _pathRetrieverService;
-        private List<GameObject> _activeEnemies;
+        private int _activeEnemies;
         private Dictionary<int, EnemyType> _enemyListForLevel;
         private SceneChangerService _sceneChangerService;
 
@@ -59,7 +59,7 @@ namespace Presentation.Managers
             positionToInstantiate = enemySpawnerInitData.PositionToInstantiate;
             enemiesParent = enemySpawnerInitData.EnemiesParent;
             gridMovementManager = enemySpawnerInitData.GridMovementManager;
-            _activeEnemies = new List<GameObject>();
+            _activeEnemies = 0;
             _enemyListForLevel = new Dictionary<int, EnemyType>();
             foreach (var VARIABLE in enemySpawnerInitData.EnemyListForLevel)
             {
@@ -88,7 +88,7 @@ namespace Presentation.Managers
 
             enemy.Init(positionToInstantiate, _citiesToDestroy, gridPathfinding, enemySpawnerInfo);
             enemy.OnEnemyHasBeenDefeated += EnemyDefeated;
-            _activeEnemies.Add(enemy.gameObject);
+            _activeEnemies++;
             enemy.OnObjectMoved += OnObjectMoved;
         }
 
@@ -101,9 +101,9 @@ namespace Presentation.Managers
         {
             enemy.OnEnemyHasBeenDefeated -= EnemyDefeated;
             enemy.OnObjectMoved -= OnObjectMoved;
-            _activeEnemies.Remove(enemy.gameObject);
+            _activeEnemies--;
             HideEnemy(enemy.gameObject);
-            if (_activeEnemies.Count == 0)
+            if (_activeEnemies == 0)
             {
                 OnEnemiesHaveBeenDefeated?.Invoke();
             }
@@ -138,7 +138,7 @@ namespace Presentation.Managers
         {
             foreach (Transform enemy in enemiesParent.transform)
             {
-                _activeEnemies.Remove(enemy.gameObject);
+                _activeEnemies--;
 
                 HideEnemy(enemy.gameObject);
             }
