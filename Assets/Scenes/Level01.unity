@@ -815,6 +815,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 86697917}
     - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: numberOfRoundsPerLevel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+      propertyPath: timeToAllowPlayerBuildsTurrets
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
       propertyPath: buildingPositionTuples.Array.data[0].cityBuilding
       value: 
       objectReference: {fileID: 836141361}
