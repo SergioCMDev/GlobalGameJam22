@@ -550,6 +550,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1354093165, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+      propertyPath: gameStatusController
+      value: 
+      objectReference: {fileID: 1320225815}
+    - target: {fileID: 1354093165, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
+      propertyPath: _gameStatusController
+      value: 
+      objectReference: {fileID: 1320225815}
     - target: {fileID: 1157913158378823252, guid: cf5c7a6df8346ac4e9cc836d6979d781, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2961,6 +2969,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1320225815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 150857258164485302, guid: 3d6d026a37f03d14987f688f5d3004b2, type: 3}
+  m_PrefabInstance: {fileID: 177713541}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d381ed290beca464fbaed0b8ad9988c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1392597229
 GameObject:
   m_ObjectHideFlags: 0

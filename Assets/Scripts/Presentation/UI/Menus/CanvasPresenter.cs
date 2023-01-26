@@ -24,12 +24,15 @@ namespace Presentation.UI.Menus
         [SerializeField] private SetStatusDrawingTurretRangesEvent setStatusDrawingTurretRangesEvent;
         [SerializeField] private BuildingsSelectable _buildingsSelectable;
         [SerializeField] private SliderLogic sliderLogic;
-        [SerializeField] private Button showRangeButton, pauseButton;
+        [SerializeField] private Button showRangeButton, pauseButton, skipRound;
         private Constants _constants;
         private bool _skipTimer, _timerIsRunning;
 
         private ResourcesManagerService _resourcesManager;
         private PopupGenerator _popupManager;
+
+            //ONLY FOR Debugging
+        [SerializeField]private GameStatusController gameStatusController;
         public event Action<MilitaryBuildingType> OnPlayerWantsToSetBuildingInGrid;
         public event Action OnSystemCancelsBuy;
 
@@ -42,6 +45,14 @@ namespace Presentation.UI.Menus
             SetInitialResources();
             _buildingsSelectable.OnPlayerWantsToBuyBuilding += AllowSetPositionOfTurret;
             pauseButton.onClick.AddListener(ShowPauseMenu);
+            skipRound.onClick.AddListener(SkipRound);
+            
+            
+        }
+
+        private void SkipRound()
+        {
+            gameStatusController.SkipRound();
         }
 
         private void ShowPauseMenu()

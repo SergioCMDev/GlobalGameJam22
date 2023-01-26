@@ -95,5 +95,11 @@ namespace Presentation
         {
             return _currentRound < _numberOfRoundsPerLevel;
         }
+
+        public void SkipRound()
+        {
+            sliderLogic.StopTimerLogic();
+            RoundEnded();
+        }
     }
 }

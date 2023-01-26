@@ -270,5 +270,10 @@ namespace Presentation
         {
             _gridBuildingManager.ObjectHasMovedToNewTile(tileEvent.Occupier, tileEvent.GridPositions);
         }
+
+        public void SkipRound()
+        {
+            _roundsController.SkipRound();
+        }
     }
 }
