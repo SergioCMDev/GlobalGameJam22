@@ -16,4 +16,4 @@ MonoBehaviour:
   - roundToAppear: 1
     enemyType: 0
   - roundToAppear: 2
-    enemyType: 0
+    enemyType: 1

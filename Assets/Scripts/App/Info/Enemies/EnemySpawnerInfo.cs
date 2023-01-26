@@ -18,6 +18,6 @@ namespace App.Info.Enemies
 
     public enum EnemyType
     {
-        Normal
+        Normal, Red
     }
 }

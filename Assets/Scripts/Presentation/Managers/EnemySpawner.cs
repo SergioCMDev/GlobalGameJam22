@@ -115,7 +115,7 @@ namespace Presentation.Managers
         {
             if (!instantiate) return;
             var enemyType = EnemyType.Normal;
-            if (round < _enemyListForLevel.Count)
+            if (round <= _enemyListForLevel.Count)
             {
                 enemyType = _enemyListForLevel[round];
             }
