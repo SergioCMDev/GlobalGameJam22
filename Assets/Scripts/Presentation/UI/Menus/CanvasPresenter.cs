@@ -7,7 +7,6 @@ using DG.Tweening;
 using Services.ConstantsManager;
 using Services.Popups;
 using Services.ResourcesManager;
-using Services.ScenesChanger;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

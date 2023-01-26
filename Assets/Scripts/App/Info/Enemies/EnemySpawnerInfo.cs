@@ -9,7 +9,6 @@ namespace App.Info.Enemies
         public EnemyInfo enemyInfo;
         public EnemyType enemyType = EnemyType.Normal;
         public GameObject enemyPrefab;
-
     }
 
     public enum EnemyType
