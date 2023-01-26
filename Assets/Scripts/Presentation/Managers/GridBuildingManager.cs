@@ -73,6 +73,7 @@ namespace Presentation.Managers
         [SerializeField] private Camera cameraToUse;
         private TileReaderService _tileReaderService;
         private CoroutineExecutioner _coroutineExecutioner;
+        private int indexTurret;
         public event Action OnPlayerHasCanceledSetBuildingOnGrid;
         public event Action<GameObject> OnSaveBuilding;
         public event Action<MilitaryBuildingFacade> OnPlayerHasSetBuildingOnGrid;
@@ -155,6 +156,8 @@ namespace Presentation.Managers
                 WorldTileDictionary[tileDataEntity.GridPosition].TilemapColours = tileDataEntity.TilemapColours;
             }
 
+            _buildingFacadeComponent.gameObject.name = $"{_buildingFacadeComponent.Type} + {indexTurret}";
+            indexTurret++;
             ClearPreviousPaintedArea();
             HideTemporalTileMap();
             WorldTileDictionary[_currentObjectPosition].IsOccupied = true;
