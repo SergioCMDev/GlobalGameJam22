@@ -14,6 +14,7 @@ namespace Presentation.UI.Menus
     public class CanvasInitScenePresenter : MonoBehaviour
     {
         [SerializeField] private InitMenuView initMenuView;
+        [SerializeField] private OptionsMenuView optionsMenuView;
         [SerializeField] private List<LevelViewInfo> levelViews;
         // [SerializeField] private BackgroundSoundEmitter backgroundSoundEmitter;
         [SerializeField] private LevelSelectorView levelSelectorView;
@@ -31,33 +32,45 @@ namespace Presentation.UI.Menus
         {
             //TODO LOAD GAMEDATA
 
-            initMenuView.OnContinueButtonPressed += ContinueGame;
-            initMenuView.OnNewGameButtonPressed += NewGame;
+            initMenuView.OnStartButtonPressed += StartGame;
+            initMenuView.OnCreditsButtonPressed += Credits;
             initMenuView.OnQuitGameButtonPressed += QuitGame;
+            initMenuView.OnShowOptionsMenuButtonPressed += ShowOptions;
             
             levelSelectorView.OnStartLevelSelected += StartSelectedLevel;
-            levelSelectorView.OnButtonBackIsClicked += ShowInitMenu;
-            levelSelectorView.OnLeftButtonIsClicked += MoveLevelImageToLeft;
-            levelSelectorView.OnRightButtonIsClicked += MoveLevelImageToRight;
+            levelSelectorView.OnButtonBackIsPressed += ShowInitMenu;
+            levelSelectorView.OnLeftButtonIsPressed += MoveLevelImageToLeft;
+            levelSelectorView.OnRightButtonIsPressed += MoveLevelImageToRight;
+            
+            optionsMenuView.OnBackButtonPressed += ShowInitMenu;
             
             // _deleteSavedGameView.gameObject.SetActive(false);
             levelSelectorView.gameObject.SetActive(false);
+            optionsMenuView.gameObject.SetActive(false);
             initMenuView.gameObject.SetActive(true);
             initMenuView.EnableInput();
             SetLevelImage();
 
         }
-        
+
+        private void ShowOptions()
+        {
+            initMenuView.DisableInput();
+            initMenuView.gameObject.SetActive(false);
+            optionsMenuView.Init();
+            optionsMenuView.gameObject.SetActive(true);
+        }
+
         private void OnDestroy()
         {
-            initMenuView.OnContinueButtonPressed -= ContinueGame;
-            initMenuView.OnNewGameButtonPressed -= NewGame;
+            initMenuView.OnStartButtonPressed -= StartGame;
+            initMenuView.OnCreditsButtonPressed -= Credits;
             initMenuView.OnQuitGameButtonPressed -= QuitGame;
             
             levelSelectorView.OnStartLevelSelected -= StartSelectedLevel;
-            levelSelectorView.OnButtonBackIsClicked -= ShowInitMenu;
-            levelSelectorView.OnLeftButtonIsClicked -= MoveLevelImageToLeft;
-            levelSelectorView.OnRightButtonIsClicked -= MoveLevelImageToRight;
+            levelSelectorView.OnButtonBackIsPressed -= ShowInitMenu;
+            levelSelectorView.OnLeftButtonIsPressed -= MoveLevelImageToLeft;
+            levelSelectorView.OnRightButtonIsPressed -= MoveLevelImageToRight;
         }
 
         private void MoveLevelImageToRight()
@@ -107,6 +120,8 @@ namespace Presentation.UI.Menus
         
         private void ShowCreditsMenu()
         {
+            initMenuView.DisableInput();
+
             Debug.Log("SHOT CREDITS");
         }
 
@@ -117,21 +132,23 @@ namespace Presentation.UI.Menus
         private void ShowInitMenu()
         {
             levelSelectorView.gameObject.SetActive(false);
+            optionsMenuView.gameObject.SetActive(false);
+            optionsMenuView.Hide();
             initMenuView.gameObject.SetActive(true);
             initMenuView.EnableInput();
         }
 
-        private void NewGame()
+        private void Credits()
         {
             
             // backgroundSoundEmitter.StopMusic();
-            OnStartNewGame?.Invoke();
         }
 
-        private void ContinueGame()
+        private void StartGame()
         {
             initMenuView.gameObject.SetActive(false);
             levelSelectorView.gameObject.SetActive(true);
+            OnStartNewGame?.Invoke();
 
           // var lastCompletedLevel =  _gameDataService.GetIdOfLastLevelPlayed();
           // levelSelectorView.Init(lastCompletedLevel);

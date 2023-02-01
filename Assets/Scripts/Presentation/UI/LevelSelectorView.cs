@@ -9,13 +9,13 @@ namespace Presentation.Managers
         [SerializeField] private Button buttonBack, leftButton, rightButton, playButton;
         [SerializeField] private Image levelImage;
         public event Action OnStartLevelSelected;
-        public event Action OnButtonBackIsClicked;
-        public event Action OnLeftButtonIsClicked;
-        public event Action OnRightButtonIsClicked;
+        public event Action OnButtonBackIsPressed;
+        public event Action OnLeftButtonIsPressed;
+        public event Action OnRightButtonIsPressed;
         
         private void Start()
         {
-            buttonBack.onClick.AddListener(() => OnButtonBackIsClicked?.Invoke());
+            buttonBack.onClick.AddListener(() => OnButtonBackIsPressed?.Invoke());
             leftButton.onClick.AddListener(ChangeLevelToLeft);
             rightButton.onClick.AddListener(ChangeLevelToRight);
             playButton.onClick.AddListener(PlayLevel);
@@ -23,7 +23,7 @@ namespace Presentation.Managers
 
         private void OnDestroy()
         {
-            buttonBack.onClick.RemoveListener(() => OnButtonBackIsClicked?.Invoke());
+            buttonBack.onClick.RemoveListener(() => OnButtonBackIsPressed?.Invoke());
             leftButton.onClick.RemoveListener(ChangeLevelToLeft);
             rightButton.onClick.RemoveListener(ChangeLevelToRight);
             playButton.onClick.RemoveListener(PlayLevel);
@@ -31,12 +31,12 @@ namespace Presentation.Managers
 
         private void ChangeLevelToLeft()
         {
-            OnLeftButtonIsClicked?.Invoke();
+            OnLeftButtonIsPressed?.Invoke();
         }
 
         private void ChangeLevelToRight()
         {
-            OnRightButtonIsClicked?.Invoke();
+            OnRightButtonIsPressed?.Invoke();
         }
 
 

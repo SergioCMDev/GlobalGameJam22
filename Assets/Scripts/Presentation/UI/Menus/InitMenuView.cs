@@ -1,19 +1,17 @@
 ﻿using System;
-using Presentation.InputPlayer;
 using Presentation.Languages;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 
 namespace Presentation.UI.Menus
 {
     public class InitMenuView : MonoBehaviour
     {
-        [SerializeField] private Button _buttonContinue, _buttonNewGame, _buttonOptions, _buttonQuitGame;
+        [SerializeField] private Button buttonStartGame, buttonCredits,buttonOptions, buttonQuitGame;
         // [SerializeField] private TextMeshProUGUI _buttonContinueText, _buttonNewGameText, _buttonOptionsText, _buttonCreditsText, _buttonQuitGameText;
 
-        public event Action OnContinueButtonPressed = delegate { };
-        public event Action OnNewGameButtonPressed = delegate { };
+        public event Action OnStartButtonPressed = delegate { };
+        public event Action OnCreditsButtonPressed = delegate { };
         public event Action OnShowOptionsMenuButtonPressed = delegate { };
         public event Action OnQuitGameButtonPressed = delegate { };
         
@@ -42,14 +40,14 @@ namespace Presentation.UI.Menus
             OnShowOptionsMenuButtonPressed.Invoke();
         }
 
-        private void NewGame()
+        private void ShowCredits()
         {
-            OnNewGameButtonPressed.Invoke();
+            OnCreditsButtonPressed.Invoke();
         }
 
-        private void ContinueGame()
+        private void StartGame()
         {
-            OnContinueButtonPressed.Invoke();
+            OnStartButtonPressed.Invoke();
         }
         
         private void OnDestroy()
@@ -57,27 +55,21 @@ namespace Presentation.UI.Menus
             DisableInput();
         }
 
-   
         public void DisableInput()
         {
-            _buttonContinue.onClick.RemoveListener(ContinueGame);
-            _buttonNewGame.onClick.RemoveListener(NewGame);
-            _buttonOptions.onClick.RemoveListener(ShowOptionsMenu);
-            _buttonQuitGame.onClick.RemoveListener(QuitGame);
+            buttonCredits.onClick.RemoveListener(ShowCredits);
+            buttonOptions.onClick.RemoveListener(ShowOptionsMenu);
+            buttonQuitGame.onClick.RemoveListener(QuitGame);
+            buttonStartGame.onClick.RemoveListener(StartGame);
         }
 
         public void EnableInput()
         {
             // _readInputPlayer.OnPlayerPressEnterButtonMenus += HandlePlayerPressEnterButtonMenus;
-            _buttonContinue.onClick.AddListener(ContinueGame);
-            _buttonNewGame.onClick.AddListener(NewGame);
-            _buttonOptions.onClick.AddListener(ShowOptionsMenu);
-            _buttonQuitGame.onClick.AddListener(QuitGame);
-        }
-
-        public void HideContinueButton()
-        {
-            _buttonContinue.gameObject.SetActive(false);
+            buttonStartGame.onClick.AddListener(StartGame);
+            buttonCredits.onClick.AddListener(ShowCredits);
+            buttonOptions.onClick.AddListener(ShowOptionsMenu);
+            buttonQuitGame.onClick.AddListener(QuitGame);
         }
     }
 }
